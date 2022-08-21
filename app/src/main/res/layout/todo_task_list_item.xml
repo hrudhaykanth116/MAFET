@@ -7,7 +7,7 @@
 
         <variable
             name="toDoTask"
-            type="com.hrudhaykanth116.mafet.todo.models.ToDoTask" />
+            type="com.hrudhaykanth116.mafet.todo.data.models.ToDoTask" />
 
     </data>
 
@@ -19,7 +19,7 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{toDoTask.name}"
+            android:text="@{toDoTask.title}"
             tools:text="Task name"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"

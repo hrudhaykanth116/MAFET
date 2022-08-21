@@ -3,7 +3,7 @@ package com.hrudhaykanth116.mafet.todo.bindings
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.hrudhaykanth116.mafet.todo.adapters.ToDoListAdapter
-import com.hrudhaykanth116.mafet.todo.models.ToDoTask
+import com.hrudhaykanth116.mafet.todo.data.models.ToDoTask
 
 /**
  * [BindingAdapter]s for the [ToDoTask]s list.

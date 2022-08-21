@@ -46,8 +46,6 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     /************************** Kotlin ******************************/
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.10"
     implementation 'androidx.core:core-ktx:1.8.0'
 
     implementation 'androidx.appcompat:appcompat:1.4.2'
@@ -115,8 +113,16 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
 
     // Navigation component
-    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.nav_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.nav_version"
+    def nav_version = "2.5.1"
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation("androidx.navigation:navigation-compose:$nav_version")
+    // Feature module Support
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
+    // Testing Navigation
+    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
+
+
 
     // Room
     def room_version = "2.4.2"
@@ -171,16 +177,5 @@ dependencies {
     // Hamcrest for assert (http://hamcrest.org/JavaHamcrest/distributables)
     def hamcrest_version = "2.2"
     testImplementation "org.hamcrest:hamcrest:$hamcrest_version"
-
-    // Navigation
-    def nav_version = "2.5.0"
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
-    // Feature module Support
-    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
-    // Testing Navigation
-    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
-
-
 
 }

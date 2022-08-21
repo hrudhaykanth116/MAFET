@@ -1,6 +1,6 @@
 package com.hrudhaykanth116.mafet.todo.utils
 
-import com.hrudhaykanth116.mafet.todo.models.ToDoTask
+import com.hrudhaykanth116.mafet.todo.data.models.ToDoTask
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertThat

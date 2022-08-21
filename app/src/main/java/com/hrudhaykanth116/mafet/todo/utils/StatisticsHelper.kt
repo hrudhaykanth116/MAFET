@@ -1,6 +1,6 @@
 package com.hrudhaykanth116.mafet.todo.utils
 
-import com.hrudhaykanth116.mafet.todo.models.ToDoTask
+import com.hrudhaykanth116.mafet.todo.data.models.ToDoTask
 
 fun getActiveAndCompletedStats(toDoTasks: List<ToDoTask>?): StatsResult {
 
