@@ -1,14 +1,14 @@
 package com.hrudhaykanth116.mafet.todo.utils
 
-import com.hrudhaykanth116.mafet.todo.data.models.ToDoTask
+import com.hrudhaykanth116.mafet.todo.ui.data_models.ToDoTaskUIState
 
-fun getActiveAndCompletedStats(toDoTasks: List<ToDoTask>?): StatsResult {
+fun getActiveAndCompletedStats(toDoTaskUIStates: List<ToDoTaskUIState>?): StatsResult {
 
-    if (toDoTasks.isNullOrEmpty()) {
+    if (toDoTaskUIStates.isNullOrEmpty()) {
         return StatsResult(0f, 0f)
     } else {
-        val totalTasksCount = toDoTasks.size
-        val activeTasksCount = toDoTasks.count { it.isActive }
+        val totalTasksCount = toDoTaskUIStates.size
+        val activeTasksCount = toDoTaskUIStates.count { it.isActive }
         val completedTasksCount = totalTasksCount - activeTasksCount
 
         return StatsResult(

@@ -1,4 +1,4 @@
-package com.hrudhaykanth116.mafet.todo.ui
+package com.hrudhaykanth116.mafet.todo.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -13,16 +13,15 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.mafet.todo.data.dummydata.DummyTodoList
-import com.hrudhaykanth116.mafet.todo.data.models.ToDoTask
+import com.hrudhaykanth116.mafet.todo.ui.data_models.ToDoTaskUIState
 
 // @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun TodoList(
-    list: List<ToDoTask> = DummyTodoList.todoList,
-    onRemoveTask: (ToDoTask) -> Unit,
+    list: List<ToDoTaskUIState> = DummyTodoList.todoList,
+    onRemoveTask: (ToDoTaskUIState) -> Unit,
     listState: LazyListState = rememberLazyListState(),
     modifier: Modifier = Modifier
 ) {
@@ -46,11 +45,11 @@ fun TodoList(
 //                // Key helps to retain state of item/position. Works like id equals when notifyDataSetChanged.
 //                it.id
 //            }
-        ) { toDoTask: ToDoTask ->
+        ) { toDoTaskUIState: ToDoTaskUIState ->
             Row(
                 // Modifier.animateItemPlacement(tween(1000))
             ) {
-                TodoListItem(toDoTask = toDoTask, onRemoveClicked = { onRemoveTask(toDoTask) })
+                TodoListItem(toDoTaskUIState = toDoTaskUIState, onRemoveClicked = { onRemoveTask(toDoTaskUIState) })
             }
         }
     }

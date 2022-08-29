@@ -7,10 +7,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.hrudhaykanth116.mafet.auth.data.local.shared_preferences.AuthPreffs
 import com.hrudhaykanth116.mafet.auth.ui.data_models.Screen as AuthScreens
 import com.hrudhaykanth116.mafet.auth.ui.screens.LoginScreen
-import com.hrudhaykanth116.mafet.main.HomeScreen
-import com.hrudhaykanth116.mafet.main.Screen as MainScreens
+import com.hrudhaykanth116.mafet.home.HomeNavigation
+import com.hrudhaykanth116.mafet.home.Screen
 
 @Composable
 fun AuthNavigation() {
@@ -19,8 +20,11 @@ fun AuthNavigation() {
 
         composable(route = AuthScreens.LoginScreen.route) {
             LoginScreen(navigateToHomeScreen = {
+
+                AuthPreffs.isLoggedIn = true
+
                 navController.navigate(
-                    MainScreens.HomeScreen.withArgs(
+                    Screen.HomeScreen.withArgs(
                         it
                     )
                 )
@@ -28,7 +32,7 @@ fun AuthNavigation() {
         }
 
         composable(
-            route = MainScreens.HomeScreen.route + "/{name}",
+            route = Screen.HomeScreen.route + "/{name}",
             arguments = listOf(
                 navArgument("name") {
                     type = NavType.StringType
@@ -37,7 +41,7 @@ fun AuthNavigation() {
                 }
             )
         ) { backStackEntry: NavBackStackEntry ->
-            HomeScreen(name = backStackEntry.arguments?.getString("name"))
+            HomeNavigation(name = backStackEntry.arguments?.getString("name"))
         }
 
     }

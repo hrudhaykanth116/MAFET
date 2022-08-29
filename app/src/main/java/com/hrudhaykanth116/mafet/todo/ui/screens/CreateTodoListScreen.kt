@@ -1,4 +1,4 @@
-package com.hrudhaykanth116.mafet.todo.ui
+package com.hrudhaykanth116.mafet.todo.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -6,14 +6,13 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.mafet.common.ui.components.AppButton
-import com.hrudhaykanth116.mafet.common.ui.components.AppFormInputText
 
-@Preview(showSystemUi = true)
 @Composable
-fun CreateTodoListScreen() {
+fun CreateTodoListScreen(
+    // onCreate: (ToDoTask) -> Unit,
+) {
 
     Column() {
 
@@ -45,9 +44,13 @@ fun CreateTodoListScreen() {
 
         AppButton(
             btnText = "Add Button",
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            modifier = Modifier.align(Alignment.CenterHorizontally),
         ) {
-
+            // onCreate(
+            //     ToDoTask(
+            //
+            //     )
+            // )
         }
 
     }

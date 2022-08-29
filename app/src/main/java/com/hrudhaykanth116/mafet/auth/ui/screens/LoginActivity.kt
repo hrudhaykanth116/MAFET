@@ -15,11 +15,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.navigation.NavController
 import com.hrudhaykanth116.mafet.auth.ui.navigation.AuthNavigation
 import com.hrudhaykanth116.mafet.common.ui.components.AppFormInputText
-import com.hrudhaykanth116.mafet.common.ui.components.AppTextField
-import com.hrudhaykanth116.mafet.main.Screen
+import com.hrudhaykanth116.mafet.common.ui.components.CenteredColumn
 
 class LoginActivity : AppCompatActivity() {
 
@@ -50,11 +48,7 @@ fun LoginScreen(navigateToHomeScreen: (String) -> Unit) {
         mutableStateOf(TextFieldValue(""))
     }
 
-    Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxSize()
-    ) {
+    CenteredColumn {
         AppFormInputText(nameInputValue, label = "Name") { nameInputValue = it }
         Button(onClick = {
             navigateToHomeScreen(nameInputValue.text)

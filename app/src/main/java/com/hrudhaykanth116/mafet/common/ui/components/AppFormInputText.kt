@@ -39,11 +39,12 @@ fun AppFormInputText(
 
 }
 
+@Preview
 @Composable
 fun AppTextField(
-    inputValue: TextFieldValue,
+    inputValue: TextFieldValue = TextFieldValue(),
     label: String? = null,
-    onInputChange: (TextFieldValue) -> Unit
+    onInputChange: (TextFieldValue) -> Unit = {}
 ) {
     OutlinedTextField(
         value = inputValue,

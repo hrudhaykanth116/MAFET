@@ -1,4 +1,4 @@
-package com.hrudhaykanth116.mafet.todo.ui
+package com.hrudhaykanth116.mafet.todo.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,15 +17,14 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.mafet.todo.data.dummydata.DummyTodoList
-import com.hrudhaykanth116.mafet.todo.data.models.ToDoTask
+import com.hrudhaykanth116.mafet.todo.ui.data_models.ToDoTaskUIState
 
 // @Preview(showBackground = true, widthDp = 200, heightDp = 100)
 @Composable
 fun TodoListItem(
-    toDoTask: ToDoTask = DummyTodoList.todoList[0],
+    toDoTaskUIState: ToDoTaskUIState = DummyTodoList.todoList[0],
     onRemoveClicked: () -> Unit
 ) {
 
@@ -42,7 +41,7 @@ fun TodoListItem(
             .padding(12.dp)
             .fillMaxWidth()
     ) {
-        Text(text = toDoTask.title)
+        Text(text = toDoTaskUIState.title)
         IconButton(onClick = {
             isExpanded = !isExpanded
         }) {

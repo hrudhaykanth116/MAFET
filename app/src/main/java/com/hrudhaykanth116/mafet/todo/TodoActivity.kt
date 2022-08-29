@@ -22,13 +22,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
-import com.hrudhaykanth116.mafet.todo.ui.TodoList
-import com.hrudhaykanth116.mafet.todo.ui.TodoListItem
-import com.hrudhaykanth116.mafet.todo.ui.data_models.Screen
+import com.hrudhaykanth116.mafet.todo.ui.components.TodoList
 import com.hrudhaykanth116.mafet.todo.viewmodels.TodoViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class TodoActivity : AppCompatActivity() {
 
     private val todoViewModel by viewModels<TodoViewModel>()

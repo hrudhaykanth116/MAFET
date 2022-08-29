@@ -1,9 +1,9 @@
-package com.hrudhaykanth116.mafet.todo.data.models
+package com.hrudhaykanth116.mafet.todo.ui.data_models
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 
-data class ToDoTask(
+data class ToDoTaskUIState(
     val id: Long,
     val title: String,
     val description: String? = null,

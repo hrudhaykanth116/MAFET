@@ -1,15 +1,15 @@
 package com.hrudhaykanth116.mafet.todo.data.dummydata
 
-import com.hrudhaykanth116.mafet.todo.data.models.ToDoTask
+import com.hrudhaykanth116.mafet.todo.ui.data_models.ToDoTaskUIState
 
 object DummyTodoList {
 
-    val todoList: List<ToDoTask>
+    val todoList: List<ToDoTaskUIState>
         get() {
-            val list = mutableListOf<ToDoTask>()
+            val list = mutableListOf<ToDoTaskUIState>()
             for (i in 1L..20) {
                 list.add(
-                    ToDoTask(i, "Task ${i}", "Some dummy information for Task ${i}", true),
+                    ToDoTaskUIState(i, "Task ${i}", "Some dummy information for Task ${i}", true),
                 )
             }
             return list
