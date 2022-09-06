@@ -2,8 +2,11 @@ package com.hrudhaykanth116.mafet.auth.data.local.shared_preferences
 
 import com.chibatching.kotpref.KotprefModel
 import com.chibatching.kotpref.gsonpref.gsonNullablePref
+import javax.inject.Inject
+import javax.inject.Singleton
 
-object AuthPreffs: KotprefModel(){
+@Singleton
+class AuthPreffs @Inject constructor(): KotprefModel(){
 
     var isLoggedIn by booleanPref(false)
 

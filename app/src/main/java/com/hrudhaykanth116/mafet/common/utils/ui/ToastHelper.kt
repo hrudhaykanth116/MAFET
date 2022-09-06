@@ -24,6 +24,39 @@ object ToastHelper {
         show(context, msg)
     }
 
+    fun show(
+        context: Context,
+        msg: String? = null,
+        @StringRes stringResId: Int = -1,
+        vararg formatArgs: Any?
+    ) {
+            var toastMsg: String? = null
+            if (msg != null) {
+                toastMsg = msg
+            } else if (stringResId != -1) {
+                toastMsg = LocaleHelper.getString(context, stringResId, formatArgs)
+            }
+
+    }
+
+    fun showSuccessToast(
+        context: Context,
+        msg: String? = null,
+        @StringRes stringResId: Int = -1,
+        vararg formatArgs: Any?
+    ) {
+
+    }
+
+    fun showErrorToast(
+        context: Context,
+        msg: String? = null,
+        @StringRes stringResId: Int = -1,
+        vararg formatArgs: Any?
+    ) {
+
+    }
+
     // fun showSuccessToast(
     //     context: Context,
     //     msg: String? = null,

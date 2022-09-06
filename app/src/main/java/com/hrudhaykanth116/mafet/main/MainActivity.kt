@@ -10,12 +10,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.mafet.auth.data.local.shared_preferences.AuthPreffs
 import com.hrudhaykanth116.mafet.auth.ui.navigation.AuthNavigation
-import com.hrudhaykanth116.mafet.common.ui.components.AppButton
+import com.hrudhaykanth116.mafet.common.ui.components.AppFormButton
 import com.hrudhaykanth116.mafet.common.ui.components.CenteredColumn
 import com.hrudhaykanth116.mafet.home.HomeNavigation
 import com.hrudhaykanth116.mafet.theme.AppTheme
-import kotlin.random.Random
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +39,8 @@ fun MainScreen(
     onLogoutClicked: () -> Unit
 ) {
     CenteredColumn {
-        AppButton(onClick = onTodoClicked, btnText = "Todo")
+        AppFormButton(onClick = onTodoClicked, btnText = "Todo")
         Spacer(modifier = Modifier.height(8.dp))
-        AppButton(onClick = onLogoutClicked, btnText = "Logout")
+        AppFormButton(onClick = onLogoutClicked, btnText = "Logout")
     }
 }

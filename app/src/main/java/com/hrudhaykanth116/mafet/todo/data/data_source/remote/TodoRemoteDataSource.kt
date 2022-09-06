@@ -1,7 +1,7 @@
 package com.hrudhaykanth116.mafet.todo.data.data_source.remote
 
 import com.hrudhaykanth116.mafet.common.remote.BaseRemoteDataSource
-import com.hrudhaykanth116.mafet.common.remote.NetworkResource
+import com.hrudhaykanth116.mafet.common.remote.DataResource
 import com.hrudhaykanth116.mafet.todo.data.local.room.tables.TodoTask
 import com.hrudhaykanth116.mafet.todo.data.remote.retrofit.TodoTasksApiService
 import kotlinx.coroutines.CoroutineDispatcher
@@ -18,12 +18,12 @@ class TodoRemoteDataSource @Inject constructor(
 
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 
-    suspend fun getTodoTasks(): NetworkResource<List<TodoTask>> = withContext(
+    suspend fun getTodoTasks(): DataResource<List<TodoTask>> = withContext(
         dispatcher
     ){
         val getTodoTasksResponse: Response<List<TodoTask>> = todoTasksApiService.getTodoTasks()
-        return@withContext NetworkResource(
-            NetworkResource.Status.SUCCESS,
+        return@withContext DataResource(
+            DataResource.Status.SUCCESS,
         )
     }
 

@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.hrudhaykanth116.mafet.common.ui.components.AppButton
+import com.hrudhaykanth116.mafet.common.ui.components.AppFormButton
 
 @Composable
 fun CreateTodoListScreen(
@@ -42,7 +42,7 @@ fun CreateTodoListScreen(
             // Spacer(modifier = Modifier.height(4.dp))
         }
 
-        AppButton(
+        AppFormButton(
             btnText = "Add Button",
             modifier = Modifier.align(Alignment.CenterHorizontally),
         ) {

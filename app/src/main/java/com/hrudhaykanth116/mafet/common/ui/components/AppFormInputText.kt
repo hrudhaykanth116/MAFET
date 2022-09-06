@@ -10,17 +10,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-// @Preview(showSystemUi = true)
+@Preview(showSystemUi = true)
 @Composable
 fun AppFormInputText(
-    inputValue: TextFieldValue,
+    inputValue: TextFieldValue = TextFieldValue(),
     label: String? = "Label",
     hint: String? = "Hint",
-    onInputChange: (TextFieldValue) -> Unit
+    isError: Boolean = false,
+    onInputChange: (TextFieldValue) -> Unit = {}
 ) {
 
     Column() {
@@ -33,7 +35,7 @@ fun AppFormInputText(
         //     )
         // }
 
-        AppTextField(inputValue, label = label, onInputChange = onInputChange)
+        AppTextField(inputValue, label = label, isError = isError, onInputChange = onInputChange)
 
     }
 
@@ -44,11 +46,14 @@ fun AppFormInputText(
 fun AppTextField(
     inputValue: TextFieldValue = TextFieldValue(),
     label: String? = null,
+    isError: Boolean = false,
     onInputChange: (TextFieldValue) -> Unit = {}
 ) {
     OutlinedTextField(
         value = inputValue,
+        isError = isError,
         onValueChange = onInputChange,
+        // visualTransformation = PasswordVisualTransformation(),
         label = {
             label?.let { Text(text = it) }
         }
