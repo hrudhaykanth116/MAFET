@@ -2,7 +2,8 @@ package com.hrudhaykanth116.mafet.auth.domain.usecases
 
 import com.hrudhaykanth116.mafet.auth.data.data_models.SignUpResponse
 import com.hrudhaykanth116.mafet.auth.data.repositories.AuthRepository
-import com.hrudhaykanth116.mafet.common.remote.DataResource
+import com.hrudhaykanth116.mafet.common.data.models.DataResult
+import com.hrudhaykanth116.mafet.common.data.models.UIText
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -13,26 +14,25 @@ class SignUpUseCase @Inject constructor(
     private val authRepository: AuthRepository,
 ) {
 
-    suspend operator fun invoke(name: String, email: String, password: String): DataResource<SignUpResponse> {
+    suspend operator fun invoke(
+        name: String,
+        email: String,
+        password: String
+    ): DataResult<UIText> {
 
-        // Trying to perform business logic in use case.
-        /*
-        val validateEmailResult: DataResult = validateEmailUseCase(email)
-        val validatePwdResult: DataResult = validatePasswordUseCase(password)
-
-        val hasError = listOf<DataResult>(
-            validateEmailResult,
-            validatePwdResult
-        ).any { it is DataResult.Error }
-
-
-        setState {
-            copy(
-                emailError = if (validateEmailResult is DataResult.Error) validateEmailResult.errMsg else "",
-                passwordError = if (validatePwdResult is DataResult.Error) validatePwdResult.errMsg else ""
-            )
-        }*/
-
-        return authRepository.signUp(name, email, password)
+        val signUpResponseResult: DataResult<SignUpResponse> =
+            authRepository.signUp(name, email, password)
+        return when (signUpResponseResult) {
+            is DataResult.Error -> {
+                DataResult.Error(
+                    uiMessage = signUpResponseResult.uiMessage
+                )
+            }
+            is DataResult.Success -> {
+                DataResult.Success(
+                    UIText.Text("Successfully signed up.")
+                )
+            }
+        }
     }
 }

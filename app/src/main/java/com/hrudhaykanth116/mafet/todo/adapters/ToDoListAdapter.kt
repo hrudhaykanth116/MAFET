@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hrudhaykanth116.mafet.databinding.TodoTaskListItemBinding
-import com.hrudhaykanth116.mafet.todo.ui.data_models.ToDoTaskUIState
+import com.hrudhaykanth116.mafet.todo.ui.models.ToDoTaskUIState
 
 class ToDoListAdapter: RecyclerView.Adapter<ToDoListAdapter.ToDoListItemVH>() {
 

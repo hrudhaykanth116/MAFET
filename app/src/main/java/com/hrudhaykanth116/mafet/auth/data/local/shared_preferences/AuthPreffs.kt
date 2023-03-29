@@ -11,6 +11,6 @@ class AuthPreffs @Inject constructor(): KotprefModel(){
     var isLoggedIn by booleanPref(false)
 
     // TODO: Just an example of storing list in preffs.
-    var exampleList by gsonNullablePref<MutableList<Boolean>>()
+    var gsonPreffs by gsonNullablePref<MutableList<Boolean>>()
 
 }

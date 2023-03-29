@@ -3,7 +3,7 @@ package com.hrudhaykanth116.mafet.todo.bindings
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.hrudhaykanth116.mafet.todo.adapters.ToDoListAdapter
-import com.hrudhaykanth116.mafet.todo.ui.data_models.ToDoTaskUIState
+import com.hrudhaykanth116.mafet.todo.ui.models.ToDoTaskUIState
 
 /**
  * [BindingAdapter]s for the [ToDoTaskUIState]s list.

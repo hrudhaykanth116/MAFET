@@ -1,2 +1,4 @@
 include ':app'
 rootProject.name = "MAFET"
+include ':features'
+include ':features:weather'

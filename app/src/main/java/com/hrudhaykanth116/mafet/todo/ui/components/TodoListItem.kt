@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.mafet.todo.data.dummydata.DummyTodoList
-import com.hrudhaykanth116.mafet.todo.ui.data_models.ToDoTaskUIState
+import com.hrudhaykanth116.mafet.todo.ui.models.ToDoTaskUIState
 
 // @Preview(showBackground = true, widthDp = 200, heightDp = 100)
 @Composable
@@ -41,7 +41,7 @@ fun TodoListItem(
             .padding(12.dp)
             .fillMaxWidth()
     ) {
-        Text(text = toDoTaskUIState.title)
+        Text(text = toDoTaskUIState.data.title)
         IconButton(onClick = {
             isExpanded = !isExpanded
         }) {

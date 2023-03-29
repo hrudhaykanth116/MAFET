@@ -9,8 +9,12 @@ class AuthLocalDataSource @Inject constructor(
     private val authPreffs: AuthPreffs
 ) {
 
-    suspend fun saveIsLoggedIn(isLoggedIn: Boolean){
+    fun saveIsLoggedIn(isLoggedIn: Boolean){
         authPreffs.isLoggedIn = isLoggedIn
+    }
+
+    fun isLoggedIn(): Boolean{
+        return authPreffs.isLoggedIn
     }
 
 }

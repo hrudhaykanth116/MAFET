@@ -8,30 +8,32 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.hrudhaykanth116.mafet.auth.data.local.shared_preferences.AuthPreffs
-import com.hrudhaykanth116.mafet.auth.ui.SignUpViewModel
+import com.hrudhaykanth116.mafet.auth.ui.screens.signup.SignUpViewModel
 import com.hrudhaykanth116.mafet.auth.ui.data_models.Screen as AuthScreens
-import com.hrudhaykanth116.mafet.auth.ui.screens.LoginScreen
-import com.hrudhaykanth116.mafet.auth.ui.screens.SignUpScreen
+import com.hrudhaykanth116.mafet.auth.ui.screens.login.LoginScreen
+import com.hrudhaykanth116.mafet.auth.ui.screens.signup.SignUpScreen
 import com.hrudhaykanth116.mafet.home.HomeNavigation
-import com.hrudhaykanth116.mafet.home.Screen
+import com.hrudhaykanth116.mafet.home.MainNavScreen
 
 @Composable
 fun AuthNavigation() {
     val navController = rememberNavController()
-    NavHost(navController, startDestination = AuthScreens.LoginScreen.route) {
+    NavHost(
+        navController,
+        startDestination = AuthScreens.LoginScreen.route
+    ) {
 
         composable(route = AuthScreens.LoginScreen.route) {
             LoginScreen(
-                navigateToHomeScreen = {
-
-                    AuthPreffs.isLoggedIn = true
+                onLoggedIn = {
 
                     navController.navigate(
-                        Screen.HomeScreen.withArgs(
+                        MainNavScreen.HomeScreen.withArgs(
                             it
                         )
-                    )
+                    ){
+                        popUpTo(0)
+                    }
                 },
                 navigateToSignUpScreen = {
                     navController.navigate(
@@ -49,7 +51,7 @@ fun AuthNavigation() {
         }
 
         composable(
-            route = Screen.HomeScreen.route + "/{name}",
+            route = MainNavScreen.HomeScreen.route + "/{name}",
             arguments = listOf(
                 navArgument("name") {
                     type = NavType.StringType

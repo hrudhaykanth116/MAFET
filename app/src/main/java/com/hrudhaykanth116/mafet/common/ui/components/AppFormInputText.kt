@@ -1,19 +1,25 @@
 package com.hrudhaykanth116.mafet.common.ui.components
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.hrudhaykanth116.mafet.common.ui.models.InputType
+
 
 @Preview(showSystemUi = true)
 @Composable
@@ -22,11 +28,12 @@ fun AppFormInputText(
     label: String? = "Label",
     hint: String? = "Hint",
     isError: Boolean = false,
+    error: String? = null,
+    inputType: InputType = InputType.RegularInputType,
     onInputChange: (TextFieldValue) -> Unit = {}
 ) {
 
     Column() {
-
         // if (!label.isNullOrBlank()) {
         //     Text(
         //         text = label,
@@ -35,10 +42,56 @@ fun AppFormInputText(
         //     )
         // }
 
-        AppTextField(inputValue, label = label, isError = isError, onInputChange = onInputChange)
+        when (inputType) {
+            is InputType.PwdInputType -> {
+                AppPwdTextField(inputValue, label, isError, onInputChange)
+            }
+            InputType.RegularInputType -> {
+                AppTextField(
+                    inputValue, label = label, isError = isError, onInputChange = onInputChange
+                )
+            }
+            InputType.EmailInputType -> {
+                AppTextField(
+                    inputValue, label = label, isError = isError, onInputChange = onInputChange,
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Email,
+                    )
+                )
+            }
+        }
 
     }
 
+}
+
+@Composable
+private fun AppPwdTextField(
+    inputValue: TextFieldValue,
+    label: String?,
+    isError: Boolean,
+    onInputChange: (TextFieldValue) -> Unit,
+) {
+
+    // State hoisting is not done for now. See if needed.
+    var passwordVisible by rememberSaveable { mutableStateOf(false) }
+
+    AppTextField(
+        inputValue, label = label, isError = isError, onInputChange = onInputChange,
+        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+        trailingIcon = {
+            val image = if (passwordVisible)
+                Icons.Filled.Visibility
+            else Icons.Filled.VisibilityOff
+
+            val description = if (passwordVisible) "Hide password" else "Show password"
+
+            IconButton(onClick = {passwordVisible = !passwordVisible}){
+                Icon(imageVector  = image, description)
+            }
+        }
+    )
 }
 
 @Preview
@@ -47,7 +100,11 @@ fun AppTextField(
     inputValue: TextFieldValue = TextFieldValue(),
     label: String? = null,
     isError: Boolean = false,
-    onInputChange: (TextFieldValue) -> Unit = {}
+    error: String? = null,
+    onInputChange: (TextFieldValue) -> Unit = {},
+    trailingIcon: @Composable (() -> Unit)? = null,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
 ) {
     OutlinedTextField(
         value = inputValue,
@@ -56,6 +113,9 @@ fun AppTextField(
         // visualTransformation = PasswordVisualTransformation(),
         label = {
             label?.let { Text(text = it) }
-        }
+        },
+        trailingIcon = trailingIcon,
+        visualTransformation = visualTransformation,
+        keyboardOptions = keyboardOptions
     )
 }

@@ -3,10 +3,10 @@ package com.hrudhaykanth116.mafet.todo.data.local.room.dbs
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.hrudhaykanth116.mafet.todo.data.local.room.dao.TodoTasksDao
-import com.hrudhaykanth116.mafet.todo.data.local.room.tables.TodoTask
+import com.hrudhaykanth116.mafet.todo.data.local.room.tables.TodoTaskDbEntity
 
 @Database(
-    entities = [TodoTask::class],
+    entities = [TodoTaskDbEntity::class],
     version = 1,
     exportSchema = false,
     // autoMigrations = [

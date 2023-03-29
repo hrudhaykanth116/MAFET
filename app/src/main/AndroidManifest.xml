@@ -10,12 +10,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:exported="true"
-            android:name=".todo.TodoActivity"
-            android:label="@string/title_activity_todo"
-            android:theme="@style/AppTheme.NoActionBar" />
-
 
         <activity android:name=".main.MainActivity" android:exported="true">
             <intent-filter>

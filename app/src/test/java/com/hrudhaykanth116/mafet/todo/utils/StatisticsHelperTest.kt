@@ -1,6 +1,6 @@
 package com.hrudhaykanth116.mafet.todo.utils
 
-import com.hrudhaykanth116.mafet.todo.ui.data_models.ToDoTaskUIState
+import com.hrudhaykanth116.mafet.todo.ui.models.ToDoTaskUIState
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertThat

@@ -4,10 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.hrudhaykanth116.mafet.auth.data.local.shared_preferences.AuthPreffs
-import com.hrudhaykanth116.mafet.auth.ui.navigation.AuthNavigation
+import com.hrudhaykanth116.mafet.account.navigation.AccountNavigation
 import com.hrudhaykanth116.mafet.todo.navigation.TodoNavigation
-import com.hrudhaykanth116.mafet.home.Screen as HomeScreens
+import com.hrudhaykanth116.mafet.home.MainNavScreen as HomeScreens
 
 @Composable
 fun HomeNavigation(
@@ -24,13 +23,12 @@ fun HomeNavigation(
                         HomeScreens.Todo.route
                     )
                 },
-                onLogoutClicked = {
-
-                    AuthPreffs.isLoggedIn = false
-
+                onAccountClicked = {
                     navController.navigate(
-                        HomeScreens.Auth.route
-                    )
+                        HomeScreens.Account.route
+                    ) {
+                        popUpTo(0)
+                    }
                 }
             )
         }
@@ -39,8 +37,8 @@ fun HomeNavigation(
             TodoNavigation()
         }
 
-        composable(HomeScreens.Auth.route){
-            AuthNavigation()
+        composable(HomeScreens.Account.route){
+            AccountNavigation()
         }
     }
 

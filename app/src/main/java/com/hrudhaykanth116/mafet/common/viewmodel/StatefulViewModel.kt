@@ -1,6 +1,8 @@
 package com.hrudhaykanth116.mafet.common.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,7 +23,7 @@ abstract class StatefulViewModel<STATE, EFFECT, EVENT>(
 
     private val _effect: MutableStateFlow<EFFECT?> = MutableStateFlow(null)
 
-    val state: StateFlow<STATE> = _state.asStateFlow()
+    val stateFlow: StateFlow<STATE> = _state.asStateFlow()
 
     val effect: StateFlow<EFFECT?> = _effect.asStateFlow()
 
@@ -29,6 +31,7 @@ abstract class StatefulViewModel<STATE, EFFECT, EVENT>(
 
     protected fun setState(newState: STATE.() -> STATE) {
         _state.update(newState)
+        Log.d(TAG, "setState: _state: ${_state}")
     }
 
     protected fun setEffect(newEffect: EFFECT) {
@@ -40,7 +43,11 @@ abstract class StatefulViewModel<STATE, EFFECT, EVENT>(
     }
 
     private fun stateValue(): STATE {
-        return state.value
+        return stateFlow.value
+    }
+
+    companion object{
+        private const val TAG = "StatefulViewModel"
     }
 
 }

@@ -21,44 +21,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hrudhaykanth116.mafet.todo.ui.components.TodoList
 import com.hrudhaykanth116.mafet.todo.viewmodels.TodoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-@AndroidEntryPoint
-class TodoActivity : AppCompatActivity() {
-
-    private val todoViewModel by viewModels<TodoViewModel>()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setContent {
-            MaterialTheme {
-                TodoListScreen(todoViewModel)
-            }
-        }
-
-    }
-
-
-    companion object {
-
-        public fun start(context: Context) {
-            context.startActivity(
-                Intent(context, TodoActivity::class.java)
-            )
-        }
-    }
-
-}
-
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 // Research about viewModel()
-fun TodoListScreen(todoViewModel: TodoViewModel = viewModel()) {
+fun TodoListScreen(
+    todoViewModel: TodoViewModel = hiltViewModel(),
+) {
 
     // Property delegation helps us in remembering the value of state directly into the field instead
     // Remember savable saves the values over configuration changes.

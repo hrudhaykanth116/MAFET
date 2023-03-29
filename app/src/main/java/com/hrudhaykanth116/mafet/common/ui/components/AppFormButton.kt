@@ -7,9 +7,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun AppFormButton(btnText: String, modifier: Modifier = Modifier, onClick: () -> Unit) {
+fun AppFormButton(
+    btnText: String,
+    modifier: Modifier = Modifier,
+    onClick: (() -> Unit)? = null
+) {
 
-    OutlinedButton(onClick = onClick, modifier = modifier) {
+    OutlinedButton(onClick = { onClick?.invoke() }, modifier = modifier) {
         Text(text = btnText)
     }
 

@@ -5,10 +5,10 @@ import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hrudhaykanth116.mafet.todo.data.dummydata.DummyTodoList
-import com.hrudhaykanth116.mafet.todo.data.local.room.tables.TodoTask
+import com.hrudhaykanth116.mafet.todo.data.local.room.tables.TodoTaskDbEntity
 import com.hrudhaykanth116.mafet.todo.domain.use_cases.CreateTodoTaskUseCase
 import com.hrudhaykanth116.mafet.todo.domain.use_cases.GetTodoTasksUseCase
-import com.hrudhaykanth116.mafet.todo.ui.data_models.ToDoTaskUIState
+import com.hrudhaykanth116.mafet.todo.ui.models.ToDoTaskUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -35,12 +35,6 @@ class TodoViewModel @Inject constructor(
     fun getTodoList(){
         viewModelScope.launch {
             getTodoTasksUseCase()
-        }
-    }
-
-    fun createTodoTask(todoTask: TodoTask){
-        viewModelScope.launch {
-            createTodoTaskUseCase(todoTask)
         }
     }
 

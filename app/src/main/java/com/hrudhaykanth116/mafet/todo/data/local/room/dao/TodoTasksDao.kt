@@ -5,19 +5,21 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.hrudhaykanth116.mafet.todo.data.local.room.tables.TodoTask
+import com.hrudhaykanth116.mafet.common.data.local.db.BaseDao
+import com.hrudhaykanth116.mafet.todo.data.local.room.tables.TodoTaskDbEntity
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 
 @Dao
-interface TodoTasksDao {
+interface TodoTasksDao : BaseDao<TodoTaskDbEntity> {
 
     /**
      * Observes list of tasks.
      *
      * @return all tasks.
      */
-    @Query("SELECT * FROM TodoTask")
-    fun observeTasks(): Flow<List<TodoTask>>
+    @Query("SELECT * FROM TodoTaskDbEntity")
+    fun observeTasks(): Flow<List<TodoTaskDbEntity>>
 
     /**
      * Observes a single task.
@@ -25,16 +27,19 @@ interface TodoTasksDao {
      * @param taskId the task id.
      * @return the task with taskId.
      */
-    @Query("SELECT * FROM TodoTask WHERE id = :taskId")
-    fun observeTaskById(taskId: String): Flow<TodoTask>
+    @Query("SELECT * FROM TodoTaskDbEntity WHERE id = :taskId")
+    fun observeTaskById(taskId: String): Flow<TodoTaskDbEntity>
+
+    fun observeDistinctTaskById(taskId: String): Flow<TodoTaskDbEntity> =
+        observeTaskById(taskId).distinctUntilChanged()
 
     /**
      * Select all tasks from the tasks table.
      *
      * @return all tasks.
      */
-    @Query("SELECT * FROM TodoTask")
-    suspend fun getTasks(): List<TodoTask>
+    @Query("SELECT * FROM TodoTaskDbEntity")
+    suspend fun getTasks(): List<TodoTaskDbEntity>
 
     /**
      * Select a task by id.
@@ -42,25 +47,25 @@ interface TodoTasksDao {
      * @param taskId the task id.
      * @return the task with taskId.
      */
-    @Query("SELECT * FROM TodoTask WHERE id = :taskId")
-    suspend fun getTaskById(taskId: String): TodoTask?
+    @Query("SELECT * FROM TodoTaskDbEntity WHERE id = :taskId")
+    suspend fun getTaskById(taskId: String): TodoTaskDbEntity?
 
-    /**
-     * Insert a task in the database. If the task already exists, replace it.
-     *
-     * @param task the task to be inserted.
-     */
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertTask(task: TodoTask)
-
-    /**
-     * Update a task.
-     *
-     * @param task task to be updated
-     * @return the number of tasks updated. This should always be 1.
-     */
-    @Update
-    suspend fun updateTask(task: TodoTask): Int
+    // /**
+    //  * Insert a task in the database. If the task already exists, replace it.
+    //  *
+    //  * @param task the task to be inserted.
+    //  */
+    // @Insert(onConflict = OnConflictStrategy.REPLACE)
+    // suspend fun insertTask(task: TodoTaskDbEntity)
+    //
+    // /**
+    //  * Update a task.
+    //  *
+    //  * @param task task to be updated
+    //  * @return the number of tasks updated. This should always be 1.
+    //  */
+    // @Update
+    // suspend fun updateTask(task: TodoTaskDbEntity): Int
 
     /**
      * Update the complete status of a task
@@ -68,7 +73,7 @@ interface TodoTasksDao {
      * @param taskId id of the task
      * @param completed status to be updated
      */
-    @Query("UPDATE TodoTask SET completed = :completed WHERE id = :taskId")
+    @Query("UPDATE TodoTaskDbEntity SET completed = :completed WHERE id = :taskId")
     suspend fun updateCompleted(taskId: String, completed: Boolean)
 
     /**
@@ -76,13 +81,13 @@ interface TodoTasksDao {
      *
      * @return the number of tasks deleted. This should always be 1.
      */
-    @Query("DELETE FROM TodoTask WHERE id = :taskId")
+    @Query("DELETE FROM TodoTaskDbEntity WHERE id = :taskId")
     suspend fun deleteTaskById(taskId: String): Int
 
     /**
      * Delete all tasks.
      */
-    @Query("DELETE FROM TodoTask")
+    @Query("DELETE FROM TodoTaskDbEntity")
     suspend fun deleteTasks()
 
     /**
@@ -90,6 +95,6 @@ interface TodoTasksDao {
      *
      * @return the number of tasks deleted.
      */
-    @Query("DELETE FROM TodoTask WHERE completed = 1")
+    @Query("DELETE FROM TodoTaskDbEntity WHERE completed = 1")
     suspend fun deleteCompletedTasks(): Int
 }

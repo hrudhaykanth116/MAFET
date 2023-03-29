@@ -9,17 +9,17 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.hrudhaykanth116.mafet.todo.TodoListScreen
 import com.hrudhaykanth116.mafet.todo.ui.screens.CreateTodoListScreen
-import com.hrudhaykanth116.mafet.todo.ui.data_models.Screen
+import com.hrudhaykanth116.mafet.todo.ui.models.TodoNavScreen
 
 @Composable
 fun TodoNavigation() {
     val navController = rememberNavController()
-    NavHost(navController, startDestination = Screen.TodoListScreen.route) {
-        composable(route = Screen.TodoListScreen.route) {
+    NavHost(navController, startDestination = TodoNavScreen.TodoListScreen.route) {
+        composable(route = TodoNavScreen.TodoListScreen.route) {
             TodoListScreen()
         }
         composable(
-            route = Screen.CreateTodoScreen.route,
+            route = TodoNavScreen.CreateTodoScreen.route,
             arguments = listOf(
                 navArgument("name"){
                     type = NavType.StringType
