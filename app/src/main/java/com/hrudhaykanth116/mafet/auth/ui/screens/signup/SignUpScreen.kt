@@ -1,10 +1,17 @@
 package com.hrudhaykanth116.mafet.auth.ui.screens.signup
 
+import android.graphics.Bitmap
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hrudhaykanth116.mafet.R
 import com.hrudhaykanth116.mafet.common.data.models.UIText
@@ -14,9 +21,14 @@ import com.hrudhaykanth116.mafet.common.ui.components.AppFormInputText
 import com.hrudhaykanth116.mafet.common.ui.components.CenteredColumn
 import com.hrudhaykanth116.mafet.common.utils.ui.ToastHelper
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun SignUpScreen(viewModel: SignUpViewModel = hiltViewModel()) {
+
+    val result = remember { mutableStateOf<Bitmap?>(null) }
+    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.TakePicturePreview()) {
+        result.value = it
+    }
+
 
     val state by viewModel.stateFlow.collectAsStateWithLifecycle()
 
@@ -36,6 +48,9 @@ fun SignUpScreen(viewModel: SignUpViewModel = hiltViewModel()) {
     }
 
     CenteredColumn {
+
+        result.value?.let { image ->
+            Image(bitmap = image.asImageBitmap(), contentDescription = "", modifier = Modifier.fillMaxWidth())
 
         AppFormInputText(
             label = "Enter your email",
@@ -79,4 +94,4 @@ fun SignUpScreen(viewModel: SignUpViewModel = hiltViewModel()) {
         }
     }
 
-}
+}}

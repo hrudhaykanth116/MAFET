@@ -4,12 +4,12 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
 
     defaultConfig {
         applicationId "com.hrudhaykanth116.mafet"
         minSdkVersion 21
-        targetSdkVersion 32
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
 
@@ -23,17 +23,17 @@ android {
         }
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
+//    }
 
     kotlinOptions {
         jvmTarget = '1.8'
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion compose_version
+        kotlinCompilerExtensionVersion = '1.4.4'
     }
 
     buildFeatures {
@@ -53,17 +53,52 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    /************************** Kotlin ******************************/
-    implementation 'androidx.core:core-ktx:1.8.0'
+    /************************** Android basic ******************************/
 
-    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'com.google.android.material:material:1.8.0'
+
+    /************************** Android basic ******************************/
+
+    /************************** Kotlin ******************************/
+
+    // Kotlin
+    implementation 'androidx.core:core-ktx:1.10.0'
+
+    // Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
 
     /************************** Kotlin ******************************/
 
     /***************************** Jetpack Compose ****************************/
 
+    def composeBom = platform('androidx.compose:compose-bom:2023.03.00')
+    implementation composeBom
+    androidTestImplementation composeBom
+
+    implementation 'androidx.compose.ui:ui-tooling-preview'
+    debugImplementation 'androidx.compose.ui:ui-tooling'
+    implementation 'androidx.compose.foundation:foundation'
+
+    // Material
+    implementation 'androidx.compose.material:material'
+    // Material design icons
+    implementation 'androidx.compose.material:material-icons-core'
+    implementation 'androidx.compose.material:material-icons-extended'
+
+    // Integration with activities
+    implementation 'androidx.activity:activity-compose:1.7.0'
+    // Integration with ViewModels
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1'
+    // Integration with lifecycle
+    implementation "androidx.lifecycle:lifecycle-runtime-compose:2.6.1"
+
+    // hilt
+    implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
+
+
+    /*
     implementation 'androidx.compose.ui:ui:1.1.1'
     // Tooling support (Previews, etc.)
     implementation 'androidx.compose.ui:ui-tooling:1.1.1'
@@ -96,23 +131,18 @@ dependencies {
     // When using a AppCompat theme
     // implementation "com.google.accompanist:accompanist-appcompat-theme:0.16.0"
 
+     */
+
     /***************************** Jetpack Compose ****************************/
 
-    // Firebase db
-    implementation 'com.google.firebase:firebase-database:20.0.5'
-
-    // Add the SDK for Firebase Cloud Messaging
-    implementation 'com.google.firebase:firebase-messaging:23.0.6'
-
+    /*********** Firebase ************/
+    implementation platform('com.google.firebase:firebase-bom:31.4.0')
     // Firebase authentication
-    implementation 'com.google.firebase:firebase-auth-ktx:21.0.6'
-
-    // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10"
-    implementation 'androidx.core:core-ktx:1.8.0'
-
-    // Coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
+    implementation 'com.google.firebase:firebase-auth-ktx'
+//    implementation 'com.google.firebase:firebase-common-ktx'
+    implementation 'com.google.firebase:firebase-storage-ktx'
+    implementation 'com.google.firebase:firebase-database-ktx'
+    /*********** Firebase ************/
 
     // Life cycle
     def lifecycle_version = "2.5.0"
@@ -126,7 +156,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
 
     // Navigation component
-    def nav_version = "2.5.1"
+    def nav_version = "2.5.3"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     implementation("androidx.navigation:navigation-compose:$nav_version")
@@ -135,10 +165,8 @@ dependencies {
     // Testing Navigation
     androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
 
-
-
     // Room
-    def room_version = "2.4.2"
+    def room_version = "2.5.1"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     // optional - Kotlin Extensions and Coroutines support for Room
@@ -157,15 +185,15 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     // Moshi
     implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
-    implementation "com.squareup.moshi:moshi:1.12.0"
-    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.12.0"
+    implementation "com.squareup.moshi:moshi:1.13.0"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.13.0"
 
     // Hilt
-    implementation "com.google.dagger:hilt-android:2.41"
-    kapt "com.google.dagger:hilt-compiler:2.41"
+    implementation "com.google.dagger:hilt-android:2.45"
+    kapt "com.google.dagger:hilt-compiler:2.44"
 
     // Material design(https://maven.google.com/web/index.html#com.google.android.material:material)
-    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'com.google.android.material:material:1.8.0'
 
     //intuit sdp(scalable dp) and ssp(scalable sp)
     def intuit_version = '1.0.6'
@@ -192,8 +220,8 @@ dependencies {
 
     // testing
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     // Hamcrest for assert (http://hamcrest.org/JavaHamcrest/distributables)
     def hamcrest_version = "2.2"

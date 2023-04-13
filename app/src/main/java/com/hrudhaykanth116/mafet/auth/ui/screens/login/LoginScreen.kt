@@ -3,7 +3,6 @@ package com.hrudhaykanth116.mafet.auth.ui.screens.login
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hrudhaykanth116.mafet.common.extensions.HandleEffect
 import com.hrudhaykanth116.mafet.common.ui.components.AppFormButton
@@ -12,7 +11,6 @@ import com.hrudhaykanth116.mafet.common.ui.components.CenteredColumn
 import com.hrudhaykanth116.mafet.common.ui.models.InputType
 import com.hrudhaykanth116.mafet.common.utils.ui.ToastHelper
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel = hiltViewModel(),
