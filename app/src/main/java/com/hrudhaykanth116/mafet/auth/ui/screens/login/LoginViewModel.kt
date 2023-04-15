@@ -2,8 +2,8 @@ package com.hrudhaykanth116.mafet.auth.ui.screens.login
 
 import androidx.lifecycle.viewModelScope
 import com.hrudhaykanth116.mafet.auth.domain.usecases.LoginUseCase
-import com.hrudhaykanth116.mafet.common.data.models.DataResult
-import com.hrudhaykanth116.mafet.common.viewmodel.StatefulViewModel
+import com.hrudhaykanth116.core.data.models.DataResult
+import com.hrudhaykanth116.core.ui.StatefulViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -11,7 +11,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase
-) : StatefulViewModel<LoginScreenState, LoginScreenEffect, LoginScreenEvent>(LoginScreenState()) {
+) : com.hrudhaykanth116.core.ui.StatefulViewModel<LoginScreenState, LoginScreenEffect, LoginScreenEvent>(LoginScreenState()) {
 
     override fun processEvent(event: LoginScreenEvent) {
         when (event) {
@@ -37,15 +37,15 @@ class LoginViewModel @Inject constructor(
 
     private fun login() {
         viewModelScope.launch {
-            val result: DataResult<Unit> = loginUseCase(
+            val result: com.hrudhaykanth116.core.data.models.DataResult<Unit> = loginUseCase(
                 email = stateFlow.value.loginEmail.text,
                 pwd = stateFlow.value.loginPassword.text
             )
             when (result) {
-                is DataResult.Success -> {
+                is com.hrudhaykanth116.core.data.models.DataResult.Success -> {
                     setEffect(LoginScreenEffect.LoggedIn)
                 }
-                is DataResult.Error -> {
+                is com.hrudhaykanth116.core.data.models.DataResult.Error -> {
                     setState {
                         copy(
                             loginError = result.uiMessage

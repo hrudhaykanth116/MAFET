@@ -2,8 +2,8 @@ package com.hrudhaykanth116.mafet.auth.domain.usecases
 
 import com.hrudhaykanth116.mafet.auth.data.data_models.SignUpResponse
 import com.hrudhaykanth116.mafet.auth.data.repositories.AuthRepository
-import com.hrudhaykanth116.mafet.common.data.models.DataResult
-import com.hrudhaykanth116.mafet.common.data.models.UIText
+import com.hrudhaykanth116.core.data.models.DataResult
+import com.hrudhaykanth116.core.data.models.UIText
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -18,19 +18,19 @@ class SignUpUseCase @Inject constructor(
         name: String,
         email: String,
         password: String
-    ): DataResult<UIText> {
+    ): com.hrudhaykanth116.core.data.models.DataResult<com.hrudhaykanth116.core.data.models.UIText> {
 
-        val signUpResponseResult: DataResult<SignUpResponse> =
+        val signUpResponseResult: com.hrudhaykanth116.core.data.models.DataResult<SignUpResponse> =
             authRepository.signUp(name, email, password)
         return when (signUpResponseResult) {
-            is DataResult.Error -> {
-                DataResult.Error(
+            is com.hrudhaykanth116.core.data.models.DataResult.Error -> {
+                com.hrudhaykanth116.core.data.models.DataResult.Error(
                     uiMessage = signUpResponseResult.uiMessage
                 )
             }
-            is DataResult.Success -> {
-                DataResult.Success(
-                    UIText.Text("Successfully signed up.")
+            is com.hrudhaykanth116.core.data.models.DataResult.Success -> {
+                com.hrudhaykanth116.core.data.models.DataResult.Success(
+                    com.hrudhaykanth116.core.data.models.UIText.Text("Successfully signed up.")
                 )
             }
         }

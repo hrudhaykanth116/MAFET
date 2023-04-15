@@ -5,9 +5,9 @@ import com.hrudhaykanth116.mafet.R
 import com.hrudhaykanth116.mafet.auth.domain.usecases.SignUpUseCase
 import com.hrudhaykanth116.mafet.auth.domain.usecases.ValidateEmailUseCase
 import com.hrudhaykanth116.mafet.auth.domain.usecases.ValidatePasswordUseCase
-import com.hrudhaykanth116.mafet.common.data.models.DataResult
-import com.hrudhaykanth116.mafet.common.data.models.UIText
-import com.hrudhaykanth116.mafet.common.viewmodel.StatefulViewModel
+import com.hrudhaykanth116.core.data.models.DataResult
+import com.hrudhaykanth116.core.data.models.UIText
+import com.hrudhaykanth116.core.ui.StatefulViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,7 +17,7 @@ class SignUpViewModel @Inject constructor(
     private val validateEmailUseCase: ValidateEmailUseCase,
     private val validatePasswordUseCase: ValidatePasswordUseCase,
     private val signUpUseCase: SignUpUseCase,
-) : StatefulViewModel<SignUpFormState, SignUpEffect, SignUpFormEvent>(
+) : com.hrudhaykanth116.core.ui.StatefulViewModel<SignUpFormState, SignUpEffect, SignUpFormEvent>(
     SignUpFormState()
 ) {
 
@@ -57,11 +57,11 @@ class SignUpViewModel @Inject constructor(
             val validatePwdResult = validatePasswordUseCase(pwd)
 
             val validateReEnteredPwdResult = if (pwd != repeatedPwd) {
-                DataResult.Error(
-                    uiMessage = UIText.StringRes(R.string.passwords_do_not_match)
+                com.hrudhaykanth116.core.data.models.DataResult.Error(
+                    uiMessage = com.hrudhaykanth116.core.data.models.UIText.StringRes(R.string.passwords_do_not_match)
                 )
             } else {
-                DataResult.Success("")
+                com.hrudhaykanth116.core.data.models.DataResult.Success("")
             }
 
 
@@ -69,33 +69,33 @@ class SignUpViewModel @Inject constructor(
                 validateEmailResult,
                 validatePwdResult,
                 validateReEnteredPwdResult
-            ).any { it is DataResult.Error }
+            ).any { it is com.hrudhaykanth116.core.data.models.DataResult.Error }
 
             setState {
                 copy(
-                    emailError = if (validateEmailResult is DataResult.Error) validateEmailResult.uiMessage else null,
-                    passwordError = if (validatePwdResult is DataResult.Error) validatePwdResult.uiMessage else null
+                    emailError = if (validateEmailResult is com.hrudhaykanth116.core.data.models.DataResult.Error) validateEmailResult.uiMessage else null,
+                    passwordError = if (validatePwdResult is com.hrudhaykanth116.core.data.models.DataResult.Error) validatePwdResult.uiMessage else null
                 )
             }
 
             if (!hasError) {
 
-                val dataResult: DataResult<UIText> = signUpUseCase(
+                val dataResult: com.hrudhaykanth116.core.data.models.DataResult<com.hrudhaykanth116.core.data.models.UIText> = signUpUseCase(
                     email,
                     email,
                     pwd
                 )
 
                 when (dataResult) {
-                    is DataResult.Error -> {
+                    is com.hrudhaykanth116.core.data.models.DataResult.Error -> {
                         setEffect(
                             SignUpEffect.Error(
                                 dataResult.uiMessage
-                                    ?: UIText.StringRes(R.string.something_went_wrong)
+                                    ?: com.hrudhaykanth116.core.data.models.UIText.StringRes(R.string.something_went_wrong)
                             )
                         )
                     }
-                    is DataResult.Success -> {
+                    is com.hrudhaykanth116.core.data.models.DataResult.Success -> {
                         setEffect(
                             SignUpEffect.Success(
                                 dataResult.data

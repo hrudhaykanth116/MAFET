@@ -1,7 +1,7 @@
 package com.hrudhaykanth116.mafet.auth.domain.usecases
 
-import com.hrudhaykanth116.mafet.common.data.models.DataResult
-import com.hrudhaykanth116.mafet.common.data.models.UIText
+import com.hrudhaykanth116.core.data.models.DataResult
+import com.hrudhaykanth116.core.data.models.UIText
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -10,14 +10,14 @@ class ValidatePasswordUseCase @Inject constructor(
 
 ) {
 
-    operator fun invoke(pwd: String?): DataResult<UIText> {
+    operator fun invoke(pwd: String?): com.hrudhaykanth116.core.data.models.DataResult<com.hrudhaykanth116.core.data.models.UIText> {
         if (pwd?.length in 8..16) {
-            return DataResult.Success(
-                UIText.Text("Password is valid.")
+            return com.hrudhaykanth116.core.data.models.DataResult.Success(
+                com.hrudhaykanth116.core.data.models.UIText.Text("Password is valid.")
             )
         } else {
-            return DataResult.Error(
-                UIText.Text("Password length should be between 8 and 16")
+            return com.hrudhaykanth116.core.data.models.DataResult.Error(
+                com.hrudhaykanth116.core.data.models.UIText.Text("Password length should be between 8 and 16")
             )
         }
     }

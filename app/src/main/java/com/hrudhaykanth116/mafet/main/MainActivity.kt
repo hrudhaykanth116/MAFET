@@ -11,8 +11,8 @@ import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.mafet.auth.data.local.shared_preferences.AuthPreffs
 import com.hrudhaykanth116.mafet.auth.data.repositories.AuthRepository
 import com.hrudhaykanth116.mafet.auth.ui.navigation.AuthNavigation
-import com.hrudhaykanth116.mafet.common.ui.components.AppFormButton
-import com.hrudhaykanth116.mafet.common.ui.components.CenteredColumn
+import com.hrudhaykanth116.core.ui.components.AppFormButton
+import com.hrudhaykanth116.core.ui.components.CenteredColumn
 import com.hrudhaykanth116.mafet.home.HomeNavigation
 import com.hrudhaykanth116.mafet.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,9 +44,15 @@ fun MainScreen(
     onTodoClicked: () -> Unit,
     onLogoutClicked: () -> Unit
 ) {
-    CenteredColumn {
-        AppFormButton(onClick = onTodoClicked, btnText = "Todo")
+    com.hrudhaykanth116.core.ui.components.CenteredColumn {
+        com.hrudhaykanth116.core.ui.components.AppFormButton(
+            onClick = onTodoClicked,
+            btnText = "Todo"
+        )
         Spacer(modifier = Modifier.height(8.dp))
-        AppFormButton(onClick = onLogoutClicked, btnText = "Logout")
+        com.hrudhaykanth116.core.ui.components.AppFormButton(
+            onClick = onLogoutClicked,
+            btnText = "Logout"
+        )
     }
 }

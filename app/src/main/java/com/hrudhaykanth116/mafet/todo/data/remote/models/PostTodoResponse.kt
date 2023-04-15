@@ -1,6 +1,6 @@
 package com.hrudhaykanth116.mafet.todo.data.remote.models
 
-import com.hrudhaykanth116.mafet.common.utils.enumutils.asEnumOrDefault
+import com.hrudhaykanth116.core.utils.enumutils.asEnumOrDefault
 import com.hrudhaykanth116.mafet.todo.data.local.room.tables.TodoTaskDbEntity
 import com.hrudhaykanth116.mafet.todo.domain.model.TaskCategory
 import com.hrudhaykanth116.mafet.todo.domain.model.TodoUIModel

@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.hrudhaykanth116.mafet.common.ui.components.AppFormButton
+import com.hrudhaykanth116.core.ui.components.AppFormButton
 
 @Composable
 fun AccountScreen(onLoggedOut: (() -> Unit)? = null) {
@@ -15,7 +15,7 @@ fun AccountScreen(onLoggedOut: (() -> Unit)? = null) {
         horizontalAlignment = Alignment.Start,
         modifier = Modifier.padding(start = 8.dp)
     ) {
-        AppFormButton(btnText = "Logout"){
+        com.hrudhaykanth116.core.ui.components.AppFormButton(btnText = "Logout") {
             onLoggedOut?.invoke()
         }
     }

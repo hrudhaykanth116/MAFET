@@ -1,7 +1,7 @@
 package com.hrudhaykanth116.mafet.todo.data.repositories
 
-import com.hrudhaykanth116.mafet.common.data.models.DataResult
-import com.hrudhaykanth116.mafet.common.data.models.UIText
+import com.hrudhaykanth116.core.data.models.DataResult
+import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.mafet.todo.data.data_source.local.TodoLocalDataSource
 import com.hrudhaykanth116.mafet.todo.data.data_source.remote.TodoRemoteDataSource
 import com.hrudhaykanth116.mafet.todo.data.local.room.tables.TodoTaskDbEntity
@@ -31,22 +31,22 @@ class TodoRepository @Inject constructor(
         description: String?,
         category: TaskCategory,
         active: Boolean
-    ): DataResult<Unit> {
-        val response: DataResult<PostTodoResponse> = remoteDataSource.createTodoTask(
+    ): com.hrudhaykanth116.core.data.models.DataResult<Unit> {
+        val response: com.hrudhaykanth116.core.data.models.DataResult<PostTodoResponse> = remoteDataSource.createTodoTask(
             id, title, description, category, active
         )
         return when (response) {
-            is DataResult.Success -> {
+            is com.hrudhaykanth116.core.data.models.DataResult.Success -> {
                 val data: PostTodoResponse.TodoData = response.data.data
                 val todoTaskDbEntity = data.toDbEntity()
                 todoLocalDataSource.createTodoTask(
                     todoTaskDbEntity
                 )
-                DataResult.Success(Unit)
+                com.hrudhaykanth116.core.data.models.DataResult.Success(Unit)
             }
-            is DataResult.Error -> {
-                DataResult.Error(
-                    uiMessage = UIText.Text("Api error failure.")
+            is com.hrudhaykanth116.core.data.models.DataResult.Error -> {
+                com.hrudhaykanth116.core.data.models.DataResult.Error(
+                    uiMessage = com.hrudhaykanth116.core.data.models.UIText.Text("Api error failure.")
                 )
             }
         }

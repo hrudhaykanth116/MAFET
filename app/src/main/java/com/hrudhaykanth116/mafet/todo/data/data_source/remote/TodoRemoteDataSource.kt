@@ -1,7 +1,7 @@
 package com.hrudhaykanth116.mafet.todo.data.data_source.remote
 
-import com.hrudhaykanth116.mafet.common.data.models.DataResult
-import com.hrudhaykanth116.mafet.common.data.remote.NetworkDataSource
+import com.hrudhaykanth116.core.data.models.DataResult
+import com.hrudhaykanth116.core.data.remote.NetworkDataSource
 import com.hrudhaykanth116.mafet.todo.data.local.room.tables.TodoTaskDbEntity
 import com.hrudhaykanth116.mafet.todo.data.remote.models.GetTodoResponse
 import com.hrudhaykanth116.mafet.todo.data.remote.models.PostTodoResponse
@@ -17,14 +17,14 @@ import javax.inject.Singleton
 @Singleton
 class TodoRemoteDataSource @Inject constructor(
     private val todoTasksApiService: TodoTasksApiService,
-): NetworkDataSource() {
+): com.hrudhaykanth116.core.data.remote.NetworkDataSource() {
 
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 
-    suspend fun getTodoTasks(): DataResult<GetTodoResponse> = withContext(
+    suspend fun getTodoTasks(): com.hrudhaykanth116.core.data.models.DataResult<GetTodoResponse> = withContext(
         dispatcher
     ){
-        val apiResponse: DataResult<GetTodoResponse> = getResult {
+        val apiResponse: com.hrudhaykanth116.core.data.models.DataResult<GetTodoResponse> = getResult {
             todoTasksApiService.getTodoTasks()
         }
         return@withContext apiResponse
@@ -36,7 +36,7 @@ class TodoRemoteDataSource @Inject constructor(
         description: String?,
         category: TaskCategory,
         active: Boolean
-    ): DataResult<PostTodoResponse> {
+    ): com.hrudhaykanth116.core.data.models.DataResult<PostTodoResponse> {
         return getResult {
             todoTasksApiService.postTodoTask()
         }

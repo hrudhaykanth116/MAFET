@@ -5,13 +5,13 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.hrudhaykanth116.mafet.common.data.local.db.BaseDao
+import com.hrudhaykanth116.core.data.local.db.BaseDao
 import com.hrudhaykanth116.mafet.todo.data.local.room.tables.TodoTaskDbEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 
 @Dao
-interface TodoTasksDao : BaseDao<TodoTaskDbEntity> {
+interface TodoTasksDao : com.hrudhaykanth116.core.data.local.db.BaseDao<TodoTaskDbEntity> {
 
     /**
      * Observes list of tasks.

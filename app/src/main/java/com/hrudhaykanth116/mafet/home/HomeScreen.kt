@@ -10,8 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.hrudhaykanth116.mafet.common.extensions.HandleEffect
-import com.hrudhaykanth116.mafet.common.ui.components.AppFormButton
+import com.hrudhaykanth116.core.utils.extensions.HandleEffect
+import com.hrudhaykanth116.core.ui.components.AppFormButton
 
 @Composable
 fun HomeScreen(
@@ -21,7 +21,7 @@ fun HomeScreen(
     onAccountClicked: (() -> Unit)? = null
 ) {
 
-    HandleEffect(viewModel = viewmodel){ effect: HomeScreenEffect ->
+    com.hrudhaykanth116.core.utils.extensions.HandleEffect(viewModel = viewmodel) { effect: HomeScreenEffect ->
         when (effect) {
             HomeScreenEffect.OnLogout -> {
                 onAccountClicked?.invoke()
@@ -35,12 +35,12 @@ fun HomeScreen(
     ) {
         Text(text = "Hi $name")
         Spacer(modifier = Modifier.height(30.dp))
-        AppFormButton(
+        com.hrudhaykanth116.core.ui.components.AppFormButton(
             onClick = { onTodoClicked?.invoke() },
             btnText = "Todo"
         )
         Spacer(modifier = Modifier.height(8.dp))
-        AppFormButton(btnText = "Logout"){
+        com.hrudhaykanth116.core.ui.components.AppFormButton(btnText = "Logout") {
             viewmodel.processEvent(HomeScreenEvent.LogOut)
         }
     }
@@ -57,11 +57,11 @@ fun HomeScreenPreview(
         Spacer(modifier = Modifier.height(10.dp))
         Text(text = "Hi $name \n Here are the features currently available.")
         Spacer(modifier = Modifier.height(30.dp))
-        AppFormButton(
+        com.hrudhaykanth116.core.ui.components.AppFormButton(
             btnText = "Todo"
         )
         Spacer(modifier = Modifier.height(8.dp))
-        AppFormButton(
+        com.hrudhaykanth116.core.ui.components.AppFormButton(
             btnText = "Account"
         )
     }
