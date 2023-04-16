@@ -2,10 +2,9 @@ package com.hrudhaykanth116.core.ui
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 
 /**
  * State: A type that describes the data your feature needs to perform its logic and render its UI.
@@ -19,29 +18,30 @@ abstract class StatefulViewModel<STATE, EFFECT, EVENT>(
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(initialState)
-
-    private val _effect: MutableStateFlow<EFFECT?> = MutableStateFlow(null)
-
     val stateFlow: StateFlow<STATE> = _state.asStateFlow()
 
-    val effect: StateFlow<EFFECT?> = _effect.asStateFlow()
+    // TODO: A different mechanism may be used to handle effect like channel.
+    // Currently using Shared flow which could cause effect lose if collector is paused.
+    // These are typically viewModel events. User events can be handled within UI.
+    private val _effect: MutableSharedFlow<EFFECT> = MutableSharedFlow()
+    val effect: SharedFlow<EFFECT> = _effect.asSharedFlow()
+
+    val state: STATE get() = stateFlow.value
 
     abstract fun processEvent(event: EVENT)
 
+    // TODO: Prevent setting newState. Always use copy to avoid wrong state being set when done in parallel.
     protected fun setState(newState: STATE.() -> STATE) {
         _state.update(newState)
-        Log.d(TAG, "setState: _state: ${_state}")
     }
 
     protected fun setEffect(newEffect: EFFECT) {
-        _effect.update { newEffect }
+        viewModelScope.launch {
+            _effect.emit(newEffect)
+        }
     }
 
-    fun resetEffect() {
-        _effect.update { null }
-    }
-
-    private fun stateValue(): STATE {
+    private fun state(): STATE {
         return stateFlow.value
     }
 

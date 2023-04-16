@@ -1,4 +1,4 @@
-package com.hrudhaykanth116.mafet.todo
+package com.hrudhaykanth116.todo
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
@@ -17,14 +17,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.hrudhaykanth116.todo.ui.components.TodoList
-import com.hrudhaykanth116.todo.viewmodels.TodoViewModel
+import com.hrudhaykanth116.todo.ui.viewmodels.TodoViewModel
 import kotlinx.coroutines.launch
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 // Research about viewModel()
 fun TodoListScreen(
-    todoViewModel: com.hrudhaykanth116.todo.viewmodels.TodoViewModel = hiltViewModel(),
+    todoViewModel: TodoViewModel = hiltViewModel(),
 ) {
 
     // Property delegation helps us in remembering the value of state directly into the field instead
@@ -41,7 +41,7 @@ fun TodoListScreen(
         // Check state hoisting.
         val listState = rememberLazyListState()
 
-        com.hrudhaykanth116.todo.ui.components.TodoList(
+        TodoList(
             list = todoViewModel.todoList,
             listState = listState,
             modifier = Modifier.fillMaxSize(),

@@ -1,39 +1,54 @@
 package com.hrudhaykanth116.core.ui.components
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.ui.models.InputType
+import com.hrudhaykanth116.core.ui.models.TextFieldData
+import com.hrudhaykanth116.core.utils.compose.MyPreview
 
+@MyPreview
+@Composable
+fun AppFormInputTextPreview() {
+    AppFormInputText(
+        textFieldData = TextFieldData(
+            inputValue = TextFieldValue(),
+            inputType = InputType.RegularInputType,
+            label = "User name",
+            hint = "Enter user name",
+            error = "Field cannot be empty."
+        )
+    )
+}
 
-@Preview(showSystemUi = true)
 @Composable
 fun AppFormInputText(
-    inputValue: TextFieldValue = TextFieldValue(),
-    label: String? = "Label",
-    hint: String? = "Hint",
-    isError: Boolean = false,
-    error: String? = null,
-    inputType: InputType = InputType.RegularInputType,
+    textFieldData: TextFieldData,
+    modifier: Modifier = Modifier,
     onInputChange: (TextFieldValue) -> Unit = {}
 ) {
 
-    Column() {
+    Column(
+        modifier = modifier.fillMaxWidth(),
+    ) {
         // if (!label.isNullOrBlank()) {
         //     Text(
         //         text = label,
@@ -42,23 +57,31 @@ fun AppFormInputText(
         //     )
         // }
 
-        when (inputType) {
+        when (textFieldData.inputType) {
             is InputType.PwdInputType -> {
-                AppPwdTextField(inputValue, label, isError, onInputChange)
+                AppPwdTextField(textFieldData, modifier = modifier, onInputChange)
             }
-            InputType.RegularInputType -> {
+            is InputType.RegularInputType -> {
                 AppTextField(
-                    inputValue, label = label, isError = isError, onInputChange = onInputChange
+                    textFieldData, modifier = modifier, onInputChange = onInputChange
                 )
             }
             InputType.EmailInputType -> {
                 AppTextField(
-                    inputValue, label = label, isError = isError, onInputChange = onInputChange,
+                    textFieldData, onInputChange = onInputChange,
+                    modifier = modifier,
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Email,
                     )
                 )
             }
+        }
+        if (!textFieldData.error.isNullOrBlank()) {
+            Text(
+                text = textFieldData.error,
+                color = Color.Red,
+                modifier = Modifier.fillMaxWidth()
+            )
         }
 
     }
@@ -67,9 +90,8 @@ fun AppFormInputText(
 
 @Composable
 private fun AppPwdTextField(
-    inputValue: TextFieldValue,
-    label: String?,
-    isError: Boolean,
+    textFieldData: TextFieldData,
+    modifier: Modifier,
     onInputChange: (TextFieldValue) -> Unit,
 ) {
 
@@ -77,7 +99,8 @@ private fun AppPwdTextField(
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
 
     AppTextField(
-        inputValue, label = label, isError = isError, onInputChange = onInputChange,
+        textFieldData, onInputChange = onInputChange,
+        modifier = modifier,
         visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         trailingIcon = {
@@ -87,32 +110,30 @@ private fun AppPwdTextField(
 
             val description = if (passwordVisible) "Hide password" else "Show password"
 
-            IconButton(onClick = {passwordVisible = !passwordVisible}){
-                Icon(imageVector  = image, description)
+            IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                Icon(imageVector = image, description)
             }
         }
     )
 }
 
-@Preview
 @Composable
 fun AppTextField(
-    inputValue: TextFieldValue = TextFieldValue(),
-    label: String? = null,
-    isError: Boolean = false,
-    error: String? = null,
+    textFieldData: TextFieldData,
+    modifier: Modifier = Modifier,
     onInputChange: (TextFieldValue) -> Unit = {},
     trailingIcon: @Composable (() -> Unit)? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
 ) {
     OutlinedTextField(
-        value = inputValue,
-        isError = isError,
+        modifier = modifier.fillMaxWidth(),
+        value = textFieldData.inputValue,
+        isError = textFieldData.error?.isNotBlank() == true,
         onValueChange = onInputChange,
         // visualTransformation = PasswordVisualTransformation(),
         label = {
-            label?.let { Text(text = it) }
+            textFieldData.hint?.let { Text(text = it) }
         },
         trailingIcon = trailingIcon,
         visualTransformation = visualTransformation,

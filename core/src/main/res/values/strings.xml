@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Weather Tens</string>
+
+    <!-- Network/Data related -->
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="image_content_default_description">Unknown image</string>
+
+    <!-- Login screen -->
+    <string name="login_to_your_app">Login to your app</string>
+    <string name="email">Email</string>
+    <string name="log_in">LOG IN</string>
+    <string name="or">OR</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="password">Password</string>
+
+
+</resources>

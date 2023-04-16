@@ -1,37 +1,46 @@
 package com.hrudhaykanth116.mafet.auth.domain.usecases
 
-import com.hrudhaykanth116.mafet.auth.data.data_models.SignUpResponse
-import com.hrudhaykanth116.mafet.auth.data.repositories.AuthRepository
 import com.hrudhaykanth116.core.data.models.DataResult
-import com.hrudhaykanth116.core.data.models.UIText
+import com.hrudhaykanth116.mafet.auth.data.models.SignUpRequest
+import com.hrudhaykanth116.mafet.auth.data.repository.IAuthRepository
+import com.hrudhaykanth116.mafet.auth.ui.screens.signup.SignUpFormState
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
 class SignUpUseCase @Inject constructor(
     private val validateEmailUseCase: ValidateEmailUseCase,
     private val validatePasswordUseCase: ValidatePasswordUseCase,
-    private val authRepository: AuthRepository,
+    private val authRepository: IAuthRepository
 ) {
 
-    suspend operator fun invoke(
-        name: String,
-        email: String,
-        password: String
-    ): com.hrudhaykanth116.core.data.models.DataResult<com.hrudhaykanth116.core.data.models.UIText> {
+    suspend operator fun invoke(signUpUIState: SignUpFormState): SignUpFormState {
 
-        val signUpResponseResult: com.hrudhaykanth116.core.data.models.DataResult<SignUpResponse> =
-            authRepository.signUp(name, email, password)
-        return when (signUpResponseResult) {
-            is com.hrudhaykanth116.core.data.models.DataResult.Error -> {
-                com.hrudhaykanth116.core.data.models.DataResult.Error(
-                    uiMessage = signUpResponseResult.uiMessage
+        val newUIState = signUpUIState.getStateAfterValidation(
+            validateEmailUseCase, validatePasswordUseCase
+        )
+
+        if (newUIState.containsError()) {
+            return newUIState
+        } else {
+            val signUpResult = authRepository.signUp(
+                SignUpRequest(
+                    email = signUpUIState.emailTextFieldValue.text,
+                    password = signUpUIState.passwordTextFieldValue.text,
+                    userName = newUIState.userName.text,
+                    imgBitmap = signUpUIState.imgBitmap,
+                    bio = newUIState.bio.text,
                 )
-            }
-            is com.hrudhaykanth116.core.data.models.DataResult.Success -> {
-                com.hrudhaykanth116.core.data.models.DataResult.Success(
-                    com.hrudhaykanth116.core.data.models.UIText.Text("Successfully signed up.")
-                )
+            )
+            return when (signUpResult) {
+                is DataResult.Error -> {
+                    newUIState.copy(
+                        userMessage = signUpResult.uiMessage
+                    )
+                }
+                is DataResult.Success -> {
+                    newUIState.copy(
+                        isSignedUp = true
+                    )
+                }
             }
         }
     }

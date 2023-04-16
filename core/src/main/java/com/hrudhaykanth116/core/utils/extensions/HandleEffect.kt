@@ -12,11 +12,11 @@ fun <STATE, EFFECT, EVENT> HandleEffect(
     viewModel: StatefulViewModel<STATE, EFFECT, EVENT>,
     handle: suspend CoroutineScope.(EFFECT) -> Unit
 ) {
-    val effect by viewModel.effect.collectAsStateWithLifecycle()
-    LaunchedEffect(effect) {
-        effect?.let {
-            handle(it)
-            viewModel.resetEffect()
-        }
-    }
+    // val effect by viewModel.effect.collectAsStateWithLifecycle()
+    // LaunchedEffect(effect) {
+    //     effect?.let {
+    //         handle(it)
+    //         viewModel.resetEffect()
+    //     }
+    // }
 }

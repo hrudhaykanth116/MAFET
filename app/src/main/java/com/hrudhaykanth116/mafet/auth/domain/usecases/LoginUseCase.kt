@@ -1,32 +1,51 @@
 package com.hrudhaykanth116.mafet.auth.domain.usecases
 
-import com.hrudhaykanth116.mafet.auth.data.repositories.AuthRepository
 import com.hrudhaykanth116.core.data.models.DataResult
 import com.hrudhaykanth116.core.data.models.UIText
+import com.hrudhaykanth116.mafet.auth.data.models.LoginRequest
+import com.hrudhaykanth116.mafet.auth.data.models.LoginResult
+import com.hrudhaykanth116.mafet.auth.data.repository.IAuthRepository
+import com.hrudhaykanth116.mafet.auth.domain.models.LoginScreenState
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class LoginUseCase @Inject constructor(
-    private val authRepository: AuthRepository
+    private val authRepository: IAuthRepository
 ) {
 
-    suspend operator fun invoke(
-        email: String?,
-        pwd: String?,
-    ): DataResult<Unit> {
+    suspend operator fun invoke(loginUIState: LoginScreenState): LoginScreenState {
 
-        if (email.isNullOrEmpty()) {
-            return DataResult.Error(uiMessage = UIText.Text("Email cannot be empty."))
-        }
-        if (pwd.isNullOrEmpty()) {
-            return DataResult.Error(uiMessage = UIText.Text("Password cannot be empty."))
+        val email = loginUIState.loginEmail.text
+        val password = loginUIState.loginPassword.text
+
+        if (email.isBlank() || password.isBlank()) {
+            return loginUIState.copy(
+                // emailErrorMessage = UIText.Text("Email cannot be empty"),
+                // passwordErrorMessage = UIText.Text("Password cannot be empty")
+                loginError = UIText.Text("Please check email or password is not empty.")
+            )
         }
 
-        return when (val loginResult = authRepository.login(email, pwd)) {
-            is DataResult.Error -> DataResult.Error(uiMessage = loginResult.uiMessage)
-            is DataResult.Success -> DataResult.Success(Unit)
+        val loginResult: DataResult<LoginResult> = authRepository.login(
+            LoginRequest(
+                email, password
+            )
+        )
+
+        return when (loginResult) {
+            is DataResult.Error -> {
+                loginUIState.copy(
+                    loginError = loginResult.uiMessage
+                )
+            }
+            is DataResult.Success -> {
+                loginUIState.copy(
+                    isLoggedIn = true
+                )
+            }
         }
+
     }
 
 }

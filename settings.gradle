@@ -3,4 +3,4 @@ rootProject.name = "MAFET"
 include ':core'
 include ':features'
 include ':features:todo'
-include ':features:chatgpt'
+include ':features:ai'
