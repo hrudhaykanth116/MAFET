@@ -5,7 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.hrudhaykanth116.mafet.account.navigation.AccountNavigation
-import com.hrudhaykanth116.mafet.todo.navigation.TodoNavigation
+import com.hrudhaykanth116.todo.navigation.TodoNavigation
 import com.hrudhaykanth116.mafet.home.MainNavScreen as HomeScreens
 
 @Composable
