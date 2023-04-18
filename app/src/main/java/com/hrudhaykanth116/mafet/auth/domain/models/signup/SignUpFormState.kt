@@ -1,4 +1,4 @@
-package com.hrudhaykanth116.mafet.auth.ui.screens.signup
+package com.hrudhaykanth116.mafet.auth.domain.models.signup
 
 import android.graphics.Bitmap
 import androidx.compose.ui.text.input.TextFieldValue

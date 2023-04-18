@@ -5,7 +5,7 @@ import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.mafet.auth.data.models.LoginRequest
 import com.hrudhaykanth116.mafet.auth.data.models.LoginResult
 import com.hrudhaykanth116.mafet.auth.data.repository.IAuthRepository
-import com.hrudhaykanth116.mafet.auth.domain.models.LoginScreenState
+import com.hrudhaykanth116.mafet.auth.domain.models.login.LoginScreenState
 import javax.inject.Inject
 import javax.inject.Singleton
 

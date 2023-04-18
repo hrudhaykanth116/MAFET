@@ -3,7 +3,7 @@ package com.hrudhaykanth116.mafet.auth.domain.usecases
 import com.hrudhaykanth116.core.data.models.DataResult
 import com.hrudhaykanth116.mafet.auth.data.models.SignUpRequest
 import com.hrudhaykanth116.mafet.auth.data.repository.IAuthRepository
-import com.hrudhaykanth116.mafet.auth.ui.screens.signup.SignUpFormState
+import com.hrudhaykanth116.mafet.auth.domain.models.signup.SignUpFormState
 import javax.inject.Inject
 
 class SignUpUseCase @Inject constructor(

@@ -14,17 +14,18 @@ import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.launch
 
 // TODO:  Have interfaces to not force all these behavior.
-abstract class UDFFragment<STATE, EFFECT, EVENT, BINDING : ViewDataBinding>(
+abstract class UDFFragment<STATE, EVENT, EFFECT, BINDING : ViewDataBinding>(
     @LayoutRes private val layoutId: Int,
 ) : Fragment() {
 
-    protected abstract val viewModel: UDFViewModel<STATE, EFFECT, EVENT>
+    protected abstract val viewModel: UDFViewModel<STATE, EVENT, EFFECT>
 
     protected lateinit var binding: BINDING
 
+    // TODO: Have some default implementations here.
+    protected abstract fun initViews()
     protected abstract fun processNewState(state: STATE)
     protected abstract fun processNewEffect(effect: EFFECT)
-    protected abstract fun processNewEvent(event: EVENT)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +40,7 @@ abstract class UDFFragment<STATE, EFFECT, EVENT, BINDING : ViewDataBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initViews()
         initResumeStateObservers()
     }
 
@@ -61,7 +63,7 @@ abstract class UDFFragment<STATE, EFFECT, EVENT, BINDING : ViewDataBinding>(
         }
     }
 
-    fun processEvent(event: EVENT){
+    fun sendEvent(event: EVENT){
         viewModel.processEvent(event)
     }
 

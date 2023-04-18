@@ -2,10 +2,10 @@ package com.hrudhaykanth116.mafet.auth.ui.screens.login
 
 import androidx.lifecycle.viewModelScope
 import com.hrudhaykanth116.core.udf.UDFViewModel
-import com.hrudhaykanth116.mafet.auth.domain.models.LoginScreenEffect
+import com.hrudhaykanth116.mafet.auth.domain.models.login.LoginScreenEffect
 import com.hrudhaykanth116.mafet.auth.domain.usecases.LoginUseCase
-import com.hrudhaykanth116.mafet.auth.domain.models.LoginScreenEvent
-import com.hrudhaykanth116.mafet.auth.domain.models.LoginScreenState
+import com.hrudhaykanth116.mafet.auth.domain.models.login.LoginScreenEvent
+import com.hrudhaykanth116.mafet.auth.domain.models.login.LoginScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase
-) : UDFViewModel<LoginScreenState, LoginScreenEffect, LoginScreenEvent>(
+) : UDFViewModel<LoginScreenState, LoginScreenEvent, LoginScreenEffect>(
     LoginScreenState()
 ) {
 
@@ -46,7 +46,9 @@ class LoginViewModel @Inject constructor(
             )
 
             setState {
-                newState
+                newState.copy(
+                    isLoggedIn = true
+                )
             }
         }
     }

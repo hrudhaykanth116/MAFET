@@ -6,7 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.hrudhaykanth116.mafet.account.navigation.ui.models.AccountNavScreen
 import com.hrudhaykanth116.mafet.account.navigation.ui.screen.AccountScreen
-import com.hrudhaykanth116.mafet.home.MainNavScreen
+import com.hrudhaykanth116.mafet.home.models.MainNavRoute
 
 @Composable
 fun AccountNavigation() {
@@ -15,7 +15,7 @@ fun AccountNavigation() {
         composable(route = AccountNavScreen.AccountScreen.route) {
             AccountScreen {
                 navController.navigate(
-                    MainNavScreen.Auth.route
+                    MainNavRoute.Auth.route
                 ) {
                     popUpTo(0)
                 }

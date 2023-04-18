@@ -6,7 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.hrudhaykanth116.mafet.account.navigation.AccountNavigation
 import com.hrudhaykanth116.todo.navigation.TodoNavigation
-import com.hrudhaykanth116.mafet.home.MainNavScreen as HomeScreens
+import com.hrudhaykanth116.mafet.home.models.MainNavRoute as HomeScreens
 
 @Composable
 fun HomeNavigation(
@@ -14,8 +14,8 @@ fun HomeNavigation(
 ) {
 
     val navController = rememberNavController()
-    NavHost(navController, startDestination = HomeScreens.HomeScreen.route) {
-        composable(HomeScreens.HomeScreen.route) {
+    NavHost(navController, startDestination = HomeScreens.HomeRoute.route) {
+        composable(HomeScreens.HomeRoute.route) {
             HomeScreen(
                 name = name,
                 onTodoClicked = {

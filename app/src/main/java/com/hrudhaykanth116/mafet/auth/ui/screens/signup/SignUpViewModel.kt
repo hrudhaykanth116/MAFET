@@ -1,10 +1,10 @@
 package com.hrudhaykanth116.mafet.auth.ui.screens.signup
 
 import androidx.lifecycle.viewModelScope
-import com.hrudhaykanth116.mafet.R
+import com.hrudhaykanth116.mafet.auth.domain.models.signup.SignUpEffect
+import com.hrudhaykanth116.mafet.auth.domain.models.signup.SignUpFormEvent
+import com.hrudhaykanth116.mafet.auth.domain.models.signup.SignUpFormState
 import com.hrudhaykanth116.mafet.auth.domain.usecases.SignUpUseCase
-import com.hrudhaykanth116.mafet.auth.domain.usecases.ValidateEmailUseCase
-import com.hrudhaykanth116.mafet.auth.domain.usecases.ValidatePasswordUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

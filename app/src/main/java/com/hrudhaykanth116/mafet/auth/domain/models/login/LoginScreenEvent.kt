@@ -1,4 +1,4 @@
-package com.hrudhaykanth116.mafet.auth.domain.models
+package com.hrudhaykanth116.mafet.auth.domain.models.login
 
 import androidx.compose.ui.text.input.TextFieldValue
 

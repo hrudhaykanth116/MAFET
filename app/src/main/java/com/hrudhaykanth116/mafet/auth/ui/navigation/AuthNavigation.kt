@@ -12,7 +12,7 @@ import com.hrudhaykanth116.mafet.auth.ui.screens.login.LoginScreen
 import com.hrudhaykanth116.mafet.auth.ui.screens.signup.SignUpScreen
 import com.hrudhaykanth116.mafet.auth.ui.screens.signup.SignUpViewModel
 import com.hrudhaykanth116.mafet.home.HomeNavigation
-import com.hrudhaykanth116.mafet.home.MainNavScreen
+import com.hrudhaykanth116.mafet.home.models.MainNavRoute
 import com.hrudhaykanth116.mafet.auth.ui.data_models.Screen as AuthScreens
 
 @Composable
@@ -28,7 +28,7 @@ fun AuthNavigation() {
                 onLoggedIn = {
 
                     navController.navigate(
-                        MainNavScreen.HomeScreen.withArgs(
+                        MainNavRoute.HomeRoute.withArgs(
                             it
                         )
                     ) {
@@ -53,7 +53,7 @@ fun AuthNavigation() {
         }
 
         composable(
-            route = MainNavScreen.HomeScreen.route + "/{name}",
+            route = MainNavRoute.HomeRoute.route + "/{name}",
             arguments = listOf(
                 navArgument("name") {
                     type = NavType.StringType

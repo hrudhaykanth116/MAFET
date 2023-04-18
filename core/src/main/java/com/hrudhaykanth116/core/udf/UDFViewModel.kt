@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-abstract class UDFViewModel<STATE, EFFECT, EVENT>(
+abstract class UDFViewModel<STATE, EVENT, EFFECT>(
     initialState: STATE,
 ) : ViewModel() {
 
@@ -22,6 +22,7 @@ abstract class UDFViewModel<STATE, EFFECT, EVENT>(
 
     abstract fun processEvent(event: EVENT)
 
+    // TODO: Prevent setting newState. Always use copy to avoid wrong state being set when done in parallel.
     protected fun setState(newState: STATE.() -> STATE) {
         _state.update(newState)
     }

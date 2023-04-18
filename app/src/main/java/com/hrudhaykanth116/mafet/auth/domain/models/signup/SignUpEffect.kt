@@ -1,6 +1,4 @@
-package com.hrudhaykanth116.mafet.auth.ui.screens.signup
-
-import com.hrudhaykanth116.core.data.models.UIText
+package com.hrudhaykanth116.mafet.auth.domain.models.signup
 
 sealed class SignUpEffect{
     data class Success(val message: com.hrudhaykanth116.core.data.models.UIText? = null): SignUpEffect()

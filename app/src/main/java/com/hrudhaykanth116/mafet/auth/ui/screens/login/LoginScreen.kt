@@ -1,14 +1,12 @@
 package com.hrudhaykanth116.mafet.auth.ui.screens.login
 
-import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.hrudhaykanth116.core.ui.components.AppFormButton
-import com.hrudhaykanth116.core.ui.components.CenteredColumn
-import com.hrudhaykanth116.mafet.auth.domain.models.LoginScreenEvent
+import com.hrudhaykanth116.mafet.auth.domain.models.login.LoginScreenEvent
+import com.hrudhaykanth116.mafet.auth.domain.models.signup.SignUpFormEvent
 
 @Composable
 fun LoginScreen(
@@ -36,12 +34,18 @@ fun LoginScreen(
     //     }
     // }
 
-    CenteredColumn {
-        AppFormButton("Login") {
+    LoginScreenContent(
+        state,
+        navigateToSignUpScreen,
+        onEmailChanged = {
+            viewModel.processEvent(LoginScreenEvent.EmailChanged(it))
+        },
+        onPasswordChanged = {
+            viewModel.processEvent(LoginScreenEvent.PasswordChanged(it))
+        },
+        onLoginBtnClicked = {
             viewModel.processEvent(LoginScreenEvent.Login)
         }
-        AppFormButton("Sign up") {
-            navigateToSignUpScreen()
-        }
-    }
+    )
 }
+
