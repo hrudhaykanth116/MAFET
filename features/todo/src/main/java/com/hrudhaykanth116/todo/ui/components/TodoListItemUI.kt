@@ -18,12 +18,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.hrudhaykanth116.todo.data.dummydata.DummyTodoList
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 
 // @Preview(showBackground = true, widthDp = 200, heightDp = 100)
 @Composable
-fun TodoListItem(
+fun TodoListItemUI(
     toDoTaskUIState: ToDoTaskUIState = com.hrudhaykanth116.todo.data.dummydata.DummyTodoList.todoList[0],
     onRemoveClicked: () -> Unit
 ) {

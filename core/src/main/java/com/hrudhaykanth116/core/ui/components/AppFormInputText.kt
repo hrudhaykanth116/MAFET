@@ -41,7 +41,7 @@ fun AppFormInputTextPreview() {
 
 @Composable
 fun AppFormInputText(
-    textFieldData: TextFieldData,
+    textFieldData: TextFieldData = TextFieldData(),
     modifier: Modifier = Modifier,
     onInputChange: (TextFieldValue) -> Unit = {}
 ) {

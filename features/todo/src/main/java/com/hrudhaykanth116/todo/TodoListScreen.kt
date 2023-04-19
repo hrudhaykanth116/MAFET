@@ -13,18 +13,21 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.hrudhaykanth116.todo.ui.components.ListItems
+import com.hrudhaykanth116.core.utils.Logger
+import com.hrudhaykanth116.todo.ui.components.ListItemsUI
 import com.hrudhaykanth116.todo.ui.viewmodels.TodoViewModel
 import kotlinx.coroutines.launch
+
+private const val TAG = "TodoListScreen"
 
 @Composable
 fun TodoListScreen(
     todoViewModel: TodoViewModel = hiltViewModel(),
     onCreateBtnClicked: () -> Unit,
 ) {
+    Logger.d(TAG, "TodoListScreen: ")
 
     // Property delegation helps us in remembering the value of state directly into the field instead
     // Remember savable saves the values over configuration changes.
@@ -49,7 +52,7 @@ fun TodoListScreen(
             }
         }
 
-        ListItems(
+        ListItemsUI(
             list = todoViewModel.todoList,
             listState = listState,
             modifier = Modifier.fillMaxSize(),

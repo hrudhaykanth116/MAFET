@@ -33,7 +33,14 @@ fun TodoNavigation() {
         composable(
             route = TodoNavScreen.CreateTodoScreen.route,
         ) {
-            CreateTodoListScreen()
+            CreateTodoListScreen(
+                onCreated = {
+                    navController.popBackStack(
+                        route = TodoNavScreen.TodoListScreen.route,
+                        inclusive = false
+                    )
+                }
+            )
         }
 
     }

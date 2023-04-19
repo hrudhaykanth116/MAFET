@@ -19,7 +19,7 @@ import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 
 // @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun ListItems(
+fun ListItemsUI(
     modifier: Modifier = Modifier,
     list: List<ToDoTaskUIState> = DummyTodoList.todoList,
     onRemoveTask: (ToDoTaskUIState) -> Unit,
@@ -49,7 +49,7 @@ fun ListItems(
             Row(
                 // Modifier.animateItemPlacement(tween(1000))
             ) {
-                TodoListItem(toDoTaskUIState = toDoTaskUIState, onRemoveClicked = { onRemoveTask(toDoTaskUIState) })
+                TodoListItemUI(toDoTaskUIState = toDoTaskUIState, onRemoveClicked = { onRemoveTask(toDoTaskUIState) })
             }
         }
     }

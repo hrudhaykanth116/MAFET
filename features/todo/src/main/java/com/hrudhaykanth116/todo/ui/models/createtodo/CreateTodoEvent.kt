@@ -1,3 +1,11 @@
 package com.hrudhaykanth116.todo.ui.models.createtodo
 
-sealed interface CreateTodoEvent
+import androidx.compose.ui.text.input.TextFieldValue
+
+sealed interface CreateTodoEvent{
+
+    data class TitleChanged(val textFieldValue: TextFieldValue): CreateTodoEvent
+    data class DescriptionChanged(val textFieldValue: TextFieldValue): CreateTodoEvent
+    object Create: CreateTodoEvent
+
+}
