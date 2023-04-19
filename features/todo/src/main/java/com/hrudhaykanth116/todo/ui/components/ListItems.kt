@@ -19,11 +19,11 @@ import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 
 // @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun TodoList(
-    list: List<ToDoTaskUIState> = com.hrudhaykanth116.todo.data.dummydata.DummyTodoList.todoList,
+fun ListItems(
+    modifier: Modifier = Modifier,
+    list: List<ToDoTaskUIState> = DummyTodoList.todoList,
     onRemoveTask: (ToDoTaskUIState) -> Unit,
-    listState: LazyListState = rememberLazyListState(),
-    modifier: Modifier = Modifier
+    listState: LazyListState = rememberLazyListState()
 ) {
 
     LazyColumn(

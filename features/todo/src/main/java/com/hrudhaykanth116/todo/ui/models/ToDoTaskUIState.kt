@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import com.hrudhaykanth116.todo.domain.model.TodoUIModel
 
 data class ToDoTaskUIState(
-    val data: com.hrudhaykanth116.todo.domain.model.TodoUIModel,
+    val data: TodoUIModel,
     // This acts as an observable state for composables
     val isExpanded: MutableState<Boolean> = mutableStateOf(false),
 ){

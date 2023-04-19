@@ -1,4 +1,4 @@
-package com.hrudhaykanth116.todo.ui.screens
+package com.hrudhaykanth116.todo.ui.screens.create
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -7,12 +7,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.hrudhaykanth116.core.ui.components.AppFormButton
+import com.hrudhaykanth116.core.ui.components.AppFormInputText
 
 @Composable
 fun CreateTodoListScreen(
-    // onCreate: (ToDoTask) -> Unit,
+    createTodoListViewModel: CreateTodoListViewModel = hiltViewModel()
 ) {
+
+
 
     Column() {
 

@@ -16,15 +16,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.hrudhaykanth116.todo.ui.components.TodoList
+import com.hrudhaykanth116.todo.ui.components.ListItems
 import com.hrudhaykanth116.todo.ui.viewmodels.TodoViewModel
 import kotlinx.coroutines.launch
 
-@Preview(showBackground = true, showSystemUi = true)
 @Composable
-// Research about viewModel()
 fun TodoListScreen(
     todoViewModel: TodoViewModel = hiltViewModel(),
+    onCreateBtnClicked: () -> Unit,
 ) {
 
     // Property delegation helps us in remembering the value of state directly into the field instead
@@ -41,13 +40,6 @@ fun TodoListScreen(
         // Check state hoisting.
         val listState = rememberLazyListState()
 
-        TodoList(
-            list = todoViewModel.todoList,
-            listState = listState,
-            modifier = Modifier.fillMaxSize(),
-            onRemoveTask = { toDoTask -> todoViewModel.removeTaskItem(toDoTask) }
-        )
-
         // Show the button if the first visible item is past
         // the first item. We use a remembered derived` state to
         // minimize unnecessary compositions
@@ -57,7 +49,14 @@ fun TodoListScreen(
             }
         }
 
+        ListItems(
+            list = todoViewModel.todoList,
+            listState = listState,
+            modifier = Modifier.fillMaxSize(),
+            onRemoveTask = { toDoTask -> todoViewModel.removeTaskItem(toDoTask) }
+        )
 
+        // Bottom icons
         Row(
             modifier = Modifier.align(Alignment.BottomEnd)
         ) {
@@ -80,9 +79,7 @@ fun TodoListScreen(
 
             Spacer(modifier = Modifier.width(8.dp))
 
-            FloatingActionButton(onClick = {
-                // navController.navigate(Screen.CreateTodoScreen.route)
-            }) {
+            FloatingActionButton(onClick = onCreateBtnClicked) {
                 Icon(
                     imageVector = Icons.Default.Add,
                     contentDescription = "Add Task"
