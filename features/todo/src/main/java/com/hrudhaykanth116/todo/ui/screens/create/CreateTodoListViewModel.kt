@@ -1,28 +1,24 @@
 package com.hrudhaykanth116.todo.ui.screens.create
 
 import androidx.lifecycle.viewModelScope
-import com.hrudhaykanth116.core.udf.UDFViewModel
 import com.hrudhaykanth116.core.udf.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.todo.domain.model.create.CreateTodoUIState
+import com.hrudhaykanth116.todo.domain.use_cases.CreateTodoTaskUseCase
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateTodoEffect
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateTodoEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CreateTodoListViewModel @Inject constructor(
-
+    private val createTodoTaskUseCase: CreateTodoTaskUseCase
 ) : UIStateViewModel<CreateTodoUIState, CreateTodoEvent, CreateTodoEffect>(
     UIState.LoadedUIState(
         CreateTodoUIState()
     )
 ) {
-
-    init {
-    }
 
     override fun processEvent(event: CreateTodoEvent) {
         when (event) {
@@ -32,24 +28,19 @@ class CreateTodoListViewModel @Inject constructor(
                     setState {
                         UIState.LoadingUIState(contentState)
                     }
-                    delay(2000)
-                    val newState = contentState ?: CreateTodoUIState()
+                    val newState = createTodoTaskUseCase(
+                        getOrCreateContentState()
+                    )
                     setState {
-                        UIState.LoadedUIState(
-                            contentState.copy(
-                                isSubmitted = true
-                            )
-                        )
+                        newState
                     }
                 }
             }
 
             is CreateTodoEvent.DescriptionChanged -> {
-                val newState =
-                    (state as? UIState.LoadedUIState?)?.contentState ?: CreateTodoUIState()
                 setState {
                     UIState.LoadedUIState(
-                        contentState.copy(
+                        getOrCreateContentState().copy(
                             description = event.textFieldValue
                         )
                     )
@@ -57,17 +48,19 @@ class CreateTodoListViewModel @Inject constructor(
             }
 
             is CreateTodoEvent.TitleChanged -> {
-                val newState =
-                    (state as? UIState.LoadedUIState?)?.contentState ?: CreateTodoUIState()
                 setState {
                     UIState.LoadedUIState(
-                        contentState.copy(
+                        getOrCreateContentState().copy(
                             title = event.textFieldValue
                         )
                     )
                 }
             }
         }
+    }
+
+    fun getOrCreateContentState(): CreateTodoUIState {
+        return contentState ?: CreateTodoUIState()
     }
 
 

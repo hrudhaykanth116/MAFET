@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,20 +20,26 @@ fun <T> AppUIState(
 ) {
     Box(modifier.fillMaxSize()) {
 
-        content(state.contentState)
 
         when (state) {
             is UIState.LoadingUIState -> {
+                state.contentState?.let { content(it) }
                 CircularProgressIndicator(
                     color = MaterialTheme.colors.onSurface,
                     modifier = Modifier.align(Alignment.Center)
                 )
             }
             is UIState.ErrorUIState -> {
-                ToastHelper.showErrorToast(LocalContext.current)
+                state.contentState?.let {
+                    content(it)
+                    ToastHelper.showErrorToast(LocalContext.current, state.text)
+                } ?: Text(
+                    modifier = Modifier.align(Alignment.Center),
+                    text = state.text.getText()
+                )
             }
             is UIState.LoadedUIState<T> -> {
-
+                content(state.contentState)
             }
         }
     }

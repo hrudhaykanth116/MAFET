@@ -32,3 +32,7 @@ sealed class UIText {
         }
     }
 }
+
+fun String.toUIText(): UIText.Text {
+    return UIText.Text(this)
+}

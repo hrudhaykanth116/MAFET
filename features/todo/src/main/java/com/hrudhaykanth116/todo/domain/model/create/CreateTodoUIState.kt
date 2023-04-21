@@ -5,7 +5,6 @@ import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.core.ui.models.UIState
 
 data class CreateTodoUIState(
-    val isLoading: Boolean = true,
 
     val title: TextFieldValue = TextFieldValue(),
     val titleError: UIText? = null,
@@ -13,7 +12,6 @@ data class CreateTodoUIState(
     val description: TextFieldValue = TextFieldValue(),
 
     val isSubmitted: Boolean = false,
-    val error: UIText? = null,
 
 )
 

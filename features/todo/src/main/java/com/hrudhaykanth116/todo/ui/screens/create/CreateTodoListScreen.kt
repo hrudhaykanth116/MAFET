@@ -54,23 +54,6 @@ fun CreateTodoListScreen(
             )
         }
     }
-
-    /*if (state.isSubmitted) {
-        onCreated()
-    }else{
-        CreateTodoUI(
-            state = state,
-            onTitleChanged = {
-                viewModel.processEvent(CreateTodoEvent.TitleChanged(it))
-            },
-            onDescriptionChanged = {
-                viewModel.processEvent(CreateTodoEvent.DescriptionChanged(it))
-            },
-            onCreateBtnClicked = {
-                viewModel.processEvent(CreateTodoEvent.Create)
-            }
-        )
-    }*/
 }
 
 @Composable
@@ -115,10 +98,6 @@ private fun CreateTodoUI(
             modifier = Modifier.align(Alignment.CenterHorizontally),
             onClick = onCreateBtnClicked
         )
-
-    }
-
-    state.error?.let {
 
     }
 
