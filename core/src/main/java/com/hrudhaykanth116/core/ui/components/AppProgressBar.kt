@@ -19,6 +19,8 @@ fun <T> AppUIState(
 ) {
     Box(modifier.fillMaxSize()) {
 
+        content(state.contentState)
+
         when (state) {
             is UIState.LoadingUIState -> {
                 CircularProgressIndicator(
@@ -30,7 +32,7 @@ fun <T> AppUIState(
                 ToastHelper.showErrorToast(LocalContext.current)
             }
             is UIState.LoadedUIState<T> -> {
-                content(state.data)
+
             }
         }
     }

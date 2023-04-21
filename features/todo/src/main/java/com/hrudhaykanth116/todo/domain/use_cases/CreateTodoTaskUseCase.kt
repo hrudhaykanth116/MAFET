@@ -9,7 +9,7 @@ import javax.inject.Singleton
 
 @Singleton
 class CreateTodoTaskUseCase @Inject constructor(
-    private val todoRepository: com.hrudhaykanth116.todo.data.repositories.TodoRepository
+    private val todoRepository: TodoRepository
 ) {
 
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default

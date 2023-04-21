@@ -17,14 +17,14 @@ data class CreateTodoUIState(
 
 )
 
-class CreateTodoLoadingState(
-    // val createTodo: CreateTodoUIState? = null,
-): UIState.LoadingUIState()
-
-class CreateTodoLoadedState(
-    val createTodo: CreateTodoUIState,
-): UIState.LoadedUIState<CreateTodoUIState>(createTodo)
-
-class CreateTodoErrorState(
-    val error: UIText,
-): UIState.ErrorUIState(error)
+// class CreateTodoLoadingState(
+//     // val createTodo: CreateTodoUIState? = null,
+// ): UIState.LoadingUIState()
+//
+// class CreateTodoLoadedState(
+//     val createTodo: CreateTodoUIState,
+// ): UIState.LoadedUIState<CreateTodoUIState>(createTodo)
+//
+// class CreateTodoErrorState(
+//     val error: UIText,
+// ): UIState.ErrorUIState(error)
