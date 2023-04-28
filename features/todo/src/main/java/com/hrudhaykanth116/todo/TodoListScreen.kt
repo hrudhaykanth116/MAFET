@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.hrudhaykanth116.core.utils.Logger
+import com.hrudhaykanth116.todo.domain.model.TodoUIModel
 import com.hrudhaykanth116.todo.ui.components.ListItemsUI
 import com.hrudhaykanth116.todo.ui.viewmodels.TodoViewModel
 import kotlinx.coroutines.launch
@@ -26,6 +27,7 @@ private const val TAG = "TodoListScreen"
 fun TodoListScreen(
     todoViewModel: TodoViewModel = hiltViewModel(),
     onCreateBtnClicked: () -> Unit,
+    onItemClicked: (TodoUIModel) -> Unit,
 ) {
     Logger.d(TAG, "TodoListScreen: ")
 
@@ -56,7 +58,8 @@ fun TodoListScreen(
             list = todoViewModel.todoList,
             listState = listState,
             modifier = Modifier.fillMaxSize(),
-            onRemoveTask = { toDoTask -> todoViewModel.removeTaskItem(toDoTask) }
+            onRemoveTask = { toDoTask -> todoViewModel.removeTaskItem(toDoTask) },
+            onItemClicked = onItemClicked
         )
 
         // Bottom icons

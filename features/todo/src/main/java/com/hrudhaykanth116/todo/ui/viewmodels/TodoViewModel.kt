@@ -14,20 +14,20 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TodoViewModel @Inject constructor(
-    private val getTodoTasksUseCase: com.hrudhaykanth116.todo.domain.use_cases.GetTodoTasksUseCase,
-    private val createTodoTaskUseCase: com.hrudhaykanth116.todo.domain.use_cases.CreateTodoTaskUseCase,
+    private val getTodoTasksUseCase: GetTodoTasksUseCase,
+    private val createTodoTaskUseCase: CreateTodoTaskUseCase,
 ): ViewModel() {
 
 
-    private val _todoList: SnapshotStateList<com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState> = com.hrudhaykanth116.todo.data.dummydata.DummyTodoList.todoList.toMutableStateList()
-    val todoList: List<com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState>
+    private val _todoList: SnapshotStateList<ToDoTaskUIState> = DummyTodoList.todoList.toMutableStateList()
+    val todoList: List<ToDoTaskUIState>
         get() = _todoList
 
     init {
         // loadData()
     }
 
-    fun removeTaskItem(toDoTaskUIState: com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState){
+    fun removeTaskItem(toDoTaskUIState: ToDoTaskUIState){
         _todoList.remove(toDoTaskUIState)
     }
 

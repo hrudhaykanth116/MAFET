@@ -1,6 +1,7 @@
 package com.hrudhaykanth116.todo.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -15,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.todo.data.dummydata.DummyTodoList
+import com.hrudhaykanth116.todo.domain.model.TodoUIModel
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 
 // @Preview(showBackground = true, showSystemUi = true)
@@ -23,6 +25,7 @@ fun ListItemsUI(
     modifier: Modifier = Modifier,
     list: List<ToDoTaskUIState> = DummyTodoList.todoList,
     onRemoveTask: (ToDoTaskUIState) -> Unit,
+    onItemClicked: (TodoUIModel) -> Unit,
     listState: LazyListState = rememberLazyListState()
 ) {
 
@@ -48,8 +51,16 @@ fun ListItemsUI(
         ) { toDoTaskUIState: ToDoTaskUIState ->
             Row(
                 // Modifier.animateItemPlacement(tween(1000))
+                modifier = Modifier.clickable {
+                    onItemClicked(toDoTaskUIState.data)
+                }
             ) {
-                TodoListItemUI(toDoTaskUIState = toDoTaskUIState, onRemoveClicked = { onRemoveTask(toDoTaskUIState) })
+                TodoListItemUI(
+                    toDoTaskUIState = toDoTaskUIState,
+                    onRemoveClicked = {
+                        onRemoveTask(toDoTaskUIState)
+                    }
+                )
             }
         }
     }

@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.hrudhaykanth116.todo.TodoListScreen
-import com.hrudhaykanth116.todo.ui.screens.create.CreateTodoListScreen
+import com.hrudhaykanth116.todo.ui.screens.create.TodoScreen
 import com.hrudhaykanth116.todo.ui.models.TodoNavScreen
 
 @Composable
@@ -26,6 +26,11 @@ fun TodoNavigation() {
                     navController.navigate(
                         TodoNavScreen.CreateTodoScreen.route
                     )
+                },
+                onItemClicked = {
+                    navController.navigate(
+                        "todo_details/${it.id}"
+                    )
                 }
             )
         }
@@ -33,13 +38,35 @@ fun TodoNavigation() {
         composable(
             route = TodoNavScreen.CreateTodoScreen.route,
         ) {
-            CreateTodoListScreen(
+            TodoScreen(
                 onCreated = {
                     navController.popBackStack(
                         route = TodoNavScreen.TodoListScreen.route,
                         inclusive = false
                     )
-                }
+                },
+                isInEditMode = true
+            )
+        }
+
+        composable(
+            "todo_details/{id}",
+            arguments = listOf(
+                navArgument("id") { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+
+            val noteId = backStackEntry.arguments?.getString("id")
+
+            TodoScreen(
+                onCreated = {
+                    navController.popBackStack(
+                        route = TodoNavScreen.TodoListScreen.route,
+                        inclusive = false
+                    )
+                },
+                noteId = noteId,
+                isInEditMode = true
             )
         }
 

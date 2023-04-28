@@ -12,7 +12,9 @@ object DummyTodoList {
                 list.add(
                     ToDoTaskUIState(
                         TodoUIModel(
-                            i, "Task ${i}", "Some dummy information for Task ${i}"
+                            id = i,
+                            title = "Task ${i}",
+                            description = "Some dummy information for Task ${i}"
                         ),
                     ),
                 )

@@ -3,8 +3,7 @@ package com.hrudhaykanth116.todo.domain.use_cases
 import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.todo.data.repositories.TodoRepository
-import com.hrudhaykanth116.todo.domain.model.TodoUIModel
-import com.hrudhaykanth116.todo.domain.model.create.CreateTodoUIState
+import com.hrudhaykanth116.todo.domain.model.create.TodoUIState
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -19,8 +18,8 @@ class CreateTodoTaskUseCase @Inject constructor(
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
 
     suspend operator fun invoke(
-        createTodoUIState: CreateTodoUIState,
-    ): UIState<CreateTodoUIState>{
+        todoUIState: TodoUIState,
+    ): UIState<TodoUIState>{
         // todoRepository.createTodoTask(
         //     todoUIModel.id,
         //     todoUIModel.title,
@@ -31,19 +30,19 @@ class CreateTodoTaskUseCase @Inject constructor(
 
         delay(2000)
 
-        if (createTodoUIState.title.text.isEmpty()) {
+        if (todoUIState.title.text.isEmpty()) {
             return UIState.ErrorUIState(
                 text = "Title cannot be empty".toUIText(),
-                createTodoUIState.copy()
+                todoUIState.copy()
             )
-        }else if(createTodoUIState.description.text.isEmpty()){
+        }else if(todoUIState.description.text.isEmpty()){
             return UIState.ErrorUIState(
                 text = "Description cannot be empty".toUIText(),
-                createTodoUIState.copy()
+                todoUIState.copy()
             )
         }else{
             return UIState.LoadedUIState(
-                createTodoUIState.copy(
+                todoUIState.copy(
                     isSubmitted = true
                 )
             )

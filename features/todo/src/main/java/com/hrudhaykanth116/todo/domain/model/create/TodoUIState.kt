@@ -2,9 +2,10 @@ package com.hrudhaykanth116.todo.domain.model.create
 
 import androidx.compose.ui.text.input.TextFieldValue
 import com.hrudhaykanth116.core.data.models.UIText
-import com.hrudhaykanth116.core.ui.models.UIState
 
-data class CreateTodoUIState(
+data class TodoUIState(
+
+    val isInEditMode: Boolean = true,
 
     val title: TextFieldValue = TextFieldValue(),
     val titleError: UIText? = null,
