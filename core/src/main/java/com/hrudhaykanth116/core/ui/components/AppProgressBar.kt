@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import com.hrudhaykanth116.core.domain.models.DomainState
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.core.utils.ui.ToastHelper
 
@@ -22,23 +23,23 @@ fun <T> AppUIState(
 
 
         when (state) {
-            is UIState.LoadingUIState -> {
+            is UIState.Loading -> {
                 state.contentState?.let { content(it) }
                 CircularProgressIndicator(
                     color = MaterialTheme.colors.onSurface,
                     modifier = Modifier.align(Alignment.Center)
                 )
             }
-            is UIState.ErrorUIState -> {
+            is UIState.Error -> {
                 state.contentState?.let {
                     content(it)
                     ToastHelper.showErrorToast(LocalContext.current, state.text)
                 } ?: Text(
                     modifier = Modifier.align(Alignment.Center),
-                    text = state.text.getText()
+                    text = state.text
                 )
             }
-            is UIState.LoadedUIState<T> -> {
+            is UIState.Loaded -> {
                 content(state.contentState)
             }
         }

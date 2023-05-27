@@ -15,17 +15,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.core.utils.Logger
-import com.hrudhaykanth116.todo.domain.model.TodoUIModel
+import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 import com.hrudhaykanth116.todo.ui.components.ListItemsUI
-import com.hrudhaykanth116.todo.ui.viewmodels.TodoViewModel
+import com.hrudhaykanth116.todo.ui.screens.list.TodoListUIState
+import com.hrudhaykanth116.todo.ui.viewmodels.TodoListViewModel
 import kotlinx.coroutines.launch
 
 private const val TAG = "TodoListScreen"
 
 @Composable
 fun TodoListScreen(
-    todoViewModel: TodoViewModel = hiltViewModel(),
+    todoListViewModel: TodoListViewModel = hiltViewModel(),
     onCreateBtnClicked: () -> Unit,
     onItemClicked: (TodoUIModel) -> Unit,
 ) {
@@ -36,6 +39,8 @@ fun TodoListScreen(
     var test by rememberSaveable() {
         mutableStateOf(true)
     }
+
+    val uiState: State<UIState<TodoListUIState>> = todoListViewModel.stateFlow.collectAsStateWithLifecycle()
 
    // val list by todoViewModel.todoList.observeAsState(listOf())
     Box(modifier = Modifier.background(color = Color.Yellow)) {
@@ -55,10 +60,11 @@ fun TodoListScreen(
         }
 
         ListItemsUI(
-            list = todoViewModel.todoList,
+            // TODO: Use Loaded state for non null state
+            list = uiState.value.contentState?.list ?: listOf(),
             listState = listState,
             modifier = Modifier.fillMaxSize(),
-            onRemoveTask = { toDoTask -> todoViewModel.removeTaskItem(toDoTask) },
+            onRemoveTask = { toDoTask -> todoListViewModel.removeTaskItem(toDoTask) },
             onItemClicked = onItemClicked
         )
 

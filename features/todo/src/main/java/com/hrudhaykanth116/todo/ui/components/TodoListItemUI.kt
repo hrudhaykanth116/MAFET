@@ -23,7 +23,7 @@ import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 // @Preview(showBackground = true, widthDp = 200, heightDp = 100)
 @Composable
 fun TodoListItemUI(
-    toDoTaskUIState: ToDoTaskUIState = com.hrudhaykanth116.todo.data.dummydata.DummyTodoList.todoList[0],
+    toDoTaskUIState: ToDoTaskUIState,
     onRemoveClicked: () -> Unit
 ) {
 
@@ -40,7 +40,7 @@ fun TodoListItemUI(
             .padding(12.dp)
             .fillMaxWidth()
     ) {
-        Text(text = toDoTaskUIState.data.title)
+        Text(text = toDoTaskUIState.data.title.text)
         IconButton(onClick = {
             isExpanded = !isExpanded
         }) {

@@ -1,9 +1,9 @@
 package com.hrudhaykanth116.todo.domain.model
 
-data class TodoUIModel(
-    val id: Long,
+data class TodoModel(
+    val id: String,
     val title: String,
-    val description: String? = null,
+    val description: String = "",
     val completed: Boolean = true,
     val category: TaskCategory = TaskCategory.GENERAL,
 )

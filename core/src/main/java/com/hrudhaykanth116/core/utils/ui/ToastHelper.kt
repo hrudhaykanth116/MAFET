@@ -49,9 +49,17 @@ object ToastHelper {
         msg: com.hrudhaykanth116.core.data.models.UIText? = null
     ) {
         msg ?: return
+        showErrorToast(context, msg.getText(context))
+
+    }
+
+    fun showErrorToast(
+        context: Context,
+        msg: String
+    ) {
         val customToast = getCustomToast(
             context,
-            msg.getText(context),
+            msg,
             R.drawable.bg_toast_red,
             R.drawable.ic_check
         )

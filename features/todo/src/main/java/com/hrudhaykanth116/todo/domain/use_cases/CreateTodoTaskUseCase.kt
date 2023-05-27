@@ -1,12 +1,13 @@
 package com.hrudhaykanth116.todo.domain.use_cases
 
-import com.hrudhaykanth116.core.data.models.toUIText
-import com.hrudhaykanth116.core.ui.models.UIState
+import com.hrudhaykanth116.core.data.models.DataResult
+import com.hrudhaykanth116.core.domain.models.DomainState
+import com.hrudhaykanth116.core.domain.models.ErrorState
 import com.hrudhaykanth116.todo.data.repositories.TodoRepository
-import com.hrudhaykanth116.todo.domain.model.create.TodoUIState
+import com.hrudhaykanth116.todo.domain.model.TaskCategory
+import com.hrudhaykanth116.todo.domain.model.create.CreateOrUpdateTodoDomainModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -18,34 +19,35 @@ class CreateTodoTaskUseCase @Inject constructor(
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
 
     suspend operator fun invoke(
-        todoUIState: TodoUIState,
-    ): UIState<TodoUIState>{
-        // todoRepository.createTodoTask(
-        //     todoUIModel.id,
-        //     todoUIModel.title,
-        //     todoUIModel.description,
-        //     todoUIModel.category,
-        //     todoUIModel.completed,
-        // )
+        createOrUpdateTodoDomainModel: CreateOrUpdateTodoDomainModel,
+    ): DomainState<CreateOrUpdateTodoDomainModel> {
 
-        delay(2000)
+        val stateAfterValidation = createOrUpdateTodoDomainModel.getStateAfterValidation()
 
-        if (todoUIState.title.text.isEmpty()) {
-            return UIState.ErrorUIState(
-                text = "Title cannot be empty".toUIText(),
-                todoUIState.copy()
+        if (stateAfterValidation.containsError()) {
+            return DomainState.LoadedDomainState(stateAfterValidation)
+        } else {
+            val result = todoRepository.createTodoTask(
+                id = System.currentTimeMillis().toString(),
+                title = stateAfterValidation.title,
+                description = stateAfterValidation.description,
+                category = TaskCategory.toId(createOrUpdateTodoDomainModel.category)
+                    ?: TaskCategory.GENERAL.id,
             )
-        }else if(todoUIState.description.text.isEmpty()){
-            return UIState.ErrorUIState(
-                text = "Description cannot be empty".toUIText(),
-                todoUIState.copy()
-            )
-        }else{
-            return UIState.LoadedUIState(
-                todoUIState.copy(
-                    isSubmitted = true
-                )
-            )
+
+            return when (result) {
+                is DataResult.Error -> {
+                    DomainState.ErrorDomainState(
+                        result.domainMessage ?: ErrorState.Unknown,
+                        stateAfterValidation
+                    )
+                }
+                is DataResult.Success -> {
+                    DomainState.LoadedDomainState(
+                        stateAfterValidation.copy(isSubmitted = true)
+                    )
+                }
+            }
         }
     }
 }

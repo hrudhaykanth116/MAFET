@@ -7,21 +7,21 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hrudhaykanth116.core.ui.components.AppUIState
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.core.utils.Logger
-import com.hrudhaykanth116.todo.domain.model.create.TodoUIState
+import com.hrudhaykanth116.todo.ui.models.createtodo.CreateOrUpdateTodoUIState
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateTodoEvent
 
 private const val TAG = "CreateTodoListScreen"
 
 @Composable
-fun TodoScreen(
-    viewModel: CreateTodoListViewModel = hiltViewModel(),
+fun CreateOrUpdateTodoScreen(
+    viewModel: CreateOrUpdateTodoListViewModel = hiltViewModel(),
     noteId: String? = null,
     isInEditMode: Boolean = true,
     onCreated: () -> Unit,
 ) {
     Logger.d(TAG, "CreateTodoListScreen: ")
 
-    val state: UIState<TodoUIState> by viewModel.stateFlow.collectAsStateWithLifecycle()
+    val state: UIState<CreateOrUpdateTodoUIState> by viewModel.stateFlow.collectAsStateWithLifecycle()
 
     TodoScreenUI(
         state,
@@ -32,17 +32,17 @@ fun TodoScreen(
 
 @Composable
 private fun TodoScreenUI(
-    state: UIState<TodoUIState>,
+    uiState: UIState<CreateOrUpdateTodoUIState>,
     onCreated: () -> Unit,
     onEvent: (CreateTodoEvent) -> Unit,
 ) {
-    AppUIState(state = state) { todoUIState: TodoUIState ->
+    AppUIState(state = uiState) { contentState: CreateOrUpdateTodoUIState ->
 
-        if (todoUIState.isSubmitted) {
+        if (contentState.isSubmitted) {
             onCreated()
         } else {
             CreateTodoUI(
-                state = todoUIState,
+                state = contentState,
                 onTitleChanged = {
                     onEvent(CreateTodoEvent.TitleChanged(it))
                 },

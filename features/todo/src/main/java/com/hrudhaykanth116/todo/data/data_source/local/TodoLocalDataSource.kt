@@ -20,6 +20,11 @@ class TodoLocalDataSource @Inject constructor(
         return todoTasksDao.getTasks()
     }
 
+    suspend fun getTodoTask(id: String): TodoTaskDbEntity? {
+        // Since room runs on io dispatcher already, no need to switch dispatcher.
+        return todoTasksDao.getTaskById(id)
+    }
+
     suspend fun createTodoTask(todoTaskDbEntity: TodoTaskDbEntity){
         todoTasksDao.insert(todoTaskDbEntity)
     }

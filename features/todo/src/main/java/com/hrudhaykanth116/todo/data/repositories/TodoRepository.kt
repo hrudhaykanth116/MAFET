@@ -1,5 +1,6 @@
 package com.hrudhaykanth116.todo.data.repositories
 
+import com.hrudhaykanth116.core.data.models.DataResult
 import com.hrudhaykanth116.todo.data.data_source.local.TodoLocalDataSource
 import com.hrudhaykanth116.todo.data.data_source.remote.TodoRemoteDataSource
 import com.hrudhaykanth116.todo.data.local.room.tables.TodoTaskDbEntity
@@ -23,31 +24,49 @@ class TodoRepository @Inject constructor(
         return todoLocalDataSource.getTodoTasks()
     }
 
+    suspend fun getTodoTask(id: String): TodoTaskDbEntity? {
+        return todoLocalDataSource.getTodoTask(id)
+    }
+
+
     suspend fun createTodoTask(
-        id: Long,
+        id: String,
         title: String,
-        description: String?,
-        category: TaskCategory,
-        active: Boolean
-    ): com.hrudhaykanth116.core.data.models.DataResult<Unit> {
-        val response: com.hrudhaykanth116.core.data.models.DataResult<PostTodoResponse> = remoteDataSource.createTodoTask(
-            id, title, description, category, active
+        description: String,
+        category: String,
+    ): DataResult<Unit> {
+
+        todoLocalDataSource.createTodoTask(
+            TodoTaskDbEntity(
+                id = id,
+                title = title,
+                description = description,
+                completed = false,
+                category = category
+            )
         )
-        return when (response) {
-            is com.hrudhaykanth116.core.data.models.DataResult.Success -> {
-                val data: PostTodoResponse.TodoData = response.data.data
-                val todoTaskDbEntity = data.toDbEntity()
-                todoLocalDataSource.createTodoTask(
-                    todoTaskDbEntity
-                )
-                com.hrudhaykanth116.core.data.models.DataResult.Success(Unit)
-            }
-            is com.hrudhaykanth116.core.data.models.DataResult.Error -> {
-                com.hrudhaykanth116.core.data.models.DataResult.Error(
-                    uiMessage = com.hrudhaykanth116.core.data.models.UIText.Text("Api error failure.")
-                )
-            }
-        }
+
+        return DataResult.Success(Unit)
+
+
+        // val response: com.hrudhaykanth116.core.data.models.DataResult<PostTodoResponse> = remoteDataSource.createTodoTask(
+        //     id, title, description, category, active
+        // )
+        // return when (response) {
+        //     is com.hrudhaykanth116.core.data.models.DataResult.Success -> {
+        //         val data: PostTodoResponse.TodoData = response.data.data
+        //         val todoTaskDbEntity = data.toDbEntity()
+        //         todoLocalDataSource.createTodoTask(
+        //             todoTaskDbEntity
+        //         )
+        //         com.hrudhaykanth116.core.data.models.DataResult.Success(Unit)
+        //     }
+        //     is com.hrudhaykanth116.core.data.models.DataResult.Error -> {
+        //         com.hrudhaykanth116.core.data.models.DataResult.Error(
+        //             uiMessage = com.hrudhaykanth116.core.data.models.UIText.Text("Api error failure.")
+        //         )
+        //     }
+        // }
     }
 
 }

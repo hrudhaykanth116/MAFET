@@ -14,11 +14,11 @@ import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.ui.components.AppFormButton
 import com.hrudhaykanth116.core.ui.components.AppFormInputText
 import com.hrudhaykanth116.core.ui.models.TextFieldData
-import com.hrudhaykanth116.todo.domain.model.create.TodoUIState
+import com.hrudhaykanth116.todo.ui.models.createtodo.CreateOrUpdateTodoUIState
 
 @Composable
 fun CreateTodoUI(
-    state: TodoUIState,
+    state: CreateOrUpdateTodoUIState,
     onTitleChanged: (TextFieldValue) -> Unit,
     onDescriptionChanged: (TextFieldValue) -> Unit,
     onCreateBtnClicked: () -> Unit,
@@ -38,7 +38,7 @@ fun CreateTodoUI(
             AppFormInputText(
                 textFieldData = TextFieldData(
                     hint = "Enter title for the task.",
-                    inputValue = state.title
+                    inputValue = state.todoUIModel.title
                 ),
                 onInputChange = onTitleChanged
             )
@@ -46,7 +46,7 @@ fun CreateTodoUI(
             AppFormInputText(
                 textFieldData = TextFieldData(
                     hint = "Enter description for the task.",
-                    inputValue = state.description
+                    inputValue = state.todoUIModel.description
                 ),
                 onInputChange = onDescriptionChanged
             )

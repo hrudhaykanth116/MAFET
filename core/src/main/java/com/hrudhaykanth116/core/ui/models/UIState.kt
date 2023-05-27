@@ -1,12 +1,12 @@
 package com.hrudhaykanth116.core.ui.models
 
-import com.hrudhaykanth116.core.data.models.UIText
+import com.hrudhaykanth116.core.domain.models.ErrorState
 
 sealed class UIState<out T>(open val contentState: T?) {
 
-    open class LoadingUIState<T>(contentState: T? = null): UIState<T>(contentState)
-    open class ErrorUIState<T>(val text: UIText, contentState: T? = null): UIState<T>(contentState)
-    open class LoadedUIState<T>(override val contentState: T): UIState<T>(contentState)
+    open class Loading<T>(contentState: T? = null): UIState<T>(contentState)
+    open class Error<T>(val text: String, contentState: T? = null): UIState<T>(contentState)
+    open class Loaded<T>(override val contentState: T): UIState<T>(contentState)
 
 }
 

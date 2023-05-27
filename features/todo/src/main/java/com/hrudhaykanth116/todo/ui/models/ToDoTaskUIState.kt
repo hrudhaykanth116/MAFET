@@ -2,7 +2,6 @@ package com.hrudhaykanth116.todo.ui.models
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import com.hrudhaykanth116.todo.domain.model.TodoUIModel
 
 data class ToDoTaskUIState(
     val data: TodoUIModel,

@@ -2,7 +2,7 @@ package com.hrudhaykanth116.todo.data.remote.models
 
 import com.hrudhaykanth116.core.utils.enumutils.asEnumOrDefault
 import com.hrudhaykanth116.todo.domain.model.TaskCategory
-import com.hrudhaykanth116.todo.domain.model.TodoUIModel
+import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 
 data class GetTodoResponse(
     val code: Int,
@@ -15,17 +15,5 @@ data class GetTodoResponse(
         val description: String? = null,
         val completed: Boolean? = null,
         val category: String? = null,
-    ){
-
-        fun toUIModel(): TodoUIModel {
-            return TodoUIModel(
-                id = id ?: -1L,
-                title = title ?: "No title",
-                description = description ?: "No description",
-                completed = completed == false,
-                category = category.asEnumOrDefault(TaskCategory.GENERAL)
-            )
-        }
-
-    }
+    )
 }

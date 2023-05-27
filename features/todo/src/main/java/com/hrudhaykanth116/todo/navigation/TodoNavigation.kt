@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.hrudhaykanth116.todo.TodoListScreen
-import com.hrudhaykanth116.todo.ui.screens.create.TodoScreen
+import com.hrudhaykanth116.todo.ui.screens.create.CreateOrUpdateTodoScreen
 import com.hrudhaykanth116.todo.ui.models.TodoNavScreen
 
 @Composable
@@ -38,7 +38,7 @@ fun TodoNavigation() {
         composable(
             route = TodoNavScreen.CreateTodoScreen.route,
         ) {
-            TodoScreen(
+            CreateOrUpdateTodoScreen(
                 onCreated = {
                     navController.popBackStack(
                         route = TodoNavScreen.TodoListScreen.route,
@@ -58,7 +58,7 @@ fun TodoNavigation() {
 
             val noteId = backStackEntry.arguments?.getString("id")
 
-            TodoScreen(
+            CreateOrUpdateTodoScreen(
                 onCreated = {
                     navController.popBackStack(
                         route = TodoNavScreen.TodoListScreen.route,

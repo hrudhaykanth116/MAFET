@@ -16,14 +16,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.todo.data.dummydata.DummyTodoList
-import com.hrudhaykanth116.todo.domain.model.TodoUIModel
+import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 
 // @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ListItemsUI(
     modifier: Modifier = Modifier,
-    list: List<ToDoTaskUIState> = DummyTodoList.todoList,
+    list: List<ToDoTaskUIState>,
     onRemoveTask: (ToDoTaskUIState) -> Unit,
     onItemClicked: (TodoUIModel) -> Unit,
     listState: LazyListState = rememberLazyListState()

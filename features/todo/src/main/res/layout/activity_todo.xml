@@ -10,10 +10,6 @@
         <import type="androidx.core.content.ContextCompat" />
 
         <variable
-            name="viewmodel"
-            type="com.hrudhaykanth116.todo.ui.viewmodels.TodoViewModel" />
-
-        <variable
             name="test"
             type="String" />
 
