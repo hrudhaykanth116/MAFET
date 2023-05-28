@@ -1,5 +1,6 @@
 package com.hrudhaykanth116.core.data.models
 
+import com.hrudhaykanth116.core.R
 import com.hrudhaykanth116.core.domain.models.ErrorState
 
 sealed class DataResult<out T> {
@@ -15,4 +16,22 @@ sealed class DataResult<out T> {
         // Use this to perform any error type checks.
         val code: String? = ErrorConstants.UNKNOWN_ERROR_CODE,
     ) : DataResult<Nothing>() // Unit does not working here
+
+    // fun <R> process(
+    //     onSuccess: ((T) -> R)? = null,
+    //     onError: ((Error) -> R)? = null,
+    // ): R? {
+    //     return process(onSuccess, onError)
+    // }
+
+    fun <R> process(
+        onSuccess: ((T) -> R),
+        onError: ((Error) -> R),
+    ): R {
+        return when (this) {
+            is Error -> onError.invoke(this)
+            is Success -> onSuccess.invoke(this.data)
+        }
+    }
+
 }

@@ -27,7 +27,7 @@ class CreateTodoTaskUseCase @Inject constructor(
         if (stateAfterValidation.containsError()) {
             return DomainState.LoadedDomainState(stateAfterValidation)
         } else {
-            val result = todoRepository.createTodoTask(
+            val result: DataResult<Unit> = todoRepository.createTodoTask(
                 id = System.currentTimeMillis().toString(),
                 title = stateAfterValidation.title,
                 description = stateAfterValidation.description,
@@ -35,19 +35,27 @@ class CreateTodoTaskUseCase @Inject constructor(
                     ?: TaskCategory.GENERAL.id,
             )
 
-            return when (result) {
-                is DataResult.Error -> {
-                    DomainState.ErrorDomainState(
-                        result.domainMessage ?: ErrorState.Unknown,
-                        stateAfterValidation
-                    )
+            return result.process(
+                onSuccess = {
+                    onCreated(stateAfterValidation)
+                },
+                onError = {
+                    onCreationError(it, stateAfterValidation)
                 }
-                is DataResult.Success -> {
-                    DomainState.LoadedDomainState(
-                        stateAfterValidation.copy(isSubmitted = true)
-                    )
-                }
-            }
+            )
         }
     }
+
+    private fun onCreated(stateAfterValidation: CreateOrUpdateTodoDomainModel) =
+        DomainState.LoadedDomainState(
+            stateAfterValidation.copy(isSubmitted = true)
+        )
+
+    private fun onCreationError(
+        result: DataResult.Error,
+        stateAfterValidation: CreateOrUpdateTodoDomainModel
+    ) = DomainState.ErrorDomainState(
+        result.domainMessage ?: ErrorState.Unknown,
+        stateAfterValidation
+    )
 }

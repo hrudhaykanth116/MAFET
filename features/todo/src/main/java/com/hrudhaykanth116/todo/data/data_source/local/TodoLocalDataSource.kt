@@ -31,4 +31,8 @@ class TodoLocalDataSource @Inject constructor(
         todoTasksDao.insert(todoTaskDbEntity)
     }
 
+    suspend fun deleteTask(taskId: String) {
+        todoTasksDao.deleteTaskById(taskId)
+    }
+
 }

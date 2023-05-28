@@ -5,6 +5,7 @@ import com.hrudhaykanth116.core.udf.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.todo.domain.model.TodoModel
 import com.hrudhaykanth116.todo.domain.use_cases.CreateTodoTaskUseCase
+import com.hrudhaykanth116.todo.domain.use_cases.DeleteTaskUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.ObserveTasksUseCase
 import com.hrudhaykanth116.todo.ui.mappers.toState
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
@@ -20,6 +21,7 @@ import javax.inject.Inject
 class TodoListViewModel @Inject constructor(
     private val observeTasksUseCase: ObserveTasksUseCase,
     private val createTodoTaskUseCase: CreateTodoTaskUseCase,
+    private val deleteTaskUseCase: DeleteTaskUseCase,
 ) : UIStateViewModel<TodoListUIState, CreateTodoEvent, CreateTodoEffect>(
     UIState.Loaded(TodoListUIState())
 ) {
@@ -50,7 +52,9 @@ class TodoListViewModel @Inject constructor(
     }
 
     fun removeTaskItem(toDoTaskUIState: ToDoTaskUIState) {
-        // _todoList.remove(toDoTaskUIState)
+        viewModelScope.launch {
+            deleteTaskUseCase(toDoTaskUIState.data.id!!)
+        }
     }
 
     fun getTodoList() {
