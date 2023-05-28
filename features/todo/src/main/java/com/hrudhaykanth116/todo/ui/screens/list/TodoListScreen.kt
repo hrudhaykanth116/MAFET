@@ -1,4 +1,4 @@
-package com.hrudhaykanth116.todo
+package com.hrudhaykanth116.todo.ui.screens.list
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
@@ -20,8 +20,6 @@ import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.core.utils.Logger
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 import com.hrudhaykanth116.todo.ui.components.ListItemsUI
-import com.hrudhaykanth116.todo.ui.screens.list.TodoListUIState
-import com.hrudhaykanth116.todo.ui.viewmodels.TodoListViewModel
 import kotlinx.coroutines.launch
 
 private const val TAG = "TodoListScreen"

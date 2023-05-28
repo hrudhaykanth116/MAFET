@@ -37,6 +37,9 @@ interface TodoTasksDao : com.hrudhaykanth116.core.data.local.db.BaseDao<TodoTask
     @Query("SELECT * FROM TodoTaskDbEntity")
     suspend fun getTasks(): List<TodoTaskDbEntity>
 
+    @Query("SELECT * FROM TodoTaskDbEntity")
+    fun getTasksFlow(): Flow<List<TodoTaskDbEntity>>
+
     /**
      * Select a task by id.
      *

@@ -6,7 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.hrudhaykanth116.todo.TodoListScreen
+import com.hrudhaykanth116.todo.ui.screens.list.TodoListScreen
 import com.hrudhaykanth116.todo.ui.screens.create.CreateOrUpdateTodoScreen
 import com.hrudhaykanth116.todo.ui.models.TodoNavScreen
 

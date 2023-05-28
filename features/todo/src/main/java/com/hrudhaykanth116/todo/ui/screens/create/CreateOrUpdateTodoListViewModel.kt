@@ -4,9 +4,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.hrudhaykanth116.core.udf.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
-import com.hrudhaykanth116.todo.domain.model.create.CreateOrUpdateTodoDomainModel
 import com.hrudhaykanth116.todo.domain.use_cases.CreateTodoTaskUseCase
-import com.hrudhaykanth116.todo.domain.use_cases.GetTodoTasksUseCase
+import com.hrudhaykanth116.todo.domain.use_cases.GetTaskUseCase
+import com.hrudhaykanth116.todo.domain.use_cases.ObserveTasksUseCase
 import com.hrudhaykanth116.todo.ui.mappers.toDomainModel
 import com.hrudhaykanth116.todo.ui.mappers.toUIModel
 import com.hrudhaykanth116.todo.ui.mappers.toUIState
@@ -22,7 +22,7 @@ import javax.inject.Inject
 class CreateOrUpdateTodoListViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val createTodoTaskUseCase: CreateTodoTaskUseCase,
-    private val getTodoTasksUseCase: GetTodoTasksUseCase,
+    private val getTaskUseCase: GetTaskUseCase,
 ) : UIStateViewModel<CreateOrUpdateTodoUIState, CreateTodoEvent, CreateTodoEffect>(
     UIState.Loading(CreateOrUpdateTodoUIState())
 ) {
@@ -37,25 +37,17 @@ class CreateOrUpdateTodoListViewModel @Inject constructor(
 
     private fun initData(noteId: String?) {
 
-        if (noteId == null) {
+        viewModelScope.launch {
+            val todoModel = getTaskUseCase(noteId)
+
+            val todoUIModel = todoModel?.toUIModel()
+
             setState {
                 UIState.Loaded(
-                    getOrCreateContentState()
+                    getOrCreateContentState(todoUIModel)
                 )
             }
-        } else {
-            viewModelScope.launch {
-                val todoModel = getTodoTasksUseCase(noteId)?.getOrNull(1)
 
-                val todoUIModel = todoModel?.toUIModel()
-
-                setState {
-                    UIState.Loaded(
-                        getOrCreateContentState(todoUIModel)
-                    )
-                }
-
-            }
         }
     }
 

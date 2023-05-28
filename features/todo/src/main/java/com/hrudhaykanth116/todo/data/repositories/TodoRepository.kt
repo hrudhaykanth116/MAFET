@@ -24,6 +24,8 @@ class TodoRepository @Inject constructor(
         return todoLocalDataSource.getTodoTasks()
     }
 
+    fun getTodoTasksFlow() = todoLocalDataSource.getTodoTasksFlow()
+
     suspend fun getTodoTask(id: String): TodoTaskDbEntity? {
         return todoLocalDataSource.getTodoTask(id)
     }
