@@ -23,18 +23,23 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = "17"
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = '1.4.4'
+        kotlinCompilerExtensionVersion = '1.4.5'
     }
 
     buildFeatures {
         compose true
         dataBinding = true
         viewBinding true
+        buildConfig = true
     }
 
     tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
@@ -52,14 +57,14 @@ dependencies {
 
     api 'androidx.appcompat:appcompat:1.6.1'
     api 'androidx.constraintlayout:constraintlayout:2.1.4'
-    api 'com.google.android.material:material:1.8.0'
+    api 'com.google.android.material:material:1.9.0'
 
     /************************** Android basic ******************************/
 
     /************************** Kotlin ******************************/
 
     // Kotlin
-    api 'androidx.core:core-ktx:1.10.0'
+    api 'androidx.core:core-ktx:1.10.1'
 
     // Coroutines
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
@@ -83,7 +88,7 @@ dependencies {
     api 'androidx.compose.material:material-icons-extended'
 
     // Integration with activities
-    api 'androidx.activity:activity-compose:1.7.0'
+    api 'androidx.activity:activity-compose:1.7.2'
     // Integration with ViewModels
     api 'androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1'
     // Integration with lifecycle
@@ -151,7 +156,7 @@ dependencies {
     api "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
 
     // Navigation component
-    def nav_version = "2.5.3"
+    def nav_version = "2.6.0"
     api "androidx.navigation:navigation-fragment-ktx:$nav_version"
     api "androidx.navigation:navigation-ui-ktx:$nav_version"
     api("androidx.navigation:navigation-compose:$nav_version")
@@ -180,16 +185,16 @@ dependencies {
     api 'com.squareup.retrofit2:converter-gson:2.9.0'
     // Moshi
     api "com.squareup.retrofit2:converter-moshi:2.9.0"
-    api "com.squareup.moshi:moshi:1.13.0"
+    api "com.squareup.moshi:moshi:1.14.0"
     api "com.squareup.moshi:moshi-kotlin:1.13.0"
-    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.13.0"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.14.0"
 
     // Hilt
     api "com.google.dagger:hilt-android:2.45"
     kapt "com.google.dagger:hilt-compiler:2.45"
 
     // Material design(https://maven.google.com/web/index.html#com.google.android.material:material)
-    api 'com.google.android.material:material:1.8.0'
+    api 'com.google.android.material:material:1.9.0'
 
     //intuit sdp(scalable dp) and ssp(scalable sp)
     def intuit_version = '1.0.6'
