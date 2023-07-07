@@ -1,0 +1,43 @@
+
+https://github.com/androidx/androidx/blob/androidx-main/compose/compiler/design/compiler-metrics.md
+
+* Prefer lambda modifiers when using frequently changing state.
+* No need to recompose if only need to relayout.
+
+* Gap buffer is used for composable functions.
+    * https://youtu.be/Q9MtlmmN4Q0?t=1183
+    * Insert, edit, delete is ok but moving gap is expensive i.e ui structural change is expensive.
+
+* Restartable. Serves as scope where recomposition starts.
+* Skippable. Skipped if parameters values didnt change.
+    * Types:
+        * Immutable. val
+        * Stable. Mutable but compose runtime will be notified when any public properties change.
+        * Unstable. List, set, map are unstable always. Use ImmutableList.
+    * @Immutable or @Stable marks a data class stable which has inner dependency on external module data class.
+    * Not every function needs to be skip-able. Only if seen performance issues.
+
+* Handling unstable classes:
+    * Use wrapper around(constructor) external class and mark it immutable.
+    * Instead of the whole class, just pass field of the class.
+    * Use own class mapper to convert unstable to stable.
+    * lists, sets and maps are unstable. consider immutable lists.
+
+* derivedStateOf{}. when your state or key is changing more than you want to update your UI.
+    * Distinct until changed.
+    * submitEnabled = derivedStateOf{ isValid() }. Button(submitEnabled) is recomposed only when value changes i.e distinct.
+* remember(key){}. State needs to change as much as key is changing.
+    * remember(key1, key2){ expensive(key1, key2) } remembers the expensive value.
+
+//// Common recomposition prevention (not needed unless performance impacted.) /////
+
+https://skyyo.medium.com/performance-in-jetpack-compose-9a85ce02f8f9
+
+* Lambdas as compose function params are considered unstable in GENERAL.
+    * Use viewModel::onEvent instead of lambda i.e { viewModel.onEvent() }
+    * Remember the lambdas so they are considered stable.
+    * Accessing outer scope variable care unstable lambdas. Fix: Changing/setting the stable remember variable inside lambda i.e { newValue -> stableRememberedFiled = newValue }
+
+* Column, Row and box are inlined. Wrap them in another container to reduce scope.
+
+* Use NonRestartableComposable annotations

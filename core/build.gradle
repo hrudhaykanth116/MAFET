@@ -97,6 +97,8 @@ dependencies {
     // hilt
     api "androidx.hilt:hilt-navigation-compose:1.0.0"
 
+    api "androidx.metrics:metrics-performance:1.0.0-alpha04"
+
 
     /*
     api 'androidx.compose.ui:ui:1.1.1'

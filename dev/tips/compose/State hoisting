@@ -1,0 +1,12 @@
+
+* Hoist to common parent compose for children to use the hoisted state.(Lowest common ancestor)
+*
+* UIState:
+    * Composables.
+        * No need to hoist unnecessary ui states like Expanded all the way to top. Local should be fine.
+    * Plain state holder class.
+        * State objects can have function to change itself.
+            * LazyListState has functions to change itself like scrollTo().
+* Business logic
+    * Screen level state holder -> ViewModel.
+    * Can be interdependent multiple states.

@@ -2,6 +2,8 @@ package com.hrudhaykanth116.todo.ui.screens.create
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hrudhaykanth116.core.ui.components.AppUIState
@@ -38,20 +40,27 @@ private fun TodoScreenUI(
 ) {
     AppUIState(state = uiState) { contentState: CreateOrUpdateTodoUIState ->
 
+        // Remembered lambdas prevent recomposition as lambdas are considered unstable.
+        val onTitleChanged = remember<(TextFieldValue) -> Unit> {
+            { onEvent(CreateTodoEvent.TitleChanged(it)) }
+        }
+
+        val onDescriptionChanged = remember<(TextFieldValue) -> Unit> {
+            { onEvent(CreateTodoEvent.DescriptionChanged(it)) }
+        }
+
+        val onCreateBtnClicked = remember {
+            { onEvent(CreateTodoEvent.Create) }
+        }
+
         if (contentState.isSubmitted) {
             onCreated()
         } else {
             CreateTodoUI(
                 state = contentState,
-                onTitleChanged = {
-                    onEvent(CreateTodoEvent.TitleChanged(it))
-                },
-                onDescriptionChanged = {
-                    onEvent(CreateTodoEvent.DescriptionChanged(it))
-                },
-                onCreateBtnClicked = {
-                    onEvent(CreateTodoEvent.Create)
-                }
+                onTitleChanged = onTitleChanged,
+                onDescriptionChanged = onDescriptionChanged,
+                onCreateBtnClicked = onCreateBtnClicked
             )
         }
     }
