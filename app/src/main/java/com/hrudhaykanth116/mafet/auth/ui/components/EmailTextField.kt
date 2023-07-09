@@ -15,7 +15,7 @@ fun EmailTextField(
     onEmailChanged: (TextFieldValue) -> Unit
 ) {
     AppFormInputText(
-        TextFieldData(
+        textFieldData = TextFieldData(
             hint = "Enter your email",
             inputType = InputType.EmailInputType,
             inputValue = inputValue,

@@ -8,6 +8,7 @@ import com.hrudhaykanth116.todo.domain.model.TaskCategory
 import com.hrudhaykanth116.todo.domain.model.create.CreateOrUpdateTodoDomainModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -22,6 +23,8 @@ class CreateTodoTaskUseCase @Inject constructor(
         createOrUpdateTodoDomainModel: CreateOrUpdateTodoDomainModel,
     ): DomainState<CreateOrUpdateTodoDomainModel> {
 
+        // Api simulation delay
+        delay(5000)
         val stateAfterValidation = createOrUpdateTodoDomainModel.getStateAfterValidation()
 
         if (stateAfterValidation.containsError()) {
@@ -48,7 +51,9 @@ class CreateTodoTaskUseCase @Inject constructor(
 
     private fun onCreated(stateAfterValidation: CreateOrUpdateTodoDomainModel) =
         DomainState.LoadedDomainState(
-            stateAfterValidation.copy(isSubmitted = true)
+            stateAfterValidation.copy(
+                isSubmitted = true,
+            )
         )
 
     private fun onCreationError(

@@ -43,7 +43,8 @@ fun CreateTodoUI(
             AppFormInputText(
                 textFieldData = TextFieldData(
                     hint = "Enter title for the task.",
-                    inputValue = state.todoUIModel.title
+                    inputValue = state.todoUIModel.title,
+                    error = state.titleError
                 ),
                 onInputChange = onTitleChanged
             )

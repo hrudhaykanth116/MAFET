@@ -38,7 +38,7 @@ fun TodoListScreen(
         mutableStateOf(true)
     }
 
-    val uiState: State<UIState<TodoListUIState>> = todoListViewModel.stateFlow.collectAsStateWithLifecycle()
+    val uiState: State<UIState<TodoListUIState>> = todoListViewModel.uiStateFlow.collectAsStateWithLifecycle()
 
    // val list by todoViewModel.todoList.observeAsState(listOf())
     Box(modifier = Modifier.background(color = Color.Yellow)) {

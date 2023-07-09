@@ -1,6 +1,8 @@
 package com.hrudhaykanth116.todo.ui.mappers
 
 import androidx.compose.ui.text.input.TextFieldValue
+import com.hrudhaykanth116.core.common.ui.models.UserMessage
+import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.domain.models.ErrorState
 import com.hrudhaykanth116.todo.domain.model.create.CreateOrUpdateTodoDomainModel
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
@@ -16,6 +18,7 @@ fun CreateOrUpdateTodoDomainModel.toUIModel(): CreateOrUpdateTodoUIState {
         // throw IllegalArgumentException("Error state $titleError is not handled.")
     }
 
+
     return CreateOrUpdateTodoUIState(
         todoUIModel = TodoUIModel(
             id = id,
@@ -24,7 +27,7 @@ fun CreateOrUpdateTodoDomainModel.toUIModel(): CreateOrUpdateTodoUIState {
         ),
         titleError = titleError,
         isInEditMode = isInEditMode,
-        isSubmitted = isSubmitted
+        isSubmitted = isSubmitted,
     )
 
 }

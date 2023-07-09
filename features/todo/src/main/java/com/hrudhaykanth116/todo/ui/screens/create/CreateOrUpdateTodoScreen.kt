@@ -3,12 +3,14 @@ package com.hrudhaykanth116.todo.ui.screens.create
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hrudhaykanth116.core.ui.components.AppUIState
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.core.utils.Logger
+import com.hrudhaykanth116.core.utils.ui.ToastHelper
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateOrUpdateTodoUIState
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateTodoEvent
 
@@ -23,7 +25,7 @@ fun CreateOrUpdateTodoScreen(
 ) {
     Logger.d(TAG, "CreateTodoListScreen: ")
 
-    val state: UIState<CreateOrUpdateTodoUIState> by viewModel.stateFlow.collectAsStateWithLifecycle()
+    val state: UIState<CreateOrUpdateTodoUIState> by viewModel.uiStateFlow.collectAsStateWithLifecycle()
 
     TodoScreenUI(
         state,
@@ -38,7 +40,15 @@ private fun TodoScreenUI(
     onCreated: () -> Unit,
     onEvent: (CreateTodoEvent) -> Unit,
 ) {
-    AppUIState(state = uiState) { contentState: CreateOrUpdateTodoUIState ->
+
+    AppUIState(
+        state = uiState,
+        onUserMessageShown = {
+            onEvent(CreateTodoEvent.UserMessageShown)
+        }
+    ) { contentState: CreateOrUpdateTodoUIState? ->
+
+        contentState ?: return@AppUIState
 
         // Remembered lambdas prevent recomposition as lambdas are considered unstable.
         val onTitleChanged = remember<(TextFieldValue) -> Unit> {
@@ -54,6 +64,9 @@ private fun TodoScreenUI(
         }
 
         if (contentState.isSubmitted) {
+            contentState.userMessage?.let {
+                ToastHelper.show(LocalContext.current, it)
+            }
             onCreated()
         } else {
             CreateTodoUI(

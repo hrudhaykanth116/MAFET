@@ -4,23 +4,31 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import com.hrudhaykanth116.core.domain.models.DomainState
+import com.hrudhaykanth116.core.data.models.toUIText
+import com.hrudhaykanth116.core.udf.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
+import com.hrudhaykanth116.core.utils.Logger
 import com.hrudhaykanth116.core.utils.ui.ToastHelper
 
 @Composable
 fun <T> AppUIState(
     state: UIState<T>,
     modifier: Modifier = Modifier,
-    content: @Composable ((T) -> Unit)
+    onUserMessageShown: (() -> Unit),
+    content: @Composable ((T?) -> Unit)
 ) {
-    Box(modifier.fillMaxSize()) {
+    Logger.d("compose", "AppUIState: ${state}")
 
+    state.userMessage?.let {
+        ToastHelper.show(LocalContext.current, it)
+        onUserMessageShown
+    }
+
+    Box(modifier.fillMaxSize()) {
 
         when (state) {
             is UIState.Loading -> {
@@ -33,10 +41,10 @@ fun <T> AppUIState(
             is UIState.Error -> {
                 state.contentState?.let {
                     content(it)
-                    ToastHelper.showErrorToast(LocalContext.current, state.text)
-                } ?: Text(
-                    modifier = Modifier.align(Alignment.Center),
-                    text = state.text
+                    ToastHelper.showErrorToast(LocalContext.current, state.uiText)
+                } ?: AppText(
+                    text = state.uiText ?: "".toUIText(),
+                    modifier = Modifier.align(Alignment.Center)
                 )
             }
             is UIState.Loaded -> {

@@ -22,7 +22,7 @@ class TodoListViewModel @Inject constructor(
     private val observeTasksUseCase: ObserveTasksUseCase,
     private val createTodoTaskUseCase: CreateTodoTaskUseCase,
     private val deleteTaskUseCase: DeleteTaskUseCase,
-) : UIStateViewModel<TodoListUIState, CreateTodoEvent, CreateTodoEffect>(
+) : UIStateViewModel<TodoListUIState, TodoListEvent, CreateTodoEffect>(
     UIState.Loaded(TodoListUIState())
 ) {
 
@@ -63,12 +63,8 @@ class TodoListViewModel @Inject constructor(
         }
     }
 
-    override fun processEvent(event: CreateTodoEvent) {
-        when (event) {
-            CreateTodoEvent.Create -> TODO()
-            is CreateTodoEvent.DescriptionChanged -> TODO()
-            is CreateTodoEvent.TitleChanged -> TODO()
-        }
+    override fun processEvent(event: TodoListEvent) {
+
     }
 
     // private fun loadData() {

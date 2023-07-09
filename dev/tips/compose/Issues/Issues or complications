@@ -1,0 +1,9 @@
+
+* On focus changed, text fields trigger onValueChange causing unnecessary recomposition.
+    * https://issuetracker.google.com/issues/178510628
+
+*
+
+*
+
+*

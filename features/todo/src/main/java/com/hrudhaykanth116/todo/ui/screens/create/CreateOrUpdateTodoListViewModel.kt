@@ -6,7 +6,6 @@ import com.hrudhaykanth116.core.udf.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.todo.domain.use_cases.CreateTodoTaskUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.GetTaskUseCase
-import com.hrudhaykanth116.todo.domain.use_cases.ObserveTasksUseCase
 import com.hrudhaykanth116.todo.ui.mappers.toDomainModel
 import com.hrudhaykanth116.todo.ui.mappers.toUIModel
 import com.hrudhaykanth116.todo.ui.mappers.toUIState
@@ -72,20 +71,31 @@ class CreateOrUpdateTodoListViewModel @Inject constructor(
 
             is CreateTodoEvent.DescriptionChanged -> {
                 setState {
-                    UIState.Loaded(
+                    uiState.copyUIState(
                         currentContentState.copy(
                             todoUIModel = currentContentState.todoUIModel.copy(description = event.textFieldValue)
-                        )
+                        ),
+                        userMessage = uiState.userMessage
                     )
                 }
             }
 
             is CreateTodoEvent.TitleChanged -> {
                 setState {
-                    UIState.Loaded(
+                    uiState.copyUIState(
                         currentContentState.copy(
                             todoUIModel = currentContentState.todoUIModel.copy(title = event.textFieldValue)
-                        )
+                        ),
+                        userMessage = uiState.userMessage
+                    )
+                }
+            }
+
+            CreateTodoEvent.UserMessageShown -> {
+                setState {
+                    uiState.copyUIState(
+                        currentContentState,
+                        userMessage = null
                     )
                 }
             }

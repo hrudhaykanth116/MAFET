@@ -15,7 +15,7 @@ fun PasswordTextField(
     onPasswordChanged: (TextFieldValue) -> Unit
 ) {
     AppFormInputText(
-        TextFieldData(
+        textFieldData = TextFieldData(
             hint = "Enter your password",
             inputType = InputType.PwdInputType,
             inputValue = inputValue,

@@ -4,8 +4,11 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.annotation.DrawableRes
+import androidx.compose.runtime.Composable
 import androidx.core.content.ContextCompat
 import com.hrudhaykanth116.core.R
+import com.hrudhaykanth116.core.common.ui.models.UserMessage
+import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.core.databinding.LayoutCustomToastBinding
 
 object ToastHelper {
@@ -81,7 +84,15 @@ object ToastHelper {
             binding.textviewToast.text = toastMsg
             binding.textviewToast.setCompoundDrawablesWithIntrinsicBounds(drawableStart, 0, 0, 0)
             it.view = binding.root
-            it.duration = Toast.LENGTH_LONG
+            it.duration = Toast.LENGTH_SHORT
+        }
+    }
+
+    fun show(context: Context, userMessage: UserMessage) {
+        when (userMessage) {
+            is UserMessage.Error -> showErrorToast(context, userMessage.message)
+            is UserMessage.Success -> showSuccessToast(context, userMessage.message)
+            is UserMessage.Warning -> showWarningToast(context, userMessage.message)
         }
     }
 }

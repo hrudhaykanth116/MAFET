@@ -13,7 +13,7 @@ fun ReEnterPasswordTextField(
     onReEnterPasswordChange: (TextFieldValue) -> Unit
 ) {
     AppFormInputText(
-        TextFieldData(
+        textFieldData = TextFieldData(
             hint = "ReEnter your password",
             inputType = InputType.PwdInputType,
             inputValue = state.repeatedPassword,

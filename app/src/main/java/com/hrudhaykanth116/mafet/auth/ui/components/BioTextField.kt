@@ -13,7 +13,7 @@ fun BioTextField(
     onReEnterPasswordChange: (TextFieldValue) -> Unit
 ) {
     AppFormInputText(
-        TextFieldData(
+        textFieldData = TextFieldData(
             hint = "A short bio",
             inputType = InputType.RegularInputType,
             inputValue = state.bio,
