@@ -23,7 +23,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import com.hrudhaykanth116.core.ui.models.InputType
 import com.hrudhaykanth116.core.ui.models.TextFieldData
-import com.hrudhaykanth116.core.utils.compose.MyPreview
+import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 
 @MyPreview
 @Composable

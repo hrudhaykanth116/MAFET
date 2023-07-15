@@ -2,7 +2,7 @@ package com.hrudhaykanth116.core.data.models
 
 import android.content.Context
 import androidx.compose.runtime.Composable
-import com.hrudhaykanth116.core.utils.locale.LocaleHelper
+import com.hrudhaykanth116.core.common.utils.locale.LocaleHelper
 
 sealed class UIText {
 

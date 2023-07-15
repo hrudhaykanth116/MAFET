@@ -9,6 +9,6 @@ fun AppTheme(
 ) {
 
     MaterialTheme(
-        content = content
+        content = content,
     )
 }

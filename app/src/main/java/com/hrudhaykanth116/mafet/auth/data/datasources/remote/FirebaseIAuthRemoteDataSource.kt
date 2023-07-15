@@ -7,8 +7,8 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.storage.FirebaseStorage
 import com.hrudhaykanth116.core.data.models.DataResult
 import com.hrudhaykanth116.core.data.models.UIText
-import com.hrudhaykanth116.core.utils.await
-import com.hrudhaykanth116.core.utils.awaitOrNull
+import com.hrudhaykanth116.core.common.utils.await
+import com.hrudhaykanth116.core.common.utils.awaitOrNull
 import com.hrudhaykanth116.mafet.auth.data.models.LoginRequest
 import com.hrudhaykanth116.mafet.auth.data.models.LoginResult
 import com.hrudhaykanth116.mafet.auth.data.models.SignUpRequest

@@ -1,11 +1,8 @@
 package com.hrudhaykanth116.todo.ui.models
 
-import com.hrudhaykanth116.core.utils.nav.NavRoute
-
 sealed class TodoNavScreen(val route: String){
     object TodoListScreen: TodoNavScreen("todo_list_screen")
-    object CreateTodoScreen: TodoNavScreen("create_todo_screen")
-    object TodoDetailsScreen: TodoNavScreen("todo_details_screen")
+    object CreateOrUpdateTodoScreen: TodoNavScreen("create_todo_screen/{id}")
 }
 
 // object TodoDetailsScreenRoute: NavRoute<TodoDetailsArgs>(

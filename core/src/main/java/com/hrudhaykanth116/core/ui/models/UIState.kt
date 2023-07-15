@@ -8,17 +8,19 @@ sealed class UIState<T>(
     open val userMessage: UserMessage? = null
 ) {
 
-    abstract fun copyUIState(contentState: T?, userMessage: UserMessage?): UIState<T>
+    abstract fun copyUIState(
+        newContentState: T? = contentState,
+        newUserMessage: UserMessage? = userMessage
+    ): UIState<T>
 
     data class Loading<T>(
         override val contentState: T? = null,
         override val userMessage: UserMessage? = null
     ) : UIState<T>(contentState) {
 
-        override fun copyUIState(contentState: T?, userMessage: UserMessage?): UIState<T> {
-            return copy(contentState = contentState)
+        override fun copyUIState(newContentState: T?, newUserMessage: UserMessage?): UIState<T> {
+            return copy(contentState = newContentState, userMessage = newUserMessage)
         }
-
 
     }
 
@@ -28,8 +30,8 @@ sealed class UIState<T>(
         override val userMessage: UserMessage? = null
     ) : UIState<T>(contentState) {
 
-        override fun copyUIState(contentState: T?, userMessage: UserMessage?): UIState<T> {
-            return copy(contentState = contentState)
+        override fun copyUIState(newContentState: T?, newUserMessage: UserMessage?): UIState<T> {
+            return copy(uiText = uiText, contentState = newContentState, userMessage = newUserMessage)
         }
     }
 
@@ -37,9 +39,11 @@ sealed class UIState<T>(
         override val contentState: T?,
         override val userMessage: UserMessage? = null
     ) : UIState<T>(contentState) {
-        override fun copyUIState(contentState: T?, userMessage: UserMessage?): UIState<T> {
-            return copy(contentState = contentState)
+
+        override fun copyUIState(newContentState: T?, newUserMessage: UserMessage?): UIState<T> {
+            return copy(contentState = newContentState, userMessage = newUserMessage)
         }
+
     }
 
 }

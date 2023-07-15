@@ -1,5 +1,6 @@
 package com.hrudhaykanth116.todo.domain.use_cases
 
+import com.hrudhaykanth116.core.common.utils.random.UniqueIdGenerator
 import com.hrudhaykanth116.core.data.models.DataResult
 import com.hrudhaykanth116.core.domain.models.DomainState
 import com.hrudhaykanth116.core.domain.models.ErrorState
@@ -14,7 +15,8 @@ import javax.inject.Singleton
 
 @Singleton
 class CreateTodoTaskUseCase @Inject constructor(
-    private val todoRepository: TodoRepository
+    private val todoRepository: TodoRepository,
+    private val uniqueIdGenerator: UniqueIdGenerator,
 ) {
 
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
@@ -23,15 +25,16 @@ class CreateTodoTaskUseCase @Inject constructor(
         createOrUpdateTodoDomainModel: CreateOrUpdateTodoDomainModel,
     ): DomainState<CreateOrUpdateTodoDomainModel> {
 
-        // Api simulation delay
-        delay(5000)
         val stateAfterValidation = createOrUpdateTodoDomainModel.getStateAfterValidation()
 
         if (stateAfterValidation.containsError()) {
             return DomainState.LoadedDomainState(stateAfterValidation)
         } else {
+            // Api simulation delay
+            delay(5000)
+
             val result: DataResult<Unit> = todoRepository.createTodoTask(
-                id = System.currentTimeMillis().toString(),
+                id = uniqueIdGenerator.getUniqueId(),
                 title = stateAfterValidation.title,
                 description = stateAfterValidation.description,
                 category = TaskCategory.toId(createOrUpdateTodoDomainModel.category)

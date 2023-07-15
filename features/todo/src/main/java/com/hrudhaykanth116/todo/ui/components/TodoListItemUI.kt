@@ -18,15 +18,18 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.hrudhaykanth116.core.utils.Logger
+import com.hrudhaykanth116.core.common.utils.Logger
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
+import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 
 // @Preview(showBackground = true, widthDp = 200, heightDp = 100)
 @Composable
 fun TodoListItemUI(
     toDoTaskUIState: ToDoTaskUIState,
-    onRemoveClicked: () -> Unit
+    onRemoveClicked: () -> Unit = {}
 ) {
     Logger.d("hrudhay_logs", ": TodoListItemUI: ${toDoTaskUIState.data.title}")
 
@@ -39,8 +42,8 @@ fun TodoListItemUI(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
-            .background(color = Color.LightGray)
-            .height(if(isExpanded) 120.dp else 60.dp)
+            .background(color = Color.Cyan)
+            .height(if (isExpanded) 120.dp else 60.dp)
             .padding(12.dp)
             .fillMaxWidth()
     ) {
@@ -65,4 +68,18 @@ fun TodoListItemUI(
             )
         }
     }
+}
+
+@Preview
+@Composable
+fun TodoListItemUIPreview(){
+    TodoListItemUI(
+        toDoTaskUIState = ToDoTaskUIState(
+            TodoUIModel(
+                "1",
+                TextFieldValue("Title"),
+                TextFieldValue("Description"),
+            )
+        )
+    )
 }

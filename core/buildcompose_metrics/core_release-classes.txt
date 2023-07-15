@@ -1,0 +1,199 @@
+runtime class ListMapperImpl {
+  runtime val mapper: IModelMapper<I, O>
+  <runtime stability> = Uncertain(IModelMapper)
+}
+runtime class NullableInputListMapperImpl {
+  runtime val mapper: IModelMapper<I, O>
+  <runtime stability> = Uncertain(IModelMapper)
+}
+stable class Success {
+  stable val message: UIText
+  <runtime stability> = Stable
+}
+stable class Error {
+  stable val message: UIText
+  <runtime stability> = Stable
+}
+stable class Warning {
+  stable val message: UIText
+  <runtime stability> = Stable
+}
+stable class Logger {
+  stable val TAG: String
+  stable val LOG_ENABLE: Boolean
+  <runtime stability> = Stable
+}
+stable class TemperatureConverter {
+  <runtime stability> = Stable
+}
+stable class DateTimeUtils {
+  <runtime stability> = Stable
+}
+stable class LocaleHelper {
+  <runtime stability> = Stable
+}
+stable class NavRoute {
+  stable val route: String
+  <runtime stability> = Stable
+}
+stable class OnlineTracker {
+  <runtime stability> = Stable
+}
+stable class UniqueIdGenerator {
+  <runtime stability> = Stable
+}
+stable class ToastHelper {
+  <runtime stability> = Stable
+}
+runtime class Success {
+  runtime val data: T
+  <runtime stability> = Parameter(T)
+}
+stable class Error {
+  stable val uiMessage: UIText?
+  stable val uiDescription: UIText?
+  stable val fullDescription: String?
+  stable val domainMessage: ErrorState?
+  stable val code: String?
+  <runtime stability> = Stable
+}
+stable class DataResult {
+  <runtime stability> = Stable
+}
+stable class ErrorConstants {
+  stable val WRONG_PASSWORD: String
+  stable val USER_NOT_FOUND: String
+  stable val E_PASSWORD_RESET_REQUIRED: String
+  stable val BAD_REQUEST: String
+  stable val UNAUTHORIZED: String
+  stable val UNKNOWN_ERROR_CODE: String
+  stable val ACCESS_TOKEN_EXPIRED: String
+  stable val REFRESH_TOKEN_EXPIRED: String
+  stable val EENVELOPE: String
+  stable val E_USER_DEACTIVATED: String
+  stable val E_USER_INACTIVE: String
+  stable val E_PENDING_TOS_AGREEMENT: String
+  stable val E_WRONG_CREDS: String
+  stable val E_TOS_AGREEMENT_REQUIRED: String
+  stable val E_USER_NOT_LOGGED_IN: String
+  stable val E_API_DATA_NOT_FOUND: String
+  stable val E_CHAT_CLIENT: String
+  <runtime stability> = Stable
+}
+unstable class StringRes {
+  stable val stringRes: Int
+  unstable val formatArgs: Array<out Any>
+  <runtime stability> = Unstable
+}
+stable class Text {
+  stable val rawString: String
+  <runtime stability> = Stable
+}
+stable class UIText {
+  <runtime stability> = Stable
+}
+unstable class ApiError {
+  stable var message: String?
+  stable var description: String?
+  stable var code: String?
+  <runtime stability> = Unstable
+}
+stable class NetworkDataSource {
+  <runtime stability> = Stable
+}
+stable class RemoteDataModule {
+  <runtime stability> = Stable
+}
+stable class LoadingDomainState {
+  <runtime stability> = Stable
+}
+stable class ErrorDomainState {
+  stable val errorState: ErrorState
+  <runtime stability> = Stable
+}
+runtime class LoadedDomainState {
+  runtime val contentState: T
+  <runtime stability> = Parameter(T)
+}
+runtime class DomainState {
+  runtime val contentState: T?
+  <runtime stability> = Parameter(T)
+}
+stable class NavigationCommand {
+  <runtime stability> = Stable
+}
+unstable class UDFFragment {
+  stable val layoutId: Int
+  runtime var binding: BINDING
+  <runtime stability> = Unstable
+}
+unstable class UDFViewModel {
+  unstable val _state: MutableStateFlow<STATE>
+  unstable val stateFlow: StateFlow<STATE>
+  unstable val _effect: MutableSharedFlow<EFFECT>
+  unstable val effect: SharedFlow<EFFECT>
+  <runtime stability> = Unstable
+}
+unstable class UIStateViewModel {
+  unstable val _uiStateFlow: MutableStateFlow<UIState<STATE>>
+  unstable val uiStateFlow: StateFlow<UIState<STATE>>
+  unstable val _effect: MutableSharedFlow<EFFECT>
+  unstable val effect: SharedFlow<EFFECT>
+  <runtime stability> = Unstable
+}
+unstable class StatefulViewModel {
+  unstable val _state: MutableStateFlow<STATE>
+  unstable val stateFlow: StateFlow<STATE>
+  unstable val _effect: MutableSharedFlow<EFFECT>
+  unstable val effect: SharedFlow<EFFECT>
+  <runtime stability> = Unstable
+}
+unstable class Bitmap {
+  unstable val imageBitmap: ImageBitmap
+  <runtime stability> = Unstable
+}
+stable class ImageVector {
+  stable val resId: Int
+  <runtime stability> = Stable
+}
+stable class RegularInputType {
+  <runtime stability> = Stable
+}
+stable class EmailInputType {
+  <runtime stability> = Stable
+}
+stable class PwdInputType {
+  <runtime stability> = Stable
+}
+stable class InputType {
+  <runtime stability> = Stable
+}
+stable class TextFieldData {
+  stable val inputValue: TextFieldValue
+  stable val inputType: InputType
+  stable val label: String?
+  stable val hint: String?
+  stable val error: String?
+  <runtime stability> = Stable
+}
+stable class Loading {
+  runtime val contentState: T?
+  runtime val userMessage: UserMessage?
+  <runtime stability> = 
+}
+stable class Error {
+  stable val uiText: UIText?
+  runtime val contentState: T?
+  runtime val userMessage: UserMessage?
+  <runtime stability> = 
+}
+stable class Loaded {
+  runtime val contentState: T?
+  runtime val userMessage: UserMessage?
+  <runtime stability> = 
+}
+stable class UIState {
+  runtime val contentState: T?
+  runtime val userMessage: UserMessage?
+  <runtime stability> = 
+}

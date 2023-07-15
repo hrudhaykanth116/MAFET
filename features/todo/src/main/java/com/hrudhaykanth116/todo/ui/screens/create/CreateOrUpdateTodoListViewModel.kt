@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.hrudhaykanth116.core.udf.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
+import com.hrudhaykanth116.todo.domain.model.TodoModel
 import com.hrudhaykanth116.todo.domain.use_cases.CreateTodoTaskUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.GetTaskUseCase
 import com.hrudhaykanth116.todo.ui.mappers.toDomainModel
@@ -37,13 +38,15 @@ class CreateOrUpdateTodoListViewModel @Inject constructor(
     private fun initData(noteId: String?) {
 
         viewModelScope.launch {
-            val todoModel = getTaskUseCase(noteId)
+            val todoModel: TodoModel? = getTaskUseCase(noteId)
 
-            val todoUIModel = todoModel?.toUIModel()
+            val todoUIModel: TodoUIModel = todoModel.toUIModel()
 
             setState {
                 UIState.Loaded(
-                    getOrCreateContentState(todoUIModel)
+                    getOrCreateContentState().copy(
+                        todoUIModel = todoUIModel
+                    )
                 )
             }
 
@@ -75,7 +78,7 @@ class CreateOrUpdateTodoListViewModel @Inject constructor(
                         currentContentState.copy(
                             todoUIModel = currentContentState.todoUIModel.copy(description = event.textFieldValue)
                         ),
-                        userMessage = uiState.userMessage
+                        newUserMessage = uiState.userMessage
                     )
                 }
             }
@@ -86,7 +89,7 @@ class CreateOrUpdateTodoListViewModel @Inject constructor(
                         currentContentState.copy(
                             todoUIModel = currentContentState.todoUIModel.copy(title = event.textFieldValue)
                         ),
-                        userMessage = uiState.userMessage
+                        newUserMessage = uiState.userMessage
                     )
                 }
             }
@@ -95,7 +98,7 @@ class CreateOrUpdateTodoListViewModel @Inject constructor(
                 setState {
                     uiState.copyUIState(
                         currentContentState,
-                        userMessage = null
+                        newUserMessage = null
                     )
                 }
             }
@@ -103,18 +106,11 @@ class CreateOrUpdateTodoListViewModel @Inject constructor(
     }
 
     private fun getOrCreateContentState(
-        todoUIModel: TodoUIModel? = null,
+
     ): CreateOrUpdateTodoUIState {
 
-        val contentStateResult = contentState ?: CreateOrUpdateTodoUIState()
+        return contentState ?: CreateOrUpdateTodoUIState()
 
-        todoUIModel?.let {
-            contentStateResult.copy(
-                todoUIModel = todoUIModel
-            )
-        }
-
-        return contentStateResult
     }
 
 

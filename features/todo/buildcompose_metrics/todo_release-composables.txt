@@ -1,0 +1,41 @@
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun TodoNavigation()
+restartable scheme("[androidx.compose.ui.UiComposable]") fun ListItemsUI(
+  unstable list: List<ToDoTaskUIState>
+  stable modifier: Modifier? = @static Companion
+  stable onRemoveTask: Function1<ToDoTaskUIState, Unit>? = @static { it: ToDoTaskUIState ->
+
+}
+
+  stable onItemClicked: Function1<TodoUIModel, Unit>? = @static { it: TodoUIModel ->
+
+}
+
+  stable listState: LazyListState? = @dynamic rememberLazyListState(0, 0, $composer, 0, 0b0011)
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun ListItemUIPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun TodoListItemUI(
+  stable toDoTaskUIState: ToDoTaskUIState
+  stable onRemoveClicked: Function0<Unit>? = @static {
+
+}
+
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun TodoListItemUIPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun CreateOrUpdateTodoScreen(
+  unstable viewModel: CreateOrUpdateTodoListViewModel? = @dynamic hiltViewModel(null, $composer, 0, 0b0001)
+  unused stable noteId: String? = @static null
+  unused stable isInEditMode: Boolean = @static true
+  stable onCreated: Function0<Unit>
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun CreateTodoUI(
+  unstable state: CreateOrUpdateTodoUIState
+  stable onTitleChanged: Function1<TextFieldValue, Unit>
+  stable onDescriptionChanged: Function1<TextFieldValue, Unit>
+  stable onCreateBtnClicked: Function0<Unit>
+)
+restartable skippable fun TodoDetailsScreen()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun TodoListScreen(
+  unstable todoListViewModel: TodoListViewModel? = @dynamic hiltViewModel(null, $composer, 0, 0b0001)
+  stable onCreateBtnClicked: Function0<Unit>
+  stable onItemClicked: Function1<TodoUIModel, Unit>
+)

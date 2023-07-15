@@ -14,18 +14,19 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.firebase.annotations.PreviewApi
 import com.hrudhaykanth116.todo.data.dummydata.DummyTodoList
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 
-// @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ListItemsUI(
-    modifier: Modifier = Modifier,
     list: List<ToDoTaskUIState>,
-    onRemoveTask: (ToDoTaskUIState) -> Unit,
-    onItemClicked: (TodoUIModel) -> Unit,
+    modifier: Modifier = Modifier,
+    onRemoveTask: (ToDoTaskUIState) -> Unit = {},
+    onItemClicked: (TodoUIModel) -> Unit = {},
     listState: LazyListState = rememberLazyListState()
 ) {
 
@@ -64,4 +65,13 @@ fun ListItemsUI(
             }
         }
     }
+}
+
+
+@Preview
+@Composable
+fun ListItemUIPreview(){
+    ListItemsUI(list = listOf(
+        ToDoTaskUIState(data = TodoUIModel())
+    ))
 }

@@ -9,8 +9,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hrudhaykanth116.core.ui.components.AppUIState
 import com.hrudhaykanth116.core.ui.models.UIState
-import com.hrudhaykanth116.core.utils.Logger
-import com.hrudhaykanth116.core.utils.ui.ToastHelper
+import com.hrudhaykanth116.core.common.utils.Logger
+import com.hrudhaykanth116.core.common.utils.ui.ToastHelper
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateOrUpdateTodoUIState
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateTodoEvent
 
@@ -27,46 +27,30 @@ fun CreateOrUpdateTodoScreen(
 
     val state: UIState<CreateOrUpdateTodoUIState> by viewModel.uiStateFlow.collectAsStateWithLifecycle()
 
-    TodoScreenUI(
-        state,
-        onCreated,
-        onEvent = viewModel::processEvent
-    )
-}
-
-@Composable
-private fun TodoScreenUI(
-    uiState: UIState<CreateOrUpdateTodoUIState>,
-    onCreated: () -> Unit,
-    onEvent: (CreateTodoEvent) -> Unit,
-) {
-
     AppUIState(
-        state = uiState,
+        state = state,
         onUserMessageShown = {
-            onEvent(CreateTodoEvent.UserMessageShown)
+            viewModel.processEvent(CreateTodoEvent.UserMessageShown)
         }
     ) { contentState: CreateOrUpdateTodoUIState? ->
 
+        // No content state, nothing to display. May be a progress bar will be shown in [AppUIState]
         contentState ?: return@AppUIState
 
         // Remembered lambdas prevent recomposition as lambdas are considered unstable.
         val onTitleChanged = remember<(TextFieldValue) -> Unit> {
-            { onEvent(CreateTodoEvent.TitleChanged(it)) }
+            { viewModel.processEvent(CreateTodoEvent.TitleChanged(it)) }
         }
 
         val onDescriptionChanged = remember<(TextFieldValue) -> Unit> {
-            { onEvent(CreateTodoEvent.DescriptionChanged(it)) }
+            { viewModel.processEvent(CreateTodoEvent.DescriptionChanged(it)) }
         }
 
         val onCreateBtnClicked = remember {
-            { onEvent(CreateTodoEvent.Create) }
+            { viewModel.processEvent(CreateTodoEvent.Create) }
         }
 
         if (contentState.isSubmitted) {
-            contentState.userMessage?.let {
-                ToastHelper.show(LocalContext.current, it)
-            }
             onCreated()
         } else {
             CreateTodoUI(

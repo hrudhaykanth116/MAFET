@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.core.ui.components.AppFormButton
 import com.hrudhaykanth116.core.ui.components.CircularImage
-import com.hrudhaykanth116.core.utils.compose.MyPreview
+import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 import com.hrudhaykanth116.mafet.auth.domain.models.signup.SignUpFormState
 import com.hrudhaykanth116.mafet.auth.ui.components.*
 

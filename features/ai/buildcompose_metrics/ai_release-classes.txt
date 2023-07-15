@@ -1,0 +1,15 @@
+runtime class QueryRemoteDataSource {
+  runtime val chatGptQueryApiService: ChatGptQueryApiService
+  <runtime stability> = Uncertain(ChatGptQueryApiService)
+}
+runtime class AIQueryRepository {
+  runtime val queryRemoteDataSource: QueryRemoteDataSource
+  <runtime stability> = Uncertain(ChatGptQueryApiService)
+}
+runtime class QueryScreenUiState {
+  runtime val errorMessage: UIText?
+  <runtime stability> = Runtime(UIText)
+}
+stable class GetQueryResultUseCase {
+  <runtime stability> = Stable
+}

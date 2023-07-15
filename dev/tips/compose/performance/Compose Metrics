@@ -1,0 +1,22 @@
+
+Ref: https://chrisbanes.me/posts/composable-metrics/
+
+
+
+subprojects {
+
+    val compilerArgs = listOf(
+        "-Xopt-in=kotlin.RequiresOptIn",
+        "-P=plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=" + project.buildDir.absolutePath + "/compose_metrics",
+        "-P=plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=" + project.buildDir.absolutePath + "/compose_metrics"
+    )
+
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+        if (project.findProperty("myapp.enableComposeCompilerReports") == "true") {
+            kotlinOptions.freeCompilerArgs += compilerArgs
+        }
+    }
+}
+
+* works with kotlin dsl.
+* ./gradlew assembleRelease -Pmyapp.enableComposeCompilerReports=true --rerun-tasks

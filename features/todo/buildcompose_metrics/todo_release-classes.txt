@@ -1,0 +1,179 @@
+unstable class ToDoListItemVH {
+  unstable val todoTaskListItemBinding: TodoTaskListItemBinding
+  <runtime stability> = Unstable
+}
+unstable class ToDoListAdapter {
+  unstable val items: ArrayList<ToDoTaskUIState>
+  <runtime stability> = Unstable
+}
+unstable class TodoLocalDataSource {
+  runtime val todoTasksDao: TodoTasksDao
+  unstable val dispatcher: CoroutineDispatcher
+  <runtime stability> = Unstable
+}
+unstable class TodoRemoteDataSource {
+  runtime val todoTasksApiService: TodoTasksApiService
+  unstable val dispatcher: CoroutineDispatcher
+  <runtime stability> = Unstable
+}
+stable class DummyTodoList {
+  <runtime stability> = Stable
+}
+stable class TodoDb {
+  <runtime stability> = Stable
+}
+stable class TodoTaskDbEntity {
+  stable val id: String
+  stable val title: String
+  stable val description: String
+  stable val completed: Boolean
+  stable val category: String
+  <runtime stability> = Stable
+}
+stable class TodoData {
+  stable val id: Long?
+  stable val title: String?
+  stable val description: String?
+  stable val completed: Boolean?
+  stable val category: String?
+  <runtime stability> = Stable
+}
+stable class GetTodoResponse {
+  stable val code: Int
+  stable val message: String
+  stable val data: TodoData
+  <runtime stability> = Stable
+}
+stable class PostTodoRequest {
+  stable val id: Long?
+  stable val title: String?
+  stable val description: String?
+  stable val completed: Boolean?
+  stable val category: String?
+  <runtime stability> = Stable
+}
+stable class TodoData {
+  stable val id: Long?
+  stable val title: String?
+  stable val description: String?
+  stable val completed: Boolean?
+  stable val category: String?
+  <runtime stability> = Stable
+}
+stable class PostTodoResponse {
+  stable val code: Int
+  stable val message: String
+  stable val data: TodoData
+  <runtime stability> = Stable
+}
+unstable class TodoRepository {
+  unstable val todoLocalDataSource: TodoLocalDataSource
+  unstable val remoteDataSource: TodoRemoteDataSource
+  unstable val dispatcher: CoroutineDispatcher
+  <runtime stability> = Unstable
+}
+stable class LocalDataModule {
+  <runtime stability> = Stable
+}
+stable class TodoModel {
+  stable val id: String
+  stable val title: String
+  stable val description: String
+  stable val completed: Boolean
+  stable val category: TaskCategory
+  <runtime stability> = Stable
+}
+stable class CreateOrUpdateTodoDomainModel {
+  stable val id: String?
+  stable val title: String
+  stable val titleError: ErrorState?
+  stable val description: String
+  stable val category: TaskCategory
+  stable val isInEditMode: Boolean
+  stable val isSubmitted: Boolean
+  <runtime stability> = Stable
+}
+unstable class CreateTodoTaskUseCase {
+  unstable val todoRepository: TodoRepository
+  runtime val uniqueIdGenerator: UniqueIdGenerator
+  unstable val dispatcher: CoroutineDispatcher
+  <runtime stability> = Unstable
+}
+unstable class DeleteTaskUseCase {
+  unstable val todoRepository: TodoRepository
+  unstable val dispatcher: CoroutineDispatcher
+  <runtime stability> = Unstable
+}
+unstable class GetTaskUseCase {
+  unstable val todoRepository: TodoRepository
+  <runtime stability> = Unstable
+}
+unstable class ObserveTasksUseCase {
+  unstable val todoRepository: TodoRepository
+  <runtime stability> = Unstable
+}
+stable class ToDoTaskUIState {
+  stable val data: TodoUIModel
+  stable val isExpanded: MutableState<Boolean>
+  <runtime stability> = Stable
+}
+stable class TodoListScreen {
+  <runtime stability> = Stable
+}
+stable class CreateOrUpdateTodoScreen {
+  <runtime stability> = Stable
+}
+stable class TodoNavScreen {
+  stable val route: String
+  <runtime stability> = Stable
+}
+stable class TodoUIModel {
+  stable val id: String?
+  stable val title: TextFieldValue
+  stable val description: TextFieldValue
+  stable val completed: Boolean
+  <runtime stability> = Stable
+}
+unstable class CreateOrUpdateTodoUIState {
+  stable val todoUIModel: TodoUIModel
+  stable val isInEditMode: Boolean
+  stable val titleError: String?
+  stable val isSubmitted: Boolean
+  unstable val userMessage: UserMessage?
+  stable val category: TaskCategory
+  <runtime stability> = Unstable
+}
+stable class TitleChanged {
+  stable val textFieldValue: TextFieldValue
+  <runtime stability> = Stable
+}
+stable class DescriptionChanged {
+  stable val textFieldValue: TextFieldValue
+  <runtime stability> = Stable
+}
+stable class Create {
+  <runtime stability> = Stable
+}
+stable class UserMessageShown {
+  <runtime stability> = Stable
+}
+unstable class TodoListUIState {
+  unstable val list: List<ToDoTaskUIState>
+  <runtime stability> = Unstable
+}
+unstable class CreateOrUpdateTodoListViewModel {
+  unstable val createTodoTaskUseCase: CreateTodoTaskUseCase
+  unstable val getTaskUseCase: GetTaskUseCase
+  <runtime stability> = Unstable
+}
+unstable class TodoListViewModel {
+  unstable val observeTasksUseCase: ObserveTasksUseCase
+  unstable val createTodoTaskUseCase: CreateTodoTaskUseCase
+  unstable val deleteTaskUseCase: DeleteTaskUseCase
+  <runtime stability> = Unstable
+}
+stable class StatsResult {
+  stable val activePercentage: Float
+  stable val completePercentage: Float
+  <runtime stability> = Stable
+}

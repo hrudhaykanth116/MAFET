@@ -24,33 +24,19 @@ fun TodoNavigation() {
             TodoListScreen(
                 onCreateBtnClicked = {
                     navController.navigate(
-                        TodoNavScreen.CreateTodoScreen.route
+                        TodoNavScreen.CreateOrUpdateTodoScreen.route
                     )
                 },
                 onItemClicked = {
-                    navController.navigate(
-                        "todo_details/${it.id}"
-                    )
+                    // navController.navigate(
+                    //     "todo_details/${it.id}"
+                    // )
                 }
             )
         }
 
         composable(
-            route = TodoNavScreen.CreateTodoScreen.route,
-        ) {
-            CreateOrUpdateTodoScreen(
-                onCreated = {
-                    navController.popBackStack(
-                        route = TodoNavScreen.TodoListScreen.route,
-                        inclusive = false
-                    )
-                },
-                isInEditMode = true
-            )
-        }
-
-        composable(
-            "todo_details/{id}",
+            route = TodoNavScreen.CreateOrUpdateTodoScreen.route,
             arguments = listOf(
                 navArgument("id") { type = NavType.StringType }
             )
@@ -59,16 +45,17 @@ fun TodoNavigation() {
             val noteId = backStackEntry.arguments?.getString("id")
 
             CreateOrUpdateTodoScreen(
+                isInEditMode = true,
+                noteId = noteId,
                 onCreated = {
                     navController.popBackStack(
                         route = TodoNavScreen.TodoListScreen.route,
                         inclusive = false
                     )
-                },
-                noteId = noteId,
-                isInEditMode = true
+                }
             )
         }
+
 
     }
 }

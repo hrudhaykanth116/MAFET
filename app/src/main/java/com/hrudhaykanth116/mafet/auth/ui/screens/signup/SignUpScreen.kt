@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hrudhaykanth116.core.ui.components.AppToolbar
-import com.hrudhaykanth116.core.utils.extensions.HandleEffect
+import com.hrudhaykanth116.core.common.utils.extensions.HandleEffect
 import com.hrudhaykanth116.mafet.auth.domain.models.signup.SignUpEffect
 import com.hrudhaykanth116.mafet.auth.domain.models.signup.SignUpFormEvent
 

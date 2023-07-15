@@ -1,0 +1,75 @@
+restartable skippable fun HandleEffect(
+  unused unstable viewModel: UDFViewModel<STATE, EVENT, EFFECT>
+  unused unstable handle: @[ExtensionFunctionType] SuspendFunction2<CoroutineScope, EFFECT, Unit>
+)
+restartable skippable fun HandleEffect(
+  unused unstable viewModel: StatefulViewModel<STATE, EFFECT, EVENT>
+  unused unstable handle: @[ExtensionFunctionType] SuspendFunction2<CoroutineScope, EFFECT, Unit>
+)
+fun getString(
+  stable stringId: Int
+  unstable formatArgs: Array<out Any>
+  unused stable <this>: LocaleHelper
+): String
+fun getText(
+  stable <this>: UIText
+): String
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun AppFormButton(
+  stable btnText: String
+  stable modifier: Modifier? = @static Companion
+  stable onClick: Function0<Unit>? = @static null
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun AppButtonPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun AppFormInputTextPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun AppFormInputText(
+  stable modifier: Modifier? = @static Companion
+  stable textFieldData: TextFieldData? = @dynamic TextFieldData()
+  stable onInputChange: Function1<TextFieldValue, Unit>? = @static { it: TextFieldValue ->
+
+}
+
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun AppPwdTextField(
+  stable textFieldData: TextFieldData
+  stable modifier: Modifier
+  stable onInputChange: Function1<TextFieldValue, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable]]") fun AppTextField(
+  stable textFieldData: TextFieldData
+  stable modifier: Modifier? = @static Companion
+  stable onInputChange: Function1<TextFieldValue, Unit>? = @static { it: TextFieldValue ->
+
+}
+
+  stable trailingIcon: Function2<Composer, Int, Unit>? = @static null
+  stable visualTransformation: VisualTransformation? = @static Companion.None
+  stable keyboardOptions: KeyboardOptions? = @static Companion.Default
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun AppText(
+  stable text: UIText
+  stable modifier: Modifier? = @static Companion
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun AppToolbar(
+  unused stable modifier: Modifier? = @static Companion
+  unused stable text: String? = @static "Test toolbar"
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable]]") fun AppUIState(
+  state: UIState<T>
+  stable modifier: Modifier? = @static Companion
+  stable onUserMessageShown: Function0<Unit>
+  stable content: Function3<T?, Composer, Int, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable]]") fun CenteredColumn(
+  stable content: @[ExtensionFunctionType] Function3<ColumnScope, Composer, Int, Unit>
+)
+restartable skippable fun CircularImagePreview()
+restartable fun CircularImage(
+  stable modifier: Modifier? = @static Companion
+  unstable image: Any?
+  stable placeHolder: Int = @dynamic drawable.profile_icon
+  stable contentDescriptionResId: Int = @dynamic string.image_content_default_description
+  stable onClicked: Function0<Unit>? = @static {
+
+}
+
+)

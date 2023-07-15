@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.hrudhaykanth116.core.common.utils.extensions.HandleEffect
 import com.hrudhaykanth116.mafet.home.models.HomeScreenEffect
 import com.hrudhaykanth116.mafet.home.models.HomeScreenEvent
 
@@ -21,7 +22,7 @@ fun HomeScreen(
     onAccountClicked: (() -> Unit)? = null
 ) {
 
-    com.hrudhaykanth116.core.utils.extensions.HandleEffect(viewModel = viewmodel) { effect: HomeScreenEffect ->
+    HandleEffect(viewModel = viewmodel) { effect: HomeScreenEffect ->
         when (effect) {
             HomeScreenEffect.OnLogout -> {
                 onAccountClicked?.invoke()

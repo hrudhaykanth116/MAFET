@@ -11,8 +11,8 @@ import androidx.compose.ui.platform.LocalContext
 import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.udf.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
-import com.hrudhaykanth116.core.utils.Logger
-import com.hrudhaykanth116.core.utils.ui.ToastHelper
+import com.hrudhaykanth116.core.common.utils.Logger
+import com.hrudhaykanth116.core.common.utils.ui.ToastHelper
 
 @Composable
 fun <T> AppUIState(

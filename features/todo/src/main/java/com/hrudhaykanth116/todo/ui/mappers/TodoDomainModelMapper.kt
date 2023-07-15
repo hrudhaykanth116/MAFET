@@ -5,7 +5,9 @@ import com.hrudhaykanth116.todo.domain.model.TodoModel
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 
-fun TodoModel.toUIModel(): TodoUIModel {
+fun TodoModel?.toUIModel(): TodoUIModel {
+
+    this ?: return TodoUIModel()
 
     return TodoUIModel(
         id = id,

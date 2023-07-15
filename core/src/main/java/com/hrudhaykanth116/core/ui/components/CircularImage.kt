@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.hrudhaykanth116.core.R
-import com.hrudhaykanth116.core.utils.compose.MyPreview
+import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 
 @MyPreview
 @Composable
