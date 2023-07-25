@@ -1,0 +1,6 @@
+
+* LazyColumn doesn't recycle its children like RecyclerView.
+    It emits new Composables as you scroll through it and is still performant,
+    as emitting Composables is relatively cheap compared to instantiating Android Views.
+
+*

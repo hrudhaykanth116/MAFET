@@ -9,9 +9,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.hrudhaykanth116.core.data.models.toUIText
-import com.hrudhaykanth116.core.udf.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
-import com.hrudhaykanth116.core.common.utils.Logger
+import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.core.common.utils.ui.ToastHelper
 
 @Composable

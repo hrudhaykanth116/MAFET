@@ -1,7 +1,13 @@
-package com.hrudhaykanth116.core.common.utils
+package com.hrudhaykanth116.core.common.utils.log
 
 import android.util.Log
 import java.lang.Exception
+
+val Any.CLASS_TAG: String
+    get() = javaClass.simpleName
+
+val Any.COMPOSE_TAG: String
+    get() = "Compose_tag"
 
 object Logger {
 

@@ -1,0 +1,11 @@
+
+* Functions that can be restartable when there is change in state it uses or it's children uses
+
+Non Restartable.
+    * inline.(Column, row, box etc)
+    * Marked NonRestartable.
+    * Returns something other than unit
+
+* Composable closes to the state object is recomposed irrespective of where state is declared/changed. Usage matters.(Skippable)
+
+

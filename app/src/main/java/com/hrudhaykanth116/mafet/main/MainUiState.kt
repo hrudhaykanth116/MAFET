@@ -4,4 +4,5 @@ sealed interface MainUiState {
     object Loading : MainUiState
     data class LoggedIn(val userName: String) : MainUiState
     object LoggedOut: MainUiState
+    object Training: MainUiState
 }

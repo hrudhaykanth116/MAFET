@@ -5,7 +5,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.hrudhaykanth116.core.data.models.DataResult
 import com.hrudhaykanth116.core.data.models.UIText
-import com.hrudhaykanth116.core.common.utils.Logger
+import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.core.common.utils.network.OnlineTracker
 import okhttp3.ResponseBody
 import retrofit2.Response

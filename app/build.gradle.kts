@@ -67,6 +67,7 @@ dependencies {
 
     implementation(project(":core"))
     implementation(project(":features:todo"))
+    implementation(project(":training"))
 
     // Hilt
     api("com.google.dagger:hilt-android:2.45")

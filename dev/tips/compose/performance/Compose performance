@@ -1,0 +1,10 @@
+
+* With the Android View system,
+    you could face some performance issues when nesting
+    certain Views such as RelativeLayout.
+    Since Compose avoids multiple measurements,
+    you can nest as deeply as you want without affecting performance.
+
+* Compose handles nested layouts efficiently, making them a great way to design a complicated UI. This is an improvement from Android Views, where you need to avoid nested layouts for performance reasons.
+
+*

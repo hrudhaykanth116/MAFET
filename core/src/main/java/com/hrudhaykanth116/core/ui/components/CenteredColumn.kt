@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun CenteredColumn(
+    modifier: Modifier = Modifier,
     content: @Composable ColumnScope.() -> Unit
 ) {
     Column(

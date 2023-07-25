@@ -1,0 +1,12 @@
+
+* Functions that can be skipped when no state change.
+
+* skippable:
+    * Restartable.
+    * Should not depend on state that didnt change. // Not sure
+    * Should not depend on unstable params.
+
+* Children may be skippable even though parent is non-skippable.
+*
+
+* Composable closes to the state object is recomposed irrespective of where state is declared/changed. Usage matters.(Skippable)

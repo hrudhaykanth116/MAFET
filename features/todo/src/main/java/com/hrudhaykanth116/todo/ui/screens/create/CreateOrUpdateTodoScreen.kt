@@ -3,14 +3,12 @@ package com.hrudhaykanth116.todo.ui.screens.create
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hrudhaykanth116.core.ui.components.AppUIState
 import com.hrudhaykanth116.core.ui.models.UIState
-import com.hrudhaykanth116.core.common.utils.Logger
-import com.hrudhaykanth116.core.common.utils.ui.ToastHelper
+import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateOrUpdateTodoUIState
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateTodoEvent
 

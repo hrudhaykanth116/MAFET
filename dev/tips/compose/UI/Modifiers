@@ -1,0 +1,8 @@
+https://developer.android.com/jetpack/compose/modifiers
+https://developer.android.com/jetpack/compose/modifiers-list
+
+* requireSize override size constraints from parent.
+* If you want to add padding above a text baseline such that you achieve a specific distance from the top of the layout to the baseline, use the paddingFromBaseline modifier:
+* The difference between padding and offset is that adding an offset to a composable does not change its measurements
+* offSet shifts in layout direction. absoluteOffset always shifts right. has dp and lambda param for deferred reads.
+*

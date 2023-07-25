@@ -13,10 +13,11 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.hrudhaykanth116.core.common.utils.Logger
+import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.mafet.auth.ui.navigation.AuthNavigation
 import com.hrudhaykanth116.mafet.home.HomeNavigation
 import com.hrudhaykanth116.mafet.theme.AppTheme
+import com.hrudhaykanth116.training.core.TrainingScreen
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
@@ -72,6 +73,8 @@ class MainActivity : AppCompatActivity() {
                 MainUiState.LoggedOut -> {
                     AuthNavigation()
                 }
+
+                MainUiState.Training -> TrainingScreen()
             }
         }
     }

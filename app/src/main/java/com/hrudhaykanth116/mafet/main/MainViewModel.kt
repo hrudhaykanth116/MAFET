@@ -25,14 +25,25 @@ class MainViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            delay(1000)
-            _state.update {
-                MainUiState.LoggedIn(
-                    "Hrudhay"
-                )
+
+            if (TRAINING_MODE) {
+                _state.update {
+                    MainUiState.Training
+                }
+            }else{
+                delay(1000)
+                _state.update {
+                    MainUiState.LoggedIn(
+                        "Hrudhay"
+                    )
+                }
+                // val loggedInUser: DataResult<String> = authRepository.getLoggedInUser()
             }
-            // val loggedInUser: DataResult<String> = authRepository.getLoggedInUser()
         }
+    }
+
+    companion object{
+        const val TRAINING_MODE = true
     }
 
 }

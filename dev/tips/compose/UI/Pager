@@ -1,0 +1,4 @@
+https://developer.android.com/jetpack/compose/layouts/pager
+
+* To load more pages offscreen, set beyondBoundsPageCount to a value higher than zero.
+*

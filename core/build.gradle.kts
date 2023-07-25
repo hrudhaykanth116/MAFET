@@ -88,6 +88,7 @@ dependencies {
 
     api("androidx.compose.ui:ui-tooling-preview")
     debugImplementation("androidx.compose.ui:ui-tooling")
+    api("androidx.compose.ui:ui-util")
     api("androidx.compose.foundation:foundation")
 
     // Material

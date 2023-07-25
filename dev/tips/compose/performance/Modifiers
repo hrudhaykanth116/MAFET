@@ -1,0 +1,6 @@
+
+* Reuse modifiers since they are recreated on very recomposition as well. Imp in LazyList
+* When dealing with modifiers that are scoped to certain composables,
+you can extract them to the highest possible level and reuse where appropriate. hoisting to common composable.
+* When reusing, ensure same/within same scope reused. Grand children wont have modifier effect of grand parent.
+*
