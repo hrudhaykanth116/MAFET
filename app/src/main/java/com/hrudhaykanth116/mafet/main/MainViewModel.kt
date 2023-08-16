@@ -43,7 +43,7 @@ class MainViewModel @Inject constructor(
     }
 
     companion object{
-        const val TRAINING_MODE = true
+        const val TRAINING_MODE = false
     }
 
 }

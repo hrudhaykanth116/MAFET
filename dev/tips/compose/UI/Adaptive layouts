@@ -1,0 +1,4 @@
+https://developer.android.com/jetpack/compose/layouts/adaptive
+
+* Actual portion of screen should always be based on window metrics from jetpack WindowManager.
+* individual, reusable composables should avoid implicitly depending on “global” size information. Not reusable.

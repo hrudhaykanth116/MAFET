@@ -9,14 +9,15 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.Divider
-import androidx.compose.material.Text
+import androidx.compose.material3.Divider
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.firebase.annotations.PreviewApi
+import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 import com.hrudhaykanth116.todo.data.dummydata.DummyTodoList
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
@@ -33,10 +34,10 @@ fun ListItemsUI(
     LazyColumn(
         state = listState,
         // Adds space between items
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
         // Adds padding to the row. Out side of the list item.
         contentPadding = PaddingValues(horizontal = 16.dp),
-        modifier = modifier.background(color = Color.Blue)
+        modifier = modifier
     ) {
         item {
             Text(text = "Pending")
@@ -50,28 +51,28 @@ fun ListItemsUI(
 //                it.id
 //            }
         ) { toDoTaskUIState: ToDoTaskUIState ->
-            Row(
-                // Modifier.animateItemPlacement(tween(1000))
+            TodoListItemUI(
                 modifier = Modifier.clickable {
                     onItemClicked(toDoTaskUIState.data)
+                },
+                toDoTaskUIState = toDoTaskUIState,
+                onRemoveClicked = {
+                    onRemoveTask(toDoTaskUIState)
                 }
-            ) {
-                TodoListItemUI(
-                    toDoTaskUIState = toDoTaskUIState,
-                    onRemoveClicked = {
-                        onRemoveTask(toDoTaskUIState)
-                    }
-                )
-            }
+            )
         }
     }
 }
 
 
-@Preview
+@MyPreview
 @Composable
-fun ListItemUIPreview(){
-    ListItemsUI(list = listOf(
-        ToDoTaskUIState(data = TodoUIModel())
-    ))
+fun ListItemUIPreview() {
+    ListItemsUI(
+        list = listOf(
+            ToDoTaskUIState(data = TodoUIModel()),
+            ToDoTaskUIState(data = TodoUIModel()),
+            ToDoTaskUIState(data = TodoUIModel()),
+        )
+    )
 }

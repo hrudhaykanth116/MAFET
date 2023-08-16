@@ -4,10 +4,10 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowUpward
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -39,10 +39,15 @@ fun TodoListScreen(
         mutableStateOf(true)
     }
 
-    val uiState: State<UIState<TodoListUIState>> = todoListViewModel.uiStateFlow.collectAsStateWithLifecycle()
+    val uiState: State<UIState<TodoListUIState>> =
+        todoListViewModel.uiStateFlow.collectAsStateWithLifecycle()
 
-   // val list by todoViewModel.todoList.observeAsState(listOf())
-    Box(modifier = Modifier.background(color = Color.Yellow)) {
+    // val list by todoViewModel.todoList.observeAsState(listOf())
+    Box(
+        modifier = Modifier.background(
+            color = MaterialTheme.colorScheme.background
+        )
+    ) {
 
         val coroutineScope = rememberCoroutineScope()
 

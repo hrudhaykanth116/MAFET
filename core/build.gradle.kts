@@ -66,7 +66,6 @@ dependencies {
 
     api("androidx.appcompat:appcompat:1.6.1")
     api("androidx.constraintlayout:constraintlayout:2.1.4")
-    api("com.google.android.material:material:1.9.0")
 
     /************************** Android basic ******************************/
 
@@ -91,8 +90,13 @@ dependencies {
     api("androidx.compose.ui:ui-util")
     api("androidx.compose.foundation:foundation")
 
+    api("androidx.constraintlayout:constraintlayout-compose:1.0.1")
+
     // Material
-    api("androidx.compose.material:material")
+    // api("androidx.compose.material:material")
+    // https://developer.android.com/jetpack/androidx/releases/compose-material3
+    api("androidx.compose.material3:material3")
+
     // Material design icons
     api("androidx.compose.material:material-icons-core")
     api("androidx.compose.material:material-icons-extended")

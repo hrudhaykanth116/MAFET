@@ -1,0 +1,7 @@
+https://developer.android.com/jetpack/compose/layouts/custom
+https://github.com/android/compose-samples/tree/main/JetLagged
+
+* Measure children, Decide its own size, Place its children.
+* Compose UI does not permit multi-pass measurement.
+This means that a layout element may not measure any of its children more than once in order to
+try different measurement configurations.

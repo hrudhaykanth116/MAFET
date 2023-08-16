@@ -1,0 +1,3 @@
+
+* Recomposition happens when TRACKING STATE changes. Like mutableStateOf and not simple data.
+* Recomposition happens for unstable data.

@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -16,7 +16,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.mafet.auth.ui.navigation.AuthNavigation
 import com.hrudhaykanth116.mafet.home.HomeNavigation
-import com.hrudhaykanth116.mafet.theme.AppTheme
+import com.hrudhaykanth116.core.theme.AppTheme
 import com.hrudhaykanth116.training.core.TrainingScreen
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect

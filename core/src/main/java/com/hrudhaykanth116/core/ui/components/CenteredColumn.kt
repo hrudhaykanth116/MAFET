@@ -16,7 +16,7 @@ fun CenteredColumn(
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier,
         content = content
     )
 }
