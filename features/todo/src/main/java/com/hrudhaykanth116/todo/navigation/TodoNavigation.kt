@@ -28,15 +28,15 @@ fun TodoNavigation() {
                     )
                 },
                 onItemClicked = {
-                    // navController.navigate(
-                    //     "todo_details/${it.id}"
-                    // )
+                    navController.navigate(
+                        "create_todo_screen/${it.id}"
+                    )
                 }
             )
         }
 
         composable(
-            route = TodoNavScreen.CreateOrUpdateTodoScreen.route,
+            route = "create_todo_screen/{id}",
             arguments = listOf(
                 navArgument("id") { type = NavType.StringType }
             )

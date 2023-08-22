@@ -10,6 +10,8 @@ data class CreateOrUpdateTodoUIState(
 
     val isInEditMode: Boolean = true,
 
+    val taskId: String? = null,
+
     val titleError: String? = null,
 
     val isSubmitted: Boolean = false,

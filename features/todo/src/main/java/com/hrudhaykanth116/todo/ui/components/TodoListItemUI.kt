@@ -4,7 +4,6 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,40 +11,36 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.ArrowUpward
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RenderEffect
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
-import com.google.android.material.color.utilities.MaterialDynamicColors.background
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.ui.components.AppCard
+import com.hrudhaykanth116.core.ui.components.AppClickableIcon
 import com.hrudhaykanth116.core.ui.components.AppText
+import com.hrudhaykanth116.core.ui.components.CenteredColumn
 import com.hrudhaykanth116.core.ui.components.CircularImage
+import com.hrudhaykanth116.core.ui.models.ImageHolder
+import com.hrudhaykanth116.todo.R
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 
 import com.hrudhaykanth116.core.R as CoreR
 
-// @Preview(showBackground = true, widthDp = 200, heightDp = 100)
 @Composable
 fun TodoListItemUI(
     toDoTaskUIState: ToDoTaskUIState,
@@ -69,67 +64,100 @@ fun TodoListItemUI(
     )
 
     AppCard(
+        // modifier = Modifier.fillMaxWidth().height(80.dp).padding(8.dp),
         modifier = modifier
-            .height(
-                height.coerceAtLeast(60.dp) // Makes sure atleast 60dp is set.
-            )
-            .fillMaxWidth(),
+            // .height(
+            //     height.coerceAtLeast(60.dp) // Makes sure at least 60dp is set.
+            // )
+            .fillMaxWidth()
+            // .animateContentSize(
+            //     animationSpec = tween(100)
+            // )
+            .padding(10.dp),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth().padding(10.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp, vertical = 4.dp)
         ) {
 
-            // Category image.
-            CircularImage(
-                image = CoreR.drawable.profile_icon
-            )
+            if (toDoTaskUIState.showCategoryIcon) {
+                // Category image.
+                CircularImage(
+                    image = CoreR.drawable.profile_icon
+                )
+            }
 
             Spacer(modifier = Modifier.width(8.dp))
 
             Column(
                 modifier = Modifier.weight(1f)
             ) {
-                AppText(text = toDoTaskUIState.data.title.text.toUIText())
-                AppText(text = toDoTaskUIState.data.description.text.toUIText())
+                AppText(
+                    uiText = toDoTaskUIState.data.title.text.toUIText(),
+                    maxLines = if (isExpanded) Int.MAX_VALUE else 2,
+                    style = MaterialTheme.typography.titleMedium,
+                )
+                AppText(
+                    uiText = toDoTaskUIState.data.description.text.toUIText(),
+                    maxLines = if (isExpanded) Int.MAX_VALUE else 3,
+                    style = MaterialTheme.typography.bodyMedium,
+                )
             }
 
             Spacer(modifier = Modifier.width(8.dp))
 
-            IconButton(
-                modifier = Modifier.padding(8.dp),
+            AppClickableIcon(
+                imageHolder = ImageHolder.LocalDrawableResource(
+                    if(isExpanded) R.drawable.ic_collapse_arrow else R.drawable.ic_expand_arrow
+                ),
+                contentDescriptionUIText = "Expand".toUIText(),
                 onClick = {
                     isExpanded = !isExpanded
                 }
-            ) {
-                Icon(
-                    imageVector = if (isExpanded) Icons.Default.ArrowUpward else Icons.Default.ArrowDropDown,
-                    contentDescription = "Expand",
-                    tint = Color.Red,
-                )
-            }
+            )
 
-            IconButton(onClick = onRemoveClicked) {
-                Icon(
-                    imageVector = Icons.Default.Close,
-                    contentDescription = "Expand",
-                    tint = Color.Red
-                )
-            }
+            AppClickableIcon(
+                imageHolder = ImageHolder.LocalDrawableResource(
+                    R.drawable.ic_delete
+                ),
+                contentDescriptionUIText = "Delete".toUIText(),
+                onClick = onRemoveClicked
+            )
+
         }
     }
 }
 
-@Preview
+@MyPreview
 @Composable
 fun TodoListItemUIPreview() {
-    TodoListItemUI(
-        toDoTaskUIState = ToDoTaskUIState(
-            TodoUIModel(
-                "1",
-                TextFieldValue("Title"),
-                TextFieldValue("Description"),
-            )
+    CenteredColumn {
+        TodoListItemUI(
+            toDoTaskUIState = ToDoTaskUIState(
+                TodoUIModel(
+                    "1",
+                    TextFieldValue("Title"),
+                    TextFieldValue("Description"),
+                )
+            ),
+            modifier = Modifier
+                .height(80.dp)
+                .padding(horizontal = 10.dp),
         )
-    )
+        // Spacer(modifier = Modifier.height(20.dp))
+        TodoListItemUI(
+            toDoTaskUIState = ToDoTaskUIState(
+                TodoUIModel(
+                    "1",
+                    TextFieldValue("Title"),
+                    TextFieldValue("Description"),
+                )
+            ),
+            modifier = Modifier
+                .height(80.dp)
+                .padding(horizontal = 10.dp),
+        )
+    }
 }

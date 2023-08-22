@@ -27,10 +27,9 @@ class CreateOrUpdateTodoListViewModel @Inject constructor(
     UIState.Loading(CreateOrUpdateTodoUIState())
 ) {
 
+    private val noteId: String? = savedStateHandle["id"]
 
     init {
-        val noteId: String? = savedStateHandle["id"]
-
         initData(noteId)
 
     }
@@ -58,13 +57,13 @@ class CreateOrUpdateTodoListViewModel @Inject constructor(
         val currentContentState = getOrCreateContentState()
         when (event) {
 
-            CreateTodoEvent.Create -> {
+            CreateTodoEvent.Submit -> {
                 viewModelScope.launch {
                     setState {
                         UIState.Loading(contentState)
                     }
                     val newState = createTodoTaskUseCase(
-                        currentContentState.toDomainModel()
+                        currentContentState.toDomainModel(noteId)
                     )
                     setState {
                         newState.toUIState()

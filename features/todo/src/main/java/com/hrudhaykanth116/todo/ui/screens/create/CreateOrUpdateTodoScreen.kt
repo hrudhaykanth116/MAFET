@@ -45,7 +45,7 @@ fun CreateOrUpdateTodoScreen(
         }
 
         val onCreateBtnClicked = remember {
-            { viewModel.processEvent(CreateTodoEvent.Create) }
+            { viewModel.processEvent(CreateTodoEvent.Submit) }
         }
 
         if (contentState.isSubmitted) {

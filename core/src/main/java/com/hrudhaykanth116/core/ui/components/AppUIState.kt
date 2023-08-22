@@ -42,7 +42,7 @@ fun <T> AppUIState(
                     content(it)
                     ToastHelper.showErrorToast(LocalContext.current, state.uiText)
                 } ?: AppText(
-                    text = state.uiText ?: "".toUIText(),
+                    uiText = state.uiText ?: "".toUIText(),
                     modifier = Modifier.align(Alignment.Center)
                 )
             }

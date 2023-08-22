@@ -5,5 +5,5 @@ import androidx.compose.ui.graphics.ImageBitmap
 
 sealed interface ImageHolder{
     data class Bitmap(val imageBitmap: ImageBitmap): ImageHolder
-    data class ImageVector(@DrawableRes val resId: Int): ImageHolder
+    data class LocalDrawableResource(@DrawableRes val resId: Int): ImageHolder
 }

@@ -30,11 +30,8 @@ class CreateTodoTaskUseCase @Inject constructor(
         if (stateAfterValidation.containsError()) {
             return DomainState.LoadedDomainState(stateAfterValidation)
         } else {
-            // Api simulation delay
-            delay(5000)
-
             val result: DataResult<Unit> = todoRepository.createTodoTask(
-                id = uniqueIdGenerator.getUniqueId(),
+                id = createOrUpdateTodoDomainModel.id ?: uniqueIdGenerator.getUniqueId(),
                 title = stateAfterValidation.title,
                 description = stateAfterValidation.description,
                 category = TaskCategory.toId(createOrUpdateTodoDomainModel.category)

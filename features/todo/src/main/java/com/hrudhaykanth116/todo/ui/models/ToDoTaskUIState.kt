@@ -7,6 +7,7 @@ data class ToDoTaskUIState(
     val data: TodoUIModel,
     // This acts as an observable state for composables
     val isExpanded: MutableState<Boolean> = mutableStateOf(false),
+    val showCategoryIcon: Boolean = false,
 ){
 
 }
