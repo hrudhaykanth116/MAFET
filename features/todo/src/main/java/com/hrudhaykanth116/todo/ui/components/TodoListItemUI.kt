@@ -3,7 +3,6 @@ package com.hrudhaykanth116.todo.ui.components
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,21 +10,17 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.ArrowUpward
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RenderEffect
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.core.graphics.ColorUtils
+import com.hrudhaykanth116.core.common.utils.color.ColorParser
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.core.data.models.toUIText
@@ -73,13 +68,13 @@ fun TodoListItemUI(
             // .animateContentSize(
             //     animationSpec = tween(100)
             // )
-            .padding(10.dp),
+            .padding(8.dp),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 8.dp, vertical = 4.dp)
+                .padding(horizontal = 10.dp, vertical = 20.dp)
         ) {
 
             if (toDoTaskUIState.showCategoryIcon) {
@@ -97,12 +92,16 @@ fun TodoListItemUI(
                 AppText(
                     uiText = toDoTaskUIState.data.title.text.toUIText(),
                     maxLines = if (isExpanded) Int.MAX_VALUE else 2,
-                    style = MaterialTheme.typography.titleMedium,
+                    style = MaterialTheme.typography.titleLarge,
+                    overflow = if (isExpanded) TextOverflow.Visible else TextOverflow.Ellipsis,
+                    color = ColorParser.parseHexCode(0xFF2400c2)
                 )
+                Spacer(modifier = Modifier.height(4.dp))
                 AppText(
                     uiText = toDoTaskUIState.data.description.text.toUIText(),
                     maxLines = if (isExpanded) Int.MAX_VALUE else 3,
-                    style = MaterialTheme.typography.bodyMedium,
+                    overflow = if (isExpanded) TextOverflow.Visible else TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.bodyLarge,
                 )
             }
 
@@ -112,6 +111,7 @@ fun TodoListItemUI(
                 imageHolder = ImageHolder.LocalDrawableResource(
                     if(isExpanded) R.drawable.ic_collapse_arrow else R.drawable.ic_expand_arrow
                 ),
+                iconColor = ColorParser.parseHexCode(0xFF2400c2),
                 contentDescriptionUIText = "Expand".toUIText(),
                 onClick = {
                     isExpanded = !isExpanded
@@ -122,6 +122,7 @@ fun TodoListItemUI(
                 imageHolder = ImageHolder.LocalDrawableResource(
                     R.drawable.ic_delete
                 ),
+                iconColor = Color.Red,
                 contentDescriptionUIText = "Delete".toUIText(),
                 onClick = onRemoveClicked
             )

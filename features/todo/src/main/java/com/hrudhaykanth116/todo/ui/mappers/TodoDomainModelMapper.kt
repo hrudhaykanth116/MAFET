@@ -12,7 +12,8 @@ fun TodoModel?.toUIModel(): TodoUIModel {
     return TodoUIModel(
         id = id,
         title = TextFieldValue(title),
-        description = TextFieldValue(description)
+        description = TextFieldValue(description),
+        category = TextFieldValue(category),
     )
 
 }

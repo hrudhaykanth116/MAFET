@@ -1,34 +1,23 @@
 package com.hrudhaykanth116.todo.ui.screens.list
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowUpward
-import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
-import com.hrudhaykanth116.todo.ui.components.ListItemsUI
+import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenEvent
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListUIState
-import kotlinx.coroutines.launch
 
 private const val TAG = "TodoListScreen"
 
 @Composable
 fun TodoListScreen(
     todoListViewModel: TodoListViewModel = hiltViewModel(),
-    onCreateBtnClicked: () -> Unit,
+    navigateToCreateScreen: () -> Unit,
     onItemClicked: (TodoUIModel) -> Unit,
 ) {
     Logger.d(TAG, "TodoListScreen: ")
@@ -43,66 +32,25 @@ fun TodoListScreen(
         todoListViewModel.uiStateFlow.collectAsStateWithLifecycle()
 
     // val list by todoViewModel.todoList.observeAsState(listOf())
-    Box(
-        modifier = Modifier.background(
-            color = MaterialTheme.colorScheme.background
-        )
-    ) {
 
-        val coroutineScope = rememberCoroutineScope()
-
-        // Check state hoisting.
-        val listState = rememberLazyListState()
-
-        // Show the button if the first visible item is past
-        // the first item. We use a remembered derived` state to
-        // minimize unnecessary compositions
-        val shouldShowScrollToTopBtn by remember {
-            derivedStateOf {
-                listState.firstVisibleItemIndex > 0
+    TodoListScreenUI(
+        modifier = Modifier,
+        uiState = uiState.value,
+        onRemoveTask = { toDoTask ->
+            todoListViewModel.processEvent(TodoListScreenEvent.RemoveTask(toDoTask.data.id!!))
+        },
+        onItemClicked = onItemClicked,
+        onTodoTitleChanged = {
+            todoListViewModel.processEvent(TodoListScreenEvent.TodoTaskTitleChanged(it))
+        },
+        onCreateBtnClicked = {
+            val todoTitle = uiState.value.contentState?.todoTitle?.text
+            if(todoTitle.isNullOrEmpty()){
+                navigateToCreateScreen()
+            }else{
+                todoListViewModel.processEvent(TodoListScreenEvent.CreateTodoTask(todoTitle))
             }
-        }
+        },
+    )
 
-        ListItemsUI(
-            // TODO: Use Loaded state for non null state
-            list = uiState.value.contentState?.list ?: listOf(),
-            listState = listState,
-            modifier = Modifier.fillMaxSize(),
-            onRemoveTask = { toDoTask -> todoListViewModel.removeTaskItem(toDoTask) },
-            onItemClicked = onItemClicked
-        )
-
-        // Bottom icons
-        Row(
-            modifier = Modifier.align(Alignment.BottomEnd)
-        ) {
-
-            AnimatedVisibility(
-                visible = shouldShowScrollToTopBtn,
-            ) {
-
-                FloatingActionButton(onClick = {
-                    coroutineScope.launch {
-                        listState.animateScrollToItem(0)
-                    }
-                }) {
-                    Icon(
-                        imageVector = Icons.Default.ArrowUpward,
-                        contentDescription = "Add Task"
-                    )
-                }
-            }
-
-            Spacer(modifier = Modifier.width(8.dp))
-
-            FloatingActionButton(onClick = onCreateBtnClicked) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Add Task"
-                )
-            }
-
-        }
-
-    }
 }

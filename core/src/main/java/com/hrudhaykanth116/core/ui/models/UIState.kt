@@ -3,6 +3,10 @@ package com.hrudhaykanth116.core.ui.models
 import com.hrudhaykanth116.core.common.ui.models.UserMessage
 import com.hrudhaykanth116.core.data.models.UIText
 
+/**
+ * During loading/error states, this content state may or may not have some data state.
+ * If non null contentState, just show toast. If null, show empty static data/error ui at the center.
+ */
 sealed class UIState<T>(
     open val contentState: T?,
     open val userMessage: UserMessage? = null
@@ -36,7 +40,7 @@ sealed class UIState<T>(
     }
 
     data class Loaded<T>(
-        override val contentState: T?,
+        override val contentState: T? = null,
         override val userMessage: UserMessage? = null
     ) : UIState<T>(contentState) {
 

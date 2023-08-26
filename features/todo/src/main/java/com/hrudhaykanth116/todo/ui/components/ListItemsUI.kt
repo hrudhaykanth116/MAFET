@@ -1,15 +1,19 @@
 package com.hrudhaykanth116.todo.ui.components
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -22,44 +26,60 @@ import com.hrudhaykanth116.todo.data.dummydata.DummyTodoList
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ListItemsUI(
     list: List<ToDoTaskUIState>,
     modifier: Modifier = Modifier,
     onRemoveTask: (ToDoTaskUIState) -> Unit = {},
     onItemClicked: (TodoUIModel) -> Unit = {},
-    listState: LazyListState = rememberLazyListState()
+    listState: LazyListState = rememberLazyListState(),
 ) {
+
+    // Create grouped list in viewmodel for preserving. This is
+    val groupedTodoList: Map<String, List<ToDoTaskUIState>> = list.groupBy { it.data.category.text }
 
     LazyColumn(
         state = listState,
         // Adds space between items
         verticalArrangement = Arrangement.spacedBy(12.dp),
         // Adds padding to the row. Out side of the list item.
-        contentPadding = PaddingValues(horizontal = 16.dp),
-        modifier = modifier
+        contentPadding = PaddingValues(horizontal = 8.dp),
+        modifier = modifier.padding(top = 8.dp)
     ) {
-        item {
-            Text(text = "Pending")
-            // Only put divider like things because all under item block is considered as item and effect scrollTo()
-            Divider()
-        }
-        items(
-            list,
-//            key = {
-//                // Key helps to retain state of item/position. Works like id equals when notifyDataSetChanged.
-//                it.id
-//            }
-        ) { toDoTaskUIState: ToDoTaskUIState ->
-            TodoListItemUI(
-                modifier = Modifier.clickable {
-                    onItemClicked(toDoTaskUIState.data)
-                },
-                toDoTaskUIState = toDoTaskUIState,
-                onRemoveClicked = {
-                    onRemoveTask(toDoTaskUIState)
+
+        groupedTodoList.forEach { (groupName, groupList) ->
+            // stickyHeader {
+            //     Text(text = groupName)
+            // }
+
+            // item {
+            stickyHeader {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(color = Color.Yellow)
+                        .padding(vertical = 10.dp),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = groupName,
+                        style = MaterialTheme.typography.titleLarge
+                    )
                 }
-            )
+            }
+
+            items(groupList) { toDoTaskUIState ->
+                TodoListItemUI(
+                    modifier = Modifier.clickable {
+                        onItemClicked(toDoTaskUIState.data)
+                    },
+                    toDoTaskUIState = toDoTaskUIState,
+                    onRemoveClicked = {
+                        onRemoveTask(toDoTaskUIState)
+                    }
+                )
+            }
         }
     }
 }

@@ -1,11 +1,12 @@
 package com.hrudhaykanth116.todo.domain.use_cases
 
 import com.hrudhaykanth116.core.common.utils.random.UniqueIdGenerator
+import com.hrudhaykanth116.core.common.utils.string.replaceIfBlank
 import com.hrudhaykanth116.core.data.models.DataResult
 import com.hrudhaykanth116.core.domain.models.DomainState
 import com.hrudhaykanth116.core.domain.models.ErrorState
 import com.hrudhaykanth116.todo.data.repositories.TodoRepository
-import com.hrudhaykanth116.todo.domain.model.TaskCategory
+import com.hrudhaykanth116.todo.domain.model.TASK_CATEGORY_DEFAULT_NAME
 import com.hrudhaykanth116.todo.domain.model.create.CreateOrUpdateTodoDomainModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -34,8 +35,9 @@ class CreateTodoTaskUseCase @Inject constructor(
                 id = createOrUpdateTodoDomainModel.id ?: uniqueIdGenerator.getUniqueId(),
                 title = stateAfterValidation.title,
                 description = stateAfterValidation.description,
-                category = TaskCategory.toId(createOrUpdateTodoDomainModel.category)
-                    ?: TaskCategory.GENERAL.id,
+                category = createOrUpdateTodoDomainModel.category.replaceIfBlank(
+                    TASK_CATEGORY_DEFAULT_NAME
+                ),
             )
 
             return result.process(
@@ -58,7 +60,7 @@ class CreateTodoTaskUseCase @Inject constructor(
 
     private fun onCreationError(
         result: DataResult.Error,
-        stateAfterValidation: CreateOrUpdateTodoDomainModel
+        stateAfterValidation: CreateOrUpdateTodoDomainModel,
     ) = DomainState.ErrorDomainState(
         result.domainMessage ?: ErrorState.Unknown,
         stateAfterValidation

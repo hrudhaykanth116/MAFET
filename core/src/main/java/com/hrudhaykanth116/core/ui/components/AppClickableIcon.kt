@@ -2,11 +2,12 @@ package com.hrudhaykanth116.core.ui.components
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonColors
 import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.core.ui.models.ImageHolder
 
@@ -17,13 +18,23 @@ fun AppClickableIcon(
     modifier: Modifier = Modifier,
     contentDescriptionUIText: UIText? = null,
     enabled: Boolean = true,
-    colors: IconButtonColors = IconButtonDefaults.iconButtonColors(),
+    iconBackgroundColor: Color = Color.Transparent,
+    iconColor: Color = LocalContentColor.current,
+    disabledContainerColor: Color = Color.Transparent,
+    disabledContentColor: Color = iconColor.copy(alpha = 0.38f),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     IconButton(
         onClick = onClick,
         modifier = modifier,
-        enabled, colors, interactionSource
+        enabled = enabled,
+        colors = IconButtonDefaults.iconButtonColors(
+            iconBackgroundColor,
+            iconColor,
+            disabledContainerColor,
+            disabledContentColor
+        ),
+        interactionSource = interactionSource
     ) {
         AppIcon(
             type = imageHolder,

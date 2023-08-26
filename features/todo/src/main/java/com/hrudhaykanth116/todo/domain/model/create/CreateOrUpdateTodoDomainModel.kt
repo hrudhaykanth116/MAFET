@@ -1,7 +1,7 @@
 package com.hrudhaykanth116.todo.domain.model.create
 
 import com.hrudhaykanth116.core.domain.models.ErrorState
-import com.hrudhaykanth116.todo.domain.model.TaskCategory
+import com.hrudhaykanth116.todo.domain.model.TASK_CATEGORY_DEFAULT_NAME
 
 data class CreateOrUpdateTodoDomainModel(
     val id : String? = null,
@@ -10,7 +10,7 @@ data class CreateOrUpdateTodoDomainModel(
 
     val description: String = "",
 
-    val category: TaskCategory = TaskCategory.GENERAL,
+    val category: String = TASK_CATEGORY_DEFAULT_NAME,
 
     val isInEditMode: Boolean = true,
     val isSubmitted: Boolean = false,

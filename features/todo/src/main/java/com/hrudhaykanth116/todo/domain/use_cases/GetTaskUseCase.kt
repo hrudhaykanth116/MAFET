@@ -8,7 +8,7 @@ import javax.inject.Singleton
 
 @Singleton
 class GetTaskUseCase @Inject constructor(
-    private val todoRepository: TodoRepository
+    private val todoRepository: TodoRepository,
 ) {
 
     // TODO: Add filtering, sorting kind of things.
@@ -16,7 +16,9 @@ class GetTaskUseCase @Inject constructor(
         taskId: String? = null,
     ): TodoModel? {
 
-        taskId ?: return null
+        if (taskId.isNullOrEmpty()) {
+            return null
+        }
 
         // TODO: Let's think about this return type
         return todoRepository.getTodoTask(

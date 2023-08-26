@@ -48,14 +48,19 @@ fun CreateOrUpdateTodoScreen(
             { viewModel.processEvent(CreateTodoEvent.Submit) }
         }
 
+        val onCategoryChanged = remember<(TextFieldValue) -> Unit> {
+            { viewModel.processEvent(CreateTodoEvent.CategoryChanged(it)) }
+        }
+
         if (contentState.isSubmitted) {
             onCreated()
         } else {
-            CreateTodoUI(
+            CreateOrUpdateTodoScreenUI(
                 state = contentState,
                 onTitleChanged = onTitleChanged,
                 onDescriptionChanged = onDescriptionChanged,
-                onCreateBtnClicked = onCreateBtnClicked
+                onCreateBtnClicked = onCreateBtnClicked,
+                onCategoryChanged = onCategoryChanged,
             )
         }
     }

@@ -1,4 +1,4 @@
-package com.hrudhaykanth116.training.custom.modifier
+package com.hrudhaykanth116.core.common.utils.compose.modifier
 
 import androidx.compose.ui.Modifier
 

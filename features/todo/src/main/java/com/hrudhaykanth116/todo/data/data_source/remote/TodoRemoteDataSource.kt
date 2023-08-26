@@ -3,7 +3,6 @@ package com.hrudhaykanth116.todo.data.data_source.remote
 import com.hrudhaykanth116.todo.data.remote.models.GetTodoResponse
 import com.hrudhaykanth116.todo.data.remote.models.PostTodoResponse
 import com.hrudhaykanth116.todo.data.remote.retrofit.TodoTasksApiService
-import com.hrudhaykanth116.todo.domain.model.TaskCategory
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -30,7 +29,7 @@ class TodoRemoteDataSource @Inject constructor(
         id: Long,
         title: String,
         description: String?,
-        category: TaskCategory,
+        category: String,
         active: Boolean
     ): com.hrudhaykanth116.core.data.models.DataResult<PostTodoResponse> {
         return getResult {

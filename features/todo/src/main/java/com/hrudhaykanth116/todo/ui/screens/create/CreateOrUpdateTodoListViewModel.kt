@@ -82,6 +82,17 @@ class CreateOrUpdateTodoListViewModel @Inject constructor(
                 }
             }
 
+            is CreateTodoEvent.CategoryChanged -> {
+                setState {
+                    uiState.copyUIState(
+                        currentContentState.copy(
+                            todoUIModel = currentContentState.todoUIModel.copy(category = event.textFieldValue)
+                        ),
+                        newUserMessage = uiState.userMessage
+                    )
+                }
+            }
+
             is CreateTodoEvent.TitleChanged -> {
                 setState {
                     uiState.copyUIState(

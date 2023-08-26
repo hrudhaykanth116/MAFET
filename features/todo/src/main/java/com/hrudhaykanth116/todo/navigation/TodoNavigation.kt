@@ -20,25 +20,29 @@ fun TodoNavigation() {
         startDestination = TodoNavScreen.TodoListScreen.route
     ) {
 
+        // TODO: Use optional params and use utils function
         composable(route = TodoNavScreen.TodoListScreen.route) {
             TodoListScreen(
-                onCreateBtnClicked = {
+                navigateToCreateScreen = {
                     navController.navigate(
-                        TodoNavScreen.CreateOrUpdateTodoScreen.route
+                        "create_todo_screen"
                     )
                 },
                 onItemClicked = {
                     navController.navigate(
-                        "create_todo_screen/${it.id}"
+                        "create_todo_screen?id=${it.id}"
                     )
                 }
             )
         }
 
         composable(
-            route = "create_todo_screen/{id}",
+            route = "create_todo_screen?id={id}",
             arguments = listOf(
-                navArgument("id") { type = NavType.StringType }
+                navArgument("id") {
+                    type = NavType.StringType
+                    nullable = true
+                }
             )
         ) { backStackEntry ->
 

@@ -7,3 +7,7 @@ sealed interface ImageHolder{
     data class Bitmap(val imageBitmap: ImageBitmap): ImageHolder
     data class LocalDrawableResource(@DrawableRes val resId: Int): ImageHolder
 }
+
+fun Int.toImageHolder(): ImageHolder.LocalDrawableResource {
+    return ImageHolder.LocalDrawableResource(this)
+}

@@ -5,5 +5,5 @@ data class TodoModel(
     val title: String,
     val description: String = "",
     val completed: Boolean = true,
-    val category: TaskCategory = TaskCategory.GENERAL,
+    val category: String = "General",
 )

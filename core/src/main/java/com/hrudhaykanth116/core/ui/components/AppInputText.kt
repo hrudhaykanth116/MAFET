@@ -25,11 +25,12 @@ import androidx.compose.ui.text.input.VisualTransformation
 import com.hrudhaykanth116.core.ui.models.InputType
 import com.hrudhaykanth116.core.ui.models.TextFieldData
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
+import com.hrudhaykanth116.core.common.utils.functions.TextFieldChangedHandler
 
 @MyPreview
 @Composable
-fun AppFormInputTextPreview() {
-    AppFormInputText(
+fun AppInputTextPreview() {
+    AppInputText(
         textFieldData = TextFieldData(
             inputValue = TextFieldValue(),
             inputType = InputType.RegularInputType,
@@ -41,10 +42,10 @@ fun AppFormInputTextPreview() {
 }
 
 @Composable
-fun AppFormInputText(
+fun AppInputText(
     modifier: Modifier = Modifier,
     textFieldData: TextFieldData = TextFieldData(),
-    onInputChange: (TextFieldValue) -> Unit = {}
+    onInputChange: TextFieldChangedHandler = {}
 ) {
 
     Column(
