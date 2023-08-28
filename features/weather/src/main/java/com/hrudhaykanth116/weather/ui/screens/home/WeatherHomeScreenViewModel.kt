@@ -5,9 +5,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.hrudhaykanth116.core.data.models.DataResult
 import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.core.udf.UDFViewModel
-import com.hrudhaykanth116.weathertens.common.data.models.DataResult
-import com.hrudhaykanth116.weathertens.common.data.models.UIText
-import com.hrudhaykanth116.weathertens.features.auth.data.repository.user.IUserRepository
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenEffect
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenEvent
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenUIState
@@ -20,7 +17,6 @@ import javax.inject.Inject
 @HiltViewModel
 class WeatherHomeScreenViewModel @Inject constructor(
     private val getForeCastUseCase: GetForeCastUseCase,
-    private val userRepository: IUserRepository,
     private val firebaseAuth: FirebaseAuth,
 ) : UDFViewModel<WeatherHomeScreenUIState, WeatherHomeScreenEvent, WeatherHomeScreenEffect>(
     WeatherHomeScreenUIState()
@@ -29,32 +25,7 @@ class WeatherHomeScreenViewModel @Inject constructor(
     private var job: Job? = null
 
     init {
-        fetchUserData()
         fetchData("Kolkata")
-    }
-
-    private fun fetchUserData() {
-        viewModelScope.launch {
-            when (val userDataResult = userRepository.getUserData()) {
-                is DataResult.Error -> {
-                    setState {
-                        copy(
-                            errorMessage = userDataResult.uiMessage
-                        )
-                    }
-                }
-                is DataResult.Success -> {
-                    val userData = userDataResult.data
-                    setState {
-                        copy(
-                            userName = userData.userName,
-                            userBio = userData.bio,
-                            userProfileImageUrl = userData.profileImgUrl,
-                        )
-                    }
-                }
-            }
-        }
     }
 
     private fun fetchData(location: String?) {
