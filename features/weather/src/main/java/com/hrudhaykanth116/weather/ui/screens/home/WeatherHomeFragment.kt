@@ -7,9 +7,9 @@ import androidx.navigation.fragment.findNavController
 import coil.load
 import com.hrudhaykanth116.core.udf.UDFFragment
 import com.hrudhaykanth116.weather.R
+import com.hrudhaykanth116.weather.databinding.FragmentWeatherHomeScreenBinding as BINDING
 import com.hrudhaykanth116.weather.ui.screens.adapters.ForeCastListAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import com.hrudhaykanth116.weathertens.databinding.FragmentWeatherHomeScreenBinding as BINDING
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenEffect as EFFECT
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenEvent as EVENT
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenUIState as STATE
@@ -55,12 +55,6 @@ class WeatherHomeFragment :
 
     override fun processNewState(state: STATE) {
 
-        if (state.isLoggedOut) {
-            findNavController().navigate(
-                WeatherHomeFragmentDirections.actionWeatherHomeScreenToAuthNavGraph()
-            )
-        }
-
         state.errorMessage?.let {
             Toast.makeText(requireContext(), it.getText(requireContext()), Toast.LENGTH_SHORT)
                 .show()
@@ -70,7 +64,8 @@ class WeatherHomeFragment :
         binding.userName.text = state.userName
         binding.bio.text = state.userBio
         binding.profileImage.load(state.userProfileImageUrl, builder = {
-            placeholder(R.drawable.profile_icon)
+            // TODO: Place holder
+            // placeholder(R.drawable.profile_icon)
         })
         binding.progressBar.isVisible = state.isLoading
 

@@ -1,7 +1,6 @@
 package com.hrudhaykanth116.weather.ui.screens.weatherdetails
 
 import com.hrudhaykanth116.core.udf.UDFViewModel
-import com.hrudhaykanth116.weathertens.common.udf.UDFViewModel
 import com.hrudhaykanth116.weather.domain.models.weatherdetails.WeatherDetailsScreenEffect
 import com.hrudhaykanth116.weather.domain.models.weatherdetails.WeatherDetailsScreenEvent
 import com.hrudhaykanth116.weather.domain.models.weatherdetails.WeatherDetailsScreenUIState

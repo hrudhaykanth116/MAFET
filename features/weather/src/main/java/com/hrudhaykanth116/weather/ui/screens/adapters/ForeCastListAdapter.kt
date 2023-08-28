@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import com.hrudhaykanth116.weather.databinding.ListItemWeatherBinding
 import com.hrudhaykanth116.weather.domain.models.WeatherListItemUIState
 
 class ForeCastListAdapter(

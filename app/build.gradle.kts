@@ -67,6 +67,7 @@ dependencies {
 
     implementation(project(":core"))
     implementation(project(":features:todo"))
+    implementation(project(":features:weather"))
     implementation(project(":training"))
 
     // Hilt

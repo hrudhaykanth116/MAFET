@@ -4,6 +4,7 @@ plugins {
     kotlin("kapt")
     id("kotlin-android")
     id("kotlin-parcelize")
+    id("androidx.navigation.safeargs")
     id("dagger.hilt.android.plugin")
 }
 

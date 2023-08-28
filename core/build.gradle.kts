@@ -226,8 +226,8 @@ dependencies {
     kapt("com.github.bumptech.glide:compiler:4.12.0")
 
     // Coil
-    implementation("io.coil-kt:coil:2.3.0")
-    implementation("io.coil-kt:coil-compose:2.3.0")
+    api("io.coil-kt:coil:2.4.0")
+    api("io.coil-kt:coil-compose:2.4.0")
 
     // Paging
     val paging_version = "3.0.0"

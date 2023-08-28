@@ -5,6 +5,7 @@ sealed class MainNavRoute(val route: String){
     object Todo: MainNavRoute("todo")
     object Auth: MainNavRoute("auth")
     object Account: MainNavRoute("account")
+    object Weather: MainNavRoute("weather")
 
     fun withArgs(vararg args: String): String{
         return buildString {

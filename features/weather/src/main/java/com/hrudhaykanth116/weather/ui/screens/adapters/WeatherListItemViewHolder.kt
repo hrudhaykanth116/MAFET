@@ -1,7 +1,7 @@
 package com.hrudhaykanth116.weather.ui.screens.adapters
 
 import androidx.recyclerview.widget.RecyclerView
-import com.hrudhaykanth116.weathertens.databinding.ListItemWeatherBinding
+import com.hrudhaykanth116.weather.databinding.ListItemWeatherBinding
 import com.hrudhaykanth116.weather.domain.models.WeatherListItemUIState
 import com.hrudhaykanth116.weather.ui.screens.adapters.ForeCastListAdapter
 

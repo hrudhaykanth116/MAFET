@@ -11,21 +11,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.hrudhaykanth116.core.common.utils.extensions.HandleEffect
+import com.hrudhaykanth116.core.ui.components.AppFormButton
+import com.hrudhaykanth116.mafet.home.models.HomeScreenNavigationHandler
 import com.hrudhaykanth116.mafet.home.models.HomeScreenEffect
 import com.hrudhaykanth116.mafet.home.models.HomeScreenEvent
 
 @Composable
 fun HomeScreen(
     name: String? = "",
-    viewmodel: HomeViewModel = hiltViewModel(),
-    onTodoClicked: (() -> Unit)? = null,
-    onAccountClicked: (() -> Unit)? = null
+    viewModel: HomeViewModel = hiltViewModel(),
+    homeScreenNavigationHandler: HomeScreenNavigationHandler,
 ) {
 
-    HandleEffect(viewModel = viewmodel) { effect: HomeScreenEffect ->
+    HandleEffect(viewModel = viewModel) { effect: HomeScreenEffect ->
         when (effect) {
             HomeScreenEffect.OnLogout -> {
-                onAccountClicked?.invoke()
+                homeScreenNavigationHandler.onAccountClicked.invoke()
             }
         }
     }
@@ -36,13 +37,17 @@ fun HomeScreen(
     ) {
         Text(text = "Hi $name")
         Spacer(modifier = Modifier.height(30.dp))
-        com.hrudhaykanth116.core.ui.components.AppFormButton(
-            onClick = { onTodoClicked?.invoke() },
+        AppFormButton(
+            onClick = { homeScreenNavigationHandler.onTodoClicked.invoke() },
             btnText = "Todo"
         )
         Spacer(modifier = Modifier.height(8.dp))
-        com.hrudhaykanth116.core.ui.components.AppFormButton(btnText = "Logout") {
-            viewmodel.processEvent(HomeScreenEvent.LogOut)
+        AppFormButton(btnText = "Logout") {
+            viewModel.processEvent(HomeScreenEvent.LogOut)
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+        AppFormButton(btnText = "Weather") {
+            homeScreenNavigationHandler.onWeatherClicked()
         }
     }
 }
@@ -50,19 +55,19 @@ fun HomeScreen(
 @Preview(showSystemUi = true)
 @Composable
 fun HomeScreenPreview(
-    name: String = "Hrudhay"
-){
+    name: String = "Hrudhay",
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(10.dp))
         Text(text = "Hi $name \n Here are the features currently available.")
         Spacer(modifier = Modifier.height(30.dp))
-        com.hrudhaykanth116.core.ui.components.AppFormButton(
+        AppFormButton(
             btnText = "Todo"
         )
         Spacer(modifier = Modifier.height(8.dp))
-        com.hrudhaykanth116.core.ui.components.AppFormButton(
+        AppFormButton(
             btnText = "Account"
         )
     }

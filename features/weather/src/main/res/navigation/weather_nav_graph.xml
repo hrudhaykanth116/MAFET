@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_nav_graph"
+    app:startDestination="@id/weatherHomeScreen">
+
+    <fragment
+        android:id="@+id/weatherHomeScreen"
+        android:name="com.hrudhaykanth116.weather.ui.screens.home.WeatherHomeFragment"
+        android:label="fragment_weather_home_screen"
+        tools:layout="@layout/fragment_weather_home_screen" >
+        <action
+            android:id="@+id/action_weatherHomeScreen_to_weatherDetailsFragment"
+            app:destination="@id/weatherDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/weatherDetailsFragment"
+        android:name="com.hrudhaykanth116.weather.ui.screens.weatherdetails.WeatherDetailsFragment"
+        android:label="WeatherDetailsFragment"
+        tools:layout="@layout/fragment_weather_details"
+        >
+        <argument
+            android:name="weatherData"
+            app:argType="com.hrudhaykanth116.weather.domain.models.WeatherListItemUIState" />
+    </fragment>
+    <!--    <include app:graph="@navigation/auth_nav_graph" />-->
+</navigation>
