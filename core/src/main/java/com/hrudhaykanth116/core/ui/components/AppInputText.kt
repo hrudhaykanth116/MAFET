@@ -49,7 +49,7 @@ fun AppInputText(
 ) {
 
     Column(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier,
     ) {
         // if (!label.isNullOrBlank()) {
         //     Text(

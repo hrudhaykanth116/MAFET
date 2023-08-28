@@ -92,7 +92,14 @@ class TodoListViewModel @Inject constructor(
     }
 
     private fun onTodoTaskTitleChanged(textFieldValue: TextFieldValue) {
-
+        setState {
+            val newContentState = contentState ?: TodoListUIState()
+            UIState.Loaded(
+                newContentState.copy(
+                    todoTitle = textFieldValue
+                )
+            )
+        }
     }
 
     // private fun loadData() {

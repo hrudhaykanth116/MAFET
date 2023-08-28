@@ -1,7 +1,6 @@
 package com.hrudhaykanth116.weather.data.di
 
-import com.hrudhaykanth116.weather.data.datasources.remote.retrofit.WeatherForeCastApiService
-import com.hrudhaykanth116.weather.data.datasources.remote.retrofit.WeatherMapGeoCodeApiService
+import com.hrudhaykanth116.weather.data.datasources.remote.retrofit.OpenWeatherApiService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -55,13 +54,7 @@ object NetworkDiModule {
 
     @Provides
     @Singleton
-    fun provideForeCastApiService(@Named("weather_retrofit") retrofit: Retrofit): WeatherForeCastApiService =
-        retrofit.create(WeatherForeCastApiService::class.java)
-
-    @Provides
-    @Singleton
-    fun provideGeoCodingApiService(@Named("weather_retrofit") retrofit: Retrofit): WeatherMapGeoCodeApiService =
-        retrofit.create(WeatherMapGeoCodeApiService::class.java)
-
+    fun provideForeCastApiService(@Named("weather_retrofit") retrofit: Retrofit): OpenWeatherApiService =
+        retrofit.create(OpenWeatherApiService::class.java)
 
 }

@@ -4,7 +4,7 @@ import com.hrudhaykanth116.weather.data.datasources.local.WeatherForeCastLocalDa
 import com.hrudhaykanth116.weather.data.datasources.remote.IGeoCodeRemoteDataSource
 import com.hrudhaykanth116.weather.data.datasources.remote.WeatherForeCastRemoteDataSource
 import com.hrudhaykanth116.weather.data.datasources.remote.WeatherMapGeoCodeRemoteDataSourceImpl
-import com.hrudhaykanth116.weather.data.datasources.remote.retrofit.WeatherMapGeoCodeApiService
+import com.hrudhaykanth116.weather.data.datasources.remote.retrofit.OpenWeatherApiService
 import com.hrudhaykanth116.weather.data.repository.GeoCodeRepositoryImpl
 import com.hrudhaykanth116.weather.data.repository.IGeoCodeRepository
 import com.hrudhaykanth116.weather.data.repository.IWeatherForeCastRepository
@@ -29,14 +29,14 @@ object RepositoryModule {
 
     @Provides
     fun provideGeoCodingRemoteDataSource(
-        weatherMapGeoCodeApiService: WeatherMapGeoCodeApiService
+        openWeatherApiService: OpenWeatherApiService,
     ): IGeoCodeRemoteDataSource = WeatherMapGeoCodeRemoteDataSourceImpl(
-        weatherMapGeoCodeApiService
+        openWeatherApiService
     )
 
     @Provides
     fun provideGeoCodingRepository(
-        geoCodeRemoteDataSource: IGeoCodeRemoteDataSource
+        geoCodeRemoteDataSource: IGeoCodeRemoteDataSource,
     ): IGeoCodeRepository = GeoCodeRepositoryImpl(
         geoCodeRemoteDataSource
     )

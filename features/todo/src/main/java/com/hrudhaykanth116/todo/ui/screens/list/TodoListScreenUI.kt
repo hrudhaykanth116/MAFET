@@ -4,9 +4,17 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -14,6 +22,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.common.utils.color.ColorParser
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 import com.hrudhaykanth116.core.common.utils.functions.TextFieldChangedHandler
@@ -27,6 +38,7 @@ import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListUIState
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TodoListScreenUI(
     modifier: Modifier = Modifier,
@@ -37,7 +49,8 @@ fun TodoListScreenUI(
     onCreateBtnClicked: () -> Unit = {},
 ) {
 
-    Column {
+    Column(
+    ) {
         Box(
             modifier = modifier
                 .background(ColorParser.parseHexCode(0xFF84eaf5))
@@ -116,15 +129,25 @@ fun TodoListScreenUI(
             // }
 
         }
-        Row {
-            AppInputText(
+        Spacer(modifier = Modifier.height(10.dp))
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            // AppInputText() This is causing UI issues. Check.
+            OutlinedTextField(
                 modifier = Modifier.weight(1f),
-                onInputChange = onTodoTitleChanged
+                value = uiState.contentState?.todoTitle ?: TextFieldValue(),
+                onValueChange = onTodoTitleChanged
             )
+            Spacer(modifier = Modifier.width(10.dp))
             AppClickableIcon(
-                imageHolder = R.drawable.ic_delete.toImageHolder(),
+                imageHolder = R.drawable.ic_note_save.toImageHolder(),
+                iconColor = Color.Green,
+                // iconBackgroundColor = Color.LightGray,
                 onClick = onCreateBtnClicked
             )
+            Spacer(modifier = Modifier.width(8.dp))
         }
     }
 
