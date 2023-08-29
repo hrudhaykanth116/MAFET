@@ -1,4 +1,4 @@
-package com.hrudhaykanth116.weathertens.common.utils.number
+package com.hrudhaykanth116.core.common.utils.number
 
 fun Float?.truncateToDecimalsIfDecimalNumber(digitsAfterDecimalPoint: Int): String? {
     return if (this?.minus(this.toInt()) == 0.0f) this.toInt().toString() else truncateToDecimals(digitsAfterDecimalPoint)

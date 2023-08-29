@@ -33,11 +33,11 @@ class CreateTodoTaskUseCase @Inject constructor(
         } else {
             val result: DataResult<Unit> = todoRepository.createTodoTask(
                 id = createOrUpdateTodoDomainModel.id ?: uniqueIdGenerator.getUniqueId(),
-                title = stateAfterValidation.title,
-                description = stateAfterValidation.description,
+                title = stateAfterValidation.title.trim(),
+                description = stateAfterValidation.description.trim(),
                 category = createOrUpdateTodoDomainModel.category.replaceIfBlank(
                     TASK_CATEGORY_DEFAULT_NAME
-                ),
+                ).trim(),
             )
 
             return result.process(

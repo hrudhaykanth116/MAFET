@@ -1,4 +1,4 @@
-package com.hrudhaykanth116.weathertens.common.utils.conversions
+package com.hrudhaykanth116.core.common.utils.conversions
 
 import javax.inject.Inject
 import javax.inject.Singleton

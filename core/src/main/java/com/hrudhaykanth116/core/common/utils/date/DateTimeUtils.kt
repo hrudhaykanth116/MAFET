@@ -1,4 +1,4 @@
-package com.hrudhaykanth116.weathertens.common.utils.date
+package com.hrudhaykanth116.core.common.utils.date
 
 import java.text.SimpleDateFormat
 import java.util.*
