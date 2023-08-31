@@ -22,7 +22,10 @@ class TodoRepository @Inject constructor(
         return todoLocalDataSource.getTodoTasks()
     }
 
-    fun getTodoTasksFlow() = todoLocalDataSource.getTodoTasksFlow()
+    fun getTodoTasksFlow(
+        search: String,
+        filterCategory: String,
+    ) = todoLocalDataSource.getTodoTasksFlow(search, filterCategory)
 
     suspend fun getTodoTask(id: String): TodoTaskDbEntity? {
         return todoLocalDataSource.getTodoTask(id)

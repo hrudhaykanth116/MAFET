@@ -42,7 +42,7 @@ class CreateOrUpdateTodoListViewModel @Inject constructor(
             val todoUIModel: TodoUIModel = todoModel.toUIModel()
 
             setState {
-                UIState.Loaded(
+                UIState.Idle(
                     getOrCreateContentState().copy(
                         todoUIModel = todoUIModel
                     )

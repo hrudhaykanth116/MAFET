@@ -28,7 +28,7 @@ fun DomainState<CreateOrUpdateTodoDomainModel>.toUIState(): UIState<CreateOrUpda
         is DomainState.LoadedDomainState -> {
             val userMessage = if(contentState.isSubmitted) UserMessage.Success("Task created/submitted successfully".toUIText()) else null
 
-            return UIState.Loaded(contentState.toUIModel(), userMessage)
+            return UIState.Idle(contentState.toUIModel(), userMessage)
         }
         is DomainState.LoadingDomainState -> {
             return UIState.Loading(contentState?.toUIModel())

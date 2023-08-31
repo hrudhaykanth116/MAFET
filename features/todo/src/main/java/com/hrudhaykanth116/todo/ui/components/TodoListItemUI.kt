@@ -98,7 +98,7 @@ fun TodoListItemUI(
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 AppText(
-                    uiText = toDoTaskUIState.data.description.text.toUIText(),
+                    uiText = toDoTaskUIState.data.category.text.toUIText(),
                     maxLines = if (isExpanded) Int.MAX_VALUE else 3,
                     overflow = if (isExpanded) TextOverflow.Visible else TextOverflow.Ellipsis,
                     style = MaterialTheme.typography.bodyLarge,
@@ -109,7 +109,7 @@ fun TodoListItemUI(
 
             AppClickableIcon(
                 imageHolder = ImageHolder.LocalDrawableResource(
-                    if(isExpanded) R.drawable.ic_collapse_arrow else R.drawable.ic_expand_arrow
+                    if(isExpanded) CoreR.drawable.ic_collapse_arrow else CoreR.drawable.ic_expand_arrow
                 ),
                 iconColor = ColorParser.parseHexCode(0xFF2400c2),
                 contentDescriptionUIText = "Expand".toUIText(),

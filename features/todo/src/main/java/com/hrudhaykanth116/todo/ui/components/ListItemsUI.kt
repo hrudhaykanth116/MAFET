@@ -12,32 +12,25 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.firebase.annotations.PreviewApi
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
-import com.hrudhaykanth116.todo.data.dummydata.DummyTodoList
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ListItemsUI(
-    list: List<ToDoTaskUIState>,
+    listItems: List<ToDoTaskUIState>,
     modifier: Modifier = Modifier,
     onRemoveTask: (ToDoTaskUIState) -> Unit = {},
     onItemClicked: (TodoUIModel) -> Unit = {},
     listState: LazyListState = rememberLazyListState(),
 ) {
-
-    // Create grouped list in viewmodel for preserving. This is
-    val groupedTodoList: Map<String, List<ToDoTaskUIState>> = list.groupBy { it.data.category.text }
 
     LazyColumn(
         state = listState,
@@ -48,11 +41,24 @@ fun ListItemsUI(
         modifier = modifier.padding(top = 8.dp)
     ) {
 
-        groupedTodoList.forEach { (groupName, groupList) ->
-            // stickyHeader {
-            //     Text(text = groupName)
-            // }
+        items(listItems) { toDoTaskUIState ->
+            TodoListItemUI(
+                modifier = Modifier.clickable {
+                    onItemClicked(toDoTaskUIState.data)
+                },
+                toDoTaskUIState = toDoTaskUIState,
+                onRemoveClicked = {
+                    onRemoveTask(toDoTaskUIState)
+                }
+            )
+        }
 
+        // Create grouped list in viewmodel!!.
+        // val groupedTodoList: Map<String, List<ToDoTaskUIState>> = listItems.groupBy { it.data.category.text }
+
+        // Grouped list ui.
+        /*
+        groupedTodoList.forEach { (groupName, groupList) ->
             // item {
             stickyHeader {
                 Row(
@@ -80,7 +86,7 @@ fun ListItemsUI(
                     }
                 )
             }
-        }
+        }*/
     }
 }
 
@@ -89,7 +95,7 @@ fun ListItemsUI(
 @Composable
 fun ListItemUIPreview() {
     ListItemsUI(
-        list = listOf(
+        listItems = listOf(
             ToDoTaskUIState(data = TodoUIModel()),
             ToDoTaskUIState(data = TodoUIModel()),
             ToDoTaskUIState(data = TodoUIModel()),

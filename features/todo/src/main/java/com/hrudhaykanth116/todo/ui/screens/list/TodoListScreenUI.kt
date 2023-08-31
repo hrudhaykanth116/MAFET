@@ -3,6 +3,7 @@ package com.hrudhaykanth116.todo.ui.screens.list
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,10 +12,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -23,36 +26,138 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.common.utils.color.ColorParser
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 import com.hrudhaykanth116.core.common.utils.functions.TextFieldChangedHandler
 import com.hrudhaykanth116.core.ui.components.AppClickableIcon
-import com.hrudhaykanth116.core.ui.components.AppInputText
-import com.hrudhaykanth116.core.ui.models.UIState
+import com.hrudhaykanth116.core.ui.components.AppToolbar
+import com.hrudhaykanth116.core.ui.models.UIState2
 import com.hrudhaykanth116.core.ui.models.toImageHolder
 import com.hrudhaykanth116.todo.R
 import com.hrudhaykanth116.todo.ui.components.ListItemsUI
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListUIState
+import com.hrudhaykanth116.core.R as CoreR
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TodoListScreenUI(
     modifier: Modifier = Modifier,
-    uiState: UIState<TodoListUIState>,
+    uiState: TodoListUIState,
     onTodoTitleChanged: TextFieldChangedHandler = {},
     onRemoveTask: (ToDoTaskUIState) -> Unit = {},
     onItemClicked: (TodoUIModel) -> Unit = {},
     onCreateBtnClicked: () -> Unit = {},
+    todoListAppBarCallbacks: TodoListAppBarCallbacks = TodoListAppBarCallbacks(),
 ) {
 
+    Scaffold(
+        modifier = Modifier.background(color = Color.Yellow),
+        topBar = {
+            TodoListAppBar(
+                categories = uiState.categories,
+                isCategoriesPopUpShown = uiState.isCategoryListMenuVisible,
+                isMenuVisible = uiState.isMenuVisible,
+                todoListAppBarCallbacks = todoListAppBarCallbacks,
+            )
+        },
+    ) {
+        ContentContainer(
+            paddingValues = it,
+            modifier = modifier,
+            uiState = uiState,
+            onRemoveTask = onRemoveTask,
+            onItemClicked = onItemClicked,
+            onTodoTitleChanged = onTodoTitleChanged,
+            onCreateBtnClicked = onCreateBtnClicked
+        )
+    }
+
+}
+
+@Composable
+private fun TodoListAppBar(
+    categories: Set<String>,
+    isCategoriesPopUpShown: Boolean = false,
+    isMenuVisible: Boolean = false,
+    todoListAppBarCallbacks: TodoListAppBarCallbacks,
+) {
+
+    AppToolbar(
+        text = "All category",
+        onBackClicked = todoListAppBarCallbacks.onBackClicked,
+        actions = {
+
+            Box(modifier = Modifier) {
+                AppClickableIcon(
+                    imageHolder = CoreR.drawable.ic_expand_arrow.toImageHolder(),
+                    iconColor = Color.White,
+                    onClick = todoListAppBarCallbacks.onCategoriesIconClicked
+                )
+                DropdownMenu(
+                    expanded = isCategoriesPopUpShown,
+                    onDismissRequest = todoListAppBarCallbacks.onCategoriesDismissRequest,
+                ) {
+                    categories.forEach {
+                        DropdownMenuItem(
+                            text = { Text(text = it) },
+                            onClick = { todoListAppBarCallbacks.onCategorySelected(it) },
+                        )
+                    }
+                }
+            }
+
+
+            AppClickableIcon(
+                imageHolder = CoreR.drawable.ic_search.toImageHolder(),
+                iconColor = Color.White,
+                onClick = todoListAppBarCallbacks.onSearchIconClicked
+            )
+            Spacer(modifier = Modifier.width(10.dp))
+            Box(modifier = Modifier) {
+                AppClickableIcon(
+                    imageHolder = CoreR.drawable.ic_menu_vertical.toImageHolder(),
+                    iconColor = Color.White,
+                    onClick = todoListAppBarCallbacks.onMenuItemClicked
+                )
+                DropdownMenu(
+                    expanded = false,
+                    onDismissRequest = todoListAppBarCallbacks.onMenuItemClicked,
+                ) {
+                    DropdownMenuItem(
+                        text = { Text(text = "Settings") },
+                        onClick = { },
+                    )
+                    DropdownMenuItem(
+                        text = { Text(text = "Clear all") },
+                        onClick = { },
+                    )
+                }
+            }
+        }
+    )
+}
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun ContentContainer(
+    paddingValues: PaddingValues,
+    modifier: Modifier = Modifier,
+    uiState: TodoListUIState,
+    onRemoveTask: (ToDoTaskUIState) -> Unit = {},
+    onItemClicked: (TodoUIModel) -> Unit = {},
+    onTodoTitleChanged: TextFieldChangedHandler = {},
+    onCreateBtnClicked: () -> Unit = {},
+) {
     Column(
+        modifier = modifier
+            .background(color = Color.Green)
+            .padding(paddingValues)
     ) {
         Box(
-            modifier = modifier
+            modifier = Modifier
                 .background(ColorParser.parseHexCode(0xFF84eaf5))
                 // .background(Color.Cyan)
                 // .gradientBackground(
@@ -79,8 +184,8 @@ fun TodoListScreenUI(
                 }
             }
 
-            val tasksList = uiState.contentState?.list
-            if (tasksList.isNullOrEmpty()) {
+            val tasksList = uiState.uiList
+            if (tasksList.isEmpty()) {
                 Text(
                     text = "No todo tasks are pending.",
                     modifier = Modifier.align(Alignment.Center)
@@ -88,7 +193,7 @@ fun TodoListScreenUI(
             } else {
                 ListItemsUI(
                     // TODO: Use Loaded state for non null state
-                    list = tasksList,
+                    listItems = tasksList,
                     listState = listState,
                     modifier = Modifier.fillMaxSize(),
                     onRemoveTask = onRemoveTask,
@@ -137,7 +242,7 @@ fun TodoListScreenUI(
             // AppInputText() This is causing UI issues. Check.
             OutlinedTextField(
                 modifier = Modifier.weight(1f),
-                value = uiState.contentState?.todoTitle ?: TextFieldValue(),
+                value = uiState.todoTitle,
                 onValueChange = onTodoTitleChanged
             )
             Spacer(modifier = Modifier.width(10.dp))
@@ -150,13 +255,13 @@ fun TodoListScreenUI(
             Spacer(modifier = Modifier.width(8.dp))
         }
     }
-
 }
+
 
 @MyPreview
 @Composable
 fun TodoListScreenUIPreview() {
     TodoListScreenUI(
-        uiState = UIState.Loaded()
+        uiState = TodoListUIState(UIState2.Idle)
     )
 }

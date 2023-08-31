@@ -1,26 +1,17 @@
 package com.hrudhaykanth116.core.ui.components
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import com.hrudhaykanth116.core.data.models.toUIText
-import com.hrudhaykanth116.core.ui.models.UIState
-import com.hrudhaykanth116.core.common.utils.log.Logger
-import com.hrudhaykanth116.core.common.utils.ui.ToastHelper
+import com.hrudhaykanth116.core.ui.models.UIState2
 
 @Composable
-fun <T> AppUIState(
-    state: UIState<T>,
+fun <T> AppUIState2(
+    state: UIState2,
     modifier: Modifier = Modifier,
     onUserMessageShown: (() -> Unit),
-    content: @Composable ((T?) -> Unit)
+    content: @Composable ((T?) -> Unit),
 ) {
-    Logger.d("compose", "AppUIState: ${state}")
+    /*Logger.d("compose", "AppUIState2: ${state}")
 
     state.userMessage?.let {
         ToastHelper.show(LocalContext.current, it)
@@ -30,14 +21,15 @@ fun <T> AppUIState(
     Box(modifier.fillMaxSize()) {
 
         when (state) {
-            is UIState.Loading -> {
+            is UIState2.Loading -> {
                 state.contentState?.let { content(it) }
                 CircularProgressIndicator(
                     color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.align(Alignment.Center)
                 )
             }
-            is UIState.Error -> {
+
+            is UIState2.Error -> {
                 state.contentState?.let {
                     content(it)
                     ToastHelper.showErrorToast(LocalContext.current, state.uiText)
@@ -46,9 +38,10 @@ fun <T> AppUIState(
                     modifier = Modifier.align(Alignment.Center)
                 )
             }
-            is UIState.Idle -> {
+
+            is UIState2.Idle -> {
                 content(state.contentState)
             }
         }
-    }
+    }*/
 }

@@ -40,6 +40,12 @@ interface TodoTasksDao : com.hrudhaykanth116.core.data.local.db.BaseDao<TodoTask
     @Query("SELECT * FROM TodoTaskDbEntity")
     fun getTasksFlow(): Flow<List<TodoTaskDbEntity>>
 
+    @Query("SELECT * FROM TodoTaskDbEntity WHERE category = :filterCategory")
+    fun getFilteredTasksFlow(
+        // search: String,
+        filterCategory: String,
+    ): Flow<List<TodoTaskDbEntity>>
+
     /**
      * Select a task by id.
      *

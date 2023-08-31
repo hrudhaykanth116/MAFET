@@ -5,8 +5,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.hrudhaykanth116.core.common.utils.compose.MyPreview
-import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenEvent
@@ -19,6 +17,7 @@ fun TodoListScreen(
     todoListViewModel: TodoListViewModel = hiltViewModel(),
     navigateToCreateScreen: () -> Unit,
     onItemClicked: (TodoUIModel) -> Unit,
+    onBackClicked: () -> Unit = {},
 ) {
     Logger.d(TAG, "TodoListScreen: ")
 
@@ -28,7 +27,7 @@ fun TodoListScreen(
         mutableStateOf(true)
     }
 
-    val uiState: State<UIState<TodoListUIState>> =
+    val uiState: State<TodoListUIState> =
         todoListViewModel.uiStateFlow.collectAsStateWithLifecycle()
 
     // val list by todoViewModel.todoList.observeAsState(listOf())
@@ -44,13 +43,32 @@ fun TodoListScreen(
             todoListViewModel.processEvent(TodoListScreenEvent.TodoTaskTitleChanged(it))
         },
         onCreateBtnClicked = {
-            val todoTitle = uiState.value.contentState?.todoTitle?.text
-            if(todoTitle.isNullOrEmpty()){
+            val todoTitle = uiState.value.todoTitle.text
+            if (todoTitle.isEmpty()) {
                 navigateToCreateScreen()
-            }else{
+            } else {
                 todoListViewModel.processEvent(TodoListScreenEvent.CreateTodoTask(todoTitle))
             }
         },
+        todoListAppBarCallbacks = TodoListAppBarCallbacks(
+            onCategorySelected = {
+                todoListViewModel.processEvent(TodoListScreenEvent.FilterCategory(it))
+            },
+            onCategoriesIconClicked = {
+                todoListViewModel.processEvent(TodoListScreenEvent.CategoryIconClicked)
+            },
+            onCategoriesDismissRequest = {
+                todoListViewModel.processEvent(TodoListScreenEvent.CategoryListMenuDismiss)
+            },
+            onSearchIconClicked = {
+                todoListViewModel.processEvent(TodoListScreenEvent.SearchIconClicked)
+            },
+            onMenuItemClicked = {
+                todoListViewModel.processEvent(TodoListScreenEvent.MenuIconClicked)
+            },
+            onBackClicked = onBackClicked
+
+        )
     )
 
 }

@@ -32,6 +32,9 @@ fun TodoNavigation() {
                     navController.navigate(
                         "create_todo_screen?id=${it.id}"
                     )
+                },
+                onBackClicked = {
+                    navController.popBackStack()
                 }
             )
         }

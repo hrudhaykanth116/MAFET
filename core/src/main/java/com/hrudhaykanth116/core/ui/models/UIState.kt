@@ -39,7 +39,7 @@ sealed class UIState<T>(
         }
     }
 
-    data class Loaded<T>(
+    data class Idle<T>(
         override val contentState: T? = null,
         override val userMessage: UserMessage? = null
     ) : UIState<T>(contentState) {

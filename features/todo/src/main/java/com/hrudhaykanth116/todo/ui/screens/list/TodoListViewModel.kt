@@ -3,28 +3,36 @@ package com.hrudhaykanth116.todo.ui.screens.list
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.viewModelScope
 import com.hrudhaykanth116.core.domain.models.DomainState
-import com.hrudhaykanth116.core.udf.UIStateViewModel
-import com.hrudhaykanth116.core.ui.models.UIState
+import com.hrudhaykanth116.core.udf.UIStateViewModel2
+import com.hrudhaykanth116.core.ui.models.UIState2
+import com.hrudhaykanth116.todo.domain.model.TodoModel
 import com.hrudhaykanth116.todo.domain.model.create.CreateOrUpdateTodoDomainModel
 import com.hrudhaykanth116.todo.domain.use_cases.CreateTodoTaskUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.DeleteTaskUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.ObserveTasksUseCase
 import com.hrudhaykanth116.todo.ui.mappers.toState
+import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateTodoEffect
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenEvent
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class TodoListViewModel @Inject constructor(
     private val observeTasksUseCase: ObserveTasksUseCase,
     private val createTodoTaskUseCase: CreateTodoTaskUseCase,
     private val deleteTaskUseCase: DeleteTaskUseCase,
-) : UIStateViewModel<TodoListUIState, TodoListScreenEvent, CreateTodoEffect>(
-    UIState.Loaded(TodoListUIState())
+) : UIStateViewModel2<TodoListUIState, TodoListScreenEvent, CreateTodoEffect>(
+    TodoListUIState(UIState2.Loading)
 ) {
 
 
@@ -33,34 +41,53 @@ class TodoListViewModel @Inject constructor(
     //     get() = _todoList
 
     init {
-        loadData()
-    }
 
-    private fun loadData() {
+        val result: Flow<List<TodoModel>> = uiStateFlow.mapLatest {
+            Pair<String, String>(it.search, it.category)
+        }.distinctUntilChanged().flatMapLatest {
+            observeTasksUseCase(it.first, it.second)
+        }
+
         viewModelScope.launch {
-            observeTasksUseCase().collectLatest { todoDomainModelList ->
+            result.collectLatest { todoDomainModelList ->
+                val toDoTaskUIStates = todoDomainModelList.map { it.toState() }
+                setTasksList(toDoTaskUIStates)
+            }
+        }
+
+        viewModelScope.launch {
+            observeTasksUseCase("", "").collectLatest { todoModelList ->
+
+                // TODO: Get categories list without groupBY. Using domain model ??
+                val categories = todoModelList.groupBy { todoModel ->
+                    todoModel.category
+                }.keys
+
                 setState {
-                    val newContentState = contentState ?: TodoListUIState()
-                    UIState.Loaded(
-                        newContentState.copy(
-                            list = todoDomainModelList.map { it.toState() }
-                        )
+                    copy(
+                        categories = categories
                     )
                 }
             }
-
         }
     }
+
+    private fun setTasksList(
+        toDoTaskUIStates: List<ToDoTaskUIState>,
+    ) {
+
+        setState {
+            copy(
+                uiList = toDoTaskUIStates,
+            )
+        }
+
+    }
+
 
     private fun removeTaskItem(id: String) {
         viewModelScope.launch {
             deleteTaskUseCase(id)
-        }
-    }
-
-    fun getTodoList() {
-        viewModelScope.launch {
-            observeTasksUseCase()
         }
     }
 
@@ -69,6 +96,46 @@ class TodoListViewModel @Inject constructor(
             is TodoListScreenEvent.RemoveTask -> removeTaskItem(event.id)
             is TodoListScreenEvent.TodoTaskTitleChanged -> onTodoTaskTitleChanged(event.textFieldValue)
             is TodoListScreenEvent.CreateTodoTask -> createTodoTask(event.taskTitle)
+            is TodoListScreenEvent.FilterCategory -> setFilterCategory(event.filterCategory)
+            is TodoListScreenEvent.Search -> setSearchText(event.searchText)
+            TodoListScreenEvent.CategoryIconClicked -> onCategoryIconClicked()
+            TodoListScreenEvent.CategoryListMenuDismiss -> onCategoryMenuDismiss()
+            TodoListScreenEvent.MenuIconClicked -> onMenuIconClicked()
+            TodoListScreenEvent.SearchIconClicked -> onSearchIconClicked()
+        }
+    }
+
+    private fun onSearchIconClicked() {
+        setState {
+            copy(
+                isSearchBarVisible = true
+            )
+        }
+    }
+
+    fun onMenuIconClicked(){
+        setState {
+            // TODO: Recheck this
+            copy(
+                isMenuVisible = true
+            )
+        }
+    }
+
+
+    fun onCategoryIconClicked(){
+        setState {
+            copy(
+                isCategoryListMenuVisible = !isCategoryListMenuVisible
+            )
+        }
+    }
+
+    fun onCategoryMenuDismiss(){
+        setState {
+            copy(
+                isCategoryListMenuVisible = false
+            )
         }
     }
 
@@ -81,9 +148,11 @@ class TodoListViewModel @Inject constructor(
                 is DomainState.ErrorDomainState -> {
 
                 }
+
                 is DomainState.LoadedDomainState -> {
                     onTodoTaskTitleChanged(TextFieldValue())
                 }
+
                 is DomainState.LoadingDomainState -> {
 
                 }
@@ -93,21 +162,27 @@ class TodoListViewModel @Inject constructor(
 
     private fun onTodoTaskTitleChanged(textFieldValue: TextFieldValue) {
         setState {
-            val newContentState = contentState ?: TodoListUIState()
-            UIState.Loaded(
-                newContentState.copy(
-                    todoTitle = textFieldValue
-                )
+            copy(
+                todoTitle = textFieldValue
             )
         }
     }
 
-    // private fun loadData() {
-    //     _todoList = DummyTodoList.todoList.toMutableStateList()
-    // }
+    private fun setFilterCategory(category: String) {
+        setState {
+            copy(
+                category = category,
+                isCategoryListMenuVisible = false,
+            )
+        }
+    }
 
-    // fun setListItemExpanded(toDoTask: ToDoTask, isExpanded: Boolean){
-    //     _todoList
-    // }
+    private fun setSearchText(search: String){
+        setState {
+            copy(
+                search = search,
+            )
+        }
+    }
 
 }

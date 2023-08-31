@@ -4,6 +4,7 @@ import com.hrudhaykanth116.todo.data.local.room.dao.TodoTasksDao
 import com.hrudhaykanth116.todo.data.local.room.tables.TodoTaskDbEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -20,14 +21,28 @@ class TodoLocalDataSource @Inject constructor(
         return todoTasksDao.getTasks()
     }
 
-    fun getTodoTasksFlow() = todoTasksDao.getTasksFlow()
+    fun getTodoTasksFlow(
+        search: String,
+        filterCategory: String,
+    ): Flow<List<TodoTaskDbEntity>> {
+        // TODO: Revisit this
+        return if(filterCategory.isEmpty()){
+            todoTasksDao.getTasksFlow()
+        }else{
+            todoTasksDao.getFilteredTasksFlow(
+                // search,
+                filterCategory
+            )
+        }
+
+    }
 
     suspend fun getTodoTask(id: String): TodoTaskDbEntity? {
         // Since room runs on io dispatcher already, no need to switch dispatcher.
         return todoTasksDao.getTaskById(id)
     }
 
-    suspend fun createTodoTask(todoTaskDbEntity: TodoTaskDbEntity){
+    suspend fun createTodoTask(todoTaskDbEntity: TodoTaskDbEntity) {
         todoTasksDao.insertOrUpdate(todoTaskDbEntity)
     }
 

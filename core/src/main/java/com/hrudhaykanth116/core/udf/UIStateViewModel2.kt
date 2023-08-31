@@ -2,16 +2,17 @@ package com.hrudhaykanth116.core.udf
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.hrudhaykanth116.core.ui.models.BaseUIState
 import com.hrudhaykanth116.core.ui.models.UIState
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-abstract class UIStateViewModel<STATE, EVENT, EFFECT>(
-    initialState: UIState<STATE>,
+abstract class UIStateViewModel2<STATE: BaseUIState, EVENT, EFFECT>(
+    initialState: STATE,
 ) : ViewModel() {
 
     private val _uiStateFlow = MutableStateFlow(initialState)
-    val uiStateFlow: StateFlow<UIState<STATE>> = _uiStateFlow.asStateFlow()
+    val uiStateFlow: StateFlow<STATE> = _uiStateFlow.asStateFlow()
 
     // TODO: A different mechanism may be used to handle effect like channel.
     // Currently using Shared flow which could cause effect lose if collector is paused.
@@ -19,18 +20,12 @@ abstract class UIStateViewModel<STATE, EVENT, EFFECT>(
     private val _effect: MutableSharedFlow<EFFECT> = MutableSharedFlow()
     val effect: SharedFlow<EFFECT> = _effect.asSharedFlow()
 
-    val uiState: UIState<STATE> get() = uiStateFlow.value
-
-    val contentStateFlow: Flow<STATE?> = _uiStateFlow.map {
-        it.contentState
-    }
-
-    val contentState: STATE? get() = uiState.contentState
+    val uiState: STATE get() = uiStateFlow.value
 
     abstract fun processEvent(event: EVENT)
 
     // TODO: Prevent setting newState. Always use copy to avoid wrong state being set when done in parallel.
-    protected fun setState(newState: UIState<STATE>.() -> UIState<STATE>) {
+    protected fun setState(newState: STATE.() -> STATE) {
         _uiStateFlow.update(newState)
     }
 
@@ -40,7 +35,7 @@ abstract class UIStateViewModel<STATE, EVENT, EFFECT>(
         }
     }
 
-    private fun state(): UIState<STATE> {
+    private fun state(): STATE {
         return uiStateFlow.value
     }
 
