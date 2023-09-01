@@ -72,8 +72,12 @@ class TodoRepository @Inject constructor(
         // }
     }
 
-    suspend fun deleteTask(taskId: String) {
-        return todoLocalDataSource.deleteTask(taskId)
+    suspend fun deleteTasks(taskId: List<String>) {
+        return todoLocalDataSource.deleteTasks(taskId)
+    }
+
+    suspend fun deleteAllTasks() {
+        return todoLocalDataSource.deleteAllTasks()
     }
 
 }

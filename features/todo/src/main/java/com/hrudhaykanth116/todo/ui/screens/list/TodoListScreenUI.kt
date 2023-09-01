@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -29,7 +30,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.common.utils.color.ColorParser
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
+import com.hrudhaykanth116.core.common.utils.compose.modifier.gradientBackground
 import com.hrudhaykanth116.core.common.utils.functions.TextFieldChangedHandler
+import com.hrudhaykanth116.core.theme.md_theme_light_surface
+import com.hrudhaykanth116.core.theme.md_theme_light_surfaceVariant
 import com.hrudhaykanth116.core.ui.components.AppClickableIcon
 import com.hrudhaykanth116.core.ui.components.AppToolbar
 import com.hrudhaykanth116.core.ui.models.UIState2
@@ -38,6 +42,7 @@ import com.hrudhaykanth116.todo.R
 import com.hrudhaykanth116.todo.ui.components.ListItemsUI
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
+import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenMenuItem
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListUIState
 import com.hrudhaykanth116.core.R as CoreR
 
@@ -47,14 +52,14 @@ fun TodoListScreenUI(
     modifier: Modifier = Modifier,
     uiState: TodoListUIState,
     onTodoTitleChanged: TextFieldChangedHandler = {},
-    onRemoveTask: (ToDoTaskUIState) -> Unit = {},
+    onRemoveTask: (String) -> Unit = {},
     onItemClicked: (TodoUIModel) -> Unit = {},
     onCreateBtnClicked: () -> Unit = {},
     todoListAppBarCallbacks: TodoListAppBarCallbacks = TodoListAppBarCallbacks(),
 ) {
 
     Scaffold(
-        modifier = Modifier.background(color = Color.Yellow),
+        modifier = modifier,
         topBar = {
             TodoListAppBar(
                 categories = uiState.categories,
@@ -87,6 +92,7 @@ private fun TodoListAppBar(
 
     AppToolbar(
         text = "All category",
+        backgroundColor = MaterialTheme.colorScheme.primaryContainer,
         onBackClicked = todoListAppBarCallbacks.onBackClicked,
         actions = {
 
@@ -123,17 +129,17 @@ private fun TodoListAppBar(
                     onClick = todoListAppBarCallbacks.onMenuItemClicked
                 )
                 DropdownMenu(
-                    expanded = false,
+                    expanded = isMenuVisible,
                     onDismissRequest = todoListAppBarCallbacks.onMenuItemClicked,
                 ) {
-                    DropdownMenuItem(
-                        text = { Text(text = "Settings") },
-                        onClick = { },
-                    )
-                    DropdownMenuItem(
-                        text = { Text(text = "Clear all") },
-                        onClick = { },
-                    )
+                    TodoListScreenMenuItem.values().forEach { menuItem ->
+                        val onClick: () -> Unit = { todoListAppBarCallbacks.onMenuItemSelected(menuItem) }
+                        DropdownMenuItem(
+                            text = { Text(text = menuItem.displayName) },
+                            onClick = onClick,
+                        )
+                    }
+
                 }
             }
         }
@@ -146,26 +152,18 @@ private fun ContentContainer(
     paddingValues: PaddingValues,
     modifier: Modifier = Modifier,
     uiState: TodoListUIState,
-    onRemoveTask: (ToDoTaskUIState) -> Unit = {},
+    onRemoveTask: (String) -> Unit = {},
     onItemClicked: (TodoUIModel) -> Unit = {},
     onTodoTitleChanged: TextFieldChangedHandler = {},
     onCreateBtnClicked: () -> Unit = {},
 ) {
     Column(
         modifier = modifier
-            .background(color = Color.Green)
             .padding(paddingValues)
     ) {
         Box(
             modifier = Modifier
-                .background(ColorParser.parseHexCode(0xFF84eaf5))
-                // .background(Color.Cyan)
-                // .gradientBackground(
-                //     listOf(
-                //         Color.Blue,
-                //         Color.Cyan
-                //     )
-                // )
+                .background(MaterialTheme.colorScheme.background)
                 .fillMaxSize()
                 .weight(1f)
         ) {
@@ -238,6 +236,7 @@ private fun ContentContainer(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(horizontal = 10.dp)
         ) {
             // AppInputText() This is causing UI issues. Check.
             OutlinedTextField(
@@ -252,7 +251,6 @@ private fun ContentContainer(
                 // iconBackgroundColor = Color.LightGray,
                 onClick = onCreateBtnClicked
             )
-            Spacer(modifier = Modifier.width(8.dp))
         }
     }
 }

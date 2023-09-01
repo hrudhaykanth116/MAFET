@@ -26,7 +26,11 @@ fun HomeNavigation(
         }
 
         composable(HomeScreens.Todo.route) {
-            TodoNavigation()
+            TodoNavigation(
+                onBackClicked = {
+                    navController.popBackStack()
+                }
+            )
         }
 
         composable(HomeScreens.Account.route) {

@@ -4,7 +4,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 
 sealed interface TodoListScreenEvent {
 
-    data class RemoveTask(val id: String): TodoListScreenEvent
+    data class RemoveTasks(val taskIdsToDelete: List<String>): TodoListScreenEvent
 
     data class TodoTaskTitleChanged(val textFieldValue: TextFieldValue): TodoListScreenEvent
 
@@ -13,6 +13,7 @@ sealed interface TodoListScreenEvent {
 
     // Can have Filter(category, priority, due date today)
     data class FilterCategory(val filterCategory: String): TodoListScreenEvent
+    data class MenuItemSelected(val menuItem: TodoListScreenMenuItem): TodoListScreenEvent
 
     object CategoryIconClicked: TodoListScreenEvent
     object CategoryListMenuDismiss: TodoListScreenEvent

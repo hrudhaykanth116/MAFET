@@ -14,8 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val authRepository: IAuthRepository
-): ViewModel() {
+    private val authRepository: IAuthRepository,
+) : ViewModel() {
 
     private val _state: MutableStateFlow<MainUiState> = MutableStateFlow(
         MainUiState.Loading
@@ -30,19 +30,17 @@ class MainViewModel @Inject constructor(
                 _state.update {
                     MainUiState.Training
                 }
-            }else{
+            } else {
                 delay(1000)
                 _state.update {
-                    MainUiState.LoggedIn(
-                        "Hrudhay"
-                    )
+                    MainUiState.LoggedOut
                 }
                 // val loggedInUser: DataResult<String> = authRepository.getLoggedInUser()
             }
         }
     }
 
-    companion object{
+    companion object {
         const val TRAINING_MODE = false
     }
 

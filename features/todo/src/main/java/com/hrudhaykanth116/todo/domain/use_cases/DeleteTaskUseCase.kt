@@ -14,13 +14,22 @@ class DeleteTaskUseCase @Inject constructor(
 
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
 
+    /**
+     * If null is passed, all are deleted.
+     */
     suspend operator fun invoke(
-        taskId: String,
+        taskIdsToDelete: List<String>? = null,
     ): DataResult<Unit> {
 
-        todoRepository.deleteTask(
-            taskId = taskId,
-        )
+        if (taskIdsToDelete == null) {
+            // TODO: A simple check to delete all tasks.
+            todoRepository.deleteAllTasks()
+        }else{
+            todoRepository.deleteTasks(
+                taskId = taskIdsToDelete,
+            )
+        }
+
 
         return DataResult.Success(Unit)
 

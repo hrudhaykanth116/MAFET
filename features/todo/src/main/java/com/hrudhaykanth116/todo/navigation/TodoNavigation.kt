@@ -11,7 +11,9 @@ import com.hrudhaykanth116.todo.ui.screens.create.CreateOrUpdateTodoScreen
 import com.hrudhaykanth116.todo.ui.models.TodoNavScreen
 
 @Composable
-fun TodoNavigation() {
+fun TodoNavigation(
+    onBackClicked: () -> Unit = {},
+) {
 
     val navController = rememberNavController()
 
@@ -33,9 +35,7 @@ fun TodoNavigation() {
                         "create_todo_screen?id=${it.id}"
                     )
                 },
-                onBackClicked = {
-                    navController.popBackStack()
-                }
+                onBackClicked = onBackClicked
             )
         }
 

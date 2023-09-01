@@ -35,8 +35,8 @@ fun TodoListScreen(
     TodoListScreenUI(
         modifier = Modifier,
         uiState = uiState.value,
-        onRemoveTask = { toDoTask ->
-            todoListViewModel.processEvent(TodoListScreenEvent.RemoveTask(toDoTask.data.id!!))
+        onRemoveTask = { id: String ->
+            todoListViewModel.processEvent(TodoListScreenEvent.RemoveTasks(listOf(id)))
         },
         onItemClicked = onItemClicked,
         onTodoTitleChanged = {
@@ -53,6 +53,9 @@ fun TodoListScreen(
         todoListAppBarCallbacks = TodoListAppBarCallbacks(
             onCategorySelected = {
                 todoListViewModel.processEvent(TodoListScreenEvent.FilterCategory(it))
+            },
+            onMenuItemSelected = {
+                todoListViewModel.processEvent(TodoListScreenEvent.MenuItemSelected(it))
             },
             onCategoriesIconClicked = {
                 todoListViewModel.processEvent(TodoListScreenEvent.CategoryIconClicked)

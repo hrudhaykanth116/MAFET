@@ -27,7 +27,7 @@ import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 fun ListItemsUI(
     listItems: List<ToDoTaskUIState>,
     modifier: Modifier = Modifier,
-    onRemoveTask: (ToDoTaskUIState) -> Unit = {},
+    onRemoveTask: (String) -> Unit = {},
     onItemClicked: (TodoUIModel) -> Unit = {},
     listState: LazyListState = rememberLazyListState(),
 ) {
@@ -48,7 +48,8 @@ fun ListItemsUI(
                 },
                 toDoTaskUIState = toDoTaskUIState,
                 onRemoveClicked = {
-                    onRemoveTask(toDoTaskUIState)
+                    // Id will be null if newly creating only.
+                    onRemoveTask(toDoTaskUIState.data.id!!)
                 }
             )
         }

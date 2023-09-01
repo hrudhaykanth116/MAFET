@@ -5,8 +5,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.hrudhaykanth116.mafet.auth.domain.models.login.LoginScreenCallBacks
 import com.hrudhaykanth116.mafet.auth.domain.models.login.LoginScreenEvent
-import com.hrudhaykanth116.mafet.auth.domain.models.signup.SignUpFormEvent
 
 @Composable
 fun LoginScreen(
@@ -34,18 +34,20 @@ fun LoginScreen(
     //     }
     // }
 
-    LoginScreenContent(
+    LoginScreenUI(
         state,
-        navigateToSignUpScreen,
-        onEmailChanged = {
-            viewModel.processEvent(LoginScreenEvent.EmailChanged(it))
-        },
-        onPasswordChanged = {
-            viewModel.processEvent(LoginScreenEvent.PasswordChanged(it))
-        },
-        onLoginBtnClicked = {
-            viewModel.processEvent(LoginScreenEvent.Login)
-        }
+        loginScreenCallBacks = LoginScreenCallBacks(
+            onSignUpBtnClicked = navigateToSignUpScreen,
+            onEmailChanged = {
+                viewModel.processEvent(LoginScreenEvent.EmailChanged(it))
+            },
+            onPasswordChanged = {
+                viewModel.processEvent(LoginScreenEvent.PasswordChanged(it))
+            },
+            onLoginBtnClicked = {
+                viewModel.processEvent(LoginScreenEvent.Login)
+            }
+        ),
     )
 }
 

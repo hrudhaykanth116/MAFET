@@ -14,6 +14,7 @@ import com.hrudhaykanth116.todo.ui.mappers.toState
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateTodoEffect
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenEvent
+import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenMenuItem
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -34,11 +35,6 @@ class TodoListViewModel @Inject constructor(
 ) : UIStateViewModel2<TodoListUIState, TodoListScreenEvent, CreateTodoEffect>(
     TodoListUIState(UIState2.Loading)
 ) {
-
-
-    // private val _todoList: SnapshotStateList<ToDoTaskUIState> = DummyTodoList.todoList.toMutableStateList()
-    // val todoList: List<ToDoTaskUIState>
-    //     get() = _todoList
 
     init {
 
@@ -85,23 +81,46 @@ class TodoListViewModel @Inject constructor(
     }
 
 
-    private fun removeTaskItem(id: String) {
+    private fun removeTaskItems(taskIdsToDelete: List<String>) {
         viewModelScope.launch {
-            deleteTaskUseCase(id)
+            deleteTaskUseCase(taskIdsToDelete)
         }
     }
 
     override fun processEvent(event: TodoListScreenEvent) {
         when (event) {
-            is TodoListScreenEvent.RemoveTask -> removeTaskItem(event.id)
+            is TodoListScreenEvent.RemoveTasks -> removeTaskItems(event.taskIdsToDelete)
             is TodoListScreenEvent.TodoTaskTitleChanged -> onTodoTaskTitleChanged(event.textFieldValue)
             is TodoListScreenEvent.CreateTodoTask -> createTodoTask(event.taskTitle)
-            is TodoListScreenEvent.FilterCategory -> setFilterCategory(event.filterCategory)
+            is TodoListScreenEvent.FilterCategory -> onFilterSelected(event.filterCategory)
             is TodoListScreenEvent.Search -> setSearchText(event.searchText)
             TodoListScreenEvent.CategoryIconClicked -> onCategoryIconClicked()
             TodoListScreenEvent.CategoryListMenuDismiss -> onCategoryMenuDismiss()
             TodoListScreenEvent.MenuIconClicked -> onMenuIconClicked()
             TodoListScreenEvent.SearchIconClicked -> onSearchIconClicked()
+            is TodoListScreenEvent.MenuItemSelected -> onMenuItemSelected(event.menuItem)
+        }
+    }
+
+    private fun onMenuItemSelected(menuItem: TodoListScreenMenuItem) {
+        setState {
+            copy(
+                isMenuVisible = false
+            )
+        }
+        when (menuItem) {
+            TodoListScreenMenuItem.SETTINGS -> {
+                // setEffect()
+            }
+            TodoListScreenMenuItem.CLEAR_ALL -> {
+                // deleteTasks()
+            }
+        }
+    }
+
+    private fun deleteTasks() {
+        viewModelScope.launch {
+            deleteTaskUseCase()
         }
     }
 
@@ -168,7 +187,7 @@ class TodoListViewModel @Inject constructor(
         }
     }
 
-    private fun setFilterCategory(category: String) {
+    private fun onFilterSelected(category: String) {
         setState {
             copy(
                 category = category,

@@ -90,6 +90,14 @@ interface TodoTasksDao : com.hrudhaykanth116.core.data.local.db.BaseDao<TodoTask
     suspend fun deleteTaskById(taskId: String): Int
 
     /**
+     * Delete a task by id.
+     *
+     * @return the number of tasks deleted. This should always be 1.
+     */
+    @Query("DELETE FROM TodoTaskDbEntity WHERE id IN (:taskId)")
+    suspend fun deleteTasksByIds(taskId: List<String>): Int
+
+    /**
      * Delete all tasks.
      */
     @Query("DELETE FROM TodoTaskDbEntity")
