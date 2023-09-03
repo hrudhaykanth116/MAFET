@@ -13,7 +13,8 @@
     </style>
 
     <style name="SplashTheme" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_monetization</item>
+        <!-- Set a proper icon -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_genie_with_50p_padding</item>
         <item name="postSplashScreenTheme">@style/AppTheme</item>
     </style>
 

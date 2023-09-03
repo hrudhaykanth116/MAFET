@@ -2,6 +2,10 @@ package com.hrudhaykanth116.core.ui.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imeNestedScroll
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
@@ -9,8 +13,10 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -45,7 +51,7 @@ fun AppInputTextPreview() {
 fun AppInputText(
     modifier: Modifier = Modifier,
     textFieldData: TextFieldData = TextFieldData(),
-    onInputChange: TextFieldChangedHandler = {}
+    onInputChange: TextFieldChangedHandler = {},
 ) {
 
     Column(
@@ -61,17 +67,22 @@ fun AppInputText(
 
         when (textFieldData.inputType) {
             is InputType.PwdInputType -> {
-                AppPwdTextField(textFieldData, modifier = modifier, onInputChange)
+                AppPwdTextField(
+                    textFieldData, modifier = modifier, onInputChange,
+                )
             }
+
             is InputType.RegularInputType -> {
                 AppTextField(
                     textFieldData, modifier = modifier, onInputChange = onInputChange
                 )
             }
+
             InputType.EmailInputType -> {
                 AppTextField(
                     textFieldData, onInputChange = onInputChange,
                     modifier = modifier,
+                    singleLine = true,
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Email,
                     )
@@ -115,7 +126,8 @@ private fun AppPwdTextField(
             IconButton(onClick = { passwordVisible = !passwordVisible }) {
                 Icon(imageVector = image, description)
             }
-        }
+        },
+        singleLine = true,
     )
 }
 
@@ -126,6 +138,7 @@ fun AppTextField(
     modifier: Modifier = Modifier,
     onInputChange: (TextFieldValue) -> Unit = {},
     trailingIcon: @Composable (() -> Unit)? = null,
+    singleLine: Boolean = false,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
 ) {
@@ -140,6 +153,12 @@ fun AppTextField(
         },
         trailingIcon = trailingIcon,
         visualTransformation = visualTransformation,
-        keyboardOptions = keyboardOptions
+        keyboardOptions = keyboardOptions,
+        singleLine = singleLine,
+        colors = TextFieldDefaults.textFieldColors(
+            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+            textColor = MaterialTheme.colorScheme.onTertiaryContainer
+        ),
+        shape = RoundedCornerShape(30)
     )
 }

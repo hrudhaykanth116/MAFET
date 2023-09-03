@@ -1,4 +1,5 @@
 package com.hrudhaykanth116.core.theme
+
 import androidx.compose.ui.graphics.Color
 
 val md_theme_light_primary = Color(0xFF003699)
@@ -11,8 +12,8 @@ val md_theme_light_secondaryContainer = Color(0xFFFFD9E2)
 val md_theme_light_onSecondaryContainer = Color(0xFF2B151C)
 val md_theme_light_tertiary = Color(0xFF7C5635)
 val md_theme_light_onTertiary = Color(0xFFFFFFFF)
-val md_theme_light_tertiaryContainer = Color(0xFFFFDCC1)
-val md_theme_light_onTertiaryContainer = Color(0xFF2E1500)
+val md_theme_light_tertiaryContainer = Color(0xFFDDDDDD)
+val md_theme_light_onTertiaryContainer = Color(0xFF333333)
 val md_theme_light_error = Color(0xFFBA1A1A)
 val md_theme_light_errorContainer = Color(0xFFFFDAD6)
 val md_theme_light_onError = Color(0xFFFFFFFF)

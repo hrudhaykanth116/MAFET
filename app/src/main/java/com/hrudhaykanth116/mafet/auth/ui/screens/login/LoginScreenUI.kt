@@ -47,7 +47,7 @@ fun LoginScreenUI(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier.gradientBackground(listOf(Color.Cyan, Color.Blue))
+        modifier = modifier
     ) {
         CenteredColumn(
             modifier = Modifier
@@ -56,21 +56,19 @@ fun LoginScreenUI(
         ) {
             RoundedImage(
                 imageParams = ImageParams(
-                    image = CoreR.drawable.ic_genie,
+                    image = CoreR.drawable.ic_account,
 
                     ),
                 modifier = Modifier
                     .size(120.dp)
                     .clip(CircleShape)
-                    .background(color = ColorParser.parseHexCode(0XFFf1a2fa))
-                    .border(2.dp, Color.Green, CircleShape)
-                    .padding(20.dp)
+                    // .background(color = ColorParser.parseHexCode(0XFFf1a2fa))
+                    .border(2.dp, Color.White, CircleShape)
+                    .padding(30.dp)
                 // .background(color = Color.Green)
                 // .border(2.dp, Color.Green, CircleShape),
             )
             VerticalSpacer(24.dp)
-            AppText(uiText = "Login".toUIText(), style = MaterialTheme.typography.titleLarge)
-            VerticalSpacer(16.dp)
             EmailTextField(
                 state.loginEmail,
                 state.emailError,
@@ -99,10 +97,10 @@ fun LoginScreenUI(
             Text(
                 text = "Sign up",
                 modifier = Modifier.clickable {
-                    loginScreenCallBacks.onSignUpBtnClicked
+                    loginScreenCallBacks.onSignUpBtnClicked()
                 },
                 style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.primary
+                color = MaterialTheme.colorScheme.onBackground
             )
         }
         VerticalSpacer(height = DEFAULT_PADDING)
