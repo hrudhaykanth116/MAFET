@@ -53,10 +53,9 @@ fun AppText(
         textAlign = textAlign,
         lineHeight = lineHeight,
         overflow = overflow,
-        softWrap,
-        maxLines,
-        onTextLayout,
-        style
-
+        softWrap = softWrap,
+        maxLines = maxLines,
+        onTextLayout = onTextLayout,
+        style = style
     )
 }

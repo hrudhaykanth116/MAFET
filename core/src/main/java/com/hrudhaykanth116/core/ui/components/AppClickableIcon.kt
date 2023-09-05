@@ -18,9 +18,9 @@ fun AppClickableIcon(
     modifier: Modifier = Modifier,
     contentDescriptionUIText: UIText? = null,
     enabled: Boolean = true,
-    iconBackgroundColor: Color = Color.Transparent,
+    iconBackgroundColor: Color = Color.Unspecified,
     iconColor: Color = LocalContentColor.current,
-    disabledContainerColor: Color = Color.Transparent,
+    disabledContainerColor: Color = Color.Unspecified,
     disabledContentColor: Color = iconColor.copy(alpha = 0.38f),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
@@ -40,7 +40,6 @@ fun AppClickableIcon(
             type = imageHolder,
             modifier = Modifier,
             contentDescriptionUIText = contentDescriptionUIText,
-            // tint = , tint will be taken from colors.
         )
     }
 }

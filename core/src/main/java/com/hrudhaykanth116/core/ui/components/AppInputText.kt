@@ -155,10 +155,10 @@ fun AppTextField(
         visualTransformation = visualTransformation,
         keyboardOptions = keyboardOptions,
         singleLine = singleLine,
-        colors = TextFieldDefaults.textFieldColors(
-            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-            textColor = MaterialTheme.colorScheme.onTertiaryContainer
-        ),
+        // colors = TextFieldDefaults.textFieldColors(
+        //     containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+        //     textColor = MaterialTheme.colorScheme.onTertiaryContainer
+        // ),
         shape = RoundedCornerShape(30)
     )
 }

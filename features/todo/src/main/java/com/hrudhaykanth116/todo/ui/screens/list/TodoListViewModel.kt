@@ -132,17 +132,17 @@ class TodoListViewModel @Inject constructor(
         }
     }
 
-    fun onMenuIconClicked(){
+    private fun onMenuIconClicked(){
         setState {
             // TODO: Recheck this
             copy(
-                isMenuVisible = true
+                isMenuVisible = !isMenuVisible
             )
         }
     }
 
 
-    fun onCategoryIconClicked(){
+    private fun onCategoryIconClicked(){
         setState {
             copy(
                 isCategoryListMenuVisible = !isCategoryListMenuVisible

@@ -33,7 +33,6 @@ fun <T> AppUIState(
             is UIState.Loading -> {
                 state.contentState?.let { content(it) }
                 CircularProgressIndicator(
-                    color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.align(Alignment.Center)
                 )
             }

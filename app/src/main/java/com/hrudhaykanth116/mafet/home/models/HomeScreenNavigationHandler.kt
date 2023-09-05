@@ -11,13 +11,13 @@ class HomeScreenNavigationHandler(
 
     val onTodoClicked = {
         navController.navigate(
-            MainNavRoute.Todo.route
+            HomeRoute.Todo.route
         )
     }
 
     val onAccountClicked = {
         navController.navigate(
-            MainNavRoute.Account.route
+            HomeRoute.Account.route
         ) {
             popUpTo(0)
         }

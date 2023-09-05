@@ -35,7 +35,7 @@ fun AppImage(
             .build(),
         contentDescription = stringResource(imageParams.contentDescriptionResId),
         modifier = modifier,
-        placeholder = BrushPainter(Brush.radialGradient(colors = listOf(Color.Red, Color.Green))),
+        placeholder = imageParams.placeHolder,
         contentScale = ContentScale.FillBounds,
         error = imageParams.provideErrorDrawable(),
     )

@@ -30,7 +30,6 @@ fun AppToolbar(
     navigationIcon: @Composable () -> Unit = {
         AppClickableIcon(
             imageHolder = R.drawable.ic_back.toImageHolder(),
-            iconColor = Color.White,
             onClick = onBackClicked
         )
     },
@@ -39,10 +38,10 @@ fun AppToolbar(
 
     TopAppBar(
         modifier = modifier,
-        colors = TopAppBarDefaults.mediumTopAppBarColors(
-            containerColor = backgroundColor,
-            titleContentColor = contentColor,
-        ),
+        // colors = TopAppBarDefaults.mediumTopAppBarColors(
+            // containerColor = backgroundColor,
+            // titleContentColor = contentColor,
+        // ),
         title = {
             Text(
                 text = text,

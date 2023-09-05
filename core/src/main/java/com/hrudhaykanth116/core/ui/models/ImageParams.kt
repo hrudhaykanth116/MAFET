@@ -10,17 +10,19 @@ import androidx.compose.ui.res.painterResource
 import com.hrudhaykanth116.core.R
 
 
+val placeHolderPainter = BrushPainter(
+    Brush.radialGradient(
+        colors = listOf(
+            Color.Red,
+            Color.Green
+        )
+    )
+)
+
 data class ImageParams(
     val image: Any?,
     @StringRes val contentDescriptionResId: Int = R.string.image_content_default_description,
-    val placeHolder: Painter = BrushPainter(
-        Brush.radialGradient(
-            colors = listOf(
-                Color.Red,
-                Color.Green
-            )
-        )
-    ),
+    val placeHolder: Painter? = null,
     // @DrawableRes val errorDrawable: Int = R.drawable.image_error_holder,
     val provideErrorDrawable: @Composable () -> Painter = {
         painterResource(id = R.drawable.ic_back)

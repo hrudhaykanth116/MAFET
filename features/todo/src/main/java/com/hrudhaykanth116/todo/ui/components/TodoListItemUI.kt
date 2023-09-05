@@ -42,8 +42,6 @@ fun TodoListItemUI(
     modifier: Modifier = Modifier,
     onRemoveClicked: () -> Unit = {}
 ) {
-    Logger.d("hrudhay_logs", ": TodoListItemUI: ${toDoTaskUIState.data.title}")
-
     // TODO: May be this could be hoisted. Savable because, state retained on scroll or more.
     var isExpanded by rememberSaveable {
         mutableStateOf(false)
@@ -94,7 +92,6 @@ fun TodoListItemUI(
                     maxLines = if (isExpanded) Int.MAX_VALUE else 2,
                     style = MaterialTheme.typography.titleLarge,
                     overflow = if (isExpanded) TextOverflow.Visible else TextOverflow.Ellipsis,
-                    color = ColorParser.parseHexCode(0xFF2400c2)
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 AppText(
@@ -111,7 +108,6 @@ fun TodoListItemUI(
                 imageHolder = ImageHolder.LocalDrawableResource(
                     if(isExpanded) CoreR.drawable.ic_collapse_arrow else CoreR.drawable.ic_expand_arrow
                 ),
-                iconColor = ColorParser.parseHexCode(0xFF2400c2),
                 contentDescriptionUIText = "Expand".toUIText(),
                 onClick = {
                     isExpanded = !isExpanded
@@ -122,7 +118,6 @@ fun TodoListItemUI(
                 imageHolder = ImageHolder.LocalDrawableResource(
                     R.drawable.ic_delete
                 ),
-                iconColor = Color.Red,
                 contentDescriptionUIText = "Delete".toUIText(),
                 onClick = onRemoveClicked
             )

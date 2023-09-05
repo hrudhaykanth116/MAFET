@@ -2,9 +2,8 @@ package com.hrudhaykanth116.mafet.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hrudhaykanth116.mafet.auth.data.repository.IAuthRepository
+import com.hrudhaykanth116.auth.data.repository.IAuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -31,12 +30,18 @@ class MainViewModel @Inject constructor(
                     MainUiState.Training
                 }
             } else {
-                delay(1000)
+                // TODO: Use AuthRepo
                 _state.update {
-                    MainUiState.LoggedOut
+                    MainUiState.LoggedIn
                 }
                 // val loggedInUser: DataResult<String> = authRepository.getLoggedInUser()
             }
+        }
+    }
+
+    fun onLoggedIn() {
+        _state.update {
+            MainUiState.LoggedIn
         }
     }
 

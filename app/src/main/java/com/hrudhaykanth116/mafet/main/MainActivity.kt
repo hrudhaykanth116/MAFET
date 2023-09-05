@@ -4,8 +4,6 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -14,10 +12,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.hrudhaykanth116.core.common.utils.log.Logger
-import com.hrudhaykanth116.mafet.auth.ui.navigation.AuthNavigation
-import com.hrudhaykanth116.mafet.home.HomeNavigation
-import com.hrudhaykanth116.core.theme.AppTheme
-import com.hrudhaykanth116.training.core.TrainingScreen
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
@@ -55,27 +49,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         setContent {
-            MainContentUI(uiState)
-        }
-    }
-
-    @Composable
-    private fun MainContentUI(uiState: MainUiState) {
-        AppTheme {
-            Logger.d(TAG, "onCreate: setContent()")
-            when (uiState) {
-                MainUiState.Loading -> {
-                    Text(text = "This view shouldnt be visible due to splash screen.")
+            MainActivityScreen(
+                uiState = uiState,
+                onLoggedIn = {
+                    viewModel.onLoggedIn()
                 }
-                is MainUiState.LoggedIn -> {
-                    HomeNavigation(uiState.userName)
-                }
-                MainUiState.LoggedOut -> {
-                    AuthNavigation()
-                }
-
-                MainUiState.Training -> TrainingScreen()
-            }
+            )
         }
     }
 

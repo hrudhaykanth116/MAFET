@@ -6,3 +6,4 @@ include ':features:todo'
 include ':features:ai'
 include ':features:weather'
 include(":training")
+include ':features:auth'

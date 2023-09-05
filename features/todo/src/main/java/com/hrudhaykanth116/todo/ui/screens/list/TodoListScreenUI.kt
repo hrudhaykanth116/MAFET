@@ -1,6 +1,5 @@
 package com.hrudhaykanth116.todo.ui.screens.list
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -12,8 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -28,23 +25,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.hrudhaykanth116.core.common.utils.color.ColorParser
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
-import com.hrudhaykanth116.core.common.utils.compose.modifier.gradientBackground
 import com.hrudhaykanth116.core.common.utils.functions.TextFieldChangedHandler
-import com.hrudhaykanth116.core.theme.md_theme_light_surface
-import com.hrudhaykanth116.core.theme.md_theme_light_surfaceVariant
 import com.hrudhaykanth116.core.ui.components.AppClickableIcon
-import com.hrudhaykanth116.core.ui.components.AppToolbar
 import com.hrudhaykanth116.core.ui.models.UIState2
 import com.hrudhaykanth116.core.ui.models.toImageHolder
 import com.hrudhaykanth116.todo.R
 import com.hrudhaykanth116.todo.ui.components.ListItemsUI
-import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
-import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenMenuItem
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListUIState
-import com.hrudhaykanth116.core.R as CoreR
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -83,70 +72,6 @@ fun TodoListScreenUI(
 }
 
 @Composable
-private fun TodoListAppBar(
-    categories: Set<String>,
-    isCategoriesPopUpShown: Boolean = false,
-    isMenuVisible: Boolean = false,
-    todoListAppBarCallbacks: TodoListAppBarCallbacks,
-) {
-
-    AppToolbar(
-        text = "All category",
-        backgroundColor = MaterialTheme.colorScheme.primaryContainer,
-        onBackClicked = todoListAppBarCallbacks.onBackClicked,
-        actions = {
-
-            Box(modifier = Modifier) {
-                AppClickableIcon(
-                    imageHolder = CoreR.drawable.ic_expand_arrow.toImageHolder(),
-                    iconColor = Color.White,
-                    onClick = todoListAppBarCallbacks.onCategoriesIconClicked
-                )
-                DropdownMenu(
-                    expanded = isCategoriesPopUpShown,
-                    onDismissRequest = todoListAppBarCallbacks.onCategoriesDismissRequest,
-                ) {
-                    categories.forEach {
-                        DropdownMenuItem(
-                            text = { Text(text = it) },
-                            onClick = { todoListAppBarCallbacks.onCategorySelected(it) },
-                        )
-                    }
-                }
-            }
-
-
-            AppClickableIcon(
-                imageHolder = CoreR.drawable.ic_search.toImageHolder(),
-                iconColor = Color.White,
-                onClick = todoListAppBarCallbacks.onSearchIconClicked
-            )
-            Spacer(modifier = Modifier.width(10.dp))
-            Box(modifier = Modifier) {
-                AppClickableIcon(
-                    imageHolder = CoreR.drawable.ic_menu_vertical.toImageHolder(),
-                    iconColor = Color.White,
-                    onClick = todoListAppBarCallbacks.onMenuItemClicked
-                )
-                DropdownMenu(
-                    expanded = isMenuVisible,
-                    onDismissRequest = todoListAppBarCallbacks.onMenuItemClicked,
-                ) {
-                    TodoListScreenMenuItem.values().forEach { menuItem ->
-                        val onClick: () -> Unit = { todoListAppBarCallbacks.onMenuItemSelected(menuItem) }
-                        DropdownMenuItem(
-                            text = { Text(text = menuItem.displayName) },
-                            onClick = onClick,
-                        )
-                    }
-
-                }
-            }
-        }
-    )
-}
-
-@Composable
 @OptIn(ExperimentalMaterial3Api::class)
 private fun ContentContainer(
     paddingValues: PaddingValues,
@@ -163,7 +88,6 @@ private fun ContentContainer(
     ) {
         Box(
             modifier = Modifier
-                .background(MaterialTheme.colorScheme.background)
                 .fillMaxSize()
                 .weight(1f)
         ) {
@@ -247,11 +171,11 @@ private fun ContentContainer(
             Spacer(modifier = Modifier.width(10.dp))
             AppClickableIcon(
                 imageHolder = R.drawable.ic_note_save.toImageHolder(),
-                iconColor = Color.Green,
-                // iconBackgroundColor = Color.LightGray,
+                iconColor = MaterialTheme.colorScheme.primary,
                 onClick = onCreateBtnClicked
             )
         }
+        Spacer(modifier = Modifier.height(10.dp))
     }
 }
 

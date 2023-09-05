@@ -1,27 +1,29 @@
 package com.hrudhaykanth116.todo.ui.components
 
+import android.annotation.SuppressLint
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 
+@SuppressLint("UnrememberedMutableState")
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ListItemsUI(
@@ -31,6 +33,17 @@ fun ListItemsUI(
     onItemClicked: (TodoUIModel) -> Unit = {},
     listState: LazyListState = rememberLazyListState(),
 ) {
+
+    var currentSize by rememberSaveable { mutableStateOf (listItems.size) }
+    // val isItemAdded = listItems.size > currentSize
+    var isItemAdded by mutableStateOf(listItems.size > currentSize)
+
+    LaunchedEffect (isItemAdded){ //Won't be called upon item deletion
+        if(isItemAdded){
+            listState.animateScrollToItem(listItems.size)
+            currentSize = listItems.size
+        }
+    }
 
     LazyColumn(
         state = listState,

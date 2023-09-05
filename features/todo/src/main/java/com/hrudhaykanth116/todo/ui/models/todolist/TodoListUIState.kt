@@ -12,6 +12,7 @@ data class TodoListUIState(
     val categories: Set<String> = setOf(),
     val todoTitle: TextFieldValue = TextFieldValue(),
 
+    val itemPosition: Int = 0,
     val category: String = "",
     val search: String = "",
 
@@ -20,4 +21,4 @@ data class TodoListUIState(
     val isMenuVisible: Boolean = false,
 
 
-) : BaseUIState(uiState2)
+    ) : BaseUIState(uiState2)

@@ -30,12 +30,12 @@ fun AppCard(
             focusedElevation = 4.dp
         ),
         shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(
-            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            disabledContentColor = MaterialTheme.colorScheme.surface,
-            disabledContainerColor = MaterialTheme.colorScheme.onSurface,
-        ),
+        // colors = CardDefaults.cardColors(
+        //     contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+        //     containerColor = MaterialTheme.colorScheme.primaryContainer,
+        //     disabledContentColor = MaterialTheme.colorScheme.surface,
+        //     disabledContainerColor = MaterialTheme.colorScheme.onSurface,
+        // ),
         content = content,
     )
 }

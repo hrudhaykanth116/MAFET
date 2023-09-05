@@ -2,7 +2,7 @@ package com.hrudhaykanth116.mafet.main
 
 sealed interface MainUiState {
     object Loading : MainUiState
-    data class LoggedIn(val userName: String) : MainUiState
+    object LoggedIn : MainUiState
     object LoggedOut: MainUiState
     object Training: MainUiState
 }

@@ -113,42 +113,6 @@ dependencies {
 
     api("androidx.metrics:metrics-performance:1.0.0-alpha04")
 
-
-    /*
-    api("androidx.compose.ui:ui:1.1.1'
-    // Tooling support (Previews, etc.)
-    api("androidx.compose.ui:ui-tooling:1.1.1'
-    // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
-    api("androidx.compose.foundation:foundation:1.1.1'
-    // Material Design
-    api("androidx.compose.material:material:1.1.1'
-    // Material design icons
-    api("androidx.compose.material:material-icons-core:1.1.1'
-    api("androidx.compose.material:material-icons-extended:1.1.1'
-    // Integration with activities
-    api("androidx.activity:activity-compose:1.5.0'
-    // Integration with ViewModels
-    api("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.0-alpha01'
-    // Integration with lifecycle
-    api("androidx.lifecycle:lifecycle-runtime-compose:2.6.0-alpha01"
-    // Integration with observables
-    api("androidx.compose.runtime:runtime-livedata:1.1.1'
-    api("androidx.compose.runtime:runtime-rxjava2:1.1.1'
-
-    // Hilt
-    api("androidx.hilt:hilt-navigation-compose:1.0.0")
-
-    // UI Tests
-    androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.1.1'
-
-    // When using a MDC theme
-    // api("com.google.android.material:compose-theme-adapter:1.1.14"
-
-    // When using a AppCompat theme
-    // api("com.google.accompanist:accompanist-appcompat-theme:0.16.0"
-
-     */
-
     /***************************** Jetpack Compose ****************************/
 
     /*********** Firebase ************/

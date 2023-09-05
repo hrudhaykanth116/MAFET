@@ -14,7 +14,7 @@ fun AppIcon(
     type: ImageHolder,
     modifier: Modifier = Modifier,
     contentDescriptionUIText: UIText? = null,
-    tint: Color = LocalContentColor.current
+    tint: Color = LocalContentColor.current,
 ) {
 
     when (type) {
