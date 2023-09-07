@@ -56,7 +56,9 @@ fun MyPagerContainer() {
 
     val coroutineScope = rememberCoroutineScope()
 
-    val pagerState = rememberPagerState()
+    val pagerState = rememberPagerState(){
+        PAGES_SIZE
+    }
 
     val fling = PagerDefaults.flingBehavior(
         state = pagerState,
@@ -92,7 +94,6 @@ fun MyPagerContainer() {
         modifier = Modifier.fillMaxSize()
     ) {
         HorizontalPager(
-            PAGES_SIZE,
             state = pagerState,
             // pageSize = PageSize.Fixed(220.dp),
             contentPadding = PaddingValues(horizontal = 40.dp),

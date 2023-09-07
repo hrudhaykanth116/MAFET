@@ -51,6 +51,8 @@ fun AppInputTextPreview() {
 fun AppInputText(
     modifier: Modifier = Modifier,
     textFieldData: TextFieldData = TextFieldData(),
+    enabled: Boolean = true,
+    readOnly: Boolean = false,
     onInputChange: TextFieldChangedHandler = {},
 ) {
 
@@ -83,6 +85,8 @@ fun AppInputText(
                     textFieldData, onInputChange = onInputChange,
                     modifier = modifier,
                     singleLine = true,
+                    enabled = enabled,
+                    readOnly = readOnly,
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Email,
                     )
@@ -136,6 +140,8 @@ private fun AppPwdTextField(
 fun AppTextField(
     textFieldData: TextFieldData,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    readOnly: Boolean = false,
     onInputChange: (TextFieldValue) -> Unit = {},
     trailingIcon: @Composable (() -> Unit)? = null,
     singleLine: Boolean = false,

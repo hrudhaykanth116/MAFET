@@ -3,18 +3,18 @@ package com.hrudhaykanth116.mafet.home
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
+import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.ui.components.AppIcon
+import com.hrudhaykanth116.core.ui.components.AppText
 import com.hrudhaykanth116.core.ui.models.toImageHolder
 import com.hrudhaykanth116.mafet.home.models.HomeBottomNavigationItem
 
@@ -42,13 +42,13 @@ fun HomeBottomNavigation(
                 },
                 icon = {
                     AppIcon(
-                        type = navigationItem.iconDrawable.toImageHolder(),
+                        imageHolder = navigationItem.iconDrawable.toImageHolder(),
                         modifier = Modifier.size(24.dp),
                         tint = if(isSelected) Color.Blue else Color.White
                     )
                 },
                 label = {
-                    Text(text = navigationItem.displayName)
+                    AppText(uiText = navigationItem.displayName.toUIText())
                 }
             )
         }

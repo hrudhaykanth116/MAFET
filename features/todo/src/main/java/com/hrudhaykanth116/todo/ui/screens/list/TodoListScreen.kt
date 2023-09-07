@@ -69,6 +69,9 @@ fun TodoListScreen(
             onMenuItemClicked = {
                 todoListViewModel.processEvent(TodoListScreenEvent.MenuIconClicked)
             },
+            onSortIconClicked = {
+                todoListViewModel.processEvent(TodoListScreenEvent.SortIconClicked)
+            },
             onBackClicked = onBackClicked
 
         )

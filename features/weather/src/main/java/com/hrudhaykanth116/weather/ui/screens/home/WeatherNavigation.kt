@@ -15,10 +15,8 @@ fun WeatherNavigation(
     // AndroidViewBinding(FragmentWeatherHomeScreenBinding::inflate) {
     //
     // }
-    
-    CenteredColumn(modifier = modifier) {
-        Text(text = "Weather feature coming up")
-    }
+
+    WeatherHomeScreen(modifier)
 
 
 }

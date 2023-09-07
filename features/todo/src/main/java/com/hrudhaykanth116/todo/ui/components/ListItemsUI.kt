@@ -48,10 +48,9 @@ fun ListItemsUI(
     LazyColumn(
         state = listState,
         // Adds space between items
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp),
         // Adds padding to the row. Out side of the list item.
         contentPadding = PaddingValues(horizontal = 8.dp),
-        modifier = modifier.padding(top = 8.dp)
     ) {
 
         items(listItems) { toDoTaskUIState ->

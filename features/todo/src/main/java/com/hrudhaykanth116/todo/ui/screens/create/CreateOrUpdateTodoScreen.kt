@@ -20,6 +20,7 @@ fun CreateOrUpdateTodoScreen(
     noteId: String? = null,
     isInEditMode: Boolean = true,
     onCreated: () -> Unit,
+    onBackClicked: () -> Unit = {},
 ) {
     Logger.d(TAG, "CreateTodoListScreen: ")
 
@@ -52,6 +53,7 @@ fun CreateOrUpdateTodoScreen(
             { viewModel.processEvent(CreateTodoEvent.CategoryChanged(it)) }
         }
 
+        // TODO: ISSUES Called multiple times
         if (contentState.isSubmitted) {
             onCreated()
         } else {
@@ -61,6 +63,7 @@ fun CreateOrUpdateTodoScreen(
                 onDescriptionChanged = onDescriptionChanged,
                 onCreateBtnClicked = onCreateBtnClicked,
                 onCategoryChanged = onCategoryChanged,
+                onBackClicked = onBackClicked
             )
         }
     }

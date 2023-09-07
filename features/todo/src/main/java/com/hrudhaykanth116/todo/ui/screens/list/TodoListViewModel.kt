@@ -99,6 +99,15 @@ class TodoListViewModel @Inject constructor(
             TodoListScreenEvent.MenuIconClicked -> onMenuIconClicked()
             TodoListScreenEvent.SearchIconClicked -> onSearchIconClicked()
             is TodoListScreenEvent.MenuItemSelected -> onMenuItemSelected(event.menuItem)
+            TodoListScreenEvent.SortIconClicked -> onSortIconClicked()
+        }
+    }
+
+    private fun onSortIconClicked(){
+        setState {
+            copy(
+
+            )
         }
     }
 

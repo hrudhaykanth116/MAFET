@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -14,12 +15,14 @@ import com.hrudhaykanth116.core.ui.components.AppClickableIcon
 import com.hrudhaykanth116.core.ui.components.AppToolbar
 import com.hrudhaykanth116.core.ui.models.toImageHolder
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenMenuItem
+import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenSortItem
 
 @Composable
 fun TodoListAppBar(
     categories: Set<String>,
     isCategoriesPopUpShown: Boolean = false,
     isMenuVisible: Boolean = false,
+    isSortMenuVisible: Boolean = false,
     todoListAppBarCallbacks: TodoListAppBarCallbacks,
 ) {
 
@@ -47,16 +50,26 @@ fun TodoListAppBar(
                 }
             }
 
+            Box(modifier = Modifier) {
+                AppClickableIcon(
+                    imageHolder = R.drawable.ic_sort_vertical.toImageHolder(),
+                    onClick = todoListAppBarCallbacks.onSortIconClicked
+                )
 
-            // AppClickableIcon(
-            //     imageHolder = CoreR.drawable.ic_search.toImageHolder(),
-            //     iconColor = Color.White,
-            //     onClick = todoListAppBarCallbacks.onSearchIconClicked
-            // )
-            AppClickableIcon(
-                imageHolder = R.drawable.ic_sort_vertical.toImageHolder(),
-                onClick = todoListAppBarCallbacks.onSearchIconClicked
-            )
+                DropdownMenu(
+                    expanded = isSortMenuVisible,
+                    onDismissRequest = todoListAppBarCallbacks.onSortIconClicked,
+                ) {
+                    TodoListScreenSortItem.values().forEach { menuItem ->
+                        val onClick: () -> Unit =
+                            { todoListAppBarCallbacks.onSortItemSelected(menuItem) }
+                        DropdownMenuItem(
+                            text = { Text(text = menuItem.displayName) },
+                            onClick = onClick,
+                        )
+                    }
+                }
+            }
             Spacer(modifier = Modifier.width(10.dp))
             Box(modifier = Modifier) {
                 AppClickableIcon(

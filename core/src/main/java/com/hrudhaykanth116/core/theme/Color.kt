@@ -60,7 +60,7 @@ val md_theme_dark_errorContainer = Color(0xFFFFFFFF)
 val md_theme_dark_onErrorContainer = Color(0xFFFFDAD6)
 
 // Background
-val md_theme_dark_background = Color(0xFF020509)
+val md_theme_dark_background = Color(0xFF0A0F16)
 val md_theme_dark_onBackground = Color(0xFFFFFFFF)
 
 // Toolbar, Navigation bar

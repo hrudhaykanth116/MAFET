@@ -10,7 +10,7 @@ plugins {
 android {
     namespace = "com.hrudhaykanth116.core"
 
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 24
@@ -75,13 +75,13 @@ dependencies {
     api("androidx.core:core-ktx:1.10.1")
 
     // Coroutines
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
 
     /************************** Kotlin ******************************/
 
     /***************************** Jetpack Compose ****************************/
 
-    val composeBom = platform("androidx.compose:compose-bom:2023.03.00")
+    val composeBom = platform("androidx.compose:compose-bom:2023.08.00")
     api(composeBom)
     androidTestImplementation(composeBom)
 
@@ -125,7 +125,7 @@ dependencies {
     /*********** Firebase ************/
 
     // Life cycle
-    val lifecycle_version = "2.5.0"
+    val lifecycle_version = "2.6.1"
     api("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
     api("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
     // Lifecycles only (without ViewModel or LiveData)
@@ -136,7 +136,7 @@ dependencies {
     api("androidx.lifecycle:lifecycle-common-java8:$lifecycle_version")
 
     // Navigation component
-    val nav_version = "2.6.0"
+    val nav_version = "2.7.1"
     api("androidx.navigation:navigation-fragment-ktx:$nav_version")
     api("androidx.navigation:navigation-ui-ktx:$nav_version")
     api("androidx.navigation:navigation-compose:$nav_version")
@@ -146,7 +146,7 @@ dependencies {
     androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
 
     // Room
-    val room_version = "2.5.1"
+    val room_version = "2.5.2"
     api("androidx.room:room-runtime:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
     // optional - Kotlin Extensions and Coroutines support for Room
@@ -185,7 +185,7 @@ dependencies {
     api("androidx.viewpager2:viewpager2:1.0.0")
 
     // Glide
-    val glide_version = "4.12.0"
+    val glide_version = "4.15.0"
     api("com.github.bumptech.glide:glide:4.12.0")
     kapt("com.github.bumptech.glide:compiler:4.12.0")
 
@@ -195,10 +195,10 @@ dependencies {
 
     // Paging
     val paging_version = "3.0.0"
-    api("androidx.paging:paging-runtime-ktx:3.1.1")
+    api("androidx.paging:paging-runtime-ktx:3.2.0")
 
     //Lottie
-    api("com.airbnb.android:lottie:3.4.4")
+    api("com.airbnb.android:lottie:5.2.0")
 
     // Shimmer(http://facebook.github.io/shimmer-android/)
     api("com.facebook.shimmer:shimmer:0.5.0")

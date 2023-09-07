@@ -1,5 +1,6 @@
 package com.hrudhaykanth116.todo.ui.screens.list
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -15,6 +16,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -26,11 +28,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
+import com.hrudhaykanth116.core.common.utils.compose.isBlank
 import com.hrudhaykanth116.core.common.utils.functions.TextFieldChangedHandler
 import com.hrudhaykanth116.core.ui.components.AppClickableIcon
 import com.hrudhaykanth116.core.ui.models.UIState2
 import com.hrudhaykanth116.core.ui.models.toImageHolder
 import com.hrudhaykanth116.todo.R
+import com.hrudhaykanth116.core.R as CoreR
 import com.hrudhaykanth116.todo.ui.components.ListItemsUI
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListUIState
@@ -113,6 +117,15 @@ private fun ContentContainer(
                     modifier = Modifier.align(Alignment.Center)
                 )
             } else {
+                // SearchBar(
+                //     query =,
+                //     onQueryChange =,
+                //     onSearch =,
+                //     active =,
+                //     onActiveChange =
+                // ) {
+                //
+                // }
                 ListItemsUI(
                     // TODO: Use Loaded state for non null state
                     listItems = tasksList,
@@ -170,7 +183,10 @@ private fun ContentContainer(
             )
             Spacer(modifier = Modifier.width(10.dp))
             AppClickableIcon(
-                imageHolder = R.drawable.ic_note_save.toImageHolder(),
+                imageHolder = if (uiState.todoTitle.isBlank())
+                    R.drawable.ic_new_note.toImageHolder()
+                else
+                    CoreR.drawable.ic_save.toImageHolder(),
                 iconColor = MaterialTheme.colorScheme.primary,
                 onClick = onCreateBtnClicked
             )

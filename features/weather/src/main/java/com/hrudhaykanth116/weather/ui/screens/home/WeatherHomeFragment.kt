@@ -42,10 +42,7 @@ class WeatherHomeFragment :
         binding.weatherList.adapter = forecastListAdapter
 
         binding.searchIcon.setOnClickListener {
-            sendEvent(EVENT.Refresh(binding.location.text?.toString()))
-        }
-        binding.logoutBtn.setOnClickListener {
-            sendEvent(EVENT.LogOut)
+            sendEvent(EVENT.Refresh)
         }
     }
 
@@ -61,12 +58,6 @@ class WeatherHomeFragment :
             sendEvent(EVENT.UserMessageShown(it))
         }
 
-        binding.userName.text = state.userName
-        binding.bio.text = state.userBio
-        binding.profileImage.load(state.userProfileImageUrl, builder = {
-            // TODO: Place holder
-            // placeholder(R.drawable.profile_icon)
-        })
         binding.progressBar.isVisible = state.isLoading
 
         forecastListAdapter.submitList(

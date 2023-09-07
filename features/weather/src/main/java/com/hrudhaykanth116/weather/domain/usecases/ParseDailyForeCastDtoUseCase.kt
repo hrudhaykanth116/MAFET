@@ -11,7 +11,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ParseForeCastDtoUseCase @Inject constructor(
+class ParseDailyForeCastDtoUseCase @Inject constructor(
     private val dateTimeUtils: DateTimeUtils,
     private val temperatureConverter: TemperatureConverter,
 ) {
@@ -31,7 +31,6 @@ class ParseForeCastDtoUseCase @Inject constructor(
                         getWeatherListItemUIState(dayData)
                     )
                 }
-
             }
 
             return@withContext weatherListItemUIStates

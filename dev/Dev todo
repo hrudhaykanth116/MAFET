@@ -1,0 +1,10 @@
+
+Features
+* TODOLIST
+    * Bottom sheet for filter options.
+    * Sort based on priority, target time, created time, category.
+
+* Expandable View
+* Custom layout
+
+* Interface mapper generic for layer to layer models conversion

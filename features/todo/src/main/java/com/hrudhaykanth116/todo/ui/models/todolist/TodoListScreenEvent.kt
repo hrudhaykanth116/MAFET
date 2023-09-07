@@ -19,5 +19,6 @@ sealed interface TodoListScreenEvent {
     object CategoryListMenuDismiss: TodoListScreenEvent
     object SearchIconClicked: TodoListScreenEvent
     object MenuIconClicked: TodoListScreenEvent
+    object SortIconClicked: TodoListScreenEvent
 
 }

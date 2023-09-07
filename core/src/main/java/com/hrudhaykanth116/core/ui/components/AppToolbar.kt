@@ -24,8 +24,8 @@ import com.hrudhaykanth116.core.ui.models.toImageHolder
 fun AppToolbar(
     text: String,
     modifier: Modifier = Modifier,
-    backgroundColor: Color = Color.Red,
-    contentColor: Color = Color.White,
+    // backgroundColor: Color = Color.Red,
+    // contentColor: Color = Color.Unspecified,
     onBackClicked: () -> Unit = {},
     navigationIcon: @Composable () -> Unit = {
         AppClickableIcon(
@@ -38,10 +38,10 @@ fun AppToolbar(
 
     TopAppBar(
         modifier = modifier,
-        // colors = TopAppBarDefaults.mediumTopAppBarColors(
-            // containerColor = backgroundColor,
+        colors = TopAppBarDefaults.mediumTopAppBarColors(
+            containerColor = Color.Transparent,
             // titleContentColor = contentColor,
-        // ),
+        ),
         title = {
             Text(
                 text = text,

@@ -23,6 +23,7 @@ import com.hrudhaykanth116.auth.ui.components.EmailTextField
 import com.hrudhaykanth116.auth.ui.components.PasswordTextField
 import com.hrudhaykanth116.core.common.resources.Dimens.DEFAULT_PADDING
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
+import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.ui.components.AppFormButton
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
 import com.hrudhaykanth116.core.ui.components.HorizontalSpacer
@@ -73,7 +74,7 @@ fun LoginScreenUI(
             )
             VerticalSpacer(24.dp)
             AppFormButton(
-                "Login",
+                "Login".toUIText(),
                 modifier = Modifier.fillMaxWidth(),
                 onClick = loginScreenCallBacks.onLoginBtnClicked,
             )

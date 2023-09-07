@@ -23,6 +23,7 @@ import com.hrudhaykanth116.auth.ui.components.PasswordTextField
 import com.hrudhaykanth116.auth.ui.components.ReEnterPasswordTextField
 import com.hrudhaykanth116.auth.ui.components.UserNameTextField
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
+import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.ui.components.AppFormButton
 import com.hrudhaykanth116.core.ui.components.CircularImage
 
@@ -76,7 +77,7 @@ fun SignUpScreenContentUI(
         UserNameTextField(state, signUpScreenCallbacks.onUserNameChanged)
         BioTextField(state, signUpScreenCallbacks.onBioChanged)
         Spacer(modifier = Modifier.height(8.dp))
-        AppFormButton(btnText = "Sign up") { signUpScreenCallbacks.onSubmit() }
+        AppFormButton(btnText = "Sign up".toUIText()) { signUpScreenCallbacks.onSubmit() }
     }
 }
 

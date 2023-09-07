@@ -37,7 +37,7 @@ fun AppClickableIcon(
         interactionSource = interactionSource
     ) {
         AppIcon(
-            type = imageHolder,
+            imageHolder = imageHolder,
             modifier = Modifier,
             contentDescriptionUIText = contentDescriptionUIText,
         )

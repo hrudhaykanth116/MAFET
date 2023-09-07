@@ -16,12 +16,26 @@ interface OpenWeatherApiService {
      *
      */
 
-    // By default 7 days daily as per the api
+    /**
+     * {
+     *     "cod":400,
+     *     "message":"Invalid date format",
+     *     "parameters": [
+     *         "date"
+     *     ]
+     * }
+     */
+
+    /**
+     * https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
+     * By default 7 days daily as per the api
+     */
     @GET("data/3.0/onecall")
     suspend fun getDailyWeatherForeCast(
         @Query("lat") latitude: String,
         @Query("lon") longitude: String,
-        @Query("exclude") exclude: String = "hourly,minutely",
+        // @Query("units") units: String = "metric",
+        // @Query("exclude") exclude: String = "hourly,minutely",
         @Query("appid") token: String = ApiKeys.FORECAST_API_KEY,
     ): Response<WeatherForeCastResponse>
 

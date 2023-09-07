@@ -12,10 +12,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.tooling.preview.Preview
 import com.hrudhaykanth116.core.common.utils.compose.modifier.gradientBackground
+import com.hrudhaykanth116.core.data.models.UIText
+import com.hrudhaykanth116.core.data.models.toUIText
 
 @Composable
 fun AppFormButton(
-    btnText: String,
+    btnText: UIText,
     modifier: Modifier = Modifier,
     onClick: (() -> Unit)? = null,
 ) {
@@ -29,8 +31,8 @@ fun AppFormButton(
         //     containerColor = Color.Black
         // ),
     ) {
-        Text(
-            text = btnText,
+        AppText(
+            uiText = btnText,
             style = MaterialTheme.typography.titleLarge,
         )
     }
@@ -40,7 +42,7 @@ fun AppFormButton(
 @Composable
 @Preview
 fun AppButtonPreview() {
-    AppFormButton(btnText = "Click me") {
+    AppFormButton(btnText = "Click me".toUIText()) {
 
     }
 }

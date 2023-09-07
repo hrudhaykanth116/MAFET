@@ -55,10 +55,14 @@ fun TodoNavigation(
                 isInEditMode = true,
                 noteId = noteId,
                 onCreated = {
+                    // TODO: ISSUES jst popBackStack()
                     navController.popBackStack(
                         route = TodoNavScreen.TodoListScreen.route,
                         inclusive = false
                     )
+                },
+                onBackClicked = {
+                    navController.popBackStack()
                 }
             )
         }

@@ -6,18 +6,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.hrudhaykanth116.core.ui.components.AppFormButton
+import com.hrudhaykanth116.core.data.models.toUIText
 
 @Composable
 fun AccountScreen(onLoggedOut: (() -> Unit)? = null) {
-    
+
     Column(
         horizontalAlignment = Alignment.Start,
         modifier = Modifier.padding(start = 8.dp)
     ) {
-        com.hrudhaykanth116.core.ui.components.AppFormButton(btnText = "Logout") {
+        com.hrudhaykanth116.core.ui.components.AppFormButton(btnText = "Logout".toUIText()) {
             onLoggedOut?.invoke()
         }
     }
-    
+
 }
