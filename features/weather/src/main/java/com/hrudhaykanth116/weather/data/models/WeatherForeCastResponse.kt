@@ -15,22 +15,22 @@ data class WeatherForeCastResponse(
     val timezoneOffset: Int? = null
 ) {
     data class Current(
-        val clouds: Int? = null,
+        val clouds: Float? = null,
         @Json(name = "dew_point")
         val dewPoint: Float? = null,
         val dt: Int? = null,
         @Json(name = "feels_like")
         val feelsLike: Float? = null,
-        val humidity: Int? = null,
-        val pressure: Int? = null,
+        val humidity: Float? = null,
+        val pressure: Float? = null,
         val sunrise: Int? = null,
         val sunset: Int? = null,
         val temp: Float? = null,
         val uvi: Float? = null,
-        val visibility: Int? = null,
+        val visibility: Float? = null,
         val weather: List<Weather?>? = null,
         @Json(name = "wind_deg")
-        val windDeg: Int? = null,
+        val windDeg: Float? = null,
         @Json(name = "wind_speed")
         val windSpeed: Float? = null
     ) {
@@ -43,19 +43,19 @@ data class WeatherForeCastResponse(
     }
 
     data class Daily(
-        val clouds: Int? = null,
+        val clouds: Float? = null,
         @Json(name = "dew_point")
         val dewPoint: Float? = null,
         val dt: Int? = null,
         @Json(name = "feels_like")
         val feelsLike: FeelsLike? = null,
-        val humidity: Int? = null,
+        val humidity: Float? = null,
         @Json(name = "moon_phase")
         val moonPhase: Float? = null,
         val moonrise: Int? = null,
         val moonset: Int? = null,
         val pop: Float? = null,
-        val pressure: Int? = null,
+        val pressure: Float? = null,
         val rain: Float? = null,
         val summary: String? = null,
         val sunrise: Int? = null,
@@ -64,7 +64,7 @@ data class WeatherForeCastResponse(
         val uvi: Float? = null,
         val weather: List<Weather?>? = null,
         @Json(name = "wind_deg")
-        val windDeg: Int? = null,
+        val windDeg: Float? = null,
         @Json(name = "wind_gust")
         val windGust: Float? = null,
         @Json(name = "wind_speed")
@@ -95,22 +95,22 @@ data class WeatherForeCastResponse(
     }
 
     data class Hourly(
-        val clouds: Int? = null,
+        val clouds: Float? = null,
         @Json(name = "dew_point")
         val dewPoint: Float? = null,
         val dt: Int? = null,
         @Json(name = "feels_like")
         val feelsLike: Float? = null,
-        val humidity: Int? = null,
+        val humidity: Float? = null,
         val pop: Float? = null,
-        val pressure: Int? = null,
+        val pressure: Float? = null,
         val rain: Rain? = null,
         val temp: Float? = null,
         val uvi: Float? = null,
-        val visibility: Int? = null,
+        val visibility: Float? = null,
         val weather: List<Weather?>? = null,
         @Json(name = "wind_deg")
-        val windDeg: Int? = null,
+        val windDeg: Float? = null,
         @Json(name = "wind_gust")
         val windGust: Float? = null,
         @Json(name = "wind_speed")
@@ -131,6 +131,6 @@ data class WeatherForeCastResponse(
 
     data class Minutely(
         val dt: Int? = null,
-        val precipitation: Int? = null
+        val precipitation: Float? = null
     )
 }

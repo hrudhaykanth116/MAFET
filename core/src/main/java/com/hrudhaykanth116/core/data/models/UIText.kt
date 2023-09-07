@@ -3,6 +3,7 @@ package com.hrudhaykanth116.core.data.models
 import android.content.Context
 import androidx.compose.runtime.Composable
 import com.hrudhaykanth116.core.common.utils.locale.LocaleHelper
+import com.hrudhaykanth116.core.common.utils.string.replaceIfBlank
 
 sealed class UIText {
 
@@ -35,4 +36,10 @@ sealed class UIText {
 
 fun String.toUIText(): UIText.Text {
     return UIText.Text(this)
+}
+
+fun Any?.toUIText(ifNullString: String): UIText{
+
+    return toString().replaceIfBlank(ifNullString).toUIText()
+
 }

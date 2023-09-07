@@ -1,14 +1,16 @@
 package com.hrudhaykanth116.weather.ui.screens.home
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SearchBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,6 +22,7 @@ import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.ui.components.AppCard
 import com.hrudhaykanth116.core.ui.components.AppIcon
 import com.hrudhaykanth116.core.ui.components.AppSearchBar
+import com.hrudhaykanth116.core.ui.components.AppText
 import com.hrudhaykanth116.core.ui.components.VerticalSpacer
 import com.hrudhaykanth116.core.ui.models.toImageHolder
 import com.hrudhaykanth116.weather.R
@@ -85,27 +88,29 @@ private fun ContentContainer(
             ) {
                 AppIcon(
                     imageHolder = weather.icon,
-                    uiText = weather.main,
                     iconModifier = Modifier.size(150.dp)
                 )
+                AppText(
+                    uiText = weather.main,
+                    style = MaterialTheme.typography.titleLarge,
+                )
+                AppText(
+                    uiText = weather.description,
+                    style = MaterialTheme.typography.titleMedium,
+                )
                 VerticalSpacer()
-                Row {
-                    AppIcon(
-                        imageHolder = R.drawable.profile_icon.toImageHolder(),
-                        uiText = current.temp, iconModifier = Modifier.size(70.dp)
-                    )
-                    AppIcon(
-                        imageHolder = R.drawable.profile_icon.toImageHolder(),
-                        uiText = current.clouds, iconModifier = Modifier.size(70.dp)
-                    )
-                    AppIcon(
-                        imageHolder = R.drawable.profile_icon.toImageHolder(),
-                        uiText = current.windSpeed, iconModifier = Modifier.size(70.dp)
-                    )
+                LazyVerticalGrid(columns = GridCells.Fixed(2)) {
+                    items(state.currentWeatherUIState.weatherElementUIState) {
+                        AppIcon(
+                            imageHolder = it.weatherElement.displayIcon,
+                            uiText = it.weatherElement.displayName,
+                            iconModifier = Modifier.size(70.dp)
+                        )
+                    }
+
                 }
             }
         }
-
 
 
     }
@@ -131,30 +136,29 @@ fun WeatherHomeSearchBar(
 fun WeatherHomeScreenUIPreview(
 
 ) {
-    WeatherHomeScreenUI(
-        uiState = WeatherHomeScreenUIState(
-            currentWeatherUIState = CurrentWeatherUIState(
-                clouds = "51".toUIText(),
-                dewPoint = "null".toUIText(),
-                dt = "null".toUIText(),
-                feelsLike = "null".toUIText(),
-                humidity = "null".toUIText(),
-                pressure = "null".toUIText(),
-                sunrise = "null".toUIText(),
-                sunset = "null".toUIText(),
-                temp = "30".toUIText(),
-                uvi = "null".toUIText(),
-                visibility = "null".toUIText(),
-                weather = CurrentWeatherUIState.Weather(
-                    description = "Cloudy with chances of rain".toUIText(),
-                    icon = R.drawable.profile_icon.toImageHolder(),
-                    id = "null".toUIText(),
-                    main = "Cloudy".toUIText(),
-                ),
-                windDeg = "null".toUIText(),
-                windSpeed = "58".toUIText()
-
-            )
-        )
-    )
+    // WeatherHomeScreenUI(
+    //     uiState = WeatherHomeScreenUIState(
+    //         currentWeatherUIState = CurrentWeatherUIState(
+    //             clouds = "51".toUIText(),
+    //             dewPoint = "null".toUIText(),
+    //             dt = "null".toUIText(),
+    //             feelsLike = "null".toUIText(),
+    //             humidity = "null".toUIText(),
+    //             pressure = "null".toUIText(),
+    //             sunrise = "null".toUIText(),
+    //             sunset = "null".toUIText(),
+    //             temp = "30".toUIText(),
+    //             uvi = "null".toUIText(),
+    //             visibility = "null".toUIText(),
+    //             weather = CurrentWeatherUIState.Weather(
+    //                 description = "Cloudy with chances of rain".toUIText(),
+    //                 icon = R.drawable.profile_icon.toImageHolder(),
+    //                 main = "Cloudy".toUIText(),
+    //             ),
+    //             windDeg = "null".toUIText(),
+    //             windSpeed = "58".toUIText()
+    //
+    //         )
+    //     )
+    // )
 }

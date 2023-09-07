@@ -23,7 +23,7 @@ class WeatherDetailsFragment : UDFFragment<State, Event, Effect, Binding>(
 
     override fun initViews() {
         val state = args.weatherData
-        binding.description.text = state.day
+        // binding.description.text = state.day
         binding.humidity.text = "Humidity: ${state.humidity} %"
         binding.minTemperature.text = "Min temp: ${state.minTemp}℃"
         binding.maxTemperature.text = "Max temp: ${state.maxTemp}℃"

@@ -13,7 +13,7 @@ class WeatherListItemViewHolder(
         weatherListItemUIState: WeatherListItemUIState,
         eventListener: (ForeCastListAdapter.ItemEvent) -> Unit
     ) {
-        listItemWeatherBinding.day.text = weatherListItemUIState.day
+        // listItemWeatherBinding.day.text = weatherListItemUIState.day
         listItemWeatherBinding.weather.text = weatherListItemUIState.weather
         listItemWeatherBinding.minTemp.text = "Min temp: ${weatherListItemUIState.minTemp}℃"
         listItemWeatherBinding.maxTemp.text = "Max temp: ${weatherListItemUIState.maxTemp}℃"

@@ -4,6 +4,7 @@ import android.os.Parcelable
 import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.core.ui.models.ImageHolder
 import com.hrudhaykanth116.weather.data.models.WeatherForeCastResponse
+import com.hrudhaykanth116.weather.domain.usecases.WeatherElementUIState
 import com.squareup.moshi.Json
 import kotlinx.parcelize.Parcelize
 
@@ -18,31 +19,31 @@ data class WeatherHomeScreenUIState(
 )
 
 data class CurrentWeatherUIState(
-    val clouds: UIText,
-    val dewPoint: UIText,
-    val dt: UIText,
-    val feelsLike: UIText,
-    val humidity: UIText,
-    val pressure: UIText,
-    val sunrise: UIText,
-    val sunset: UIText,
-    val temp: UIText,
-    val uvi: UIText,
-    val visibility: UIText,
+    val weatherElementUIState: List<WeatherElementUIState>,
+    val time: UIText,
+    // val clouds: UIText,
+    // val dewPoint: UIText,
+    // val dt: UIText,
+    // val feelsLike: UIText,
+    // val humidity: UIText,
+    // val pressure: UIText,
+    // val sunrise: UIText,
+    // val sunset: UIText,
+    // val temp: UIText,
+    // val uvi: UIText,
+    // val visibility: UIText,
     val weather: Weather? = null,
-    val windDeg: UIText,
-    val windSpeed: UIText
+    // val windDeg: UIText,
+    // val windSpeed: UIText
 ){
     data class Weather(
         val description: UIText,
         val icon: ImageHolder,
-        val id: UIText,
         val main: UIText
     )
 }
 
 // TODO: Move the class
-@Parcelize
 data class WeatherListItemUIState(
     // Temperature in Kelvin
     // Wind speed in meter/sec
@@ -50,16 +51,16 @@ data class WeatherListItemUIState(
     // Clouds %
     // rain mm/h
     // HUmidity %
-    val day: String,
+    val day: UIText,
     val weather: String,
     val humidity: String,
     val rain: String,
-    val sunrise: String,
-    val sunset: String,
+    val sunrise: UIText,
+    val sunset: UIText,
     val maxTemp: String,
     val minTemp: String,
     val windSpeed: String,
     val clouds: String,
     val pressure: String,
     val onClick: (() -> Unit)? = null,
-): Parcelable
+)

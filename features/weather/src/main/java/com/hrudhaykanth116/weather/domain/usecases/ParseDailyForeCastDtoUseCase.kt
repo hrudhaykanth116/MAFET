@@ -3,6 +3,7 @@ package com.hrudhaykanth116.weather.domain.usecases
 import com.hrudhaykanth116.core.common.utils.conversions.TemperatureConverter
 import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
 import com.hrudhaykanth116.core.common.utils.number.truncateToDecimals
+import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.weather.data.models.WeatherForeCastResponse
 import com.hrudhaykanth116.weather.domain.models.WeatherListItemUIState
 import kotlinx.coroutines.Dispatchers
@@ -45,12 +46,12 @@ class ParseDailyForeCastDtoUseCase @Inject constructor(
             // rain mm/h
             // HUmidity %
             // Assuming non null values.
-            dateTimeUtils.getDateFromSecs(dayData.dt!!),
+            day = dateTimeUtils.getDateFromSecs(dayData.dt).toUIText("- -"),
             weather = dayData.weather?.firstOrNull()?.main.orEmpty(),
             humidity = dayData.humidity?.toString().orEmpty(),
             rain = dayData.rain?.toString().orEmpty(),
-            sunrise = dateTimeUtils.getTimeFromSecs(dayData.sunrise!!),
-            sunset = dateTimeUtils.getTimeFromSecs(dayData.sunset!!),
+            sunrise = dateTimeUtils.getTimeFromSecs(dayData.sunrise).toUIText("- -"),
+            sunset = dateTimeUtils.getTimeFromSecs(dayData.sunset).toUIText("- -"),
             maxTemp = temperatureConverter.getCelsiusFromKelvin(dayData.temp?.max)
                 ?.truncateToDecimals(1).orEmpty(),
             minTemp = temperatureConverter.getCelsiusFromKelvin(dayData.temp?.min)

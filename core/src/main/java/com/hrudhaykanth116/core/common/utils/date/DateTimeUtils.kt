@@ -18,13 +18,17 @@ class DateTimeUtils @Inject constructor(
 ) {
 
 
-    fun getDateFromSecs(seconds: Int): String {
+    fun getDateFromSecs(seconds: Int?): String? {
+        seconds ?: return null
+
         // TODO: Use better formatter
         val formatter = SimpleDateFormat("dd/MMM")
         return formatter.format(Date(seconds * 1000L))
     }
 
-    fun getTimeFromSecs(seconds: Int): String {
+    fun getTimeFromSecs(seconds: Int?): String? {
+
+        seconds ?: return null
         // TODO: Use better formatter
         val formatter = SimpleDateFormat("HH:mm:ss")
         return formatter.format(Date(seconds * 1000L))
