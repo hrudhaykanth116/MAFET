@@ -1,66 +1,75 @@
 package com.hrudhaykanth116.weather.domain.models
 
-import android.os.Parcelable
 import com.hrudhaykanth116.core.data.models.UIText
-import com.hrudhaykanth116.core.ui.models.ImageHolder
-import com.hrudhaykanth116.weather.data.models.WeatherForeCastResponse
+import com.hrudhaykanth116.weather.domain.usecases.WeatherElement
 import com.hrudhaykanth116.weather.domain.usecases.WeatherElementUIState
-import com.squareup.moshi.Json
-import kotlinx.parcelize.Parcelize
 
 data class WeatherHomeScreenUIState(
-    val location: String = "Kolkata",
+    val location: String = "Hyderabad",
     val locationError: UIText? = null,
     val isLoading: Boolean = true,
     val isLoggedOut: Boolean = false,
-    val weatherListItemsUIState: List<WeatherListItemUIState> = listOf(),
-    val currentWeatherUIState: CurrentWeatherUIState? = null,
+    val weatherForeCastListItemsUIState: List<DailyWeatherUIState> = listOf(),
+    val todayWeatherUIState: TodayWeatherUIState? = null,
     val errorMessage: UIText? = null,
 )
 
-data class CurrentWeatherUIState(
-    val weatherElementUIState: List<WeatherElementUIState>,
-    val time: UIText,
-    // val clouds: UIText,
-    // val dewPoint: UIText,
-    // val dt: UIText,
-    // val feelsLike: UIText,
-    // val humidity: UIText,
-    // val pressure: UIText,
-    // val sunrise: UIText,
-    // val sunset: UIText,
-    // val temp: UIText,
-    // val uvi: UIText,
-    // val visibility: UIText,
-    val weather: Weather? = null,
-    // val windDeg: UIText,
-    // val windSpeed: UIText
-){
-    data class Weather(
-        val description: UIText,
-        val icon: ImageHolder,
-        val main: UIText
-    )
+data class TodayWeatherUIState(
+    // val weatherTitle: UIText? = null,
+    // val weatherDescription: UIText? = null,
+    // val weatherIcon: ImageHolder? = null,
+    val weatherMain: WeatherMain? = null,
+    val weatherElementUIState: List<WeatherElementUIState>? = null,
+    val time: UIText? = null,
+    val weatherHourlyList: List<HourlyWeatherUIState>? = null,
+) {
+
+    companion object {
+
+        fun default(): TodayWeatherUIState {
+            return TodayWeatherUIState(
+                // weatherTitle = "".toUIText(),
+                // weatherDescription = "".toUIText(),
+                // weatherIcon = ,
+                // weatherElementUIState = listOf(),
+                // time =,
+                // weatherHourlyList = listOf()
+            )
+        }
+
+    }
+
 }
 
-// TODO: Move the class
-data class WeatherListItemUIState(
-    // Temperature in Kelvin
-    // Wind speed in meter/sec
-    // Pressure hPa
-    // Clouds %
-    // rain mm/h
-    // HUmidity %
-    val day: UIText,
-    val weather: String,
-    val humidity: String,
-    val rain: String,
-    val sunrise: UIText,
-    val sunset: UIText,
-    val maxTemp: String,
-    val minTemp: String,
-    val windSpeed: String,
-    val clouds: String,
-    val pressure: String,
-    val onClick: (() -> Unit)? = null,
+data class HourlyWeatherUIState(
+    // val weatherElements: List<WeatherElement>,
+    val weatherMain: WeatherMain,
+    val time: UIText,
 )
+
+data class DailyWeatherUIState(
+    val weatherElementsList: List<WeatherElement>,
+    val weatherMain: WeatherMain?,
+    val time: UIText,
+)
+
+// // TODO: Move the class
+// data class WeatherElementUIState(
+//     // Temperature in Kelvin
+//     // Wind speed in meter/sec
+//     // Pressure hPa
+//     // Clouds %
+//     // rain mm/h
+//     // HUmidity %
+//     val day: UIText,
+//     val weather: String,
+//     val humidity: String,
+//     val rain: String,
+//     val sunrise: UIText,
+//     val sunset: UIText,
+//     val maxTemp: String,
+//     val minTemp: String,
+//     val windSpeed: String,
+//     val clouds: String,
+//     val pressure: String,
+// )

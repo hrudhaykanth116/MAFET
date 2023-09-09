@@ -10,10 +10,7 @@ import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenUIState
 import com.hrudhaykanth116.weather.domain.usecases.GetForeCastUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel
@@ -74,8 +71,8 @@ class WeatherHomeScreenViewModel @Inject constructor(
 
                     setState {
                         copy(
-                            currentWeatherUIState = foreCastDataResult.data.first,
-                            weatherListItemsUIState = foreCastDataResult.data.second,
+                            todayWeatherUIState = foreCastDataResult.data.first,
+                            weatherForeCastListItemsUIState = foreCastDataResult.data.second,
                             isLoading = false,
                         )
                     }
@@ -97,6 +94,13 @@ class WeatherHomeScreenViewModel @Inject constructor(
                     errorMessage = null
                 )
             }
+
+            is WeatherHomeScreenEvent.OnLocationTextChanged -> setState {
+                copy(
+                    location = event.newLocationText
+                )
+            }
+            WeatherHomeScreenEvent.Search -> fetchData()
         }
     }
 

@@ -5,8 +5,8 @@ import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.weather.data.models.WeatherForeCastResponse
 import com.hrudhaykanth116.weather.data.repository.IGeoCodeRepository
 import com.hrudhaykanth116.weather.data.repository.IWeatherForeCastRepository
-import com.hrudhaykanth116.weather.domain.models.CurrentWeatherUIState
-import com.hrudhaykanth116.weather.domain.models.WeatherListItemUIState
+import com.hrudhaykanth116.weather.domain.models.DailyWeatherUIState
+import com.hrudhaykanth116.weather.domain.models.TodayWeatherUIState
 import javax.inject.Inject
 
 class GetForeCastUseCase @Inject constructor(
@@ -18,29 +18,35 @@ class GetForeCastUseCase @Inject constructor(
 
     suspend operator fun invoke(
         location: String,
-    ): DataResult<Pair<CurrentWeatherUIState, List<WeatherListItemUIState>>> {
+    ): DataResult<Pair<TodayWeatherUIState, List<DailyWeatherUIState>>> {
 
         when (val locationInfoDataResult = geoCodeRepository.getLocationInfo(location)) {
             is DataResult.Error -> {
                 return DataResult.Error(UIText.Text("No information found on entered Location"))
             }
+
             is DataResult.Success -> {
 
                 val locationInfo =
-                    locationInfoDataResult.data.firstOrNull() ?: return DataResult.Error( UIText.Text("No information found on entered Location"))
+                    locationInfoDataResult.data.firstOrNull()
+                        ?: return DataResult.Error(UIText.Text("No information found on entered Location"))
 
                 return when (
-                    val foreCastResult: DataResult<WeatherForeCastResponse> = weatherForeCastRepository.getDailyWeatherForeCast(
-                        locationInfo.lat?.toString().orEmpty(),
-                        locationInfo.lon?.toString().orEmpty(),
-                    )
+                    val foreCastResult: DataResult<WeatherForeCastResponse> =
+                        weatherForeCastRepository.getDailyWeatherForeCast(
+                            locationInfo.lat?.toString().orEmpty(),
+                            locationInfo.lon?.toString().orEmpty(),
+                        )
                 ) {
                     is DataResult.Error -> {
                         DataResult.Error(foreCastResult.uiMessage)
                     }
+
                     is DataResult.Success -> {
-                        val foreCastList: List<WeatherListItemUIState> = parseDailyForeCastDtoUseCase.invoke(foreCastResult.data)
-                        val currentWeatherUIState = parseCurrentWeatherUseCase(foreCastResult.data.current)
+                        val foreCastList: List<DailyWeatherUIState> =
+                            parseDailyForeCastDtoUseCase.invoke(foreCastResult.data)
+                        val currentWeatherUIState =
+                            parseCurrentWeatherUseCase(foreCastResult.data)
                         DataResult.Success(Pair(currentWeatherUIState, foreCastList))
                     }
                 }

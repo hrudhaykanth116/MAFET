@@ -7,7 +7,9 @@ import com.hrudhaykanth116.core.common.utils.string.replaceIfBlank
 import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.ui.models.toImageHolder
 import com.hrudhaykanth116.weather.data.models.WeatherForeCastResponse
-import com.hrudhaykanth116.weather.domain.models.CurrentWeatherUIState
+import com.hrudhaykanth116.weather.domain.models.HourlyWeatherUIState
+import com.hrudhaykanth116.weather.domain.models.TodayWeatherUIState
+import com.hrudhaykanth116.weather.domain.models.WeatherMain
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -18,7 +20,11 @@ class ParseCurrentWeatherUseCase @Inject constructor(
     private val getWeatherIconUseCase: GetWeatherIconUseCase,
 ) {
 
-    suspend operator fun invoke(current: WeatherForeCastResponse.Current?): CurrentWeatherUIState {
+    suspend operator fun invoke(
+        weatherForeCastDTO: WeatherForeCastResponse,
+    ): TodayWeatherUIState {
+
+        val current = weatherForeCastDTO.current
 
         // current ?: return CurrentWeatherUIState(
         //     clouds = "- -".toUIText(),
@@ -55,7 +61,7 @@ class ParseCurrentWeatherUseCase @Inject constructor(
         val visibility = current?.visibility.toUIText("- -")
         val windDeg = current?.windDeg.toUIText("- -")
 
-        return CurrentWeatherUIState(
+        return TodayWeatherUIState(
             // Temperature in Kelvin
             // Wind speed in meter/sec
             // Pressure hPa
@@ -64,8 +70,8 @@ class ParseCurrentWeatherUseCase @Inject constructor(
             // HUmidity %
             // Assuming non null values.
             time = dt,
-            weather = CurrentWeatherUIState.Weather(
-                main = currentWeather?.main.replaceIfBlank("- -").toUIText(),
+            weatherMain = WeatherMain(
+                title = currentWeather?.main.replaceIfBlank("- -").toUIText(),
                 description = currentWeather?.description.replaceIfBlank("- -").toUIText(),
                 icon = getWeatherIconUseCase(currentWeather?.id).toImageHolder(),
             ),
@@ -79,12 +85,45 @@ class ParseCurrentWeatherUseCase @Inject constructor(
                 WeatherElementUIState(WeatherElement.SUNRISE, sunrise),
                 WeatherElementUIState(WeatherElement.SUNSET, sunset),
                 WeatherElementUIState(WeatherElement.TEMP, temp),
-                WeatherElementUIState(WeatherElement.UVI, uvi),
-                WeatherElementUIState(WeatherElement.VISIBILITY, visibility),
-                WeatherElementUIState(WeatherElement.WINDEG, windDeg),
-                WeatherElementUIState(WeatherElement.WINDSPEED, windSpeed),
+                // WeatherElementUIState(WeatherElement.UVI, uvi),
+                // WeatherElementUIState(WeatherElement.VISIBILITY, visibility),
+                // WeatherElementUIState(WeatherElement.WIND_DEG, windDeg),
+                // WeatherElementUIState(WeatherElement.WIND_SPEED, windSpeed),
             ),
+            weatherHourlyList = getHourlyWeatherUIState(weatherForeCastDTO.hourly)
         )
+
+    }
+
+    private fun getHourlyWeatherUIState(
+        hourlyWeatherList: List<WeatherForeCastResponse.Hourly?>?,
+    ): MutableList<HourlyWeatherUIState> {
+        val hourlyWeatherUIStateList = mutableListOf<HourlyWeatherUIState>()
+
+        hourlyWeatherList?.forEach { hourlyWeather: WeatherForeCastResponse.Hourly? ->
+
+            hourlyWeather?.let { hourly: WeatherForeCastResponse.Hourly ->
+                val weatherMain = hourly.weather?.firstOrNull() ?: return@forEach
+
+                val icon = getWeatherIconUseCase(weatherMain.id).toImageHolder()
+
+                val hourlyWeatherUIState = HourlyWeatherUIState(
+                    weatherMain = WeatherMain(
+                        description = weatherMain.description.replaceIfBlank("- -").toUIText(),
+                        icon = icon,
+                        title = weatherMain.main.replaceIfBlank("- -").toUIText()
+                    ),
+                    time = dateTimeUtils.getTimeFromSecs(
+                        hourly.dt,
+                        DateTimeUtils.HOURS_MIN_FORMAT
+                    ).replaceIfBlank("- -").toUIText()
+                )
+
+                hourlyWeatherUIStateList.add(hourlyWeatherUIState)
+            }
+
+        }
+        return hourlyWeatherUIStateList
 
     }
 

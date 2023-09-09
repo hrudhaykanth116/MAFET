@@ -29,16 +29,23 @@ fun AppIcon(
     modifier: Modifier = Modifier,
     iconModifier: Modifier = Modifier,
     uiText: UIText? = null,
+    isTextFirst: Boolean = false,
     fontSize: TextUnit = TextUnit.Unspecified,
     contentDescriptionUIText: UIText? = null,
-    tint: Color = LocalContentColor.current,
+    tint: Color = Color.Unspecified,
 ) {
+
+
 
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+        if (isTextFirst) {
+            AppIconText(uiText, fontSize)
+        }
 
         when (imageHolder) {
             is ImageHolder.Bitmap -> {
@@ -59,13 +66,24 @@ fun AppIcon(
             }
         }
 
-        uiText?.let {
-            VerticalSpacer(height = 2.dp)
-            AppText(uiText = uiText, fontSize = fontSize)
+        if (!isTextFirst) {
+            AppIconText(uiText, fontSize)
         }
+
     }
 
 
+}
+
+@Composable
+private fun AppIconText(
+    uiText: UIText?,
+    fontSize: TextUnit,
+) {
+    uiText?.let {
+        VerticalSpacer(height = 2.dp)
+        AppText(uiText = uiText, fontSize = fontSize)
+    }
 }
 
 @MyPreview

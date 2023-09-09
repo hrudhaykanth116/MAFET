@@ -26,11 +26,14 @@ class DateTimeUtils @Inject constructor(
         return formatter.format(Date(seconds * 1000L))
     }
 
-    fun getTimeFromSecs(seconds: Int?): String? {
+    fun getTimeFromSecs(
+        seconds: Int?,
+        format: String = "HH:mm:ss",
+    ): String? {
 
         seconds ?: return null
         // TODO: Use better formatter
-        val formatter = SimpleDateFormat("HH:mm:ss")
+        val formatter = SimpleDateFormat(format)
         return formatter.format(Date(seconds * 1000L))
     }
 
@@ -39,6 +42,8 @@ class DateTimeUtils @Inject constructor(
         // const val COMPLETE_DATE_TIME_FORMAT = "EEEE, yyyy LLLL d, yyyy HH:mm:ss aaa"
         const val COMPLETE_DATE_TIME_FORMAT =
             "$YEAR-$MONTH_STRING_FULL-$DATE,$HOUR_12:$MINUTES:$SECONDS $AM_PM"
+
+        const val HOURS_MIN_FORMAT = "HH:mm"
     }
 
 }
