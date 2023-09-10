@@ -2,6 +2,7 @@ package com.hrudhaykanth116.core.common.utils.date
 
 import com.hrudhaykanth116.core.common.utils.date.DateTimeFormats.AM_PM
 import com.hrudhaykanth116.core.common.utils.date.DateTimeFormats.DATE
+import com.hrudhaykanth116.core.common.utils.date.DateTimeFormats.DAY_SHORT
 import com.hrudhaykanth116.core.common.utils.date.DateTimeFormats.HOUR_12
 import com.hrudhaykanth116.core.common.utils.date.DateTimeFormats.MINUTES
 import com.hrudhaykanth116.core.common.utils.date.DateTimeFormats.MONTH_STRING_FULL
@@ -18,6 +19,7 @@ class DateTimeUtils @Inject constructor(
 ) {
 
 
+    // TODO: Remove this function
     fun getDateFromSecs(seconds: Int?): String? {
         seconds ?: return null
 
@@ -44,6 +46,7 @@ class DateTimeUtils @Inject constructor(
             "$YEAR-$MONTH_STRING_FULL-$DATE,$HOUR_12:$MINUTES:$SECONDS $AM_PM"
 
         const val HOURS_MIN_FORMAT = "HH:mm"
+        const val DAY_DATE_FORMAT = "$DAY_SHORT $DATE"
     }
 
 }

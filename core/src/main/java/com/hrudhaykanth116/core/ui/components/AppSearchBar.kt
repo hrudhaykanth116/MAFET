@@ -2,9 +2,13 @@ package com.hrudhaykanth116.core.ui.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.SearchBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import com.hrudhaykanth116.core.R
 import com.hrudhaykanth116.core.ui.models.toImageHolder
 
@@ -19,6 +23,7 @@ fun AppSearchBar(
 
     Row(
         modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         SearchBar(
             query = text,
@@ -34,7 +39,17 @@ fun AppSearchBar(
         ) {
 
         }
-        AppClickableIcon(imageHolder = R.drawable.ic_search.toImageHolder(), onClick = onSearch, )
+        AppClickableIcon(
+            imageHolder = R.drawable.ic_search.toImageHolder(),
+            onClick = onSearch,
+            iconColor = LocalContentColor.current
+        )
     }
 
+}
+
+@Preview
+@Composable
+fun AppSearchBarPreview() {
+    AppSearchBar(text = "Search criteria")
 }

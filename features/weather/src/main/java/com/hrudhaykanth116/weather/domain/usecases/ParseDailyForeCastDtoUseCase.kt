@@ -2,6 +2,7 @@ package com.hrudhaykanth116.weather.domain.usecases
 
 import com.hrudhaykanth116.core.common.utils.conversions.TemperatureConverter
 import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
+import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils.Companion.DAY_DATE_FORMAT
 import com.hrudhaykanth116.core.common.utils.string.replaceIfBlank
 import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.ui.models.toImageHolder
@@ -62,7 +63,7 @@ class ParseDailyForeCastDtoUseCase @Inject constructor(
                 title = weatherMain.main.replaceIfBlank("- -").toUIText()
 
             ),
-            time = dateTimeUtils.getDateFromSecs(dayData.dt).replaceIfBlank("- -").toUIText(),
+            time = dateTimeUtils.getTimeFromSecs(dayData.dt, DAY_DATE_FORMAT).replaceIfBlank("- -").toUIText(),
         )
     }
 

@@ -9,7 +9,7 @@ enum class HomeBottomNavigationItem(val displayName: String,val iconDrawable: In
     WEATHER("Weather", CoreR.drawable.ic_weather, HomeRoute.Weather.route),
     // TRANSLATE("Translate", CoreR.drawable.ic_translate, HomeRoute.Translate.route),
     // Dictionary("Dictionary", CoreR.drawable.ic_dictionary, HomeRoute.Dictionary.route),
-    ENTERTAINMENT("Entertainment", CoreR.drawable.ic_tv, HomeRoute.Entertainment.route),
+    ENTERTAINMENT("Tv", CoreR.drawable.ic_tv, HomeRoute.Entertainment.route),
     ACCOUNT("Account", CoreR.drawable.ic_account, HomeRoute.Account.route),
 
 }

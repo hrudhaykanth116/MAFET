@@ -1,6 +1,7 @@
 package com.hrudhaykanth116.weather.ui.screens.home
 
 import androidx.lifecycle.viewModelScope
+import com.hrudhaykanth116.core.common.ui.models.UserMessage
 import com.hrudhaykanth116.core.data.models.DataResult
 import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.core.udf.UDFViewModel
@@ -39,7 +40,7 @@ class WeatherHomeScreenViewModel @Inject constructor(
         if (location.isBlank()) {
             setState {
                 copy(
-                    errorMessage = UIText.Text("Please enter location name")
+                    errorMessage = UserMessage.Error(UIText.Text("Please enter location name"))
                 )
             }
             return
@@ -61,7 +62,7 @@ class WeatherHomeScreenViewModel @Inject constructor(
                 is DataResult.Error -> {
                     setState {
                         copy(
-                            errorMessage = foreCastDataResult.uiMessage,
+                            errorMessage = foreCastDataResult.uiMessage?.let { UserMessage.Error(it) },
                             isLoading = false,
                         )
                     }

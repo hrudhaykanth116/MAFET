@@ -77,18 +77,18 @@ class ParseCurrentWeatherUseCase @Inject constructor(
             ),
             // TODO: Optimise code.
             weatherElementUIState = listOf<WeatherElementUIState>(
-                WeatherElementUIState(WeatherElement.DEW_POINT, dewPoint),
+                WeatherElementUIState(WeatherElement.TEMP, temp),
                 WeatherElementUIState(WeatherElement.FEELS_LIKE, feelsLike),
                 WeatherElementUIState(WeatherElement.HUMIDITY, humidity),
-                WeatherElementUIState(WeatherElement.PRESSURE, pressure),
+                WeatherElementUIState(WeatherElement.DEW_POINT, dewPoint),
                 WeatherElementUIState(WeatherElement.CLOUDS, clouds),
                 WeatherElementUIState(WeatherElement.SUNRISE, sunrise),
                 WeatherElementUIState(WeatherElement.SUNSET, sunset),
-                WeatherElementUIState(WeatherElement.TEMP, temp),
-                // WeatherElementUIState(WeatherElement.UVI, uvi),
-                // WeatherElementUIState(WeatherElement.VISIBILITY, visibility),
-                // WeatherElementUIState(WeatherElement.WIND_DEG, windDeg),
-                // WeatherElementUIState(WeatherElement.WIND_SPEED, windSpeed),
+                WeatherElementUIState(WeatherElement.PRESSURE, pressure),
+                WeatherElementUIState(WeatherElement.UVI, uvi),
+                WeatherElementUIState(WeatherElement.VISIBILITY, visibility),
+                WeatherElementUIState(WeatherElement.WIND_DEG, windDeg),
+                WeatherElementUIState(WeatherElement.WIND_SPEED, windSpeed),
             ),
             weatherHourlyList = getHourlyWeatherUIState(weatherForeCastDTO.hourly)
         )

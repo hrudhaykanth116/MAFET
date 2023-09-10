@@ -1,5 +1,6 @@
 package com.hrudhaykanth116.weather.domain.models
 
+import com.hrudhaykanth116.core.common.ui.models.UserMessage
 import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.weather.domain.usecases.WeatherElement
 import com.hrudhaykanth116.weather.domain.usecases.WeatherElementUIState
@@ -11,7 +12,7 @@ data class WeatherHomeScreenUIState(
     val isLoggedOut: Boolean = false,
     val weatherForeCastListItemsUIState: List<DailyWeatherUIState> = listOf(),
     val todayWeatherUIState: TodayWeatherUIState? = null,
-    val errorMessage: UIText? = null,
+    val errorMessage: UserMessage? = null,
 )
 
 data class TodayWeatherUIState(

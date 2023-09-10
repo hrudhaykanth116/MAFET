@@ -2,19 +2,22 @@ package com.hrudhaykanth116.weather.ui.screens.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.common.resources.Dimens
@@ -23,6 +26,8 @@ import com.hrudhaykanth116.core.ui.components.AppCard
 import com.hrudhaykanth116.core.ui.components.AppIcon
 import com.hrudhaykanth116.core.ui.components.AppText
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
+import com.hrudhaykanth116.core.ui.components.VerticalSpacer
+import com.hrudhaykanth116.weather.domain.models.WeatherMain
 import com.hrudhaykanth116.weather.domain.usecases.WeatherElementUIState
 
 // @Composable
@@ -78,10 +83,11 @@ import com.hrudhaykanth116.weather.domain.usecases.WeatherElementUIState
 @Composable
 fun TodayWeatherElements(
     state: List<WeatherElementUIState>?,
+    weatherMain: WeatherMain?,
     modifier: Modifier = Modifier,
 ) {
 
-    state ?: return
+    if (state == null || weatherMain == null) return
 
     // TODO: Card may not be needed
     AppCard(
@@ -92,25 +98,44 @@ fun TodayWeatherElements(
 
     ) {
 
+        // TODO: Static Grid may be enough
         LazyVerticalGrid(
-            columns = GridCells.Fixed(5),
+            columns = GridCells.Fixed(3),
             modifier = Modifier
                 .largeRadialBackground(
-                    listOf(Color(0xFF2be4dc), Color(0xFF243484))
-                ),
+                    listOf(
+                        Color(0xFF04253A),
+                        Color(0xFF021D2C)
+                    )
+                ).heightIn(max = 360.dp),
             contentPadding = PaddingValues(Dimens.DEFAULT_PADDING),
+            verticalArrangement = Arrangement.spacedBy(Dimens.DEFAULT_PADDING),
+            horizontalArrangement = Arrangement.spacedBy(Dimens.DEFAULT_PADDING * 2)
         ) {
-            items(state) {
-                CenteredColumn(
+
+            item(span = { GridItemSpan(this.maxLineSpan) }) {
+                CurrentWeatherMain(
+                    weatherMain,
                     modifier = Modifier
-                    // .background(color = Color.Red)
+                        .fillMaxWidth()
+                        .padding(bottom = Dimens.DEFAULT_PADDING * 2),
+                )
+            }
+
+            items(state) {
+                Column(
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .background(color = Color.DarkGray)
+                        .padding(vertical = Dimens.DEFAULT_PADDING),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     AppIcon(
                         imageHolder = it.weatherElement.displayIcon,
                         uiText = it.weatherElement.displayName,
                         isTextFirst = true,
                         modifier = Modifier,
-                        iconModifier = Modifier.size(50.dp),
+                        iconModifier = Modifier.size(24.dp),
                         tint = Color.Unspecified
                     )
                     AppText(uiText = it.value, style = MaterialTheme.typography.bodyMedium)

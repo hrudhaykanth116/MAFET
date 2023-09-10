@@ -27,6 +27,13 @@ fun Modifier.gradientBackground(
 
 }
 
+
+val gradientColorList = listOf(Color(0xFF2be4dc), Color(0xFF243484))
+val gradientDarkThemeSurfaceColorList = listOf(
+    Color(0xFF04253A),
+    Color(0xFF021D2C)
+)
+
 fun Modifier.largeRadialBackground(colorList: List<Color>): Modifier {
     val largeRadialGradient = object : ShaderBrush() {
         override fun createShader(size: Size): Shader {

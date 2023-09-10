@@ -63,15 +63,9 @@ private fun ContentContainer(
         modifier = modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         VerticalSpacer()
-        CurrentWeatherMain(
-            weather.weatherMain,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = Dimens.DEFAULT_PADDING),
-        )
-        VerticalSpacer()
         TodayWeatherElements(
             state.todayWeatherUIState.weatherElementUIState,
+            weather.weatherMain,
             modifier = Modifier.fillMaxWidth()
         )
         VerticalSpacer()

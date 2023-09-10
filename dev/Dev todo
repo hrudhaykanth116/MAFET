@@ -3,6 +3,11 @@ Features
 * TODOLIST
     * Bottom sheet for filter options.
     * Sort based on priority, target time, created time, category.
+* Weather
+    * Location Permission.
+    * Location based weather.
+    * Better ui for components.
+    * Refresh ability and lastRefreshedTime ui element.
 
 * Expandable View
 * Custom layout
