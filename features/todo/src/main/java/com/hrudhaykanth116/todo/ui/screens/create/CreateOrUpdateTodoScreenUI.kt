@@ -6,8 +6,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -48,10 +50,11 @@ fun CreateOrUpdateTodoScreenUI(
         VerticalSpacer(height = 10.dp)
         Column(
             modifier = Modifier
-                // .verticalScroll(rememberScrollState())
+                .verticalScroll(rememberScrollState())
                 .weight(
                     weight = 1f,
-                ).padding(horizontal = DEFAULT_PADDING)
+                )
+                .padding(horizontal = DEFAULT_PADDING)
         ) {
             AppInputText(
                 textFieldData = TextFieldData(
@@ -79,12 +82,16 @@ fun CreateOrUpdateTodoScreenUI(
             )
             Spacer(modifier = Modifier.height(Dimens.DEFAULT_PADDING))
             Row {
-                PriorityField(state, modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f))
-                DateTimeField(state = state, modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f))
+                PriorityField(
+                    state, modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                )
+                DateTimeField(
+                    state = state, modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                )
             }
             Spacer(modifier = Modifier.height(Dimens.DEFAULT_PADDING))
             AppInputText(
