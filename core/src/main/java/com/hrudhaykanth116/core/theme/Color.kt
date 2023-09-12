@@ -33,8 +33,25 @@ val md_theme_light_surfaceTint = Color(0xFFA53362)
 val md_theme_light_outlineVariant = Color(0xFFD5C2C6)
 val md_theme_light_scrim = Color(0xFF000000)
 
+
+/******************************************************************************************************************/
+
+val grey_00dp = 0xFF121212
+val grey_01dp = 0xFF1D1D1D
+val grey_02dp = 0xFF222222
+val grey_03dp = 0xFF242424
+val grey_04dp = 0xFF262626
+val grey_06dp = 0xFF2C2C2C
+val grey_08dp = 0xFF2D2D2D
+val grey_12dp = 0xFF323232
+val grey_16dp = 0xFF353535
+val grey_24dp = 0xFF373737
+
+// TODO: Rename
+val darkThemeBlue = Color(0xFF021D2C)
+
 // Buttons, checkboxes
-val md_theme_dark_primary = Color(0xFF000DFF)
+val md_theme_dark_primary = Color(0xFFB984F9)
 val md_theme_dark_onPrimary = Color(0xFFF8F8F8)
 
 val md_theme_dark_secondary = Color(0xFF0FEC49)
@@ -60,15 +77,15 @@ val md_theme_dark_errorContainer = Color(0xFFFFFFFF)
 val md_theme_dark_onErrorContainer = Color(0xFFFFDAD6)
 
 // Background
-val md_theme_dark_background = Color(0xFF121212)
+val md_theme_dark_background = Color(grey_00dp)
 val md_theme_dark_onBackground = Color(0xFFFFFFFF)
 
-// Toolbar, Navigation bar
-val md_theme_dark_surface = Color(0xFF021D2C)
-val md_theme_dark_onSurface = Color(0xFFFFFFFF)
+// Toolbar, Navigation bar, bottom sheet
+val md_theme_dark_surface = Color(grey_08dp) // 8 dp elevation apaprently
+val md_theme_dark_onSurface = Color(0xFFE2E2E2)
 
 // Card
-val md_theme_dark_surfaceVariant = Color(0xFF1F2725)
+val md_theme_dark_surfaceVariant = Color(grey_01dp)
 // Another version of on surface. Like !isSelected_text or icons
 val md_theme_dark_onSurfaceVariant = Color(0xFFFFFFFF)
 

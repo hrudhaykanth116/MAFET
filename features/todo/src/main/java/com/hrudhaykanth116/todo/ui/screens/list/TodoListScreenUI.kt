@@ -187,7 +187,6 @@ private fun ContentContainer(
                     R.drawable.ic_new_note.toImageHolder()
                 else
                     CoreR.drawable.ic_save.toImageHolder(),
-                iconColor = MaterialTheme.colorScheme.primary,
                 onClick = onCreateBtnClicked
             )
         }

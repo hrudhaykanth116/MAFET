@@ -20,6 +20,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.ColorUtils
+import com.hrudhaykanth116.core.common.resources.Dimens
 import com.hrudhaykanth116.core.common.utils.color.ColorParser
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 import com.hrudhaykanth116.core.common.utils.log.Logger
@@ -66,13 +67,13 @@ fun TodoListItemUI(
             // .animateContentSize(
             //     animationSpec = tween(100)
             // )
-            .padding(8.dp),
+            // .padding(8.dp),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 10.dp, vertical = 20.dp)
+                // .padding(Dimens.DEFAULT_PADDING)
         ) {
 
             if (toDoTaskUIState.showCategoryIcon) {
@@ -90,15 +91,15 @@ fun TodoListItemUI(
                 AppText(
                     uiText = toDoTaskUIState.data.title.text.toUIText(),
                     maxLines = if (isExpanded) Int.MAX_VALUE else 2,
-                    style = MaterialTheme.typography.titleLarge,
+                    style = MaterialTheme.typography.bodyLarge,
                     overflow = if (isExpanded) TextOverflow.Visible else TextOverflow.Ellipsis,
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 AppText(
-                    uiText = toDoTaskUIState.data.category.text.toUIText(),
+                    uiText = toDoTaskUIState.data.description.text.toUIText(),
                     maxLines = if (isExpanded) Int.MAX_VALUE else 3,
                     overflow = if (isExpanded) TextOverflow.Visible else TextOverflow.Ellipsis,
-                    style = MaterialTheme.typography.bodyLarge,
+                    style = MaterialTheme.typography.bodyMedium,
                 )
             }
 

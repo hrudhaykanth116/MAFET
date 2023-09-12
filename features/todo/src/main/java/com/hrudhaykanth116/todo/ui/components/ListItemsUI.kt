@@ -19,6 +19,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.hrudhaykanth116.core.common.resources.Dimens
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
@@ -34,12 +35,12 @@ fun ListItemsUI(
     listState: LazyListState = rememberLazyListState(),
 ) {
 
-    var currentSize by rememberSaveable { mutableStateOf (listItems.size) }
+    var currentSize by rememberSaveable { mutableStateOf(listItems.size) }
     // val isItemAdded = listItems.size > currentSize
     var isItemAdded by mutableStateOf(listItems.size > currentSize)
 
-    LaunchedEffect (isItemAdded){ //Won't be called upon item deletion
-        if(isItemAdded){
+    LaunchedEffect(isItemAdded) { //Won't be called upon item deletion
+        if (isItemAdded) {
             listState.animateScrollToItem(listItems.size)
             currentSize = listItems.size
         }
@@ -48,9 +49,9 @@ fun ListItemsUI(
     LazyColumn(
         state = listState,
         // Adds space between items
-        verticalArrangement = Arrangement.spacedBy(10.dp),
+        verticalArrangement = Arrangement.spacedBy(Dimens.DEFAULT_PADDING),
         // Adds padding to the row. Out side of the list item.
-        contentPadding = PaddingValues(horizontal = 8.dp),
+        contentPadding = PaddingValues(horizontal = Dimens.DEFAULT_PADDING),
     ) {
 
         items(listItems) { toDoTaskUIState ->

@@ -32,9 +32,8 @@ fun AppIcon(
     isTextFirst: Boolean = false,
     fontSize: TextUnit = TextUnit.Unspecified,
     contentDescriptionUIText: UIText? = null,
-    tint: Color = Color.Unspecified,
+    tint: Color = LocalContentColor.current,
 ) {
-
 
 
     Column(

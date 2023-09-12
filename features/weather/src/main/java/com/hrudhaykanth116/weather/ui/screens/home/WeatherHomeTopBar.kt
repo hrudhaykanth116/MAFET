@@ -1,7 +1,9 @@
 package com.hrudhaykanth116.weather.ui.screens.home
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.hrudhaykanth116.core.common.resources.Dimens
 import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.core.ui.components.AppClickableIcon
 import com.hrudhaykanth116.core.ui.components.AppIcon
@@ -17,7 +19,7 @@ fun WeatherHomeTopBar(
     location: String,
     weatherHomeScreenCallbacks: WeatherHomeScreenCallbacks,
     modifier: Modifier = Modifier,
-    ) {
+) {
 
     // AppToolbar(
     //     text = location,
@@ -33,7 +35,7 @@ fun WeatherHomeTopBar(
 
     AppSearchBar(
         text = location,
-        modifier = modifier,
+        modifier = Modifier.padding(horizontal = Dimens.DEFAULT_PADDING),
         onTextChange = weatherHomeScreenCallbacks.onLocationTextChanged,
         onSearch = weatherHomeScreenCallbacks.search,
     )

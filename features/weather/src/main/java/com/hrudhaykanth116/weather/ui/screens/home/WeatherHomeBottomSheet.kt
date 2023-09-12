@@ -85,9 +85,9 @@ private fun BottomSheetRow(
             style = MaterialTheme.typography.titleLarge
         )
         HorizontalSpacer()
-        AppIcon(imageHolder = weatherMain.icon, iconModifier = Modifier.size(30.dp))
-        HorizontalSpacer()
         AppText(uiText = weatherMain.title, style = MaterialTheme.typography.titleLarge)
+        HorizontalSpacer()
+        AppIcon(imageHolder = weatherMain.icon, iconModifier = Modifier.size(30.dp))
     }
 }
 

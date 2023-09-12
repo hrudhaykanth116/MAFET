@@ -1,6 +1,8 @@
 package com.hrudhaykanth116.weather.ui.screens.home
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -13,12 +15,14 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.common.resources.Dimens
 import com.hrudhaykanth116.core.common.utils.compose.modifier.largeRadialBackground
@@ -94,7 +98,8 @@ fun TodayWeatherElements(
         modifier = modifier
             .padding(
                 horizontal = Dimens.DEFAULT_PADDING
-            )
+            ),
+        borderPercent = 10
 
     ) {
 
@@ -107,7 +112,8 @@ fun TodayWeatherElements(
                         Color(0xFF04253A),
                         Color(0xFF021D2C)
                     )
-                ).heightIn(max = 360.dp),
+                )
+                .heightIn(max = 360.dp),
             contentPadding = PaddingValues(Dimens.DEFAULT_PADDING),
             verticalArrangement = Arrangement.spacedBy(Dimens.DEFAULT_PADDING),
             horizontalArrangement = Arrangement.spacedBy(Dimens.DEFAULT_PADDING * 2)
@@ -118,16 +124,20 @@ fun TodayWeatherElements(
                     weatherMain,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(bottom = Dimens.DEFAULT_PADDING * 2),
+                        // .padding(bottom = Dimens.DEFAULT_PADDING),
                 )
             }
 
             items(state) {
                 Column(
                     modifier = Modifier
-                        .clip(CircleShape)
-                        .background(color = Color.DarkGray)
-                        .padding(vertical = Dimens.DEFAULT_PADDING),
+                        .clip(shape = RoundedCornerShape(25))
+                        .background(
+                            color = MaterialTheme.colorScheme.surface
+                        )
+                        // .border(border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline))
+                        .border(BorderStroke(1.dp, Color.LightGray), RoundedCornerShape(25))
+                        .padding(Dimens.DEFAULT_PADDING),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     AppIcon(

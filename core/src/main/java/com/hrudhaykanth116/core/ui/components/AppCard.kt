@@ -1,5 +1,6 @@
 package com.hrudhaykanth116.core.ui.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -20,7 +21,8 @@ import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 @Composable
 fun AppCard(
     modifier: Modifier = Modifier,
-    content: @Composable ColumnScope.() -> Unit
+    borderPercent: Int = 25,
+    content: @Composable ColumnScope.() -> Unit,
 ) {
     Card(
         modifier = modifier,
@@ -29,7 +31,7 @@ fun AppCard(
             pressedElevation = 2.dp,
             focusedElevation = 4.dp
         ),
-        shape = RoundedCornerShape(20.dp),
+        shape = RoundedCornerShape(percent = borderPercent),
         // colors = CardDefaults.cardColors(
         //     contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
         //     containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -37,6 +39,7 @@ fun AppCard(
         //     disabledContainerColor = MaterialTheme.colorScheme.onSurface,
         // ),
         content = content,
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
     )
 }
 
@@ -45,22 +48,34 @@ fun AppCard(
 private fun AppCardPreview() {
     CenteredColumn {
         AppCard(
-            modifier = Modifier.fillMaxWidth().requiredHeight(80.dp).padding(8.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .requiredHeight(80.dp)
+                .padding(8.dp),
         ) {
             Text(text = "Card preview", modifier = Modifier.padding(20.dp))
         }
         AppCard(
-            modifier = Modifier.fillMaxWidth().requiredHeight(80.dp).padding(8.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .requiredHeight(80.dp)
+                .padding(8.dp),
         ) {
             Text(text = "Card preview", modifier = Modifier.padding(20.dp))
         }
         AppCard(
-            modifier = Modifier.fillMaxWidth().requiredHeight(80.dp).padding(8.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .requiredHeight(80.dp)
+                .padding(8.dp),
         ) {
             Text(text = "Card preview", modifier = Modifier.padding(20.dp))
         }
         AppCard(
-            modifier = Modifier.fillMaxWidth().requiredHeight(80.dp).padding(8.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .requiredHeight(80.dp)
+                .padding(8.dp),
         ) {
             Text(text = "Card preview", modifier = Modifier.padding(20.dp))
         }

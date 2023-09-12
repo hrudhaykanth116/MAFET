@@ -9,9 +9,12 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.common.resources.Dimens
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
+import com.hrudhaykanth116.core.theme.grey_00dp
+import com.hrudhaykanth116.core.theme.grey_06dp
 import com.hrudhaykanth116.core.ui.components.VerticalSpacer
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenCallbacks
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenUIState
@@ -26,11 +29,12 @@ fun WeatherHomeScreenUI(
 
     BottomSheetScaffold(
         modifier = modifier,
+        containerColor = Color.Transparent,
+        sheetContainerColor = Color(grey_06dp),
         topBar = {
             WeatherHomeTopBar(
                 uiState.location,
                 weatherHomeScreenCallbacks,
-                modifier = Modifier.padding(horizontal = Dimens.DEFAULT_PADDING)
             )
         },
         sheetContent = {
