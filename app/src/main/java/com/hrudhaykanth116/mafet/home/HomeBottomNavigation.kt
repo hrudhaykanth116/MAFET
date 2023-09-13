@@ -3,6 +3,7 @@ package com.hrudhaykanth116.mafet.home
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -44,12 +45,15 @@ fun HomeBottomNavigation(
                     AppIcon(
                         imageHolder = navigationItem.iconDrawable.toImageHolder(),
                         modifier = Modifier.size(24.dp),
-                        tint = if(isSelected) Color.Blue else Color.White
+                        // tint = if(isSelected) Color.Blue else Color.White
                     )
                 },
                 label = {
                     AppText(uiText = navigationItem.displayName.toUIText())
-                }
+                },
+                // colors = NavigationBarItemDefaults.colors().apply {
+                //
+                // }
             )
         }
     }

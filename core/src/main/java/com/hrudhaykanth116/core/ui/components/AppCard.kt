@@ -3,7 +3,6 @@ package com.hrudhaykanth116.core.ui.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -13,15 +12,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 
 @Composable
 fun AppCard(
     modifier: Modifier = Modifier,
-    borderPercent: Int = 25,
+    cornerPercent: Int = 25,
+    borderStroke: BorderStroke? = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
     content: @Composable ColumnScope.() -> Unit,
 ) {
     Card(
@@ -31,7 +29,7 @@ fun AppCard(
             pressedElevation = 2.dp,
             focusedElevation = 4.dp
         ),
-        shape = RoundedCornerShape(percent = borderPercent),
+        shape = RoundedCornerShape(percent = cornerPercent),
         // colors = CardDefaults.cardColors(
         //     contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
         //     containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -39,7 +37,7 @@ fun AppCard(
         //     disabledContainerColor = MaterialTheme.colorScheme.onSurface,
         // ),
         content = content,
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
+        border = borderStroke
     )
 }
 

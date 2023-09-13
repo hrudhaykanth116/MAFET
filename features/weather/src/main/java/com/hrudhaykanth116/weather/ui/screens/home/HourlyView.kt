@@ -76,7 +76,7 @@ private fun HourlyViewRow(
                         color = MaterialTheme.colorScheme.surface
                     )
                     // .border(border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline))
-                    .border(BorderStroke(1.dp, Color.LightGray), RoundedCornerShape(25))
+                    // .border(BorderStroke(1.dp, Color.LightGray), RoundedCornerShape(25))
                     .padding(Dimens.DEFAULT_PADDING)
             ) {
                 AppIcon(

@@ -48,10 +48,10 @@ val grey_16dp = 0xFF353535
 val grey_24dp = 0xFF373737
 
 // TODO: Rename
-val darkThemeBlue = Color(0xFF021D2C)
+val darkThemeBlue = 0xFF021D2C
 
 // Buttons, checkboxes
-val md_theme_dark_primary = Color(0xFFB984F9)
+val md_theme_dark_primary = Color(0xFF852FEC)
 val md_theme_dark_onPrimary = Color(0xFFF8F8F8)
 
 val md_theme_dark_secondary = Color(0xFF0FEC49)
@@ -64,8 +64,8 @@ val md_theme_dark_primaryContainer = Color(0xFFFD0026)
 val md_theme_dark_onPrimaryContainer = Color(0xFFFFD9E2)
 
 // Navigation item container color in navigation bar
-val md_theme_dark_secondaryContainer = Color(0xFFD6D6D6)
-val md_theme_dark_onSecondaryContainer = Color(0xFFE4E4E4)
+val md_theme_dark_secondaryContainer = Color(grey_12dp)
+val md_theme_dark_onSecondaryContainer = Color(0xFFB366CF)
 
 val md_theme_dark_tertiaryContainer = Color(0xFFAF31C5)
 val md_theme_dark_onTertiaryContainer = Color(0xFFFFDCC1)

@@ -38,7 +38,6 @@ fun WeatherHomeBottomSheet(
     modifier: Modifier = Modifier,
 ) {
 
-
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(horizontal = Dimens.DEFAULT_PADDING),
@@ -82,12 +81,12 @@ private fun BottomSheetRow(
         AppText(
             uiText = time,
             modifier = Modifier.weight(1f),
-            style = MaterialTheme.typography.titleLarge
+            style = MaterialTheme.typography.titleMedium
         )
         HorizontalSpacer()
-        AppText(uiText = weatherMain.title, style = MaterialTheme.typography.titleLarge)
+        AppText(uiText = weatherMain.title, style = MaterialTheme.typography.titleMedium)
         HorizontalSpacer()
-        AppIcon(imageHolder = weatherMain.icon, iconModifier = Modifier.size(30.dp))
+        AppIcon(imageHolder = weatherMain.icon, iconModifier = Modifier.size(30.dp), tint = Color.Unspecified)
     }
 }
 

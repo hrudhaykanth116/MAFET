@@ -14,7 +14,6 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -22,15 +21,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.common.resources.Dimens
 import com.hrudhaykanth116.core.common.utils.compose.modifier.largeRadialBackground
 import com.hrudhaykanth116.core.ui.components.AppCard
 import com.hrudhaykanth116.core.ui.components.AppIcon
 import com.hrudhaykanth116.core.ui.components.AppText
-import com.hrudhaykanth116.core.ui.components.CenteredColumn
-import com.hrudhaykanth116.core.ui.components.VerticalSpacer
 import com.hrudhaykanth116.weather.domain.models.WeatherMain
 import com.hrudhaykanth116.weather.domain.usecases.WeatherElementUIState
 
@@ -94,13 +90,14 @@ fun TodayWeatherElements(
     if (state == null || weatherMain == null) return
 
     // TODO: Card may not be needed
+    val appCardModifier = modifier
+        // .padding(
+        //     Dimens.DEFAULT_PADDING * 4
+        // )
     AppCard(
-        modifier = modifier
-            .padding(
-                horizontal = Dimens.DEFAULT_PADDING
-            ),
-        borderPercent = 10
-
+        modifier = appCardModifier,
+        cornerPercent = 5,
+        borderStroke = null,
     ) {
 
         // TODO: Static Grid may be enough
@@ -113,10 +110,12 @@ fun TodayWeatherElements(
                         Color(0xFF021D2C)
                     )
                 )
-                .heightIn(max = 360.dp),
+                .heightIn(max = 360.dp)
+                // .padding(Dimens.DEFAULT_PADDING)
+            ,
             contentPadding = PaddingValues(Dimens.DEFAULT_PADDING),
             verticalArrangement = Arrangement.spacedBy(Dimens.DEFAULT_PADDING),
-            horizontalArrangement = Arrangement.spacedBy(Dimens.DEFAULT_PADDING * 2)
+            horizontalArrangement = Arrangement.spacedBy(Dimens.DEFAULT_PADDING)
         ) {
 
             item(span = { GridItemSpan(this.maxLineSpan) }) {
@@ -136,7 +135,7 @@ fun TodayWeatherElements(
                             color = MaterialTheme.colorScheme.surface
                         )
                         // .border(border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline))
-                        .border(BorderStroke(1.dp, Color.LightGray), RoundedCornerShape(25))
+                        // .border(BorderStroke(1.dp, Color.LightGray), RoundedCornerShape(25))
                         .padding(Dimens.DEFAULT_PADDING),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
