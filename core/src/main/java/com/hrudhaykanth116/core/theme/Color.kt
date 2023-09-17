@@ -80,11 +80,11 @@ val md_theme_dark_onErrorContainer = Color(0xFFFFDAD6)
 val md_theme_dark_background = Color(grey_00dp)
 val md_theme_dark_onBackground = Color(0xFFFFFFFF)
 
-// Toolbar, Navigation bar, bottom sheet
+// Toolbar, Navigation bar, bottom sheet, popup/dropdown
 val md_theme_dark_surface = Color(grey_08dp) // 8 dp elevation apaprently
 val md_theme_dark_onSurface = Color(0xFFE2E2E2)
 
-// Card
+// Card // Selection on surface
 val md_theme_dark_surfaceVariant = Color(grey_01dp)
 // Another version of on surface. Like !isSelected_text or icons
 val md_theme_dark_onSurfaceVariant = Color(0xFFFFFFFF)

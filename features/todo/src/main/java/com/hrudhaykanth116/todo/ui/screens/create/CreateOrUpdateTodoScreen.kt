@@ -53,6 +53,10 @@ fun CreateOrUpdateTodoScreen(
             { viewModel.processEvent(CreateTodoEvent.CategoryChanged(it)) }
         }
 
+        val onPriorityChanged = remember<(Int) -> Unit> {
+            { viewModel.processEvent(CreateTodoEvent.PriorityChanged(it)) }
+        }
+
         // TODO: ISSUES Called multiple times
         if (contentState.isSubmitted) {
             onCreated()
@@ -63,7 +67,8 @@ fun CreateOrUpdateTodoScreen(
                 onDescriptionChanged = onDescriptionChanged,
                 onCreateBtnClicked = onCreateBtnClicked,
                 onCategoryChanged = onCategoryChanged,
-                onBackClicked = onBackClicked
+                onBackClicked = onBackClicked,
+                onPriorityChanged = onPriorityChanged
             )
         }
     }

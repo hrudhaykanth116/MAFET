@@ -9,5 +9,9 @@ data class TextFieldData(
     val label: String? = null,
     val hint: String? = null,
     val error: String? = null,
+    val maxValue: Int? = null,
+    val maxLines: Int? = null,
+    val minLines: Int? = null,
+    val maxCharacters: Int? = null,
 )
 

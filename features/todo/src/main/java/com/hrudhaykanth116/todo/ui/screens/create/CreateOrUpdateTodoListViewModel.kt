@@ -93,6 +93,17 @@ class CreateOrUpdateTodoListViewModel @Inject constructor(
                 }
             }
 
+            is CreateTodoEvent.PriorityChanged -> {
+                setState {
+                    uiState.copyUIState(
+                        currentContentState.copy(
+                            todoUIModel = currentContentState.todoUIModel.copy(priority = event.priority)
+                        ),
+                        newUserMessage = uiState.userMessage
+                    )
+                }
+            }
+
             is CreateTodoEvent.TitleChanged -> {
                 setState {
                     uiState.copyUIState(

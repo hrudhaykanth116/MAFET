@@ -9,6 +9,8 @@ data class TodoUIModel(
     val category: TextFieldValue = TextFieldValue(),
     val priority: Int = 3, // 1..5
 
+    val targetTime: TextFieldValue = TextFieldValue(),
+
     // TODO: Remove this unnecessary field
     val completed: Boolean = false,
 

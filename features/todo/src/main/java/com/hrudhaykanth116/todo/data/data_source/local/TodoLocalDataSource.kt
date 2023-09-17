@@ -23,15 +23,17 @@ class TodoLocalDataSource @Inject constructor(
 
     fun getTodoTasksFlow(
         search: String,
-        filterCategory: String,
+        filterCategory: String?,
+        sortItem: String,
     ): Flow<List<TodoTaskDbEntity>> {
         // TODO: Revisit this
-        return if(filterCategory.isEmpty()){
+        return if(filterCategory.isNullOrEmpty()){
             todoTasksDao.getTasksFlow()
         }else{
             todoTasksDao.getFilteredTasksFlow(
                 // search,
-                filterCategory
+                filterCategory,
+                sortItem
             )
         }
 

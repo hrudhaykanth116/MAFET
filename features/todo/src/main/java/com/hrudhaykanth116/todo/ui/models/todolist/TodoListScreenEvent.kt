@@ -13,12 +13,14 @@ sealed interface TodoListScreenEvent {
 
     // Can have Filter(category, priority, due date today)
     data class FilterCategory(val filterCategory: String): TodoListScreenEvent
+    object ClearFilter: TodoListScreenEvent
     data class MenuItemSelected(val menuItem: TodoListScreenMenuItem): TodoListScreenEvent
 
     object CategoryIconClicked: TodoListScreenEvent
     object CategoryListMenuDismiss: TodoListScreenEvent
     object SearchIconClicked: TodoListScreenEvent
     object MenuIconClicked: TodoListScreenEvent
-    object SortIconClicked: TodoListScreenEvent
 
+    object SortIconClicked: TodoListScreenEvent
+    data class SortOptionSelected(val sortItem: TodoListScreenSortItem): TodoListScreenEvent
 }

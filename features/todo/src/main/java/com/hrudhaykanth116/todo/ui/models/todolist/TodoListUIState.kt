@@ -8,17 +8,20 @@ import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 data class TodoListUIState(
     override val uiState2: UIState2,
     val uiList: List<ToDoTaskUIState> = listOf(),
-    val categories: Set<String> = setOf(),
+    // TODO: Have some enum class of list.
+    val filterOptions: Set<String> = setOf(),
+    val selectedFilter: String? = null,
     val todoTitle: TextFieldValue = TextFieldValue(),
 
     val itemPosition: Int = 0,
-    val category: String = "",
     val search: String = "",
 
     val isSearchBarVisible: Boolean = false,
     val isCategoryListMenuVisible: Boolean = false,
     val isMenuVisible: Boolean = false,
+
     val isSortMenuVisible: Boolean = false,
+    val sortItem: TodoListScreenSortItem = TodoListScreenSortItem.PRIORITY
 
 
     ) : BaseUIState(uiState2)

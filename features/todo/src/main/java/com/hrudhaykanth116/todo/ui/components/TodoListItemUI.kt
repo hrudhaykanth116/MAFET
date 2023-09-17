@@ -94,13 +94,16 @@ fun TodoListItemUI(
                     style = MaterialTheme.typography.bodyLarge,
                     overflow = if (isExpanded) TextOverflow.Visible else TextOverflow.Ellipsis,
                 )
-                Spacer(modifier = Modifier.height(4.dp))
-                AppText(
-                    uiText = toDoTaskUIState.data.description.text.toUIText(),
-                    maxLines = if (isExpanded) Int.MAX_VALUE else 3,
-                    overflow = if (isExpanded) TextOverflow.Visible else TextOverflow.Ellipsis,
-                    style = MaterialTheme.typography.bodyMedium,
-                )
+                if(isExpanded){
+                    Spacer(modifier = Modifier.height(4.dp))
+                    AppText(
+                        uiText = toDoTaskUIState.data.description.text.toUIText(),
+                        // TODO: Modify according to final ui
+                        maxLines = if (isExpanded) Int.MAX_VALUE else 3,
+                        overflow = if (isExpanded) TextOverflow.Visible else TextOverflow.Ellipsis,
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                }
             }
 
             Spacer(modifier = Modifier.width(8.dp))

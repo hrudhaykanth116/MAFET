@@ -12,4 +12,8 @@ data class TodoTaskDbEntity(
     @ColumnInfo(name = "description") val description: String = "",
     @ColumnInfo(name = "completed") val completed: Boolean = true,
     @ColumnInfo(name = "category") val category: String = "General",
+    @ColumnInfo(name = "priority") val priority: Int? = null,
+    @ColumnInfo(name = "targetTime") val targetTime: Long? = null, // TODO: Add separate timeCreated
+    @ColumnInfo(name = "timeUpdated") val timeUpdated: Long, // TODO: Add separate timeCreated
+
 )

@@ -19,11 +19,12 @@ class ObserveTasksUseCase @Inject constructor(
     // TODO: Add filtering, sorting kind of things.
     operator fun invoke(
         search: String,
-        filterCategory: String,
+        filterCategory: String?,
+        sortItem: String,
     ): Flow<List<TodoModel>> {
 
         return todoRepository.getTodoTasksFlow(
-            search, filterCategory
+            search, filterCategory, sortItem
         ).mapLatest { list: List<TodoTaskDbEntity> ->
             list.map { it.toDomainModel() }
         }

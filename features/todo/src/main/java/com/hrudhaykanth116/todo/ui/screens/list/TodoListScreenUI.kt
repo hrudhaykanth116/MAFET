@@ -1,6 +1,5 @@
 package com.hrudhaykanth116.todo.ui.screens.list
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -13,10 +12,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -25,7 +22,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 import com.hrudhaykanth116.core.common.utils.compose.isBlank
@@ -55,9 +51,11 @@ fun TodoListScreenUI(
         modifier = modifier,
         topBar = {
             TodoListAppBar(
-                categories = uiState.categories,
+                categories = uiState.filterOptions,
+                selectedFilter =uiState.selectedFilter,
                 isCategoriesPopUpShown = uiState.isCategoryListMenuVisible,
                 isMenuVisible = uiState.isMenuVisible,
+                isSortMenuVisible = uiState.isSortMenuVisible,
                 todoListAppBarCallbacks = todoListAppBarCallbacks,
             )
         },

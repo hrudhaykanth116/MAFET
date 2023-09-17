@@ -24,8 +24,9 @@ class TodoRepository @Inject constructor(
 
     fun getTodoTasksFlow(
         search: String,
-        filterCategory: String,
-    ) = todoLocalDataSource.getTodoTasksFlow(search, filterCategory)
+        filterCategory: String?,
+        sortItem: String,
+    ) = todoLocalDataSource.getTodoTasksFlow(search, filterCategory, sortItem)
 
     suspend fun getTodoTask(id: String): TodoTaskDbEntity? {
         return todoLocalDataSource.getTodoTask(id)
@@ -37,6 +38,8 @@ class TodoRepository @Inject constructor(
         title: String,
         description: String,
         category: String,
+        priority: Int? = null,
+        targetTime: Long? = null
     ): DataResult<Unit> {
 
         todoLocalDataSource.createTodoTask(
@@ -45,7 +48,10 @@ class TodoRepository @Inject constructor(
                 title = title,
                 description = description,
                 completed = false,
-                category = category
+                category = category,
+                priority = priority,
+                targetTime = targetTime,
+                timeUpdated = System.currentTimeMillis()
             )
         )
 

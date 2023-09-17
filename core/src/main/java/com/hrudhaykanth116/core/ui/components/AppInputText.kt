@@ -157,6 +157,8 @@ fun AppTextField(
         label = {
             textFieldData.hint?.let { Text(text = it) }
         },
+        maxLines = textFieldData.maxLines ?: Int.MAX_VALUE,
+        minLines = textFieldData.minLines ?:  1,
         trailingIcon = trailingIcon,
         visualTransformation = visualTransformation,
         keyboardOptions = keyboardOptions,

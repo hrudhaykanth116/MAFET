@@ -38,6 +38,8 @@ class CreateTodoTaskUseCase @Inject constructor(
                 category = createOrUpdateTodoDomainModel.category.replaceIfBlank(
                     TASK_CATEGORY_DEFAULT_NAME
                 ).trim(),
+                priority = createOrUpdateTodoDomainModel.priority,
+                targetTime = createOrUpdateTodoDomainModel.targetTime,
             )
 
             return result.process(

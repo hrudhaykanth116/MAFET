@@ -54,6 +54,9 @@ fun TodoListScreen(
             onCategorySelected = {
                 todoListViewModel.processEvent(TodoListScreenEvent.FilterCategory(it))
             },
+            onClearFilterClicked = {
+                todoListViewModel.processEvent(TodoListScreenEvent.ClearFilter)
+            },
             onMenuItemSelected = {
                 todoListViewModel.processEvent(TodoListScreenEvent.MenuItemSelected(it))
             },
@@ -71,6 +74,9 @@ fun TodoListScreen(
             },
             onSortIconClicked = {
                 todoListViewModel.processEvent(TodoListScreenEvent.SortIconClicked)
+            },
+            onSortItemSelected = {
+                todoListViewModel.processEvent(TodoListScreenEvent.SortOptionSelected(it))
             },
             onBackClicked = onBackClicked
 

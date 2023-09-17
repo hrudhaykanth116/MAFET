@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -34,6 +33,7 @@ fun CreateOrUpdateTodoScreenUI(
     onDescriptionChanged: (TextFieldValue) -> Unit = {},
     onCategoryChanged: (TextFieldValue) -> Unit = {},
     onCreateBtnClicked: () -> Unit = {},
+    onPriorityChanged: (Int) -> Unit = {},
     onBackClicked: () -> Unit = {},
 ) {
 
@@ -83,24 +83,30 @@ fun CreateOrUpdateTodoScreenUI(
             Spacer(modifier = Modifier.height(Dimens.DEFAULT_PADDING))
             Row {
                 PriorityField(
-                    state, modifier = Modifier
+                    state.todoUIModel.priority,
+                    modifier = Modifier
                         .fillMaxWidth()
-                        .weight(1f)
+                        .weight(1f),
+                    onPriorityChanged = onPriorityChanged
                 )
-                DateTimeField(
-                    state = state, modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                )
+                // CreateTodoDateTimeField(
+                //     value = state.todoUIModel.targetTime,
+                //     modifier = Modifier
+                //         .fillMaxWidth()
+                //         .weight(1f),
+                //     onValueChange = {
+                //
+                //     }
+                // )
             }
-            Spacer(modifier = Modifier.height(Dimens.DEFAULT_PADDING))
-            AppInputText(
-                textFieldData = TextFieldData(
-                    hint = "Enter Category for the task.",
-                    inputValue = state.todoUIModel.category
-                ),
-                onInputChange = onCategoryChanged
-            )
+            // Spacer(modifier = Modifier.height(Dimens.DEFAULT_PADDING))
+            // AppInputText(
+            //     textFieldData = TextFieldData(
+            //         hint = "Enter Category for the task.",
+            //         inputValue = state.todoUIModel.category
+            //     ),
+            //     onInputChange = onCategoryChanged
+            // )
         }
 
         AppFormButton(

@@ -15,6 +15,7 @@ import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateTodoEffect
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenEvent
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenMenuItem
+import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenSortItem
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -39,20 +40,33 @@ class TodoListViewModel @Inject constructor(
     init {
 
         val result: Flow<List<TodoModel>> = uiStateFlow.mapLatest {
-            Pair<String, String>(it.search, it.category)
+            Triple(it.search, it.selectedFilter, it.sortItem)
         }.distinctUntilChanged().flatMapLatest {
-            observeTasksUseCase(it.first, it.second)
+            observeTasksUseCase(it.first, it.second, it.third.displayName)
+        }
+
+        uiStateFlow.mapLatest {
+            it.sortItem
+        }.distinctUntilChanged().mapLatest {
+
         }
 
         viewModelScope.launch {
-            result.collectLatest { todoDomainModelList ->
-                val toDoTaskUIStates = todoDomainModelList.map { it.toState() }
+            uiStateFlow.mapLatest {
+                // TODO: Dont observe sort here which will trigger db query
+                Triple(it.search, it.selectedFilter, it.sortItem)
+            }.distinctUntilChanged().flatMapLatest {
+                observeTasksUseCase(it.first, it.second, it.third.key)
+            }.collectLatest { todoDomainModelList ->
+                val toDoTaskUIStates = todoDomainModelList.map { it.toState() }.sortedBy {
+                    it.data.priority
+                }
                 setTasksList(toDoTaskUIStates)
             }
         }
 
         viewModelScope.launch {
-            observeTasksUseCase("", "").collectLatest { todoModelList ->
+            observeTasksUseCase("", "", uiState.sortItem.key).collectLatest { todoModelList ->
 
                 // TODO: Get categories list without groupBY. Using domain model ??
                 val categories = todoModelList.groupBy { todoModel ->
@@ -61,7 +75,7 @@ class TodoListViewModel @Inject constructor(
 
                 setState {
                     copy(
-                        categories = categories
+                        filterOptions = categories
                     )
                 }
             }
@@ -93,6 +107,7 @@ class TodoListViewModel @Inject constructor(
             is TodoListScreenEvent.TodoTaskTitleChanged -> onTodoTaskTitleChanged(event.textFieldValue)
             is TodoListScreenEvent.CreateTodoTask -> createTodoTask(event.taskTitle)
             is TodoListScreenEvent.FilterCategory -> onFilterSelected(event.filterCategory)
+            is TodoListScreenEvent.ClearFilter -> onFilterSelected(null)
             is TodoListScreenEvent.Search -> setSearchText(event.searchText)
             TodoListScreenEvent.CategoryIconClicked -> onCategoryIconClicked()
             TodoListScreenEvent.CategoryListMenuDismiss -> onCategoryMenuDismiss()
@@ -100,13 +115,23 @@ class TodoListViewModel @Inject constructor(
             TodoListScreenEvent.SearchIconClicked -> onSearchIconClicked()
             is TodoListScreenEvent.MenuItemSelected -> onMenuItemSelected(event.menuItem)
             TodoListScreenEvent.SortIconClicked -> onSortIconClicked()
+            is TodoListScreenEvent.SortOptionSelected -> onSortOptionClicked(event.sortItem)
         }
     }
 
-    private fun onSortIconClicked(){
+    private fun onSortIconClicked() {
         setState {
             copy(
+                isSortMenuVisible = !isSortMenuVisible
+            )
+        }
+    }
 
+    private fun onSortOptionClicked(sortItem: TodoListScreenSortItem) {
+        setState {
+            copy(
+                sortItem = sortItem,
+                isSortMenuVisible = false
             )
         }
     }
@@ -121,6 +146,7 @@ class TodoListViewModel @Inject constructor(
             TodoListScreenMenuItem.SETTINGS -> {
                 // setEffect()
             }
+
             TodoListScreenMenuItem.CLEAR_ALL -> {
                 // deleteTasks()
             }
@@ -141,7 +167,7 @@ class TodoListViewModel @Inject constructor(
         }
     }
 
-    private fun onMenuIconClicked(){
+    private fun onMenuIconClicked() {
         setState {
             // TODO: Recheck this
             copy(
@@ -151,7 +177,7 @@ class TodoListViewModel @Inject constructor(
     }
 
 
-    private fun onCategoryIconClicked(){
+    private fun onCategoryIconClicked() {
         setState {
             copy(
                 isCategoryListMenuVisible = !isCategoryListMenuVisible
@@ -159,7 +185,7 @@ class TodoListViewModel @Inject constructor(
         }
     }
 
-    fun onCategoryMenuDismiss(){
+    fun onCategoryMenuDismiss() {
         setState {
             copy(
                 isCategoryListMenuVisible = false
@@ -196,16 +222,16 @@ class TodoListViewModel @Inject constructor(
         }
     }
 
-    private fun onFilterSelected(category: String) {
+    private fun onFilterSelected(filter: String?) {
         setState {
             copy(
-                category = category,
+                selectedFilter = filter,
                 isCategoryListMenuVisible = false,
             )
         }
     }
 
-    private fun setSearchText(search: String){
+    private fun setSearchText(search: String) {
         setState {
             copy(
                 search = search,

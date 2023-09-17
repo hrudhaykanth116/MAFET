@@ -40,10 +40,19 @@ interface TodoTasksDao : com.hrudhaykanth116.core.data.local.db.BaseDao<TodoTask
     @Query("SELECT * FROM TodoTaskDbEntity")
     fun getTasksFlow(): Flow<List<TodoTaskDbEntity>>
 
-    @Query("SELECT * FROM TodoTaskDbEntity WHERE category = :filterCategory")
+    @Query(
+        """
+            SELECT * FROM TodoTaskDbEntity 
+            WHERE category = :filterCategory 
+                ORDER BY 
+                    CASE WHEN :sortItem = 'priority' THEN priority END DESC,
+                    CASE WHEN :sortItem = 'targetTime' THEN targetTime END DESC
+        """
+    )
     fun getFilteredTasksFlow(
         // search: String,
         filterCategory: String,
+        sortItem: String
     ): Flow<List<TodoTaskDbEntity>>
 
     /**

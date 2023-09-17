@@ -12,6 +12,9 @@ data class CreateOrUpdateTodoDomainModel(
 
     val category: String = TASK_CATEGORY_DEFAULT_NAME,
 
+    val priority: Int? = null,
+    val targetTime: Long? = null,
+
     val isInEditMode: Boolean = true,
     val isSubmitted: Boolean = false,
 ) {
