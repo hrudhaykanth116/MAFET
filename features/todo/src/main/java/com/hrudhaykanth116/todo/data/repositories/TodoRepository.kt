@@ -38,7 +38,7 @@ class TodoRepository @Inject constructor(
         title: String,
         description: String,
         category: String,
-        priority: Int? = null,
+        priority: Int,
         targetTime: Long? = null
     ): DataResult<Unit> {
 

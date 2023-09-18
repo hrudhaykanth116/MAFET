@@ -68,6 +68,7 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":features:todo"))
     implementation(project(":features:weather"))
+    implementation(project(":features:tv"))
     implementation(project(":features:auth"))
     implementation(project(":training"))
 

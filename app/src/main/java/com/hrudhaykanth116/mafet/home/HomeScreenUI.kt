@@ -17,6 +17,7 @@ import com.hrudhaykanth116.mafet.account.navigation.AccountNavigation
 import com.hrudhaykanth116.mafet.home.models.HomeBottomNavigationItem
 import com.hrudhaykanth116.mafet.home.models.HomeRoute
 import com.hrudhaykanth116.todo.navigation.TodoNavigation
+import com.hrudhaykanth116.tv.ui.screens.TvHomeScreen
 import com.hrudhaykanth116.weather.ui.screens.home.WeatherNavigation
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -57,9 +58,7 @@ fun HomeScreenUI(
 
                         HomeRoute.Entertainment -> {
                             composable(HomeRoute.Entertainment.route) {
-                                CenteredColumn(modifier = Modifier.fillMaxSize()) {
-                                    Text(text = "Entertainment feature coming up")
-                                }
+                                TvHomeScreen()
                             }
                         }
 

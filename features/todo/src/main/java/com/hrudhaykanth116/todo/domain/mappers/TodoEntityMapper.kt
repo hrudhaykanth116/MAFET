@@ -12,7 +12,8 @@ fun TodoTaskDbEntity.toDomainModel(): TodoModel{
         title = title,
         description = description,
         completed = completed,
-        category = category
+        category = category,
+        priority = priority
 
     )
 

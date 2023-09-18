@@ -42,6 +42,7 @@ fun CreateOrUpdateTodoUIState.toDomainModel(
         // titleError = titleError,
         description = todoUIModel.description.text,
         category = todoUIModel.category.text,
+        priority = todoUIModel.priority,
         isSubmitted = isSubmitted
     )
 }
