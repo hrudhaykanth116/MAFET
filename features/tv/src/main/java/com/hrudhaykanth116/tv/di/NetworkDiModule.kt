@@ -55,12 +55,12 @@ object NetworkDiModule {
 
     @Provides
     @Singleton
-    fun provideRetroApis(retrofit: Retrofit): RetroApis =
+    fun provideRetroApis(@Named("tv_retrofit") retrofit: Retrofit): RetroApis =
         retrofit.create(RetroApis::class.java)
 
     @Provides
     @Singleton
-    fun provideTvApisService(retrofit: Retrofit): TvApisService =
+    fun provideTvApisService(@Named("tv_retrofit") retrofit: Retrofit): TvApisService =
         retrofit.create(TvApisService::class.java)
 
 }

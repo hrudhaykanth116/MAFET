@@ -26,7 +26,7 @@ sealed class DataResult<out T> {
 
     fun <R> process(
         onSuccess: ((T) -> R),
-        onError: ((Error) -> R),
+        onError: ((Error) -> R), // TODO: Make this nullable and optional
     ): R {
         return when (this) {
             is Error -> onError.invoke(this)

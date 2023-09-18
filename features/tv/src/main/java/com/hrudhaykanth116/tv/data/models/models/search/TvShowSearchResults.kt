@@ -3,7 +3,7 @@ import com.hrudhaykanth116.tv.data.models.models.TvShowData
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
-@JsonClass(generateAdapter = true)
+// @JsonClass(generateAdapter = true)
 data class TvShowSearchResults(
     @Json(name = "page")
     val page: Int? = null,
