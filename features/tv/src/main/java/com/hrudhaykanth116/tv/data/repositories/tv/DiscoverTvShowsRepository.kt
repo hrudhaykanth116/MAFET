@@ -6,8 +6,8 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.hrudhaykanth116.tv.data.datasources.remote.retrofit.RetroApis
 import com.hrudhaykanth116.tv.data.datasources.remote.sources.tvshows.DiscoverTvShowsRemoteDataSource
-import com.hrudhaykanth116.tv.data.models.models.TvShowData
-import com.hrudhaykanth116.tv.data.models.models.genres.Genre
+import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowData
+import com.hrudhaykanth116.tv.data.datasources.remote.models.genres.Genre
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton

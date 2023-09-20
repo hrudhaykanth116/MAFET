@@ -1,6 +1,7 @@
 package com.hrudhaykanth116.core.data.local.db
 
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 interface BaseDao<T> {
 

@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.hrudhaykanth116.tv.data.datasources.remote.retrofit.RetroApis
-import com.hrudhaykanth116.tv.data.models.models.TvShowData
-import com.hrudhaykanth116.tv.data.models.models.discover.GetDiscoverTvResponse
-import com.hrudhaykanth116.tv.data.models.models.genres.Genre
+import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowData
+import com.hrudhaykanth116.tv.data.datasources.remote.models.discover.GetDiscoverTvResponse
+import com.hrudhaykanth116.tv.data.datasources.remote.models.genres.Genre
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException

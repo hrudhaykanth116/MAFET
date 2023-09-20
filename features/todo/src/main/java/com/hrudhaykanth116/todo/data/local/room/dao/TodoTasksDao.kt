@@ -2,12 +2,13 @@ package com.hrudhaykanth116.todo.data.local.room.dao
 
 import androidx.room.Dao
 import androidx.room.Query
+import com.hrudhaykanth116.core.data.local.db.BaseDao
 import com.hrudhaykanth116.todo.data.local.room.tables.TodoTaskDbEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 
 @Dao
-interface TodoTasksDao : com.hrudhaykanth116.core.data.local.db.BaseDao<TodoTaskDbEntity> {
+interface TodoTasksDao : BaseDao<TodoTaskDbEntity> {
 
     /**
      * Observes list of tasks.

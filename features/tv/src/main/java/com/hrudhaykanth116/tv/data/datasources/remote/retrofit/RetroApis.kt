@@ -1,14 +1,14 @@
 package com.hrudhaykanth116.tv.data.datasources.remote.retrofit
 
 import com.hrudhaykanth116.tv.data.models.constants.MoviesDbConstants
-import com.hrudhaykanth116.tv.data.models.models.MovieVideosResponse
-import com.hrudhaykanth116.tv.data.models.models.PopularMoviesResponse
-import com.hrudhaykanth116.tv.data.models.models.TvShowDataPagedResponse
-import com.hrudhaykanth116.tv.data.models.models.TvShowDetails
-import com.hrudhaykanth116.tv.data.models.models.UserPost
-import com.hrudhaykanth116.tv.data.models.models.discover.GetDiscoverTvResponse
-import com.hrudhaykanth116.tv.data.models.models.genres.GetTvGenresResponse
-import com.hrudhaykanth116.tv.data.models.models.search.TvShowSearchResults
+import com.hrudhaykanth116.tv.data.datasources.remote.models.MovieVideosResponse
+import com.hrudhaykanth116.tv.data.datasources.remote.models.PopularMoviesResponse
+import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDataPagedResponse
+import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDetails
+import com.hrudhaykanth116.tv.data.datasources.remote.models.UserPost
+import com.hrudhaykanth116.tv.data.datasources.remote.models.discover.GetDiscoverTvResponse
+import com.hrudhaykanth116.tv.data.datasources.remote.models.genres.GetTvGenresResponse
+import com.hrudhaykanth116.tv.data.datasources.remote.models.search.TvShowSearchResults
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET

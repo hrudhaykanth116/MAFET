@@ -4,14 +4,14 @@ import com.hrudhaykanth116.core.data.models.DataResult
 import com.hrudhaykanth116.core.data.remote.NetworkDataSource
 import com.hrudhaykanth116.tv.data.datasources.remote.retrofit.RetroApis
 import com.hrudhaykanth116.tv.data.datasources.remote.retrofit.TvApisService
-import com.hrudhaykanth116.tv.data.models.models.GetTvCreditsResponse
-import com.hrudhaykanth116.tv.data.models.models.GetTvImagesResponse
-import com.hrudhaykanth116.tv.data.models.models.GetTvReviewsResponse
-import com.hrudhaykanth116.tv.data.models.models.GetTvVideosResponse
-import com.hrudhaykanth116.tv.data.models.models.TvShowDataPagedResponse
-import com.hrudhaykanth116.tv.data.models.models.TvShowDetails
-import com.hrudhaykanth116.tv.data.models.models.genres.GetTvGenresResponse
-import com.hrudhaykanth116.tv.data.models.models.search.TvShowSearchResults
+import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvCreditsResponse
+import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvImagesResponse
+import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvReviewsResponse
+import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvVideosResponse
+import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDataPagedResponse
+import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDetails
+import com.hrudhaykanth116.tv.data.datasources.remote.models.genres.GetTvGenresResponse
+import com.hrudhaykanth116.tv.data.datasources.remote.models.search.TvShowSearchResults
 import javax.inject.Inject
 
 class TvShowsRemoteDataSource @Inject constructor(

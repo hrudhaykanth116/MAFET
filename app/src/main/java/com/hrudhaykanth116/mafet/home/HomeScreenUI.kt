@@ -11,13 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
 import com.hrudhaykanth116.mafet.account.navigation.AccountNavigation
 import com.hrudhaykanth116.mafet.home.models.HomeBottomNavigationItem
 import com.hrudhaykanth116.mafet.home.models.HomeRoute
 import com.hrudhaykanth116.todo.navigation.TodoNavigation
-import com.hrudhaykanth116.tv.ui.screens.TvHomeScreen
+import com.hrudhaykanth116.tv.ui.TvNavigation
+import com.hrudhaykanth116.tv.ui.screens.home.TvHomeScreen
 import com.hrudhaykanth116.weather.ui.screens.home.WeatherNavigation
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -58,7 +58,7 @@ fun HomeScreenUI(
 
                         HomeRoute.Entertainment -> {
                             composable(HomeRoute.Entertainment.route) {
-                                TvHomeScreen()
+                                TvNavigation()
                             }
                         }
 

@@ -1,11 +1,11 @@
 package com.hrudhaykanth116.tv.data.datasources.remote.retrofit
 
 import com.hrudhaykanth116.tv.data.models.constants.MoviesDbConstants
-import com.hrudhaykanth116.tv.data.models.models.GetTvCreditsResponse
-import com.hrudhaykanth116.tv.data.models.models.GetTvImagesResponse
-import com.hrudhaykanth116.tv.data.models.models.GetTvReviewsResponse
-import com.hrudhaykanth116.tv.data.models.models.GetTvVideosResponse
-import com.hrudhaykanth116.tv.data.models.models.TvShowDataPagedResponse
+import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvCreditsResponse
+import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvImagesResponse
+import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvReviewsResponse
+import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvVideosResponse
+import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDataPagedResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
