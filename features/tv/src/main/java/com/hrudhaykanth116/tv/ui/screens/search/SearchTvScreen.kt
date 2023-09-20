@@ -4,18 +4,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.hrudhaykanth116.tv.ui.models.search.SearchScreenCallbacks
+import com.hrudhaykanth116.tv.ui.models.search.SearchScreenEvent
 import com.hrudhaykanth116.tv.ui.models.search.SearchScreenState
 
 @Composable
 fun SearchTvScreen(
-    searchTvScreenViewModel: SearchTvScreenViewModel = hiltViewModel(),
+    viewModel: SearchTvScreenViewModel = hiltViewModel(),
 ) {
 
     val state: State<SearchScreenState> =
-        searchTvScreenViewModel.stateFlow.collectAsStateWithLifecycle()
+        viewModel.stateFlow.collectAsStateWithLifecycle()
 
     SearchTvScreenUI(
-        state.value
-    )
+        state.value,
+        searchScreenCallbacks = SearchScreenCallbacks(
+            onSearchTextChanged = {
+                viewModel.processEvent(SearchScreenEvent.OnSearchTextChanged(it))
+            },
+            onSearchIconClicked = {
+                viewModel.processEvent(SearchScreenEvent.OnSearchIconClicked)
+            }
+        ),
+
+        )
 
 }

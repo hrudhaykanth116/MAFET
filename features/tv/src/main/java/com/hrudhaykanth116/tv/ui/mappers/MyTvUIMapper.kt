@@ -3,7 +3,7 @@ package com.hrudhaykanth116.tv.ui.mappers
 import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.ui.models.toUrlImageHolder
 import com.hrudhaykanth116.tv.domaintemp.models.MyTvDomainModel
-import com.hrudhaykanth116.tv.ui.models.search.MyTvUIState
+import com.hrudhaykanth116.tv.ui.models.home.MyTvUIState
 
 class MyTvUIMapper {
 }

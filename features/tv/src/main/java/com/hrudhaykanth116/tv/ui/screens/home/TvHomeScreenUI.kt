@@ -2,7 +2,6 @@ package com.hrudhaykanth116.tv.ui.screens.home
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
@@ -13,9 +12,8 @@ import androidx.compose.ui.Modifier
 import com.hrudhaykanth116.core.common.resources.Dimens
 import com.hrudhaykanth116.core.ui.components.AppIcon
 import com.hrudhaykanth116.core.ui.models.toImageHolder
-import com.hrudhaykanth116.tv.R
 import com.hrudhaykanth116.tv.ui.models.home.TvHomeScreenCallbacks
-import com.hrudhaykanth116.tv.ui.models.search.MyTvUIState
+import com.hrudhaykanth116.tv.ui.models.home.MyTvUIState
 
 @Composable
 fun TvHomeScreenUI(

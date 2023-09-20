@@ -16,9 +16,9 @@ import com.hrudhaykanth116.core.ui.models.toImageHolder
 @Composable
 fun AppSearchBar(
     text: String,
+    onTextChange: (String) -> Unit,
+    onSearch: () -> Unit,
     modifier: Modifier = Modifier,
-    onTextChange: (String) -> Unit = {},
-    onSearch: () -> Unit = {},
 ) {
 
     Row(
@@ -51,5 +51,5 @@ fun AppSearchBar(
 @Preview
 @Composable
 fun AppSearchBarPreview() {
-    AppSearchBar(text = "Search criteria")
+    AppSearchBar(text = "Search criteria", onTextChange = {}, onSearch = {})
 }

@@ -8,13 +8,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import com.hrudhaykanth116.core.common.resources.Dimens
-import com.hrudhaykanth116.tv.ui.models.home.TvSearchItemUIState
-import com.hrudhaykanth116.tv.ui.screens.home.MyTvListItemUI
+import com.hrudhaykanth116.tv.ui.models.search.SearchScreenItemUIState
 
 @Composable
 fun TvSearchResultsUI(
-    list: List<TvSearchItemUIState>
-){
+    list: List<SearchScreenItemUIState>,
+) {
 
     val listState: LazyListState = rememberLazyListState()
 

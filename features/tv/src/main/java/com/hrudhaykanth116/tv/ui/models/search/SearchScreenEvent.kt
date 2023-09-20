@@ -1,4 +1,8 @@
 package com.hrudhaykanth116.tv.ui.models.search
 
-interface SearchScreenEvent {
+sealed interface SearchScreenEvent {
+
+    data class OnSearchTextChanged(val searchText: String) : SearchScreenEvent
+    object OnSearchIconClicked : SearchScreenEvent
+
 }

@@ -18,7 +18,7 @@ import com.hrudhaykanth116.core.ui.components.AppText
 import com.hrudhaykanth116.core.ui.components.CircularImage
 import com.hrudhaykanth116.core.ui.components.HorizontalSpacer
 import com.hrudhaykanth116.core.ui.models.toImageHolder
-import com.hrudhaykanth116.tv.ui.models.search.MyTvUIState
+import com.hrudhaykanth116.tv.ui.models.home.MyTvUIState
 
 @Composable
 fun MyTvListItemUI(

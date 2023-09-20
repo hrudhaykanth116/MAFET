@@ -1,4 +1,4 @@
-package com.hrudhaykanth116.tv.ui.models.search
+package com.hrudhaykanth116.tv.ui.models.home
 
 import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.core.ui.models.ImageHolder

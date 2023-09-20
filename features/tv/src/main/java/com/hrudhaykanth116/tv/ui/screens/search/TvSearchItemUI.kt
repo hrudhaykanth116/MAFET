@@ -14,11 +14,11 @@ import com.hrudhaykanth116.core.ui.components.AppCard
 import com.hrudhaykanth116.core.ui.components.AppText
 import com.hrudhaykanth116.core.ui.components.CircularImage
 import com.hrudhaykanth116.core.ui.components.HorizontalSpacer
-import com.hrudhaykanth116.tv.ui.models.home.TvSearchItemUIState
+import com.hrudhaykanth116.tv.ui.models.search.SearchScreenItemUIState
 
 @Composable
 fun TvSearchItemUI(
-    state: TvSearchItemUIState,
+    state: SearchScreenItemUIState,
 ) {
 
     AppCard(
@@ -32,7 +32,7 @@ fun TvSearchItemUI(
         ) {
 
             CircularImage(
-                image = state.imgSource
+                image = state.image
             )
 
             HorizontalSpacer()
