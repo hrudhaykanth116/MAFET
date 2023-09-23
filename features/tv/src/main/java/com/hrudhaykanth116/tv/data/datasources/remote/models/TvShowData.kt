@@ -16,7 +16,7 @@ data class TvShowData(
     @Json(name = "genre_ids")
     val genreIds: List<Int>? = listOf(),
     @Json(name = "id")
-    val id: Int? = 0,
+    val id: Int = 0,
     @Json(name = "name")
     val name: String? = "",
     @Json(name = "origin_country")

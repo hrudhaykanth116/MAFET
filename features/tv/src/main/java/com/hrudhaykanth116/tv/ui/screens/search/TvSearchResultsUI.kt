@@ -13,6 +13,7 @@ import com.hrudhaykanth116.tv.ui.models.search.SearchScreenItemUIState
 @Composable
 fun TvSearchResultsUI(
     list: List<SearchScreenItemUIState>,
+    onAdd: (Int) -> Unit
 ) {
 
     val listState: LazyListState = rememberLazyListState()
@@ -27,7 +28,9 @@ fun TvSearchResultsUI(
 
         items(list) { myTv ->
 
-            TvSearchItemUI(state = myTv)
+            TvSearchItemUI(state = myTv, onAdd = {
+                onAdd(myTv.id)
+            })
 
         }
 

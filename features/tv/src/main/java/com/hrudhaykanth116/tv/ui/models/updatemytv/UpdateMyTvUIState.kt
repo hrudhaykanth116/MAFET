@@ -1,9 +1,10 @@
-package com.hrudhaykanth116.tv.ui.models.home
+package com.hrudhaykanth116.tv.ui.models.updatemytv
 
+import androidx.compose.ui.text.input.TextFieldValue
 import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.core.ui.models.ImageHolder
 
-data class MyTvUIState(
+data class UpdateMyTvUIState(
     val id: Int,
     val name: UIText,
     val lastWatchedSeason: Int? = null,

@@ -152,13 +152,20 @@ fun AppTextField(
         modifier = modifier.fillMaxWidth(),
         value = textFieldData.inputValue,
         isError = textFieldData.error?.isNotBlank() == true,
-        onValueChange = onInputChange,
+        onValueChange = { fieldValue: TextFieldValue ->
+            onInputChange(
+                // TODO: Prevent text length from maxCharacters
+                fieldValue.copy(
+                    text = textFieldData.maxCharacters?.let { fieldValue.text.take(it) } ?: fieldValue.text
+                )
+            )
+        },
         // visualTransformation = PasswordVisualTransformation(),
         label = {
             textFieldData.hint?.let { Text(text = it) }
         },
         maxLines = textFieldData.maxLines ?: Int.MAX_VALUE,
-        minLines = textFieldData.minLines ?:  1,
+        minLines = textFieldData.minLines ?: 1,
         trailingIcon = trailingIcon,
         visualTransformation = visualTransformation,
         keyboardOptions = keyboardOptions,

@@ -30,6 +30,7 @@ fun HomeBottomNavigation(
         mutableStateOf(0)
     }
 
+    // TODO: Listen for navigation stack changes and update icon accordingly 
     NavigationBar(
         modifier = modifier,
     ) {

@@ -23,7 +23,7 @@ data class TvShowDetails(
     @Json(name = "homepage")
     val homepage: String? = "",
     @Json(name = "id")
-    val id: Int? = 0,
+    val id: Int = 0,
     @Json(name = "in_production")
     val inProduction: Boolean? = false,
     @Json(name = "languages")

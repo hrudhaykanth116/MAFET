@@ -1,8 +1,10 @@
 package com.hrudhaykanth116.tv.ui.screens.search
 
 import androidx.lifecycle.viewModelScope
+import com.hrudhaykanth116.core.common.ui.models.UserMessage
 import com.hrudhaykanth116.core.data.models.DataResult
 import com.hrudhaykanth116.core.udf.UDFViewModel
+import com.hrudhaykanth116.tv.domaintemp.AddMyTvUseCase
 import com.hrudhaykanth116.tv.domaintemp.GetTvListByQuery
 import com.hrudhaykanth116.tv.ui.models.search.SearchScreenEffect
 import com.hrudhaykanth116.tv.ui.models.search.SearchScreenEvent
@@ -11,7 +13,6 @@ import com.hrudhaykanth116.tv.ui.models.search.SearchScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -23,6 +24,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchTvScreenViewModel @Inject constructor(
     private val getTvListByQuery: GetTvListByQuery,
+    private val addMyTvUseCase: AddMyTvUseCase,
 ) : UDFViewModel<SearchScreenState, SearchScreenEvent, SearchScreenEffect>(
     SearchScreenState("")
 ) {
@@ -61,7 +63,7 @@ class SearchTvScreenViewModel @Inject constructor(
                     setState {
                         copy(
                             searchResults = it,
-                            errorMessage = null,
+                            userMessage = null,
                             isLoading = false,
                         )
                     }
@@ -69,7 +71,7 @@ class SearchTvScreenViewModel @Inject constructor(
                 onError = {
                     setState {
                         copy(
-                            errorMessage = it.uiMessage,
+                            userMessage = UserMessage.Error(it.uiMessage),
                             isLoading = false,
                         )
                     }
@@ -88,6 +90,31 @@ class SearchTvScreenViewModel @Inject constructor(
 
             is SearchScreenEvent.OnSearchTextChanged -> {
                 onSearchTextChanged(event.searchText)
+            }
+
+            is SearchScreenEvent.OnAddClicked -> {
+                viewModelScope.launch {
+                    val result = addMyTvUseCase(event.id)
+
+                    when (result) {
+                        is DataResult.Error -> {
+                            setState {
+                                copy(
+                                    userMessage = UserMessage.Success(message = result.uiMessage),
+                                )
+                            }
+                        }
+
+                        is DataResult.Success -> {
+                            setState {
+                                copy(
+                                    userMessage = null,
+                                )
+                            }
+                        }
+                    }
+
+                }
             }
         }
     }

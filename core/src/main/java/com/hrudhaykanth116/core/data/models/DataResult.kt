@@ -7,7 +7,7 @@ sealed class DataResult<out T> {
     data class Success<out T>(val data: T) : DataResult<T>()
     data class Error(
         // Use this to show as error message on UI.
-        val uiMessage: UIText? = null,
+        val uiMessage: UIText = "Something went wrong".toUIText(),
         // Use this to show as error description on UI.
         val uiDescription: UIText? = null,
         // Use this to log error or for complete error description.

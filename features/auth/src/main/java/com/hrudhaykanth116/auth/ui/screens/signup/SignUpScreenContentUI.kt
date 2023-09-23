@@ -26,6 +26,7 @@ import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.ui.components.AppFormButton
 import com.hrudhaykanth116.core.ui.components.CircularImage
+import com.hrudhaykanth116.core.ui.models.ImageHolder
 
 @Composable
 fun SignUpScreenContentUI(
@@ -55,7 +56,7 @@ fun SignUpScreenContentUI(
         ) {
             CircularImage(
                 modifier = Modifier.size(100.dp),
-                image = state.imgBitmap
+                image = ImageHolder.BitmapSource(state.imgBitmap)
                 // ?: R.drawable.profile_icon,
             ) {
                 signUpScreenCallbacks.onProfileClicked()

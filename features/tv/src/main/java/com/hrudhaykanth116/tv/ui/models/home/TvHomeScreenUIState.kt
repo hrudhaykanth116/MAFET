@@ -7,4 +7,5 @@ data class TvHomeScreenUIState(
     val tvShows: List<MyTvUIState>? = null,
     val shouldNavigateToSearchScreen: Boolean = false,
     val userMessage: UserMessage? = null,
+    val updateTv: MyTvUIState? = null,
 )

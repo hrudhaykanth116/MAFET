@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.ui.components.AppSearchBar
 import com.hrudhaykanth116.core.ui.components.AppText
+import com.hrudhaykanth116.core.ui.components.VerticalSpacer
 import com.hrudhaykanth116.tv.ui.models.search.SearchScreenCallbacks
 import com.hrudhaykanth116.tv.ui.models.search.SearchScreenState
 
@@ -32,8 +33,9 @@ internal fun SearchTvScreenUI(
                     searchScreenCallbacks.onSearchIconClicked()
                 },
             )
+            VerticalSpacer()
             if (state.searchResults != null) {
-                TvSearchResultsUI(list = state.searchResults)
+                TvSearchResultsUI(list = state.searchResults, onAdd = searchScreenCallbacks.onAddClicked)
             } else {
                 AppText(uiText = "No Data".toUIText())
             }

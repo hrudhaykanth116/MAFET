@@ -16,6 +16,9 @@ Features:
     * List of my tv list that contains the tv series currently being watched or watched already.
         * This list allows me to track last watched episode, fav episodes, fav scene time interval etc..
 
+Code:
+    * Konsist. Lint checks
+
 * Expandable View
 * Custom layout
 

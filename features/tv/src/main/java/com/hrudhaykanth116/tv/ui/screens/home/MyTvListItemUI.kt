@@ -52,14 +52,14 @@ fun MyTvListItemUI(
                     overflow = TextOverflow.Ellipsis,
                 )
                 AppText(
-                    uiText = state.lastWatched,
+                    uiText = state.lastWatchedTime,
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }
 
             HorizontalSpacer()
 
-            AppText(uiText = state.currentEpisode)
+            AppText(uiText = state.lastWatchedSeasonEpisode)
         }
 
     }
@@ -71,10 +71,10 @@ fun MyTvListItemUI(
 fun MyTvListItemUIPreview() {
     MyTvListItemUI(
         MyTvUIState(
-            id = "1",
+            id = 1,
             name = "Suits".toUIText(),
-            currentEpisode = "S09E04".toUIText(),
-            lastWatched = "20 June 2022".toUIText(),
+            lastWatchedSeasonEpisode = "S09E04".toUIText(),
+            lastWatchedTime = "20 June 2022".toUIText(),
             imgSource = CoreR.drawable.ic_tv.toImageHolder()
         )
     )

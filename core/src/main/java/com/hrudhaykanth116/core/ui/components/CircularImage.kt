@@ -21,6 +21,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.hrudhaykanth116.core.R
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
+import com.hrudhaykanth116.core.ui.models.ImageHolder
 
 @MyPreview
 @Composable
@@ -37,18 +38,20 @@ fun CircularImagePreview() {
 fun CircularImage(
     modifier: Modifier = Modifier,
     // imageHolder: ImageHolder = ImageHolder.ImageVector(R.drawable.profile_icon),
-    image: Any?,
-    @DrawableRes placeHolder: Int = R.drawable.profile_icon,
+    image: ImageHolder?,
+    @DrawableRes placeHolder: Int = R.drawable.ic_genie,
+    @DrawableRes errorHolder: Int = R.drawable.ic_exclamation,
     @StringRes contentDescriptionResId: Int = R.string.image_content_default_description,
     onClicked: () -> Unit = {},
 ) {
 
     AsyncImage(
         model = ImageRequest.Builder(LocalContext.current)
-            .data(image)
+            .data(image?.data)
             .crossfade(true)
             .build(),
         placeholder = painterResource(placeHolder),
+        error = painterResource(errorHolder),
         contentDescription = stringResource(contentDescriptionResId),
         contentScale = ContentScale.FillBounds,
         modifier = modifier

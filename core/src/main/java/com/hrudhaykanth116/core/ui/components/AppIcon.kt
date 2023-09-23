@@ -14,8 +14,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.Coil
-import coil.compose.AsyncImage
 import com.hrudhaykanth116.core.R
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 import com.hrudhaykanth116.core.data.models.UIText
@@ -47,7 +45,7 @@ fun AppIcon(
         }
 
         when (imageHolder) {
-            is ImageHolder.Bitmap -> {
+            is ImageHolder.ImageBitmapSource -> {
                 // TODO: Implement other image/icon resources
             }
 
@@ -61,6 +59,10 @@ fun AppIcon(
             }
 
             is ImageHolder.Url -> {
+
+            }
+
+            is ImageHolder.BitmapSource -> {
 
             }
         }

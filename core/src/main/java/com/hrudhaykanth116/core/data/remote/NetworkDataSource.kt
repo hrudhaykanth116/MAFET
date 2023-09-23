@@ -7,8 +7,11 @@ import com.hrudhaykanth116.core.data.models.DataResult
 import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.core.common.utils.network.OnlineTracker
+import com.hrudhaykanth116.core.data.models.toUIText
 import okhttp3.ResponseBody
 import retrofit2.Response
+import java.io.IOException
+import java.util.concurrent.TimeoutException
 
 abstract class NetworkDataSource {
 
@@ -30,9 +33,7 @@ abstract class NetworkDataSource {
                 return apiError
             } catch (e: Exception) {
                 Logger.e(TAG, "getResult: ", e)
-                return DataResult.Error(
-                    uiMessage = e.message?.let { UIText.Text(it) }
-                )
+                return getDataResultError(e)
             }
         } else {
             Log.e(TAG, "getResult: No internet")
@@ -40,6 +41,22 @@ abstract class NetworkDataSource {
                 uiMessage = UIText.Text("No internet"),
                 uiDescription = UIText.Text("Internet is not available."),
             )
+        }
+    }
+
+    // TODO: Prepare ui message in UI layer
+    private fun getDataResultError(e: Exception): DataResult.Error {
+        return when (e) {
+             is IOException -> {
+                 DataResult.Error(
+                     uiMessage = "".toUIText()
+                 )
+             }
+            else -> {
+                DataResult.Error(
+                    uiMessage = "Something went wrong".toUIText()
+                )
+            }
         }
     }
 
@@ -51,7 +68,7 @@ abstract class NetworkDataSource {
         val errorResponse: ApiError? = gson.fromJson(errorBody?.charStream(), type)
 
         return DataResult.Error(
-            uiMessage = errorResponse?.message?.let { UIText.Text(it) },
+            uiMessage = errorResponse?.message?.toUIText() ?: "Something went wrong".toUIText(),
             uiDescription = errorResponse?.description?.let { UIText.Text(it) },
             code = errorResponse?.code
         )

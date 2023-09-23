@@ -10,15 +10,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import com.hrudhaykanth116.core.common.resources.Dimens
+import com.hrudhaykanth116.core.common.utils.typealiass.CoreR
 import com.hrudhaykanth116.core.ui.components.AppCard
+import com.hrudhaykanth116.core.ui.components.AppClickableIcon
+import com.hrudhaykanth116.core.ui.components.AppIcon
 import com.hrudhaykanth116.core.ui.components.AppText
 import com.hrudhaykanth116.core.ui.components.CircularImage
 import com.hrudhaykanth116.core.ui.components.HorizontalSpacer
+import com.hrudhaykanth116.core.ui.models.toImageHolder
+import com.hrudhaykanth116.tv.R
 import com.hrudhaykanth116.tv.ui.models.search.SearchScreenItemUIState
 
 @Composable
 fun TvSearchItemUI(
     state: SearchScreenItemUIState,
+    onAdd: () -> Unit
 ) {
 
     AppCard(
@@ -47,6 +53,10 @@ fun TvSearchItemUI(
                     overflow = TextOverflow.Ellipsis,
                 )
             }
+
+            HorizontalSpacer()
+
+            AppClickableIcon(imageHolder = com.hrudhaykanth116.core.R.drawable.ic_save.toImageHolder(), onClick = onAdd)
         }
 
     }

@@ -31,6 +31,7 @@ import com.hrudhaykanth116.core.ui.components.AppText
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
 import com.hrudhaykanth116.core.ui.components.CircularImage
 import com.hrudhaykanth116.core.ui.models.ImageHolder
+import com.hrudhaykanth116.core.ui.models.toImageHolder
 import com.hrudhaykanth116.todo.R
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
@@ -79,7 +80,7 @@ fun TodoListItemUI(
             if (toDoTaskUIState.showCategoryIcon) {
                 // Category image.
                 CircularImage(
-                    image = CoreR.drawable.profile_icon
+                    image = CoreR.drawable.profile_icon.toImageHolder()
                 )
             }
 

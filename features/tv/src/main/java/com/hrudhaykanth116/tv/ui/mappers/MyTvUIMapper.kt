@@ -12,8 +12,8 @@ fun MyTvDomainModel.toUIState(): MyTvUIState {
     return MyTvUIState(
         id = id,
         name = name.toUIText(),
-        currentEpisode = currentEpisode.toUIText(),
-        lastWatched = lastWatched.toUIText(),
+        lastWatchedSeasonEpisode = currentEpisode.toUIText(),
+        lastWatchedTime = lastWatched.toUIText(),
         imgSource = imgSource.toUrlImageHolder()
 
     )
