@@ -10,6 +10,10 @@ import com.hrudhaykanth116.weather.data.models.WeatherForeCastResponse
 import com.hrudhaykanth116.weather.domain.models.HourlyWeatherUIState
 import com.hrudhaykanth116.weather.domain.models.TodayWeatherUIState
 import com.hrudhaykanth116.weather.domain.models.WeatherMain
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toPersistentList
+import okhttp3.internal.immutableListOf
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -76,7 +80,7 @@ class ParseCurrentWeatherUseCase @Inject constructor(
                 icon = getWeatherIconUseCase(currentWeather?.id).toImageHolder(),
             ),
             // TODO: Optimise code.
-            weatherElementUIState = listOf<WeatherElementUIState>(
+            weatherElementUIState = persistentListOf<WeatherElementUIState>(
                 WeatherElementUIState(WeatherElement.TEMP, temp),
                 WeatherElementUIState(WeatherElement.FEELS_LIKE, feelsLike),
                 WeatherElementUIState(WeatherElement.HUMIDITY, humidity),
@@ -97,7 +101,7 @@ class ParseCurrentWeatherUseCase @Inject constructor(
 
     private fun getHourlyWeatherUIState(
         hourlyWeatherList: List<WeatherForeCastResponse.Hourly?>?,
-    ): MutableList<HourlyWeatherUIState> {
+    ): ImmutableList<HourlyWeatherUIState> {
         val hourlyWeatherUIStateList = mutableListOf<HourlyWeatherUIState>()
 
         hourlyWeatherList?.forEach { hourlyWeather: WeatherForeCastResponse.Hourly? ->
@@ -123,7 +127,7 @@ class ParseCurrentWeatherUseCase @Inject constructor(
             }
 
         }
-        return hourlyWeatherUIStateList
+        return hourlyWeatherUIStateList.toPersistentList()
 
     }
 

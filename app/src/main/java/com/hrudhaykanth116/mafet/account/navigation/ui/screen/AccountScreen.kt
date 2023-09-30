@@ -7,15 +7,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.data.models.toUIText
+import com.hrudhaykanth116.core.ui.components.AppFormButton
+import com.hrudhaykanth116.core.ui.components.AppText
+import com.hrudhaykanth116.core.ui.components.CenteredColumn
 
 @Composable
 fun AccountScreen(onLoggedOut: (() -> Unit)? = null) {
 
-    Column(
-        horizontalAlignment = Alignment.Start,
-        modifier = Modifier.padding(start = 8.dp)
+    CenteredColumn(
     ) {
-        com.hrudhaykanth116.core.ui.components.AppFormButton(btnText = "Logout".toUIText()) {
+        AppText(uiText = "Preferences, Account deletion etc.. coming up".toUIText())
+        AppFormButton(btnText = "Logout".toUIText()) {
             onLoggedOut?.invoke()
         }
     }

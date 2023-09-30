@@ -77,6 +77,9 @@ dependencies {
     // Coroutines
     api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
 
+    // Kotlin immutable collections. (https://github.com/Kotlin/kotlinx.collections.immutable)
+    api("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.5")
+
     /************************** Kotlin ******************************/
 
     /***************************** Jetpack Compose ****************************/

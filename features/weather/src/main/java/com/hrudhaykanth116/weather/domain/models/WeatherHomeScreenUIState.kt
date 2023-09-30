@@ -4,6 +4,7 @@ import com.hrudhaykanth116.core.common.ui.models.UserMessage
 import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.weather.domain.usecases.WeatherElement
 import com.hrudhaykanth116.weather.domain.usecases.WeatherElementUIState
+import kotlinx.collections.immutable.ImmutableList
 
 data class WeatherHomeScreenUIState(
     val location: String = "Hyderabad",
@@ -20,9 +21,9 @@ data class TodayWeatherUIState(
     // val weatherDescription: UIText? = null,
     // val weatherIcon: ImageHolder? = null,
     val weatherMain: WeatherMain? = null,
-    val weatherElementUIState: List<WeatherElementUIState>? = null,
+    val weatherElementUIState: ImmutableList<WeatherElementUIState>? = null,
     val time: UIText? = null,
-    val weatherHourlyList: List<HourlyWeatherUIState>? = null,
+    val weatherHourlyList: ImmutableList<HourlyWeatherUIState>? = null,
 ) {
 
     companion object {
