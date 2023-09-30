@@ -6,24 +6,35 @@ Acronym for "My Application For Essential Things". This project is aimed at prov
 
 ## Features
 
+- Login (Basic Firebase setup)
+- Home (🚧 Planning phase)
 - Todo (Basic development done)
 - Weather (Basic development done)
-- Tv shows tracking (Development phase)
-- Subscriptions (Planning phase)
-- Dictionary (Planning phase)
-- Translator (Planning phase)
+- Tv shows tracking (🚧Development phase)
+- Subscriptions (👨‍💻Planning phase)
+- Dictionary (👨‍💻Planning phase)
+- Translator (👨‍💻Planning phase)
 
 
 ## Continous Checklist
 
 - Run compose metrics and fix re-composition issues.
 - Focus on UI/UX design
+- Unit tests
 
 
 ## Screenshots
 
-![App Screenshot](https://github.com/hrudhaykanth116/MAFET/blob/screenshots/readme/screenshots/HK%20DP.jpg)
+
+
+## Apis and libraries used.
+
+ - [Open weather api](https://openweathermap.org/api)
+ - [The Movie Database](https://www.themoviedb.org/)
+ - [SVG Repo](https://www.svgrepo.com/)
+
 
 ## License
 
 [MIT](https://github.com/hrudhaykanth116/MAFET/blob/main/LICENSE.md)
+
