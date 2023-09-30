@@ -2,6 +2,7 @@ package com.hrudhaykanth116.weather.data.models
 
 
 import com.squareup.moshi.Json
+import kotlinx.collections.immutable.ImmutableList
 
 data class WeatherForeCastResponse(
     val current: Current? = null,

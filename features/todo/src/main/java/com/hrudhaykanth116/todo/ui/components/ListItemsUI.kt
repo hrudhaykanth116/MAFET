@@ -23,12 +23,13 @@ import com.hrudhaykanth116.core.common.resources.Dimens
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
+import kotlinx.collections.immutable.ImmutableList
 
 @SuppressLint("UnrememberedMutableState")
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ListItemsUI(
-    listItems: List<ToDoTaskUIState>,
+    listItems: ImmutableList<ToDoTaskUIState>,
     modifier: Modifier = Modifier,
     onRemoveTask: (String) -> Unit = {},
     onItemClicked: (TodoUIModel) -> Unit = {},
@@ -108,11 +109,11 @@ fun ListItemsUI(
 @MyPreview
 @Composable
 fun ListItemUIPreview() {
-    ListItemsUI(
-        listItems = listOf(
-            ToDoTaskUIState(data = TodoUIModel()),
-            ToDoTaskUIState(data = TodoUIModel()),
-            ToDoTaskUIState(data = TodoUIModel()),
-        )
-    )
+    // ListItemsUI(
+        // listItems = listOf(
+        //     ToDoTaskUIState(data = TodoUIModel()),
+        //     ToDoTaskUIState(data = TodoUIModel()),
+        //     ToDoTaskUIState(data = TodoUIModel()),
+        // )
+    // )
 }

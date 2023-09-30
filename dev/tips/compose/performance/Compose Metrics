@@ -19,4 +19,5 @@ subprojects {
 }
 
 * works with kotlin dsl.
-* ./gradlew assembleRelease -Pmyapp.enableComposeCompilerReports=true --rerun-tasks
+$ ./gradlew assembleRelease -Pmyapp.enableComposeCompilerReports=true --rerun-tasks
+$ ./gradlew --no-configuration-cache assembleRelease -Pmyapp.enableComposeCompilerReports=true --rerun-tasks

@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.common.resources.Dimens
@@ -132,7 +133,12 @@ fun TodayWeatherElements(
                     modifier = Modifier
                         .clip(shape = RoundedCornerShape(25))
                         .background(
-                            color = MaterialTheme.colorScheme.surface
+                            // color = MaterialTheme.colorScheme.surface
+                            brush = Brush.verticalGradient(
+                                colors = listOf(Color.White.copy(alpha = 0.2f), Color.White.copy(alpha = 0.1f)),
+                                // startY = 0.0f,
+                                // endY = 400.0f
+                            )
                         )
                         // .border(border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline))
                         // .border(BorderStroke(1.dp, Color.LightGray), RoundedCornerShape(25))

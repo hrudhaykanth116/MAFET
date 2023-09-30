@@ -18,6 +18,8 @@ import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenMenuItem
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenSortItem
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.collections.immutable.toImmutableList
+import kotlinx.collections.immutable.toImmutableSet
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
@@ -75,7 +77,7 @@ class TodoListViewModel @Inject constructor(
 
                 setState {
                     copy(
-                        filterOptions = categories
+                        filterOptions = categories.toImmutableSet()
                     )
                 }
             }
@@ -88,7 +90,7 @@ class TodoListViewModel @Inject constructor(
 
         setState {
             copy(
-                uiList = toDoTaskUIStates,
+                uiList = toDoTaskUIStates.toImmutableList(),
             )
         }
 

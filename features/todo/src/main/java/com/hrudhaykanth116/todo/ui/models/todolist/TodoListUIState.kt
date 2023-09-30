@@ -4,12 +4,16 @@ import androidx.compose.ui.text.input.TextFieldValue
 import com.hrudhaykanth116.core.ui.models.BaseUIState
 import com.hrudhaykanth116.core.ui.models.UIState2
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.ImmutableSet
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.persistentSetOf
 
 data class TodoListUIState(
     override val uiState2: UIState2,
-    val uiList: List<ToDoTaskUIState> = listOf(),
+    val uiList: ImmutableList<ToDoTaskUIState> = persistentListOf(),
     // TODO: Have some enum class of list.
-    val filterOptions: Set<String> = setOf(),
+    val filterOptions: ImmutableSet<String> = persistentSetOf(),
     val selectedFilter: String? = null,
     val todoTitle: TextFieldValue = TextFieldValue(),
 
