@@ -1,5 +1,6 @@
 package com.hrudhaykanth116.weather.data.di
 
+import com.hrudhaykanth116.core.common.di.IoDispatcher
 import com.hrudhaykanth116.weather.data.datasources.local.WeatherForeCastLocalDataSource
 import com.hrudhaykanth116.weather.data.datasources.remote.IGeoCodeRemoteDataSource
 import com.hrudhaykanth116.weather.data.datasources.remote.WeatherForeCastRemoteDataSource
@@ -13,6 +14,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -22,9 +25,11 @@ object RepositoryModule {
     fun provideForeCastRepository(
         remoteDataSource: WeatherForeCastRemoteDataSource,
         localDataSource: WeatherForeCastLocalDataSource,
+        @IoDispatcher ioDispatcher: CoroutineDispatcher,
     ): IWeatherForeCastRepository = WeatherForeCastRepositoryImpl(
         remoteDataSource,
-        localDataSource
+        localDataSource,
+        ioDispatcher
     )
 
     @Provides

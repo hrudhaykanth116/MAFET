@@ -21,6 +21,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.hrudhaykanth116.core.R
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
+import com.hrudhaykanth116.core.common.utils.compose.modifier.aspectRatio
 import com.hrudhaykanth116.core.ui.models.ImageHolder
 
 @MyPreview
@@ -36,9 +37,9 @@ fun CircularImagePreview() {
 
 @Composable
 fun CircularImage(
-    modifier: Modifier = Modifier,
     // imageHolder: ImageHolder = ImageHolder.ImageVector(R.drawable.profile_icon),
     image: ImageHolder?,
+    modifier: Modifier = Modifier,
     @DrawableRes placeHolder: Int = R.drawable.ic_genie,
     @DrawableRes errorHolder: Int = R.drawable.ic_exclamation,
     @StringRes contentDescriptionResId: Int = R.string.image_content_default_description,
@@ -55,9 +56,10 @@ fun CircularImage(
         contentDescription = stringResource(contentDescriptionResId),
         contentScale = ContentScale.FillBounds,
         modifier = modifier
+            .aspectRatio(1f)
             .clip(CircleShape)
-            .height(40.dp)
-            .width(40.dp)
+            // .height(40.dp)
+            // .width(40.dp)
             .border(2.dp, Color.Gray, CircleShape).clickable {
                 onClicked()
             }

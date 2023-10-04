@@ -1,4 +1,4 @@
-package com.hrudhaykanth116.core.di
+package com.hrudhaykanth116.core.common.di
 
 import com.hrudhaykanth116.core.BuildConfig
 import com.squareup.moshi.Moshi
