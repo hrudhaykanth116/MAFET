@@ -13,9 +13,6 @@ class TodoLocalDataSource @Inject constructor(
     private val todoTasksDao: TodoTasksDao,
 ) {
 
-    // Use dispatcher only if the calls need to be run on io thread.
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
-
     suspend fun getTodoTasks(): List<TodoTaskDbEntity> {
         // Since room runs on io dispatcher already, no need to switch dispatcher.
         return todoTasksDao.getTasks()

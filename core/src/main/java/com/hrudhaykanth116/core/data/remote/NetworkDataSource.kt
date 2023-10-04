@@ -18,6 +18,11 @@ abstract class NetworkDataSource {
     protected suspend fun <T> getResult(call: suspend () -> Response<T>): DataResult<T> {
 
         if (OnlineTracker.isOnline) {
+
+            // val result: Result<Response<T>> = kotlin.runCatching {
+            //     call()
+            // }
+            // result.isFailure
             try {
                 val response = call()
                 if (response.isSuccessful) {

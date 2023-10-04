@@ -1,11 +1,13 @@
 package com.hrudhaykanth116.todo.data.repositories
 
+import com.hrudhaykanth116.core.common.di.IoDispatcher
 import com.hrudhaykanth116.core.data.models.DataResult
 import com.hrudhaykanth116.todo.data.data_source.local.TodoLocalDataSource
 import com.hrudhaykanth116.todo.data.data_source.remote.TodoRemoteDataSource
 import com.hrudhaykanth116.todo.data.local.room.tables.TodoTaskDbEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -14,9 +16,8 @@ class TodoRepository @Inject constructor(
     // TODO: Follow dependency inversion principle
     private val todoLocalDataSource: TodoLocalDataSource,
     private val remoteDataSource: TodoRemoteDataSource,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher,
 ) {
-
-    val dispatcher: CoroutineDispatcher = Dispatchers.IO
 
     suspend fun getTodoTask(): List<TodoTaskDbEntity> {
         return todoLocalDataSource.getTodoTasks()
@@ -28,8 +29,8 @@ class TodoRepository @Inject constructor(
         sortItem: String,
     ) = todoLocalDataSource.getTodoTasksFlow(search, filterCategory, sortItem)
 
-    suspend fun getTodoTask(id: String): TodoTaskDbEntity? {
-        return todoLocalDataSource.getTodoTask(id)
+    suspend fun getTodoTask(id: String): TodoTaskDbEntity? = withContext(dispatcher){
+        todoLocalDataSource.getTodoTask(id)
     }
 
 
@@ -39,8 +40,8 @@ class TodoRepository @Inject constructor(
         description: String,
         category: String,
         priority: Int,
-        targetTime: Long? = null
-    ): DataResult<Unit> {
+        targetTime: Long? = null,
+    ): DataResult<Unit> = withContext(dispatcher){
 
         todoLocalDataSource.createTodoTask(
             TodoTaskDbEntity(
@@ -55,7 +56,7 @@ class TodoRepository @Inject constructor(
             )
         )
 
-        return DataResult.Success(Unit)
+        DataResult.Success(Unit)
 
 
         // val response: com.hrudhaykanth116.core.data.models.DataResult<PostTodoResponse> = remoteDataSource.createTodoTask(
@@ -78,12 +79,12 @@ class TodoRepository @Inject constructor(
         // }
     }
 
-    suspend fun deleteTasks(taskId: List<String>) {
-        return todoLocalDataSource.deleteTasks(taskId)
+    suspend fun deleteTasks(taskId: List<String>) = withContext(dispatcher){
+        todoLocalDataSource.deleteTasks(taskId)
     }
 
-    suspend fun deleteAllTasks() {
-        return todoLocalDataSource.deleteAllTasks()
+    suspend fun deleteAllTasks() = withContext(dispatcher){
+        todoLocalDataSource.deleteAllTasks()
     }
 
 }
