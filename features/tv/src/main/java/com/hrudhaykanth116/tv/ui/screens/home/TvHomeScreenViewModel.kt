@@ -1,13 +1,11 @@
 package com.hrudhaykanth116.tv.ui.screens.home
 
 import androidx.lifecycle.viewModelScope
-import com.hrudhaykanth116.core.common.ui.models.UserMessage
-import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.udf.UDFViewModel
 import com.hrudhaykanth116.tv.domaintemp.GetMyTvListUseCase
 import com.hrudhaykanth116.tv.domaintemp.UpdateMyTvUseCase
-import com.hrudhaykanth116.tv.domaintemp.models.MyTvDomainModel
 import com.hrudhaykanth116.tv.ui.mappers.toUIState
+import com.hrudhaykanth116.tv.ui.models.home.MyTvUIState
 import com.hrudhaykanth116.tv.ui.models.home.TvHomeScreenEffect
 import com.hrudhaykanth116.tv.ui.models.home.TvHomeScreenEvent
 import com.hrudhaykanth116.tv.ui.models.home.TvHomeScreenUIState
@@ -42,9 +40,26 @@ class TvHomeScreenViewModel @Inject constructor(
         when (event) {
             TvHomeScreenEvent.AddNew -> onAddNewEvent()
             is TvHomeScreenEvent.Delete -> onAddNewEvent()
-            is TvHomeScreenEvent.MyTvListItemClicked -> onAddNewEvent()
+            is TvHomeScreenEvent.MyTvListItemClicked -> onMyTvListItemClicked(event.myTv)
+            TvHomeScreenEvent.CloseUpdateTv -> closeUpdateTv()
         }
 
+    }
+
+    private fun closeUpdateTv() {
+        setState {
+            copy(
+                updateTv = null,
+            )
+        }
+    }
+
+    private fun onMyTvListItemClicked(myTv: MyTvUIState) {
+        setState {
+            copy(
+                updateTv = myTv
+            )
+        }
     }
 
     private fun onAddNewEvent() {

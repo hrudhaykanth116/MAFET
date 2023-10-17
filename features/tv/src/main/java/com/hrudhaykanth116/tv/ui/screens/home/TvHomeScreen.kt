@@ -7,6 +7,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hrudhaykanth116.core.common.utils.ui.ToastHelper
 import com.hrudhaykanth116.tv.ui.models.home.TvHomeScreenCallbacks
+import com.hrudhaykanth116.tv.ui.models.home.TvHomeScreenEvent
 import com.hrudhaykanth116.tv.ui.models.home.TvHomeScreenUIState
 
 @Composable
@@ -25,7 +26,12 @@ fun TvHomeScreen(
 
     val tvHomeScreenCallbacks = TvHomeScreenCallbacks(
         onAddNewClicked = onNavigateToSearchScreen,
-        onUpdateTvCloseRequest = {}
+        onUpdateTvCloseRequest = {
+            tvHomeScreenViewModel.processEvent(TvHomeScreenEvent.CloseUpdateTv)
+        },
+        onTvListItemClicked = {
+            tvHomeScreenViewModel.processEvent(TvHomeScreenEvent.MyTvListItemClicked(it))
+        }
     )
 
     TvHomeScreenUI(
