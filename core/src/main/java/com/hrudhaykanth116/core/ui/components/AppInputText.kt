@@ -135,6 +135,7 @@ private fun AppPwdTextField(
     )
 }
 
+// TODO: Add max chars provision and max length accordingly.
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppTextField(
