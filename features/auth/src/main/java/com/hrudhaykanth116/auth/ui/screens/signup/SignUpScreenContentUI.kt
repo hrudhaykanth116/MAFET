@@ -25,7 +25,7 @@ import com.hrudhaykanth116.auth.ui.components.UserNameTextField
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.ui.components.AppFormButton
-import com.hrudhaykanth116.core.ui.components.CircularImage
+import com.hrudhaykanth116.core.ui.components.AppCircularImage
 import com.hrudhaykanth116.core.ui.models.ImageHolder
 
 @Composable
@@ -54,7 +54,7 @@ fun SignUpScreenContentUI(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            CircularImage(
+            AppCircularImage(
                 modifier = Modifier.size(100.dp),
                 image = ImageHolder.BitmapSource(state.imgBitmap)
                 // ?: R.drawable.profile_icon,

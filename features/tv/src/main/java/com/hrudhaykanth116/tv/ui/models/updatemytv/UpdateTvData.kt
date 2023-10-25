@@ -5,15 +5,18 @@ import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.core.ui.models.ImageHolder
 
 data class UpdateMyTvUIStateActual(
-    val updateTvData: UpdateTvData,
+    val updateTvData: UpdateTvData? = null,
+    // TODO: More suitable way
+    val isLoading: Boolean = false,
+    val isClosed: Boolean = false,
 ){
+
     data class UpdateTvData(
         val id: Int,
-        val name: UIText,
+        val name: String,
         val lastWatchedSeason: TextFieldValue,
         val lastWatchedEpisode: TextFieldValue,
-        val lastWatchedSeasonEpisode: UIText,
-        val lastWatchedTime: UIText,
-        val imgSource: ImageHolder,
+        // val lastWatchedTime: Long,
+        val imgSource: ImageHolder?,
     )
 }

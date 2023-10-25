@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -36,7 +37,7 @@ fun ListItemsUI(
     listState: LazyListState = rememberLazyListState(),
 ) {
 
-    var currentSize by rememberSaveable { mutableStateOf(listItems.size) }
+    var currentSize by rememberSaveable { mutableIntStateOf(listItems.size) }
     // val isItemAdded = listItems.size > currentSize
     var isItemAdded by mutableStateOf(listItems.size > currentSize)
 

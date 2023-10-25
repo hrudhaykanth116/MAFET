@@ -46,6 +46,18 @@ class SearchTvScreenViewModel @Inject constructor(
     private fun fetchTvList(it: String) {
 
         searchTvJob?.cancel()
+        
+        if(it.isEmpty()){
+            // TODO: Show top tv/popular/suggested shows
+            setState {
+                copy(
+                    searchResults = listOf(),
+                    userMessage = null,
+                    isLoading = false,
+                )
+            }
+            return
+        }
 
         searchTvJob = viewModelScope.launch {
 
@@ -55,7 +67,6 @@ class SearchTvScreenViewModel @Inject constructor(
                 )
             }
 
-            delay(1000)
             val result: DataResult<List<SearchScreenItemUIState>?> = getTvListByQuery.invoke(it)
 
             result.process(

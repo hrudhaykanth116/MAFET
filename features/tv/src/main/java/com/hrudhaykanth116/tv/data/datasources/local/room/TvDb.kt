@@ -7,7 +7,7 @@ import com.hrudhaykanth116.tv.data.datasources.local.models.MyTvEntity
 
 @Database(
     entities = [MyTvEntity::class],
-    version = 1,
+    version = 2,
     exportSchema = false,
     // autoMigrations = [
     //     AutoMigration(from = 1, to = 2)

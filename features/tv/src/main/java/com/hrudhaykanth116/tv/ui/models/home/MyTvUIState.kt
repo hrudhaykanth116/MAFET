@@ -6,9 +6,9 @@ import com.hrudhaykanth116.core.ui.models.ImageHolder
 data class MyTvUIState(
     val id: Int,
     val name: UIText,
-    val lastWatchedSeason: String? = null,
-    val lastWatchedEpisode: String? = null,
+    val lastWatchedSeason: Int?,
+    val lastWatchedEpisode: Int?,
     val lastWatchedSeasonEpisode: UIText,
     val lastWatchedTime: UIText,
-    val imgSource: ImageHolder,
+    val imgSource: ImageHolder?,
 )

@@ -6,4 +6,5 @@ data class UpdateMyTvScreenCallbacks(
     val onSeasonChanged: (TextFieldValue) -> Unit,
     val onEpisodeChanged: (TextFieldValue) -> Unit,
     val onCancelled: () -> Unit,
+    val onSubmit: () -> Unit,
 )

@@ -7,17 +7,17 @@ import com.hrudhaykanth116.tv.data.repositories.tv.MyTvListRepository
 import com.hrudhaykanth116.tv.domaintemp.mappers.toMyTvDataEntity
 import com.hrudhaykanth116.tv.domaintemp.models.MyTvDomainModel
 import com.hrudhaykanth116.tv.domaintemp.models.constants.BaseUrlConstants
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class UpdateMyTvUseCase @Inject constructor(
     private val myTvListRepository: MyTvListRepository,
+) {
 
-    ) {
-
+    // TODO: Update only season, episode, time
     suspend operator fun invoke(myTvDomainModel: MyTvDomainModel): DataResult<Unit> {
-
 
         myTvListRepository.updateMyTvEntity(
             myTvDomainModel.toMyTvDataEntity()

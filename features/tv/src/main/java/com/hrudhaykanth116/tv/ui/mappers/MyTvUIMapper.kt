@@ -1,6 +1,9 @@
 package com.hrudhaykanth116.tv.ui.mappers
 
+import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
+import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.core.data.models.toUIText
+import com.hrudhaykanth116.core.ui.models.constants.UIDefaultValues
 import com.hrudhaykanth116.core.ui.models.toUrlImageHolder
 import com.hrudhaykanth116.tv.domaintemp.models.MyTvDomainModel
 import com.hrudhaykanth116.tv.ui.models.home.MyTvUIState
@@ -8,21 +11,26 @@ import com.hrudhaykanth116.tv.ui.models.home.MyTvUIState
 class MyTvUIMapper {
 }
 
-fun MyTvDomainModel.toUIState(): MyTvUIState {
+fun MyTvDomainModel.toUIState(dateTimeUtils: DateTimeUtils): MyTvUIState {
+
+    // TODO: Handle null case
+    val lastWatchedSeasonEpisode = UIText.Text("S${lastWatchedSeason ?: 0}E${lastWatchedEpisode ?: 0}")
+
     return MyTvUIState(
         id = id,
         name = name.toUIText(),
-        lastWatchedSeasonEpisode = currentEpisode.toUIText(),
-        lastWatchedTime = lastWatched.toUIText(),
-        imgSource = imgSource.toUrlImageHolder()
-
+        lastWatchedSeason = lastWatchedSeason,
+        lastWatchedEpisode = lastWatchedEpisode,
+        lastWatchedSeasonEpisode = lastWatchedSeasonEpisode,
+        lastWatchedTime = dateTimeUtils.getDateFromMillis(lastWatchedTime)?.toUIText() ?: UIDefaultValues.EMPTY_VALUE.toUIText(),
+        imgSource = imgSource?.toUrlImageHolder()
     )
 }
 
-fun List<MyTvDomainModel>.toUIState(): List<MyTvUIState>? {
+fun List<MyTvDomainModel>.toUIState(dateTimeUtils: DateTimeUtils): List<MyTvUIState>? {
 
 
     return map {
-        it.toUIState()
+        it.toUIState(dateTimeUtils)
     }
 }
