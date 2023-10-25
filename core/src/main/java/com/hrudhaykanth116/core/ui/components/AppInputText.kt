@@ -135,7 +135,7 @@ private fun AppPwdTextField(
     )
 }
 
-// TODO: Add max chars provision and max length accordingly.
+// TODO: P4 Add max chars provision and max length accordingly.
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppTextField(
@@ -153,6 +153,8 @@ fun AppTextField(
         modifier = modifier.fillMaxWidth(),
         value = textFieldData.inputValue,
         isError = textFieldData.error?.isNotBlank() == true,
+        enabled = enabled,
+        readOnly = readOnly,
         onValueChange = { fieldValue: TextFieldValue ->
             onInputChange(
                 // TODO: Prevent text length from maxCharacters

@@ -45,6 +45,7 @@ fun String.toUIText(): UIText.Text {
 }
 
 fun Any?.toUIText(ifNullString: String): UIText{
+    this ?: return UIText.Text(ifNullString)
 
     return toString().replaceIfBlank(ifNullString).toUIText()
 

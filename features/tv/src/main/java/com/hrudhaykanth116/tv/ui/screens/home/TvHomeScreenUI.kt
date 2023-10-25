@@ -28,7 +28,6 @@ import com.hrudhaykanth116.core.ui.components.AppText
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
 import com.hrudhaykanth116.core.ui.components.VerticalSpacer
 import com.hrudhaykanth116.core.ui.models.toImageHolder
-import com.hrudhaykanth116.tv.R
 import com.hrudhaykanth116.core.R as CoreR
 import com.hrudhaykanth116.tv.ui.models.home.MyTvUIState
 import com.hrudhaykanth116.tv.ui.models.home.TvHomeScreenCallbacks
@@ -102,6 +101,8 @@ fun TvHomeScreenUI(
                                     text = myTvUIState.lastWatchedEpisode?.toString() ?: ""
                                 ),
                                 imgSource = myTvUIState.imgSource,
+                                lastWatchedTime = myTvUIState.lastWatchedTime,
+                                lastWatchedTimeUIText = TextFieldValue(text = myTvUIState.lastWatchedTimeUIText.getText()),
                             )
 
                         UpdateTvScreen(

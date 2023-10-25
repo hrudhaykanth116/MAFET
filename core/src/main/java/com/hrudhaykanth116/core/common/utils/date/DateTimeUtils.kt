@@ -1,5 +1,6 @@
 package com.hrudhaykanth116.core.common.utils.date
 
+import android.icu.util.Calendar
 import com.hrudhaykanth116.core.common.utils.date.DateTimeFormats.AM_PM
 import com.hrudhaykanth116.core.common.utils.date.DateTimeFormats.DATE
 import com.hrudhaykanth116.core.common.utils.date.DateTimeFormats.DAY_SHORT
@@ -34,6 +35,15 @@ class DateTimeUtils @Inject constructor(
         // TODO: Use better formatter
         val formatter = SimpleDateFormat("dd/MMM")
         return formatter.format(Date(seconds * 1000L))
+    }
+
+    fun dateFromUTC(date: Date): Long {
+        return Date(date.time + Calendar.getInstance().timeZone.getOffset(Date().time)).time
+    }
+
+    fun dateToUTC(millis: Long): Long {
+        val date = Date(millis)
+        return Date(millis - Calendar.getInstance().timeZone.getOffset(date.time)).time
     }
 
     fun getTimeFromSecs(
