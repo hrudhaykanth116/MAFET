@@ -4,22 +4,23 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.hrudhaykanth116.core.common.resources.Dimens
 import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.ui.components.AppIcon
@@ -27,15 +28,14 @@ import com.hrudhaykanth116.core.ui.components.AppText
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
 import com.hrudhaykanth116.core.ui.components.VerticalSpacer
 import com.hrudhaykanth116.core.ui.models.toImageHolder
+import com.hrudhaykanth116.tv.R
+import com.hrudhaykanth116.core.R as CoreR
 import com.hrudhaykanth116.tv.ui.models.home.MyTvUIState
 import com.hrudhaykanth116.tv.ui.models.home.TvHomeScreenCallbacks
 import com.hrudhaykanth116.tv.ui.models.home.TvHomeScreenUIState
-import com.hrudhaykanth116.tv.ui.models.updatemytv.UpdateMyTvScreenCallbacks
-import com.hrudhaykanth116.tv.ui.models.updatemytv.UpdateMyTvScreenEvent
 import com.hrudhaykanth116.tv.ui.models.updatemytv.UpdateMyTvUIStateActual
 import com.hrudhaykanth116.tv.ui.screens.updatemytv.UpdateTvScreen
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TvHomeScreenUI(
     state: TvHomeScreenUIState,
@@ -49,9 +49,9 @@ fun TvHomeScreenUI(
     Scaffold(
         floatingActionButton = {
             AppIcon(
-                imageHolder = com.hrudhaykanth116.core.R.drawable.ic_add_filled.toImageHolder(),
-                modifier = Modifier
-                    .size(30.dp)
+                imageHolder = CoreR.drawable.ic_add_filled.toImageHolder(),
+                iconModifier = Modifier
+                    .size(40.dp)
                     .clickable {
                         tvHomeScreenCallbacks.onAddNewClicked()
                     },
@@ -59,26 +59,24 @@ fun TvHomeScreenUI(
             )
         },
         topBar = {
-            AppText(uiText = "My Tv list".toUIText())
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(Dimens.DEFAULT_PADDING),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                AppText(uiText = "My Tv list".toUIText())
+                AppIcon(imageHolder = CoreR.drawable.ic_sort_vertical.toImageHolder())
+            }
         }
     ) {
         it
-        VerticalSpacer()
+        VerticalSpacer(height = Dimens.DEFAULT_PADDING.times(2))
         if (list.isNullOrEmpty()) {
             // TODO: Better UI
-            CenteredColumn {
+            CenteredColumn(modifier = Modifier.fillMaxSize()) {
                 AppText(uiText = "No data".toUIText())
             }
         } else {
-
-            // Scaffold(
-            //     modifier = Modifier
-            //         .fillMaxSize()
-            //         .background(color = Color.Red),
-            // )
-            // {
-            //     Content(listState, it, list, tvHomeScreenCallbacks)
-            // }
             Scaffold(
 
             ) { paddingValues ->
@@ -90,56 +88,34 @@ fun TvHomeScreenUI(
                     //     onDismissRequest = updateMyTvScreenCallbacks.onCancelled,
                     //     sheetState = bottomSheetState,
                     // )
-                    state.updateTv?.let { myTvUIState ->
 
+
+                    state.updateTv?.let { myTvUIState ->
                         val data =
                             UpdateMyTvUIStateActual.UpdateTvData(
                                 id = myTvUIState.id,
-                                name = myTvUIState.name,
-                                lastWatchedSeason = TextFieldValue(text = myTvUIState.lastWatchedSeason.orEmpty()),
-                                lastWatchedEpisode = TextFieldValue(text = myTvUIState.lastWatchedEpisode.orEmpty()),
-                                lastWatchedSeasonEpisode = myTvUIState.lastWatchedSeasonEpisode,
-                                lastWatchedTime = myTvUIState.lastWatchedTime,
+                                name = myTvUIState.name.getText(),
+                                lastWatchedSeason = TextFieldValue(
+                                    text = myTvUIState.lastWatchedSeason?.toString() ?: ""
+                                ),
+                                lastWatchedEpisode = TextFieldValue(
+                                    text = myTvUIState.lastWatchedEpisode?.toString() ?: ""
+                                ),
                                 imgSource = myTvUIState.imgSource,
                             )
 
-                        val factory: ViewModelProvider.Factory =
-                            object : ViewModelProvider.Factory {
-                                override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                                    return UpdateMyTvViewModel(data) as T
-                                }
-                            }
-
-                        val updateMyTvViewModel = viewModel<UpdateMyTvViewModel>(
-                            factory = factory,
-                        )
-
                         UpdateTvScreen(
-                            viewModel = updateMyTvViewModel,
-                            updateMyTvScreenCallbacks = UpdateMyTvScreenCallbacks(
-                                onSeasonChanged = {
-                                    updateMyTvViewModel.processEvent(
-                                        UpdateMyTvScreenEvent.OnSeasonChanged(
-                                            it
-                                        )
-                                    )
-                                },
-                                onEpisodeChanged = {
-                                    updateMyTvViewModel.processEvent(
-                                        UpdateMyTvScreenEvent.OnEpisodeChanged(
-                                            it
-                                        )
-                                    )
-                                },
-                                onCancelled = {
-                                    tvHomeScreenCallbacks.onUpdateTvCloseRequest()
-                                }
-                            )
-
+                            data,
+                            onCancelled = {
+                                tvHomeScreenCallbacks.onUpdateTvCloseRequest()
+                            },
+                            // TODO: Quick way. Check this.
+                            updateMyTvViewModel = hiltViewModel<UpdateMyTvViewModel>().apply {
+                                setData(data)
+                            },
                         )
                     }
                 }
-
             }
         }
     }

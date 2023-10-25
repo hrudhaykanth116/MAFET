@@ -18,6 +18,14 @@ class DateTimeUtils @Inject constructor(
 
 ) {
 
+    // TODO: Use millis everywhere.
+    fun getDateFromMillis(millis: Long?): String? {
+        millis ?: return null
+
+        // TODO: Use better formatter
+        val formatter = SimpleDateFormat("dd/MMM")
+        return formatter.format(Date(millis))
+    }
 
     // TODO: Remove this function
     fun getDateFromSecs(seconds: Int?): String? {

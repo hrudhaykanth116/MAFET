@@ -1,6 +1,7 @@
 package com.hrudhaykanth116.tv.ui.screens.home
 
 import androidx.lifecycle.viewModelScope
+import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
 import com.hrudhaykanth116.core.udf.UDFViewModel
 import com.hrudhaykanth116.tv.domaintemp.GetMyTvListUseCase
 import com.hrudhaykanth116.tv.domaintemp.UpdateMyTvUseCase
@@ -18,15 +19,15 @@ import javax.inject.Inject
 class TvHomeScreenViewModel @Inject constructor(
     private val getMyTvListUseCase: GetMyTvListUseCase,
     private val updateMyTvUseCase: UpdateMyTvUseCase,
+    private val dateTimeUtils: DateTimeUtils,
 ) : UDFViewModel<TvHomeScreenUIState, TvHomeScreenEvent, TvHomeScreenEffect>(TvHomeScreenUIState()) {
 
     init {
         viewModelScope.launch {
             getMyTvListUseCase().collectLatest {
-                it.toUIState()
                 setState {
                     copy(
-                        tvShows = it.toUIState(),
+                        tvShows = it.toUIState(dateTimeUtils),
                     )
                 }
             }

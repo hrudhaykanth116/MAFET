@@ -6,7 +6,6 @@ import com.hrudhaykanth116.tv.data.datasources.local.models.MyTvEntity
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDetails
 import com.hrudhaykanth116.tv.data.repositories.tv.MyTvListRepository
 import com.hrudhaykanth116.tv.data.repositories.tv.TvShowsRepository
-import com.hrudhaykanth116.tv.domaintemp.mappers.toMyTvDataEntity
 import com.hrudhaykanth116.tv.domaintemp.models.constants.BaseUrlConstants
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -33,8 +32,9 @@ class AddMyTvUseCase @Inject constructor(
                 val myTvEntity = MyTvEntity(
                     id = data.id,
                     name = data.name.replaceIfBlank("- -"),
-                    currentEpisode = "S1E01",
-                    lastWatched = "- -",
+                    lastWatchedSeason = null,
+                    lastWatchedEpisode = null,
+                    lastWatchedTime = null,
                     imgSource = BaseUrlConstants.IMAGES_BASE_URL + data.posterPath
                 )
 

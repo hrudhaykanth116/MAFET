@@ -17,8 +17,9 @@ fun MyTvEntity.toMyTvDomainModel(): MyTvDomainModel {
     return MyTvDomainModel(
         id = id,
         name = name,
-        currentEpisode = currentEpisode,
-        lastWatched = lastWatched,
+        lastWatchedSeason = lastWatchedSeason,
+        lastWatchedEpisode = lastWatchedEpisode,
+        lastWatchedTime = lastWatchedTime,
         imgSource = imgSource
     )
 }
@@ -27,8 +28,9 @@ fun MyTvDomainModel.toMyTvDataEntity(): MyTvEntity {
     return MyTvEntity(
         id = id,
         name = name,
-        currentEpisode = currentEpisode,
-        lastWatched = lastWatched,
+        lastWatchedSeason = lastWatchedSeason,
+        lastWatchedEpisode = lastWatchedEpisode,
+        lastWatchedTime = lastWatchedTime,
         imgSource = imgSource
     )
 }

@@ -1,13 +1,16 @@
 package com.hrudhaykanth116.tv.ui.screens.updatemytv
 
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.CreationExtras
+import androidx.lifecycle.viewmodel.MutableCreationExtras
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hrudhaykanth116.tv.ui.models.updatemytv.UpdateMyTvScreenCallbacks
+import com.hrudhaykanth116.tv.ui.models.updatemytv.UpdateMyTvScreenEvent
 import com.hrudhaykanth116.tv.ui.models.updatemytv.UpdateMyTvUIStateActual
 import com.hrudhaykanth116.tv.ui.screens.home.UpdateMyTvViewModel
 
@@ -15,14 +18,57 @@ import com.hrudhaykanth116.tv.ui.screens.home.UpdateMyTvViewModel
  * This may become a quick popup dialog or entirely another screen.
  */
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 fun UpdateTvScreen(
-    updateMyTvScreenCallbacks: UpdateMyTvScreenCallbacks,
-    viewModel: UpdateMyTvViewModel = hiltViewModel(),
+    data: UpdateMyTvUIStateActual.UpdateTvData,
+    onCancelled: () -> Unit,
+    updateMyTvViewModel: UpdateMyTvViewModel,
 ) {
 
-    val state by viewModel.stateFlow.collectAsStateWithLifecycle()
+    // TODO: For each new composable we need to create new view model with updated data
+    // val factory: ViewModelProvider.Factory =
+    //     object : ViewModelProvider.Factory {
+    //         override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
+    //             return UpdateMyTvViewModel(data) as T
+    //         }
+    //     }
+    //
+    //
+    // val updateMyTvViewModel = viewModel<UpdateMyTvViewModel>(
+    //     factory = factory,
+    // )
 
-    UpdateMyTvScreenUI(updateMyTvScreenCallbacks, state)
+    val updateMyTvScreenCallbacks = UpdateMyTvScreenCallbacks(
+        onSeasonChanged = {
+            updateMyTvViewModel.processEvent(
+                UpdateMyTvScreenEvent.OnSeasonChanged(
+                    it
+                )
+            )
+        },
+        onEpisodeChanged = {
+            updateMyTvViewModel.processEvent(
+                UpdateMyTvScreenEvent.OnEpisodeChanged(
+                    it
+                )
+            )
+        },
+        onSubmit = {
+            updateMyTvViewModel.processEvent(
+                UpdateMyTvScreenEvent.OnSubmit
+            )
+        },
+        onCancelled = onCancelled
+    )
+
+
+    val state by updateMyTvViewModel.stateFlow.collectAsStateWithLifecycle()
+
+    if (state.isClosed) {
+        // TODO: New state ?
+        updateMyTvScreenCallbacks.onCancelled()
+    }else{
+        UpdateMyTvScreenUI(updateMyTvScreenCallbacks, state)
+    }
+
 }
 

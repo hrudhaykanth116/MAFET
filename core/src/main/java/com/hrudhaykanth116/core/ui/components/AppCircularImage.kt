@@ -4,9 +4,6 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -36,7 +33,7 @@ fun CircularImagePreview() {
 }
 
 @Composable
-fun CircularImage(
+fun AppCircularImage(
     // imageHolder: ImageHolder = ImageHolder.ImageVector(R.drawable.profile_icon),
     image: ImageHolder?,
     modifier: Modifier = Modifier,
