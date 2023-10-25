@@ -8,6 +8,7 @@ data class UpdateMyTvUIStateActual(
     val updateTvData: UpdateTvData? = null,
     // TODO: More suitable way
     val isLoading: Boolean = false,
+    val isLastWatchedDatePickerOpened: Boolean = false,
     val isClosed: Boolean = false,
 ){
 
@@ -16,7 +17,8 @@ data class UpdateMyTvUIStateActual(
         val name: String,
         val lastWatchedSeason: TextFieldValue,
         val lastWatchedEpisode: TextFieldValue,
-        // val lastWatchedTime: Long,
+        val lastWatchedTime: Long?,
+        val lastWatchedTimeUIText: TextFieldValue,
         val imgSource: ImageHolder?,
     )
 }

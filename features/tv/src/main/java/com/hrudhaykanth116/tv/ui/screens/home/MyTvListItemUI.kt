@@ -53,7 +53,7 @@ fun MyTvListItemUI(
                     overflow = TextOverflow.Ellipsis,
                 )
                 AppText(
-                    uiText = state.lastWatchedTime,
+                    uiText = state.lastWatchedTimeUIText,
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }

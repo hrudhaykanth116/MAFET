@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 abstract class UDFViewModel<STATE, EVENT, EFFECT>(
-    initialState: STATE,
+    private val initialState: STATE,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(initialState)
@@ -25,6 +25,19 @@ abstract class UDFViewModel<STATE, EVENT, EFFECT>(
     // TODO: Prevent setting newState. Always use copy to avoid wrong state being set when done in parallel.
     protected fun setState(newState: STATE.() -> STATE) {
         _state.update(newState)
+    }
+
+    // TODO: Find more concise way
+    protected fun updateState(newState: STATE.() -> STATE) {
+        setState {
+            newState()
+        }
+    }
+
+    fun resetState(){
+        setState {
+            initialState
+        }
     }
 
     protected fun setEffect(newEffect: EFFECT) {

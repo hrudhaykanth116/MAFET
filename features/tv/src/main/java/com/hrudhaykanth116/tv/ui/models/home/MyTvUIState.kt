@@ -9,6 +9,7 @@ data class MyTvUIState(
     val lastWatchedSeason: Int?,
     val lastWatchedEpisode: Int?,
     val lastWatchedSeasonEpisode: UIText,
-    val lastWatchedTime: UIText,
+    val lastWatchedTimeUIText: UIText,
+    val lastWatchedTime: Long?,
     val imgSource: ImageHolder?,
 )

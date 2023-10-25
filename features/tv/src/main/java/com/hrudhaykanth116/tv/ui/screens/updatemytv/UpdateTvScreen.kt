@@ -57,7 +57,24 @@ fun UpdateTvScreen(
                 UpdateMyTvScreenEvent.OnSubmit
             )
         },
-        onCancelled = onCancelled
+
+        onCancelled = onCancelled,
+        onLastWatchedDateChanged = {
+            updateMyTvViewModel.processEvent(
+                UpdateMyTvScreenEvent.OnLastWatchedDateChanged(it)
+            )
+        },
+        onLastWatchedDatePickerCloseRequest = {
+            updateMyTvViewModel.processEvent(
+                UpdateMyTvScreenEvent.OnLastWatchedDatePickerCloseRequest
+            )
+        },
+        onLastWatchedDatePickerOpenRequest = {
+            updateMyTvViewModel.processEvent(
+                UpdateMyTvScreenEvent.OnLastWatchedDatePickerOpenRequest
+            )
+        },
+
     )
 
 
@@ -66,6 +83,7 @@ fun UpdateTvScreen(
     if (state.isClosed) {
         // TODO: New state ?
         updateMyTvScreenCallbacks.onCancelled()
+        updateMyTvViewModel.resetState()
     }else{
         UpdateMyTvScreenUI(updateMyTvScreenCallbacks, state)
     }

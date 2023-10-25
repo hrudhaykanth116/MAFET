@@ -22,7 +22,8 @@ fun MyTvDomainModel.toUIState(dateTimeUtils: DateTimeUtils): MyTvUIState {
         lastWatchedSeason = lastWatchedSeason,
         lastWatchedEpisode = lastWatchedEpisode,
         lastWatchedSeasonEpisode = lastWatchedSeasonEpisode,
-        lastWatchedTime = dateTimeUtils.getDateFromMillis(lastWatchedTime)?.toUIText() ?: UIDefaultValues.EMPTY_VALUE.toUIText(),
+        lastWatchedTimeUIText = dateTimeUtils.getDateFromMillis(lastWatchedTime)?.toUIText() ?: UIDefaultValues.EMPTY_VALUE.toUIText(),
+        lastWatchedTime = lastWatchedTime,
         imgSource = imgSource?.toUrlImageHolder()
     )
 }

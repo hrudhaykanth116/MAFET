@@ -29,7 +29,6 @@ fun SearchTvScreen(
                 viewModel.processEvent(SearchScreenEvent.OnAddClicked(it))
             }
         ),
-
-        )
+    )
 
 }
