@@ -13,10 +13,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.common.resources.Dimens
+import com.hrudhaykanth116.core.data.models.toUIText
+import com.hrudhaykanth116.core.R as CoreR
 import com.hrudhaykanth116.core.ui.components.AppCard
 import com.hrudhaykanth116.core.ui.components.AppText
 import com.hrudhaykanth116.core.ui.components.AppCircularImage
 import com.hrudhaykanth116.core.ui.components.HorizontalSpacer
+import com.hrudhaykanth116.core.ui.models.toImageHolder
 import com.hrudhaykanth116.tv.ui.models.home.MyTvUIState
 
 @Composable
@@ -33,7 +36,7 @@ fun MyTvListItemUI(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-            .padding(Dimens.DEFAULT_PADDING)
+                .padding(Dimens.DEFAULT_PADDING)
         ) {
 
             AppCircularImage(
@@ -52,15 +55,17 @@ fun MyTvListItemUI(
                     style = MaterialTheme.typography.bodyLarge,
                     overflow = TextOverflow.Ellipsis,
                 )
+            }
+
+            HorizontalSpacer()
+
+            Column {
+                AppText(uiText = state.lastWatchedSeasonEpisode)
                 AppText(
                     uiText = state.lastWatchedTimeUIText,
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }
-
-            HorizontalSpacer()
-
-            AppText(uiText = state.lastWatchedSeasonEpisode)
         }
 
     }
@@ -70,13 +75,16 @@ fun MyTvListItemUI(
 @Preview
 @Composable
 fun MyTvListItemUIPreview() {
-    // MyTvListItemUI(
-    //     MyTvUIState(
-    //         id = 1,
-    //         name = "Suits".toUIText(),
-    //         lastWatchedSeasonEpisode = "S09E04".toUIText(),
-    //         lastWatchedTime = "20 June 2022".toUIText(),
-    //         imgSource = CoreR.drawable.ic_tv.toImageHolder()
-    //     )
-    // )
+    MyTvListItemUI(
+        MyTvUIState(
+            id = 1,
+            name = "Suits".toUIText(),
+            lastWatchedSeasonEpisode = "S09E04".toUIText(),
+            lastWatchedTime = 10000145,
+            imgSource = CoreR.drawable.ic_tv.toImageHolder(),
+            lastWatchedSeason = 5,
+            lastWatchedEpisode = 6,
+            lastWatchedTimeUIText = "10/Oct".toUIText(),
+        )
+    )
 }

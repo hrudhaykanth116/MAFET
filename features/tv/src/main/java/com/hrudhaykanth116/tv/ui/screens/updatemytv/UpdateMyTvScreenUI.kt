@@ -12,8 +12,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -25,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.hrudhaykanth116.core.R as CoreR
@@ -79,8 +82,6 @@ fun UpdateMyTvScreenUI(
 // }) {
 //
 // }
-//
-// UpdateMyTvScreenUIContent(state)
 
 }
 
@@ -95,7 +96,10 @@ fun UpdateMyTvScreenUIContent(
     val updateTvData = state.updateTvData ?: return
 
     Box(
-        modifier = modifier
+        modifier = modifier.background(
+            color = MaterialTheme.colorScheme.surfaceVariant,
+            shape = RoundedCornerShape(10)
+        ).padding(Dimens.DEFAULT_PADDING)
     ) {
         Column(
             modifier = Modifier.padding(Dimens.DEFAULT_PADDING),
@@ -105,7 +109,7 @@ fun UpdateMyTvScreenUIContent(
 
             AppCircularImage(
                 image = updateTvData.imgSource,
-                modifier = Modifier.size(60.dp)
+                modifier = Modifier.size(100.dp)
             )
             VerticalSpacer()
             AppText(

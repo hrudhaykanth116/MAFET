@@ -38,4 +38,8 @@ class MyTvListRepository @Inject constructor(
         localDataSource.updateMyTvEntity(myTvEntity)
     }
 
+    suspend fun deleteMyTv(id: Int) = withContext(dispatcher){
+        localDataSource.deleteMyTv(id)
+    }
+
 }
