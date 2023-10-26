@@ -4,4 +4,5 @@ data class TvHomeScreenCallbacks(
     val onAddNewClicked: () -> Unit,
     val onUpdateTvCloseRequest: () -> Unit,
     val onTvListItemClicked: (myTv: MyTvUIState) -> Unit,
+    val onTvListItemDismissed: (id: Int) -> Unit,
 )

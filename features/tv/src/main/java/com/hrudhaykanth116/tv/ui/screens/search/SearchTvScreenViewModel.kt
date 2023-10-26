@@ -13,7 +13,6 @@ import com.hrudhaykanth116.tv.ui.models.search.SearchScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.mapLatest
@@ -87,7 +86,6 @@ class SearchTvScreenViewModel @Inject constructor(
                         )
                     }
                 }
-
             )
         }
     }
@@ -104,29 +102,33 @@ class SearchTvScreenViewModel @Inject constructor(
             }
 
             is SearchScreenEvent.OnAddClicked -> {
-                viewModelScope.launch {
-                    val result = addMyTvUseCase(event.id)
+                onAddClicked(event)
+            }
+        }
+    }
 
-                    when (result) {
-                        is DataResult.Error -> {
-                            setState {
-                                copy(
-                                    userMessage = UserMessage.Success(message = result.uiMessage),
-                                )
-                            }
-                        }
+    private fun onAddClicked(event: SearchScreenEvent.OnAddClicked) {
+        viewModelScope.launch {
+            val result = addMyTvUseCase(event.id)
 
-                        is DataResult.Success -> {
-                            setState {
-                                copy(
-                                    userMessage = null,
-                                )
-                            }
-                        }
+            when (result) {
+                is DataResult.Error -> {
+                    setState {
+                        copy(
+                            userMessage = UserMessage.Success(message = result.uiMessage),
+                        )
                     }
+                }
 
+                is DataResult.Success -> {
+                    setState {
+                        copy(
+                            userMessage = null,
+                        )
+                    }
                 }
             }
+
         }
     }
 

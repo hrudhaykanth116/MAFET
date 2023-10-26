@@ -19,7 +19,6 @@ import com.hrudhaykanth116.tv.ui.screens.home.UpdateMyTvViewModel
  */
 @Composable
 fun UpdateTvScreen(
-    data: UpdateMyTvUIStateActual.UpdateTvData,
     onCancelled: () -> Unit,
     updateMyTvViewModel: UpdateMyTvViewModel,
 ) {

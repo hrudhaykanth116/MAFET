@@ -15,5 +15,8 @@ interface MyTvListDao: BaseDao<MyTvEntity> {
     @Query("SELECT * FROM MyTvEntity")
     suspend fun getMyTvList(): List<MyTvEntity>
 
+    @Query("DELETE FROM MyTvEntity where id = :id")
+    suspend fun deleteById(id: Int)
+
 
 }

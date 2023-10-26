@@ -3,6 +3,7 @@ package com.hrudhaykanth116.tv.ui.screens.home
 import androidx.lifecycle.viewModelScope
 import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
 import com.hrudhaykanth116.core.udf.UDFViewModel
+import com.hrudhaykanth116.tv.domaintemp.DeleteMyTvUseCase
 import com.hrudhaykanth116.tv.domaintemp.GetMyTvListUseCase
 import com.hrudhaykanth116.tv.domaintemp.UpdateMyTvUseCase
 import com.hrudhaykanth116.tv.ui.mappers.toUIState
@@ -18,9 +19,11 @@ import javax.inject.Inject
 @HiltViewModel
 class TvHomeScreenViewModel @Inject constructor(
     private val getMyTvListUseCase: GetMyTvListUseCase,
-    private val updateMyTvUseCase: UpdateMyTvUseCase,
     private val dateTimeUtils: DateTimeUtils,
-) : UDFViewModel<TvHomeScreenUIState, TvHomeScreenEvent, TvHomeScreenEffect>(TvHomeScreenUIState()) {
+    private val deleteMyTvUseCase: DeleteMyTvUseCase,
+
+    ) :
+    UDFViewModel<TvHomeScreenUIState, TvHomeScreenEvent, TvHomeScreenEffect>(TvHomeScreenUIState()) {
 
     init {
         viewModelScope.launch {
@@ -39,12 +42,17 @@ class TvHomeScreenViewModel @Inject constructor(
     override fun processEvent(event: TvHomeScreenEvent) {
 
         when (event) {
-            TvHomeScreenEvent.AddNew -> onAddNewEvent()
-            is TvHomeScreenEvent.Delete -> onAddNewEvent()
+            is TvHomeScreenEvent.Delete -> deleteMyTv(event.id)
             is TvHomeScreenEvent.MyTvListItemClicked -> onMyTvListItemClicked(event.myTv)
             TvHomeScreenEvent.CloseUpdateTv -> closeUpdateTv()
         }
 
+    }
+
+    private fun deleteMyTv(id: Int){
+        viewModelScope.launch {
+            deleteMyTvUseCase(id)
+        }
     }
 
     private fun closeUpdateTv() {

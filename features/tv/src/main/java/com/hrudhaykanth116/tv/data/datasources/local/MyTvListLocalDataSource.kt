@@ -29,5 +29,9 @@ class MyTvListLocalDataSource @Inject constructor(
         dao.delete(myTvEntity)
     }
 
+    suspend fun deleteMyTv(id: Int){
+        dao.deleteById(id)
+    }
+
 
 }

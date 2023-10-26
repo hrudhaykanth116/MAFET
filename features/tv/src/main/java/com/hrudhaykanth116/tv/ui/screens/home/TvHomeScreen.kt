@@ -31,6 +31,9 @@ fun TvHomeScreen(
         },
         onTvListItemClicked = {
             tvHomeScreenViewModel.processEvent(TvHomeScreenEvent.MyTvListItemClicked(it))
+        },
+        onTvListItemDismissed = {
+            tvHomeScreenViewModel.processEvent(TvHomeScreenEvent.Delete(it))
         }
     )
 

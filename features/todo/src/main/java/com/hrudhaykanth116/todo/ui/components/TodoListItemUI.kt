@@ -116,7 +116,7 @@ fun TodoListItemUI(
 
             AppClickableIcon(
                 imageHolder = ImageHolder.LocalDrawableResource(
-                    R.drawable.ic_delete
+                    CoreR.drawable.ic_delete
                 ),
                 contentDescriptionUIText = "Delete".toUIText(),
                 onClick = onRemoveClicked
