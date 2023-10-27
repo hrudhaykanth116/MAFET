@@ -72,7 +72,7 @@ fun TvHomeScreenUI(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 AppText(uiText = "My Tv list".toUIText())
-                AppIcon(imageHolder = CoreR.drawable.ic_sort_vertical.toImageHolder())
+                // AppIcon(imageHolder = CoreR.drawable.ic_sort_vertical.toImageHolder())
             }
         }
     ) {
