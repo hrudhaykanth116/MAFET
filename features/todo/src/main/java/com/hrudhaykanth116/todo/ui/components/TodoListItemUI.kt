@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.hrudhaykanth116.core.common.resources.Dimens
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.ui.components.AppCard
@@ -69,7 +70,7 @@ fun TodoListItemUI(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                // .padding(Dimens.DEFAULT_PADDING)
+                .padding(Dimens.DEFAULT_PADDING)
         ) {
 
             if (toDoTaskUIState.showCategoryIcon) {
@@ -78,8 +79,6 @@ fun TodoListItemUI(
                     image = CoreR.drawable.profile_icon.toImageHolder()
                 )
             }
-
-            Spacer(modifier = Modifier.width(8.dp))
 
             Column(
                 modifier = Modifier.weight(1f)

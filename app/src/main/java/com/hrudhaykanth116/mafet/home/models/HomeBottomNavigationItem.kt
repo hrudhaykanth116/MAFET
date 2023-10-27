@@ -3,7 +3,7 @@ package com.hrudhaykanth116.mafet.home.models
 import com.hrudhaykanth116.core.R as CoreR
 
 
-enum class HomeBottomNavigationItem(val displayName: String,val iconDrawable: Int, val route: String,) {
+enum class HomeBottomNavigationItem(val displayName: String,val iconDrawable: Int, val route: String) {
 
     // Create/update pending tasks with priority, target time
     TODO("Todo", CoreR.drawable.ic_clipboard, HomeRoute.Todo.route),

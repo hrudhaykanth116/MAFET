@@ -66,7 +66,7 @@ class SearchTvScreenViewModel @Inject constructor(
                 )
             }
 
-            val result: DataResult<List<SearchScreenItemUIState>?> = getTvListByQuery.invoke(it)
+            val result: DataResult<List<SearchScreenItemUIState>?> = getTvListByQuery(it)
 
             result.process(
                 onSuccess = {
