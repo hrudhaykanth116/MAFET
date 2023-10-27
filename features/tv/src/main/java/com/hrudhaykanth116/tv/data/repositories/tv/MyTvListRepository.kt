@@ -16,10 +16,8 @@ class MyTvListRepository @Inject constructor(
     // TODO: Make it injectable
     private val dispatcher = Dispatchers.IO
 
-    suspend fun observeMyTvList(): Flow<List<MyTvEntity>> {
-        return withContext(dispatcher) {
-            localDataSource.observeMyTvList()
-        }
+    fun observeMyTvList(): Flow<List<MyTvEntity>> {
+            return localDataSource.observeMyTvList()
     }
 
     suspend fun getMyTvList() = withContext(dispatcher) {

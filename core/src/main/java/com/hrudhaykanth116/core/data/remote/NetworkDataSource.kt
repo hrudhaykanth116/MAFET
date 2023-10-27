@@ -15,6 +15,7 @@ import java.util.concurrent.TimeoutException
 
 abstract class NetworkDataSource {
 
+    // TODO: P3 Switch dispatcher
     protected suspend fun <T> getResult(call: suspend () -> Response<T>): DataResult<T> {
 
         if (OnlineTracker.isOnline) {

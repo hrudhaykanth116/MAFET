@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.hrudhaykanth116.core.common.ui.models.UserMessage
 import com.hrudhaykanth116.core.data.models.DataResult
 import com.hrudhaykanth116.core.udf.UDFViewModel
+import com.hrudhaykanth116.tv.data.repositories.tv.MyTvListRepository
 import com.hrudhaykanth116.tv.domaintemp.AddMyTvUseCase
 import com.hrudhaykanth116.tv.domaintemp.GetTvListByQuery
 import com.hrudhaykanth116.tv.ui.models.search.SearchScreenEffect
@@ -11,8 +12,10 @@ import com.hrudhaykanth116.tv.ui.models.search.SearchScreenEvent
 import com.hrudhaykanth116.tv.ui.models.search.SearchScreenItemUIState
 import com.hrudhaykanth116.tv.ui.models.search.SearchScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.mapLatest
@@ -24,11 +27,15 @@ import javax.inject.Inject
 class SearchTvScreenViewModel @Inject constructor(
     private val getTvListByQuery: GetTvListByQuery,
     private val addMyTvUseCase: AddMyTvUseCase,
-) : UDFViewModel<SearchScreenState, SearchScreenEvent, SearchScreenEffect>(
+    private val myTvListRepository: MyTvListRepository,
+
+    ) : UDFViewModel<SearchScreenState, SearchScreenEvent, SearchScreenEffect>(
     SearchScreenState("")
 ) {
 
     private var searchTvJob: Job? = null
+
+    val data = myTvListRepository.observeMyTvList()
 
     init {
 
@@ -40,13 +47,31 @@ class SearchTvScreenViewModel @Inject constructor(
             }
         }
 
+
+        // TODO: P4 Optimise this based on requirement
+        viewModelScope.launch(Dispatchers.Default) {
+
+            data.collectLatest { myTvEntityList ->
+                val searchResultsWithUpdatedIsMyTv: List<SearchScreenItemUIState> = state.searchResults.map { searchScreenItemUIState ->
+                    searchScreenItemUIState.copy(
+                        isMyTvList = myTvEntityList.any { it.id == searchScreenItemUIState.id }
+                    )
+                }
+                setState {
+                    copy(
+                        searchResults = searchResultsWithUpdatedIsMyTv
+                    )
+                }
+            }
+        }
+
     }
 
     private fun fetchTvList(it: String) {
 
         searchTvJob?.cancel()
-        
-        if(it.isEmpty()){
+
+        if (it.isEmpty()) {
             // TODO: Show top tv/popular/suggested shows
             setState {
                 copy(
@@ -58,7 +83,10 @@ class SearchTvScreenViewModel @Inject constructor(
             return
         }
 
-        searchTvJob = viewModelScope.launch {
+        searchTvJob = viewModelScope.launch(Dispatchers.Default) {
+
+            // Delay to wait for new character addition to the search query.
+            delay(500)
 
             setState {
                 copy(
@@ -72,7 +100,7 @@ class SearchTvScreenViewModel @Inject constructor(
                 onSuccess = {
                     setState {
                         copy(
-                            searchResults = it,
+                            searchResults = it ?: emptyList(),
                             userMessage = null,
                             isLoading = false,
                         )

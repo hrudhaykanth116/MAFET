@@ -16,7 +16,7 @@ class GetMyTvListUseCase @Inject constructor(
     private val myTvListRepository: MyTvListRepository,
 ) {
 
-    suspend operator fun invoke(): Flow<List<MyTvDomainModel>> {
+    operator fun invoke(): Flow<List<MyTvDomainModel>> {
 
         val result = myTvListRepository.observeMyTvList().map {
             it.toDomainModel()

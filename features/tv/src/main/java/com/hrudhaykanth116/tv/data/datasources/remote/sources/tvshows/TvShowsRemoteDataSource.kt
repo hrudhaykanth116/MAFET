@@ -12,6 +12,7 @@ import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDataPagedResp
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDetails
 import com.hrudhaykanth116.tv.data.datasources.remote.models.genres.GetTvGenresResponse
 import com.hrudhaykanth116.tv.data.datasources.remote.models.search.TvShowSearchResults
+import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 class TvShowsRemoteDataSource @Inject constructor(
