@@ -6,6 +6,6 @@ import com.hrudhaykanth116.core.data.models.UIText
 data class SearchScreenState(
     val query: String,
     val isLoading: Boolean = false,
-    val searchResults: List<SearchScreenItemUIState>? = null,
+    val searchResults: List<SearchScreenItemUIState> = emptyList(),
     val userMessage: UserMessage? = null,
 )
