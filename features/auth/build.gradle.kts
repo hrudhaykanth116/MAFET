@@ -1,17 +1,16 @@
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
-
 plugins {
-    kotlin("android")
     id("com.android.library")
-    kotlin("kapt")
-    id("kotlin-parcelize")
-    id("kotlin-android")
-    id("dagger.hilt.android.plugin")
+    alias(libs.plugins.kapt)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.compose)
 }
 
 android {
     namespace = "com.hrudhaykanth116.auth"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 24
@@ -24,7 +23,6 @@ android {
         }
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -45,7 +43,7 @@ android {
         jvmTarget = "17"
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.6"
+        kotlinCompilerExtensionVersion = "1.5.15"
     }
 
     buildFeatures {
@@ -65,10 +63,10 @@ dependencies {
     implementation(project(":core"))
 
     // Hilt
-    api("com.google.dagger:hilt-android:2.45")
-    kapt("com.google.dagger:hilt-compiler:2.45")
+    api("com.google.dagger:hilt-android:2.55")
+    kapt("com.google.dagger:hilt-compiler:2.55")
 
-    val room_version = "2.5.1"
+    val room_version = "2.6.1"
     api("androidx.room:room-runtime:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
     // optional - Kotlin Extensions and Coroutines support for Room

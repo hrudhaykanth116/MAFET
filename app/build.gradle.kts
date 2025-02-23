@@ -1,22 +1,32 @@
 plugins {
-    kotlin("android")
-    id("com.android.application")
-    kotlin("kapt")
-    id("kotlin-parcelize")
-    id("kotlin-android")
-    id("dagger.hilt.android.plugin")
-    id("com.google.gms.google-services")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.compose)
+    alias(libs.plugins.googleServices)
+    alias(libs.plugins.kapt)
 }
 
 android {
     namespace = "com.hrudhaykanth116.mafet"
 
-    compileSdk = 34
+    compileSdk = 35
+
+
+    // dynamicFeatures.addAll(
+    //     listOf(
+    //         // ":features:todo"
+    //     )
+    // )
+
+    dynamicFeatures += setOf(":features:ai")
 
     defaultConfig {
         applicationId = "com.hrudhaykanth116.mafet"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -46,7 +56,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.6"
+        kotlinCompilerExtensionVersion = "1.5.15"
     }
 
     buildFeatures {
@@ -65,7 +75,7 @@ android {
 dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
 
-    implementation(project(":core"))
+    api(project(":core"))
     implementation(project(":features:todo"))
     implementation(project(":features:weather"))
     implementation(project(":features:tv"))
@@ -73,8 +83,8 @@ dependencies {
     implementation(project(":training"))
 
     // Hilt
-    api("com.google.dagger:hilt-android:2.45")
-    kapt("com.google.dagger:hilt-compiler:2.45")
+    api("com.google.dagger:hilt-android:2.55")
+    kapt("com.google.dagger:hilt-compiler:2.55")
 
     implementation("androidx.core:core-splashscreen:1.0.1")
 

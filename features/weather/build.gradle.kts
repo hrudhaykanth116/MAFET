@@ -1,21 +1,21 @@
 plugins {
-    kotlin("android")
     id("com.android.library")
-    kotlin("kapt")
-    id("kotlin-android")
-    id("kotlin-parcelize")
-    id("androidx.navigation.safeargs")
-    id("dagger.hilt.android.plugin")
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.safeArgs)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.compose)
+    alias(libs.plugins.kapt)
 }
 
 android {
     namespace = "com.hrudhaykanth116.weather"
 
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 24
-        targetSdk = 33
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -41,9 +41,12 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    kapt {
+        correctErrorTypes = true
+    }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.6"
+        kotlinCompilerExtensionVersion = "1.5.15"
     }
 
     buildFeatures {
@@ -64,13 +67,12 @@ dependencies {
     implementation(project(":core"))
 
     // Hilt
-    api("com.google.dagger:hilt-android:2.45")
-    kapt("com.google.dagger:hilt-compiler:2.45")
+    api(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 
-    val room_version = "2.5.1"
-    api("androidx.room:room-runtime:$room_version")
-    kapt("androidx.room:room-compiler:$room_version")
+    api(libs.androidx.room.runtime)
+    kapt(libs.androidx.room.compiler)
     // optional - Kotlin Extensions and Coroutines support for Room
-    api("androidx.room:room-ktx:$room_version")
+    api(libs.androidx.room.ktx)
 
 }

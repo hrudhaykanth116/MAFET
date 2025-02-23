@@ -1,20 +1,21 @@
 plugins {
-    kotlin("android")
-    id("com.android.library")
-    kotlin("kapt")
-    id("kotlin-parcelize")
-    id("kotlin-android")
-    id("dagger.hilt.android.plugin")
+    // id("com.android.library")
+    alias(libs.plugins.dynamic.feature)
+    alias(libs.plugins.kapt)
+    alias(libs.plugins.ksp)
+    // alias(libs.plugins.hilt)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.compose)
 }
 
 android {
     namespace = "com.hrudhaykanth116.chatgpt"
 
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 24
-        targetSdk = 33
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -42,7 +43,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.6"
+        kotlinCompilerExtensionVersion = "1.5.15"
     }
 
     buildFeatures {
@@ -59,13 +60,14 @@ android {
 
 dependencies {
 
-    implementation(project(":core"))
+    // implementation(project(":core"))
+    implementation(project(":app"))
 
     // Hilt
-    api("com.google.dagger:hilt-android:2.45")
-    kapt("com.google.dagger:hilt-compiler:2.45")
+    // api("com.google.dagger:hilt-android:2.55")
+    // kapt("com.google.dagger:hilt-compiler:2.55")
 
-    val room_version = "2.5.1"
+    val room_version = "2.6.1"
     api("androidx.room:room-runtime:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
     // optional - Kotlin Extensions and Coroutines support for Room

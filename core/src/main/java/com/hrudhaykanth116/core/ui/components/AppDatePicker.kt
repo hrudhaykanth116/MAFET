@@ -18,9 +18,6 @@ fun AppDatePicker(
 
     val datePickerState = rememberDatePickerState()
 
-    // TODO: P3 Current date is not selected.
-    datePickerState.setSelection(dateTimeUtils.dateToUTC(System.currentTimeMillis()))
-    
     DatePickerDialog(
         onDismissRequest = onDismissRequest,
         confirmButton = {
