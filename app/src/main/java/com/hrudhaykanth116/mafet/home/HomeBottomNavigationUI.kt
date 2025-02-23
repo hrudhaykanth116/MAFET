@@ -33,8 +33,12 @@ fun HomeBottomNavigationUI(
 
     val navItems = uiState.list
 
+    val newModifier = modifier
+        .fillMaxWidth()
+        // .padding(horizontal = Dimens.DEFAULT_PADDING.times(2))
+
     Card(
-        modifier = modifier.fillMaxWidth(),
+        modifier = newModifier,
         elevation = CardDefaults.cardElevation(
             defaultElevation = 20.dp,
             pressedElevation = 2.dp,

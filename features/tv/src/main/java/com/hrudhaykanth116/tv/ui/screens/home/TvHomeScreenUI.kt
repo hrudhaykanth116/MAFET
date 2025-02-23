@@ -14,13 +14,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.DismissDirection
-import androidx.compose.material3.DismissValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SwipeToDismiss
-import androidx.compose.material3.SwipeToDismissDefaults
-import androidx.compose.material3.rememberDismissState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -137,57 +132,57 @@ private fun Content(
         contentPadding = PaddingValues(vertical = Dimens.DEFAULT_PADDING),
     ) {
 
-        items(list, key = { item -> item.id }) { myTv: MyTvUIState ->
-
-            val dismissState = rememberDismissState(
-                positionalThreshold = {
-                    // After x dp movement, dismisses or else retracts
-                    170.dp.toPx()
-                },
-                confirmValueChange = {
-                    if(it == DismissValue.DismissedToStart || it == DismissValue.DismissedToEnd){
-                        tvHomeScreenCallbacks.onTvListItemDismissed(myTv.id)
-                    }
-                    true
-                }
-            )
-
-            if (dismissState.isDismissed(DismissDirection.EndToStart)) {
-                // TODO: P10 Use ?
-                // This is called for below items as well. check
-            }
-
-            SwipeToDismiss(
-                state = dismissState,
-                directions = setOf(
-                    DismissDirection.EndToStart
-                ),
-                background = {
-                    // dismissState.dismissDirection ?:  return@SwipeToDismiss
-                    Row(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(horizontal = Dimens.DEFAULT_PADDING),
-                        horizontalArrangement = Arrangement.End,
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        // AppIcon(
-                        //     imageHolder = CoreR.drawable.ic_delete.toImageHolder(),
-                        //     modifier = Modifier
-                        // )
-                        AppText(uiText = "Swipe to delete".toUIText())
-                    }
-                },
-                dismissContent = {
-                    MyTvListItemUI(
-                        state = myTv,
-                        modifier = Modifier.clickable {
-                            tvHomeScreenCallbacks.onTvListItemClicked(myTv)
-                        }
-                    )
-                },
-            )
-        }
+        // items(list, key = { item -> item.id }) { myTv: MyTvUIState ->
+        //
+        //     val dismissState = rememberDismissState(
+        //         positionalThreshold = {
+        //             // After x dp movement, dismisses or else retracts
+        //             170.dp.toPx()
+        //         },
+        //         confirmValueChange = {
+        //             if(it == DismissValue.DismissedToStart || it == DismissValue.DismissedToEnd){
+        //                 tvHomeScreenCallbacks.onTvListItemDismissed(myTv.id)
+        //             }
+        //             true
+        //         }
+        //     )
+        //
+        //     if (dismissState.isDismissed(DismissDirection.EndToStart)) {
+        //         // TODO: P10 Use ?
+        //         // This is called for below items as well. check
+        //     }
+        //
+        //     SwipeToDismiss(
+        //         state = dismissState,
+        //         directions = setOf(
+        //             DismissDirection.EndToStart
+        //         ),
+        //         background = {
+        //             // dismissState.dismissDirection ?:  return@SwipeToDismiss
+        //             Row(
+        //                 modifier = Modifier
+        //                     .fillMaxSize()
+        //                     .padding(horizontal = Dimens.DEFAULT_PADDING),
+        //                 horizontalArrangement = Arrangement.End,
+        //                 verticalAlignment = Alignment.CenterVertically,
+        //             ) {
+        //                 // AppIcon(
+        //                 //     imageHolder = CoreR.drawable.ic_delete.toImageHolder(),
+        //                 //     modifier = Modifier
+        //                 // )
+        //                 AppText(uiText = "Swipe to delete".toUIText())
+        //             }
+        //         },
+        //         dismissContent = {
+        //             MyTvListItemUI(
+        //                 state = myTv,
+        //                 modifier = Modifier.clickable {
+        //                     tvHomeScreenCallbacks.onTvListItemClicked(myTv)
+        //                 }
+        //             )
+        //         },
+        //     )
+        // }
     }
 }
 

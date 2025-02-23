@@ -1,19 +1,19 @@
 plugins {
-    kotlin("android")
     id("com.android.library")
-    kotlin("kapt")
-    id("kotlin-parcelize")
-    id("kotlin-android")
+    alias(libs.plugins.kapt)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.compose)
 }
 
 android {
     namespace = "com.hrudhaykanth116.features"
 
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 24
-        targetSdk = 33
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -41,7 +41,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.6"
+        kotlinCompilerExtensionVersion = "1.5.15"
     }
 
     buildFeatures {

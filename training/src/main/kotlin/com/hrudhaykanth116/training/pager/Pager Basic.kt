@@ -97,7 +97,7 @@ fun MyPagerContainer() {
             state = pagerState,
             // pageSize = PageSize.Fixed(220.dp),
             contentPadding = PaddingValues(horizontal = 40.dp),
-            beyondBoundsPageCount = PRE_LOAD_SIZE,
+            beyondViewportPageCount = PRE_LOAD_SIZE,
             flingBehavior = fling,
             modifier = Modifier
                 .height(300.dp)
