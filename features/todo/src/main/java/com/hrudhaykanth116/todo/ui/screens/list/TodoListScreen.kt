@@ -27,14 +27,15 @@ fun TodoListScreen(
         mutableStateOf(true)
     }
 
-    val uiState: State<TodoListUIState> =
-        todoListViewModel.uiStateFlow.collectAsStateWithLifecycle()
+    val uiState: State<TodoListUIState?> =
+        todoListViewModel.contentStateFlow.collectAsState(null)
 
     // val list by todoViewModel.todoList.observeAsState(listOf())
 
+    val state = uiState.value ?: TodoListUIState()
     TodoListScreenUI(
         modifier = Modifier,
-        uiState = uiState.value,
+        uiState = state,
         onRemoveTask = { id: String ->
             todoListViewModel.processEvent(TodoListScreenEvent.RemoveTasks(listOf(id)))
         },
@@ -43,7 +44,7 @@ fun TodoListScreen(
             todoListViewModel.processEvent(TodoListScreenEvent.TodoTaskTitleChanged(it))
         },
         onCreateBtnClicked = {
-            val todoTitle = uiState.value.todoTitle.text
+            val todoTitle = state.todoTitle.text
             if (todoTitle.isEmpty()) {
                 navigateToCreateScreen()
             } else {

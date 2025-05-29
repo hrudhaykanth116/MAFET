@@ -28,3 +28,4 @@ include ':features:weather'
 include(":training")
 include ':features:auth'
 include ':features:tv'
+include ':features:journal'

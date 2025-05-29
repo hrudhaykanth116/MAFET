@@ -80,6 +80,7 @@ dependencies {
     implementation(project(":features:weather"))
     implementation(project(":features:tv"))
     implementation(project(":features:auth"))
+    implementation(project(":features:journal"))
     implementation(project(":training"))
 
     // Hilt

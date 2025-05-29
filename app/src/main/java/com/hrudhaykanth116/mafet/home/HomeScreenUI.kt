@@ -21,6 +21,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
+import com.hrudhaykanth116.journal.JournalScreen
 import com.hrudhaykanth116.mafet.account.navigation.AccountNavigation
 import com.hrudhaykanth116.mafet.home.models.HomeBottomNavigationItem
 import com.hrudhaykanth116.mafet.home.models.HomeBottomNavigationUIState
@@ -80,7 +81,7 @@ fun HomeScreenUI(
         Box(modifier = Modifier.padding(it)) {
             NavHost(navController, startDestination = HomeRoute.Todo.route) {
 
-                HomeRoute.getRoutes().forEach { homeRoute ->
+                HomeRoute.getRoutes().forEach { homeRoute: HomeRoute ->
                     when (homeRoute) {
                         HomeRoute.Account -> {
                             composable(HomeRoute.Account.route) {
@@ -99,6 +100,12 @@ fun HomeScreenUI(
                         HomeRoute.Entertainment -> {
                             composable(HomeRoute.Entertainment.route) {
                                 TvNavigation()
+                            }
+                        }
+
+                        HomeRoute.Journal -> {
+                            composable(HomeRoute.Journal.route) {
+                                JournalScreen()
                             }
                         }
 

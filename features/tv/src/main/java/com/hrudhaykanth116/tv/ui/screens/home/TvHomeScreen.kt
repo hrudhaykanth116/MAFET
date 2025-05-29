@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hrudhaykanth116.core.common.utils.ui.ToastHelper
 import com.hrudhaykanth116.tv.ui.models.home.TvHomeScreenCallbacks
 import com.hrudhaykanth116.tv.ui.models.home.TvHomeScreenEvent
@@ -17,7 +16,7 @@ fun TvHomeScreen(
 ) {
 
     val state: State<TvHomeScreenUIState> =
-        tvHomeScreenViewModel.stateFlow.collectAsStateWithLifecycle()
+        tvHomeScreenViewModel.collectAsState()
 
     val userMessage = state.value.userMessage
     if (userMessage != null) {

@@ -5,8 +5,9 @@ data class HomeBottomNavigationUIState(
     // TODO: P7 Combine as one state. navigationItem, isSelected.
     val list: List<NavigationItemUIState> = listOf(
         NavigationItemUIState(HomeBottomNavigationItem.TODO),
+        NavigationItemUIState(HomeBottomNavigationItem.JOURNAL),
         NavigationItemUIState(HomeBottomNavigationItem.WEATHER),
-        NavigationItemUIState(HomeBottomNavigationItem.ENTERTAINMENT, true),
+        NavigationItemUIState(HomeBottomNavigationItem.ENTERTAINMENT),
         NavigationItemUIState(HomeBottomNavigationItem.ACCOUNT),
     ),
 )

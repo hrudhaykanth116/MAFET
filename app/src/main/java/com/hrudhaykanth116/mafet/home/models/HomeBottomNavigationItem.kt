@@ -8,6 +8,9 @@ enum class HomeBottomNavigationItem(val displayName: String,val iconDrawable: In
     // Create/update pending tasks with priority, target time
     TODO("Todo", CoreR.drawable.ic_clipboard, HomeRoute.Todo.route),
 
+
+    JOURNAL("Journal", CoreR.drawable.ic_journal, HomeRoute.Journal.route),
+
     // Shows today's weather for a search field and 7 days forecast.
     WEATHER("Weather", CoreR.drawable.ic_weather, HomeRoute.Weather.route),
 
