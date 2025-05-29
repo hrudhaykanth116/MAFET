@@ -65,158 +65,158 @@ dependencies {
 
     /************************** Android basic ******************************/
 
-    api("androidx.appcompat:appcompat:1.7.0")
-    api("androidx.constraintlayout:constraintlayout:2.2.0")
+    api(libs.androidx.appcompat)
+    api(libs.androidx.constraintlayout)
 
     /************************** Android basic ******************************/
 
     /************************** Kotlin ******************************/
 
     // Kotlin
-    api("androidx.core:core-ktx:1.15.0")
+    api(libs.androidx.core.ktx)
 
     // Coroutines
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.1")
+    api(libs.kotlinx.coroutines.android)
 
     // Kotlin immutable collections. (https://github.com/Kotlin/kotlinx.collections.immutable)
-    api("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.8")
+    api(libs.kotlinx.collections.immutable)
 
     /************************** Kotlin ******************************/
 
     /***************************** Jetpack Compose ****************************/
 
-    val composeBom = platform("androidx.compose:compose-bom:2023.10.01")
-    api(platform("androidx.compose:compose-bom:2025.02.00"))
-    androidTestImplementation(platform("androidx.compose:compose-bom:2025.02.00"))
+    api(platform(libs.androidx.compose.bom))
+    androidTestImplementation(platform(libs.androidx.compose.bom))
 
-    api("androidx.compose.ui:ui-tooling-preview")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    api("androidx.compose.ui:ui-util")
-    api("androidx.compose.foundation:foundation")
+    api(libs.androidx.ui.tooling.preview)
+    debugImplementation(libs.androidx.ui.tooling)
+    api(libs.androidx.ui.util)
+    api(libs.androidx.foundation)
 
     // api("androidx.compose.compiler:compiler:2.1.10")
 
 
-    api("androidx.constraintlayout:constraintlayout-compose:1.1.0")
+    api(libs.androidx.constraintlayout.compose.v111)
 
     // Material
     // api("androidx.compose.material:material")
     // https://developer.android.com/jetpack/androidx/releases/compose-material3
-    api("androidx.compose.material3:material3")
+    api(libs.androidx.material3)
 
     // Material design icons
-    api("androidx.compose.material:material-icons-core")
-    api("androidx.compose.material:material-icons-extended")
+    api(libs.material.icons.core)
+    api(libs.androidx.material.icons.extended)
 
     // Integration with activities
-    api("androidx.activity:activity-compose:1.10.0")
+    //noinspection GradleDependency
+    api(libs.androidx.activity.compose.v1101)
     // Integration with ViewModels
-    api("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
+    api(libs.androidx.lifecycle.viewModelCompose)
     // Integration with lifecycle
-    api("androidx.lifecycle:lifecycle-runtime-compose:2.8.7")
+    api(libs.androidx.lifecycle.runtime.compose)
 
     // hilt
-    api("androidx.hilt:hilt-navigation-compose:1.2.0")
+    api(libs.androidx.hilt.navigation.compose)
 
-    api("androidx.metrics:metrics-performance:1.0.0-beta01")
+    api(libs.androidx.metrics.performance)
 
     /***************************** Jetpack Compose ****************************/
 
     /*********** Firebase ************/
-    api(platform("com.google.firebase:firebase-bom:33.9.0"))
+    api(platform(libs.firebase.bom))
     // Firebase authentication
-    api("com.google.firebase:firebase-auth-ktx")
+    api(libs.firebase.auth.ktx)
 //    api("com.google.firebase:firebase-common-ktx'
-    api("com.google.firebase:firebase-storage-ktx")
-    api("com.google.firebase:firebase-database-ktx")
+    api(libs.firebase.storage.ktx)
+    api(libs.firebase.database.ktx)
+    api(libs.firebase.vertexai)
     /*********** Firebase ************/
 
+    /*********** Google ***************/
+
+    api(libs.play.services.location)
+
+    /*********** Google ***************/
+
     // Life cycle
-    val lifecycle_version = "2.8.7"
-    api("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
-    api("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    api(libs.androidx.lifecycle.livedata.ktx)
+    api(libs.androidx.lifecycle.viewmodel.ktx)
     // Lifecycles only (without ViewModel or LiveData)
-    api("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version")
+    api(libs.androidx.lifecycle.runtime)
     // Saved state module for ViewModel
-    api("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version")
+    api(libs.androidx.lifecycle.viewmodel.savedstate)
     // Annotation processor
-    api("androidx.lifecycle:lifecycle-common-java8:$lifecycle_version")
+    api(libs.androidx.lifecycle.common.java8)
 
     // Navigation component
-    val nav_version = "2.8.7"
-    api("androidx.navigation:navigation-fragment-ktx:$nav_version")
-    api("androidx.navigation:navigation-ui-ktx:$nav_version")
-    api("androidx.navigation:navigation-compose:$nav_version")
+    api(libs.androidx.navigation.fragment)
+    api(libs.androidx.navigation.ui.ktx)
+    api(libs.androidx.navigation.compose)
     // Feature module Support
     // api("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
     // Testing Navigation
-    androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
+    androidTestImplementation(libs.androidx.navigation.testing)
 
     // Room
-    val room_version = "2.6.1"
-    api("androidx.room:room-runtime:$room_version")
-    kapt("androidx.room:room-compiler:$room_version")
+    api(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
     // optional - Kotlin Extensions and Coroutines support for Room
-    api("androidx.room:room-ktx:$room_version")
+    api(libs.androidx.room.ktx)
 
     //kot-pref for local shared preferences data.
-    val kotpref_version = "2.13.2"
-    api("com.chibatching.kotpref:enum-support:$kotpref_version")
-    api("com.chibatching.kotpref:kotpref:$kotpref_version")
-    api("com.chibatching.kotpref:initializer:$kotpref_version")
-    api("com.chibatching.kotpref:gson-support:$kotpref_version")
-    api("com.chibatching.kotpref:livedata-support:$kotpref_version")
+    api(libs.enum.support)
+    api(libs.kotpref)
+    api(libs.kotpref.initializer)
+    api(libs.gson.support)
+    api(libs.livedata.support)
 
     // Network
-    api("com.squareup.retrofit2:retrofit:2.11.0")
-    api("com.squareup.retrofit2:converter-gson:2.11.0")
+    api(libs.retrofit)
+    api(libs.converter.gson)
     // Moshi
-    api("com.squareup.retrofit2:converter-moshi:2.11.0")
-    api("com.squareup.moshi:moshi:1.15.2")
-    api("com.squareup.moshi:moshi-kotlin:1.15.2")
-    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.15.2")
+    api(libs.converter.moshi)
+    api(libs.moshi)
+    api(libs.moshi.kotlin)
+    ksp(libs.moshi.kotlin.codegen)
 
     // Hilt
-    api("com.google.dagger:hilt-android:2.55")
-    kapt("com.google.dagger:hilt-compiler:2.55")
+    api(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 
     // Material design(https://maven.google.com/web/index.html#com.google.android.material:material)
-    api("com.google.android.material:material:1.12.0")
+    api(libs.google.android.material)
 
     //intuit sdp(scalable dp) and ssp(scalable sp)
-    val intuit_version = "1.1.1"
-    api("com.intuit.sdp:sdp-android:$intuit_version")
-    api("com.intuit.ssp:ssp-android:$intuit_version")
+    api(libs.sdp.android)
+    api(libs.ssp.android)
 
     // ViewPager
-    api("androidx.viewpager2:viewpager2:1.1.0")
+    api(libs.androidx.viewpager2)
 
     // Glide
-    val glide_version = "4.15.0"
-    api("com.github.bumptech.glide:glide:4.16.0")
-    kapt("com.github.bumptech.glide:compiler:4.16.0")
+    api(libs.glide)
+    ksp(libs.glide.ksp)
 
     // Coil
-    api("io.coil-kt:coil:2.7.0")
-    api("io.coil-kt:coil-compose:2.7.0")
+    api(libs.coil)
+    api(libs.coil.kt.compose)
 
     // Paging
-    val paging_version = "3.0.0"
-    api("androidx.paging:paging-runtime-ktx:3.3.6")
+    api(libs.androidx.paging.runtime.ktx)
 
     //Lottie
-    api("com.airbnb.android:lottie:6.6.2")
+    api(libs.lottie)
+    api(libs.lottie.compose) // Use latest version
 
     // Shimmer(http://facebook.github.io/shimmer-android/)
-    api("com.facebook.shimmer:shimmer:0.5.0")
+    api(libs.shimmer)
 
     // testing
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.2.1")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.test.espresso.core)
 
     // Hamcrest for assert (http://hamcrest.org/JavaHamcrest/distributables)
-    val hamcrest_version = "3.0"
-    testImplementation("org.hamcrest:hamcrest:$hamcrest_version")
+    testImplementation(libs.hamcrest)
 
 }

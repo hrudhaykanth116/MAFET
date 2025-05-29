@@ -8,6 +8,10 @@ Features:
     * Multi selection.
     * Bottom sheet for filter options.
     * Sort based on priority, target time, created time, category.
+
+* Journal
+    * List of entries.
+
 * Weather
     * Location Permission.
     * Location based weather.

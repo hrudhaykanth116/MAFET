@@ -11,6 +11,7 @@ import com.hrudhaykanth116.core.data.models.toUIText
 import okhttp3.ResponseBody
 import retrofit2.Response
 import java.io.IOException
+import java.net.SocketTimeoutException
 import java.util.concurrent.TimeoutException
 
 abstract class NetworkDataSource {
@@ -53,11 +54,21 @@ abstract class NetworkDataSource {
     // TODO: Prepare ui message in UI layer
     private fun getDataResultError(e: Exception): DataResult.Error {
         return when (e) {
+            is SocketTimeoutException -> {
+                DataResult.Error(
+                    uiMessage = "Socket time out".toUIText()
+                )
+            }
              is IOException -> {
                  DataResult.Error(
-                     uiMessage = "".toUIText()
+                     uiMessage = "Something went wrong".toUIText()
                  )
              }
+            is TimeoutException -> {
+                DataResult.Error(
+                    uiMessage = "Time out".toUIText()
+                )
+            }
             else -> {
                 DataResult.Error(
                     uiMessage = "Something went wrong".toUIText()

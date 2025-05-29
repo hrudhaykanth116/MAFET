@@ -2,6 +2,7 @@ package com.hrudhaykanth116.weather.data.datasources.remote.retrofit
 
 import com.hrudhaykanth116.weather.confidential.ApiKeys
 import com.hrudhaykanth116.weather.data.models.GetLocationInfoResponseItem
+import com.hrudhaykanth116.weather.data.models.OWMReverseGeocodingResponseItem
 import com.hrudhaykanth116.weather.data.models.WeatherForeCastResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -45,5 +46,13 @@ interface OpenWeatherApiService {
         @Query("limit") limit: Int = 1,
         @Query("appid") token: String = ApiKeys.GEO_CODING_API_KEY,
     ): Response<List<GetLocationInfoResponseItem>>
+
+    @GET("geo/1.0/reverse")
+    suspend fun reverseGeoCoding(
+        @Query("lat") latitude: String,
+        @Query("lon") longitude: String,
+        @Query("limit") limit: Int = 1,
+        @Query("appid") token: String = ApiKeys.GEO_CODING_API_KEY,
+    ): Response<List<OWMReverseGeocodingResponseItem>>
 
 }

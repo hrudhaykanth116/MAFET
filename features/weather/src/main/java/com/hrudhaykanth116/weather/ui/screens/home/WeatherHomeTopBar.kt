@@ -1,5 +1,6 @@
 package com.hrudhaykanth116.weather.ui.screens.home
 
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -17,6 +18,7 @@ import com.hrudhaykanth116.core.R as CoreR
 @Composable
 fun WeatherHomeTopBar(
     location: String,
+    isSearchActive: Boolean,
     weatherHomeScreenCallbacks: WeatherHomeScreenCallbacks,
     modifier: Modifier = Modifier,
 ) {
@@ -33,11 +35,26 @@ fun WeatherHomeTopBar(
     //     )
     // }
 
-    AppSearchBar(
-        text = location,
-        modifier = Modifier.padding(horizontal = Dimens.DEFAULT_PADDING),
-        onTextChange = weatherHomeScreenCallbacks.onLocationTextChanged,
-        onSearch = weatherHomeScreenCallbacks.search,
-    )
+    Row(
+        modifier = modifier,
+        verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
+    ) {
+        AppSearchBar(
+            text = location,
+            modifier = Modifier.weight(1f).padding(horizontal = Dimens.DEFAULT_PADDING),
+            onTextChange = weatherHomeScreenCallbacks.onLocationTextChanged,
+            onSearch = weatherHomeScreenCallbacks.search,
+            onCancelled = weatherHomeScreenCallbacks.onSearchCancelled,
+            expanded = isSearchActive,
+            onExpandedChange = weatherHomeScreenCallbacks.onExpandedChange,
+            placeHolderText = "Enter city name"
+        )
+        if(!isSearchActive){
+            AppClickableIcon(
+                imageHolder = com.hrudhaykanth116.core.R.drawable.ic_gps.toImageHolder(),
+                onClick = weatherHomeScreenCallbacks.onGpsIconClicked
+            )
+        }
+    }
 
 }

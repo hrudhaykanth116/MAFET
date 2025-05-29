@@ -27,7 +27,6 @@ import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 import com.hrudhaykanth116.core.common.utils.compose.isBlank
 import com.hrudhaykanth116.core.common.utils.functions.TextFieldChangedHandler
 import com.hrudhaykanth116.core.ui.components.AppClickableIcon
-import com.hrudhaykanth116.core.ui.models.UIState2
 import com.hrudhaykanth116.core.ui.models.toImageHolder
 import com.hrudhaykanth116.todo.R
 import com.hrudhaykanth116.core.R as CoreR
@@ -197,6 +196,6 @@ private fun ContentContainer(
 @Composable
 fun TodoListScreenUIPreview() {
     TodoListScreenUI(
-        uiState = TodoListUIState(UIState2.Idle)
+        uiState = TodoListUIState()
     )
 }

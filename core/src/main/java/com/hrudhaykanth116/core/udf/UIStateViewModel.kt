@@ -7,10 +7,10 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 abstract class UIStateViewModel<STATE, EVENT, EFFECT>(
-    initialState: UIState<STATE>,
+    nonNullState: UIState<STATE>,
 ) : ViewModel() {
 
-    private val _uiStateFlow = MutableStateFlow(initialState)
+    private val _uiStateFlow = MutableStateFlow(nonNullState)
     val uiStateFlow: StateFlow<UIState<STATE>> = _uiStateFlow.asStateFlow()
 
     // TODO: A different mechanism may be used to handle effect like channel.

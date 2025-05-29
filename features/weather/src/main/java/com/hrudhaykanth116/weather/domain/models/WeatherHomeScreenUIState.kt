@@ -11,6 +11,7 @@ data class WeatherHomeScreenUIState(
     val locationError: UIText? = null,
     val isLoading: Boolean = true,
     val isLoggedOut: Boolean = false,
+    val isSearchActive: Boolean = false,
     val weatherForeCastListItemsUIState: List<DailyWeatherUIState> = listOf(),
     val todayWeatherUIState: TodayWeatherUIState? = null,
     val errorMessage: UserMessage? = null,

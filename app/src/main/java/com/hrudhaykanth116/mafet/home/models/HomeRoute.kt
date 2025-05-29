@@ -4,6 +4,7 @@ sealed class HomeRoute(val route: String){
     object Todo: HomeRoute("todo")
     object Weather: HomeRoute("weather")
     object Translate: HomeRoute("translate")
+    object Journal: HomeRoute("journal")
     object Dictionary: HomeRoute("dictionary")
     object Entertainment: HomeRoute("entertainment")
     object Account: HomeRoute("account")
@@ -25,6 +26,7 @@ sealed class HomeRoute(val route: String){
                 Weather,
                 Translate,
                 Dictionary,
+                Journal,
                 Entertainment,
                 Account
             )
