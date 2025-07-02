@@ -22,10 +22,18 @@ Features:
         * This list allows me to track last watched episode, fav episodes, fav scene time interval etc..
     * Status: In progress, Watched, Wishlist-ed.
 
-Code:
-    * Konsist. Lint checks
+Splash screen:
+https://www.youtube.com/watch?v=Oy0oXwv3kSc
 
-* Expandable View
-* Custom layout
+APIS:
+  * Licensed pictures, Videos, Audio: https://api.openverse.engineering/v1/
+
+Compose UI:
+  RenderEffect: https://blog.canopas.com/how-to-use-render-effects-in-jetpack-compose-for-stunning-visuals-01287d7f00db
+
+Tools/Libs:
+  *Recompositions debugger: https://github.com/theapache64/rebugger (Plugin: https://github.com/theapache64/rebugger-plugin/)
+  *Konsist. Lint checks
+
 
 * Interface mapper generic for layer to layer models conversion
