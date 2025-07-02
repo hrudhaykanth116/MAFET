@@ -39,9 +39,7 @@ dependencies {
 
     implementation(project(":core"))
 
-    implementation(libs.kotlin.stdlib)
-
-
+    // implementation(libs.kotlin.stdlib)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
