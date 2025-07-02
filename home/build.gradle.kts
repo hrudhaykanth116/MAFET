@@ -6,12 +6,13 @@ plugins {
     id("kotlin-parcelize")
     id("androidx.navigation.safeargs")
     id("dagger.hilt.android.plugin")
+    alias(libs.plugins.compose)
 }
 
 android {
     namespace = "com.hrudhaykanth116.home"
 
-    compileSdk = 34
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
         minSdk = 24
@@ -52,10 +53,10 @@ android {
         viewBinding = true
     }
 
-    val compilerArgs = listOf("-Xopt-in=kotlin.RequiresOptIn")
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.freeCompilerArgs += compilerArgs
-    }
+    // val compilerArgs = listOf("-Xopt-in=kotlin.RequiresOptIn")
+    // tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    //     kotlinOptions.freeCompilerArgs += compilerArgs
+    // }
 }
 
 dependencies {
