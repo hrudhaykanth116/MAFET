@@ -12,7 +12,7 @@ plugins {
 android {
     namespace = "com.hrudhaykanth116.mafet"
 
-    compileSdk = 35
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
 
     // dynamicFeatures.addAll(
@@ -65,10 +65,10 @@ android {
         viewBinding = true
     }
 
-    val compilerArgs = listOf("-Xopt-in=kotlin.RequiresOptIn")
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.freeCompilerArgs += compilerArgs
-    }
+    // val compilerArgs = listOf("-Xopt-in=kotlin.RequiresOptIn")
+    // tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    //     kotlinOptions.freeCompilerArgs += compilerArgs
+    // }
 
 }
 

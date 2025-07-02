@@ -11,11 +11,10 @@ plugins {
 android {
     namespace = "com.hrudhaykanth116.core"
 
-    compileSdk = 35
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
         minSdk = 24
-        targetSdk = 35
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -53,10 +52,10 @@ android {
         buildConfig = true
     }
 
-    val compilerArgs = listOf("-Xopt-in=kotlin.RequiresOptIn")
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.freeCompilerArgs += compilerArgs
-    }
+    // val compilerArgs = listOf("-Xopt-in=kotlin.RequiresOptIn")
+    // tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    //     kotlinOptions.freeCompilerArgs += compilerArgs
+    // }
 
 }
 

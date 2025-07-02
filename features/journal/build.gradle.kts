@@ -13,7 +13,7 @@ plugins {
 android {
     namespace = "com.hrudhaykanth116.journal"
 
-    compileSdk = 35
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
         minSdk = 24
@@ -53,10 +53,10 @@ android {
         viewBinding = true
     }
 
-    val compilerArgs = listOf("-Xopt-in=kotlin.RequiresOptIn")
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.freeCompilerArgs += compilerArgs
-    }
+    // val compilerArgs = listOf("-Xopt-in=kotlin.RequiresOptIn")
+    // tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    //     kotlinOptions.freeCompilerArgs += compilerArgs
+    // }
 }
 
 dependencies {
