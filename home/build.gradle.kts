@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     id("com.android.library")
+    alias(libs.plugins.safeArgs)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
     alias(libs.plugins.kotlin.android)
@@ -10,7 +11,8 @@ plugins {
 }
 
 android {
-    namespace = "com.hrudhaykanth116.auth"
+    namespace = "com.hrudhaykanth116.home"
+
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -27,26 +29,24 @@ android {
     }
 
     buildTypes {
-        release {
+        getByName("release") {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-
     kotlin {
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_17)
         }
     }
+
     composeOptions {
-          kotlinCompilerExtensionVersion = libs.versions.kotlinCompilerExtensionVersion.get()
+        kotlinCompilerExtensionVersion = libs.versions.kotlinCompilerExtensionVersion.get()
     }
 
     buildFeatures {
