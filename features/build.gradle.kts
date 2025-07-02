@@ -1,6 +1,7 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     id("com.android.library")
-    alias(libs.plugins.kapt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
@@ -13,7 +14,7 @@ android {
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = 24
+        minSdk = libs.versions.minSdk.get().toInt()
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -36,12 +37,14 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+        }
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.15"
+          kotlinCompilerExtensionVersion = libs.versions.kotlinCompilerExtensionVersion.get()
     }
 
     buildFeatures {
@@ -49,11 +52,6 @@ android {
         dataBinding = true
         viewBinding = true
     }
-
-    // val compilerArgs = listOf("-Xopt-in=kotlin.RequiresOptIn")
-    // tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    //     kotlinOptions.freeCompilerArgs += compilerArgs
-    // }
 }
 
 dependencies {
