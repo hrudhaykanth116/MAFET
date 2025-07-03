@@ -26,6 +26,7 @@ import com.hrudhaykanth116.mafet.account.navigation.AccountNavigation
 import com.hrudhaykanth116.mafet.home.models.HomeBottomNavigationItem
 import com.hrudhaykanth116.mafet.home.models.HomeBottomNavigationUIState
 import com.hrudhaykanth116.mafet.home.models.HomeRoute
+import com.hrudhaykanth116.media.ui.screens.MediaScreen
 import com.hrudhaykanth116.todo.navigation.TodoNavigation
 import com.hrudhaykanth116.tv.ui.TvNavigation
 import com.hrudhaykanth116.tv.ui.screens.home.TvHomeScreen
@@ -131,6 +132,12 @@ fun HomeScreenUI(
                             composable(HomeRoute.Weather.route) {
                                 // If use compose navigation
                                 WeatherNavigation()
+                            }
+                        }
+
+                        HomeRoute.Media -> {
+                            composable(homeRoute.route) {
+                                MediaScreen()
                             }
                         }
                     }

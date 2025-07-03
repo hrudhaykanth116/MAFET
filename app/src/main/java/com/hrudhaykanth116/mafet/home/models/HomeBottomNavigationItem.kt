@@ -26,6 +26,9 @@ enum class HomeBottomNavigationItem(val displayName: String,val iconDrawable: In
     // Track tv shows, episodes, fav scene/dialog
     ENTERTAINMENT("Tv", CoreR.drawable.ic_tv, HomeRoute.Entertainment.route),
 
+    // Images and Videos
+    MEDIA("Media", CoreR.drawable.ic_tv, HomeRoute.Media.route),
+
     // Logout, App github link, Credits
     ACCOUNT("Account", CoreR.drawable.ic_account, HomeRoute.Account.route),
 

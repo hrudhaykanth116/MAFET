@@ -1,0 +1,11 @@
+Photo By ID (32812556):
+PhotoResponse(
+    id = 32812556,
+    url = https://www.pexels.com/photo/golden-roof-in-innsbruck-austria-32812556/,
+    photographer = Wolfgang Weiser,
+    src = PhotoSrc(
+        original = https://images.pexels.com/photos/32812556/pexels-photo-32812556.jpeg,
+        medium   = https://images.pexels.com/photos/32812556/pexels-photo-32812556.jpeg?auto=compress&cs=tinysrgb&h=350,
+        small    = https://images.pexels.com/photos/32812556/pexels-photo-32812556.jpeg?auto=compress&cs=tinysrgb&h=130
+    )
+)

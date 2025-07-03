@@ -3,7 +3,9 @@ package com.hrudhaykanth116.media.data.repositories
 import com.hrudhaykanth116.media.data.models.PhotoResponse
 import com.hrudhaykanth116.media.data.network.PexelsRemoteDataSource
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class PexelsRepository @Inject constructor(
     private val remote: PexelsRemoteDataSource,
 ) {

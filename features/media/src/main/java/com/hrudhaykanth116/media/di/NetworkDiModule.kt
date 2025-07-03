@@ -32,7 +32,7 @@ object NetworkDiModule {
 
     @Named("media_baseurl")
     @Provides
-    fun provideBaseUrl() = "https://api.themoviedb.org/3/"
+    fun provideBaseUrl() = "https://api.pexels.com/"
 
     @Named("media_okhttp")
     @Singleton

@@ -3,6 +3,7 @@ package com.hrudhaykanth116.mafet.home.models
 sealed class HomeRoute(val route: String){
     object Todo: HomeRoute("todo")
     object Weather: HomeRoute("weather")
+    object Media: HomeRoute("media")
     object Translate: HomeRoute("translate")
     object Journal: HomeRoute("journal")
     object Dictionary: HomeRoute("dictionary")
@@ -24,6 +25,7 @@ sealed class HomeRoute(val route: String){
             return listOf<HomeRoute>(
                 Todo,
                 Weather,
+                Media,
                 Translate,
                 Dictionary,
                 Journal,
