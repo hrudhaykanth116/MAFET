@@ -52,7 +52,7 @@ val largeRadialGradient = object : ShaderBrush() {
 }
 
 
-@Preview
+@Preview()
 @Composable
 fun BrushExamples() {
 

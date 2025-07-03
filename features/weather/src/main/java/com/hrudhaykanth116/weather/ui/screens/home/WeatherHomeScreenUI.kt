@@ -1,5 +1,6 @@
 package com.hrudhaykanth116.weather.ui.screens.home
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,8 +21,10 @@ import com.hrudhaykanth116.core.theme.grey_00dp
 import com.hrudhaykanth116.core.theme.grey_06dp
 import com.hrudhaykanth116.core.ui.components.VerticalSpacer
 import com.hrudhaykanth116.core.ui.models.ImageHolder
+import com.hrudhaykanth116.core.ui.models.toImageHolder
 import com.hrudhaykanth116.weather.R
 import com.hrudhaykanth116.weather.domain.models.DailyWeatherUIState
+import com.hrudhaykanth116.weather.domain.models.HourlyWeatherUIState
 import com.hrudhaykanth116.weather.domain.models.TodayWeatherUIState
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenCallbacks
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenUIState
@@ -107,19 +110,63 @@ fun WeatherHomeScreenUIPreview(
 
 ) {
 
+    val sampleWeatherElements = persistentListOf(
+        WeatherElementUIState(
+            weatherElement = WeatherElement.WIND_SPEED,
+            value = "15 km/h".toUIText()
+        ),
+        WeatherElementUIState(
+            weatherElement = WeatherElement.HUMIDITY,
+            value = "65%".toUIText()
+        ),
+        WeatherElementUIState(
+            weatherElement = WeatherElement.PRESSURE,
+            value = "1012 hPa".toUIText()
+        ),
+        WeatherElementUIState(
+            weatherElement = WeatherElement.VISIBILITY,
+            value = "10 km".toUIText()
+        ),
+        WeatherElementUIState(
+            weatherElement = WeatherElement.UVI,
+            value = "High".toUIText()
+        ),
+        WeatherElementUIState(
+            weatherElement = WeatherElement.SUNRISE,
+            value = "6:00 AM".toUIText()
+        )
+    )
+
+    val sampleWeatherMain = WeatherMain(
+        title = "Temperature".toUIText(),
+        description = "25°C".toUIText(),
+        icon = WeatherElement.TEMP.displayIcon
+    )
+
+    val hourlyWeather = persistentListOf(
+        HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
+        HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
+        HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
+        HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
+        HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
+        HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
+        HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
+        HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
+        HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
+        HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
+    )
+
+
     WeatherHomeScreenUI(
+        modifier = Modifier.background(color = Color.Gray),
         uiState = WeatherHomeScreenUIState(
             location = "Bangalore",
-            isSearchActive = true,
+            isSearchActive = false,
             todayWeatherUIState = TodayWeatherUIState(
-                weatherElementUIState = persistentListOf(
-                    WeatherElementUIState(
-                        weatherElement = WeatherElement.TEMP,
-                        value = "Atmosphere".toUIText()
-                    )
-                ),
-
-                ),
+                weatherElementUIState = sampleWeatherElements,
+                weatherMain = sampleWeatherMain,
+                weatherHourlyList = hourlyWeather
+            ),
             isLoading = false,
             weatherForeCastListItemsUIState = listOf(
                 DailyWeatherUIState(
