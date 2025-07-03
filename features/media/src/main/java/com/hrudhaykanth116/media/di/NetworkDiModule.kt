@@ -1,5 +1,6 @@
 package com.hrudhaykanth116.media.di
 
+import com.hrudhaykanth116.media.BuildConfig
 import com.hrudhaykanth116.media.data.network.PexelsApisService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

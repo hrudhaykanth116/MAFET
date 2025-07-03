@@ -1,6 +1,6 @@
 package com.hrudhaykanth116.weather.data.datasources.remote.retrofit
 
-import com.hrudhaykanth116.weather.confidential.ApiKeys
+import com.hrudhaykanth116.weather.BuildConfig
 import com.hrudhaykanth116.weather.data.models.GetLocationInfoResponseItem
 import com.hrudhaykanth116.weather.data.models.OWMReverseGeocodingResponseItem
 import com.hrudhaykanth116.weather.data.models.WeatherForeCastResponse
@@ -37,14 +37,14 @@ interface OpenWeatherApiService {
         @Query("lon") longitude: String,
         // @Query("units") units: String = "metric",
         // @Query("exclude") exclude: String = "hourly,minutely",
-        @Query("appid") token: String = ApiKeys.FORECAST_API_KEY,
+        @Query("appid") token: String = BuildConfig.OPEN_WEATHER_FORECAST_API_KEY,
     ): Response<WeatherForeCastResponse>
 
     @GET("geo/1.0/direct")
     suspend fun getLocationInfo(
         @Query("q") location: String,
         @Query("limit") limit: Int = 1,
-        @Query("appid") token: String = ApiKeys.GEO_CODING_API_KEY,
+        @Query("appid") token: String = BuildConfig.OPEN_WEATHER_GEO_CODING_API_KEY,
     ): Response<List<GetLocationInfoResponseItem>>
 
     @GET("geo/1.0/reverse")
@@ -52,7 +52,7 @@ interface OpenWeatherApiService {
         @Query("lat") latitude: String,
         @Query("lon") longitude: String,
         @Query("limit") limit: Int = 1,
-        @Query("appid") token: String = ApiKeys.GEO_CODING_API_KEY,
+        @Query("appid") token: String = BuildConfig.OPEN_WEATHER_GEO_CODING_API_KEY,
     ): Response<List<OWMReverseGeocodingResponseItem>>
 
 }

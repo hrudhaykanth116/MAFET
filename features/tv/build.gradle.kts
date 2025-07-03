@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+// import ComposeConfig.configureComposeCompilerMetrics
 
 plugins {
     id("com.android.library")
@@ -15,9 +16,12 @@ android {
 
     compileSdk = libs.versions.compileSdk.get().toInt()
 
+    val tmdbApiKey = rootProject.extra["TMDB_API_KEY"] as String
+
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
 
+        buildConfigField("String", "TMDB_API_KEY", tmdbApiKey)
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -40,15 +44,22 @@ android {
     }
 
     composeOptions {
-  kotlinCompilerExtensionVersion = libs.versions.kotlinCompilerExtensionVersion.get()    }
+        kotlinCompilerExtensionVersion = libs.versions.kotlinCompilerExtensionVersion.get()
+    }
 
     buildFeatures {
         compose = true
         dataBinding = true
         viewBinding = true
+        buildConfig = true
     }
 
 }
+
+// composeCompiler {
+//     reportsDestination = layout.buildDirectory.dir("compose_compiler")
+//     metricsDestination = layout.buildDirectory.dir("compose_compiler")
+// }
 
 dependencies {
 
