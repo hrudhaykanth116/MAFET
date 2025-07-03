@@ -1,3 +1,9 @@
+Uncomment this to enable compose metrics
+// composeCompiler {
+//     reportsDestination = layout.buildDirectory.dir("compose_compiler")
+//     metricsDestination = layout.buildDirectory.dir("compose_compiler")
+// }
+
 
 Ref: https://chrisbanes.me/posts/composable-metrics/
 

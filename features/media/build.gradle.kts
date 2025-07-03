@@ -15,8 +15,12 @@ android {
 
     compileSdk = libs.versions.compileSdk.get().toInt()
 
+    val pexelsApiKey = rootProject.extra["PEXELS_API_KEY"] as String
+
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
+
+        buildConfigField("String", "PEXELS_API_KEY", pexelsApiKey)
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -53,6 +57,7 @@ android {
         compose = true
         dataBinding = true
         viewBinding = true
+        buildConfig = true
     }
 
 }

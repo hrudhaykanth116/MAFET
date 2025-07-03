@@ -15,8 +15,14 @@ android {
 
     compileSdk = libs.versions.compileSdk.get().toInt()
 
+    val geoCodingApi = rootProject.extra["OPEN_WEATHER_GEO_CODING_API_KEY"] as String
+    val foreCastApi = rootProject.extra["OPEN_WEATHER_FORECAST_API_KEY"] as String
+
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
+
+        buildConfigField("String", "OPEN_WEATHER_GEO_CODING_API_KEY", geoCodingApi)
+        buildConfigField("String", "OPEN_WEATHER_FORECAST_API_KEY", foreCastApi)
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -46,12 +52,14 @@ android {
     }
 
     composeOptions {
-          kotlinCompilerExtensionVersion = libs.versions.kotlinCompilerExtensionVersion.get()    }
+          kotlinCompilerExtensionVersion = libs.versions.kotlinCompilerExtensionVersion.get()
+    }
 
     buildFeatures {
         compose = true
         dataBinding = true
         viewBinding = true
+        buildConfig = true
     }
 
 
