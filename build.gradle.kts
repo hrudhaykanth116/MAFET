@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.android.test) apply false
@@ -11,3 +13,10 @@ plugins {
 }
 
 // apply("${project.rootDir}/buildscripts/toml-updater-config.gradle")
+
+val secretsFile = rootProject.file("secrets.properties")
+val secretsProps = Properties().apply {
+    if (secretsFile.exists()) {
+        load(secretsFile.inputStream())
+    }
+}
