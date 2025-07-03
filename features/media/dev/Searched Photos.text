@@ -1,0 +1,24 @@
+Searched Photos:
+[
+    PhotoResponse(
+        id = 2325447,
+        url = https://www.pexels.com/photo/hot-air-balloon-2325447/,
+        photographer = Francesco Ungaro,
+        src = PhotoSrc(
+            original = https://images.pexels.com/photos/2325447/pexels-photo-2325447.jpeg,
+            medium   = https://images.pexels.com/photos/2325447/pexels-photo-2325447.jpeg?auto=compress&cs=tinysrgb&h=350,
+            small    = https://images.pexels.com/photos/2325447/pexels-photo-2325447.jpeg?auto=compress&cs=tinysrgb&h=130
+        )
+    ),
+    PhotoResponse(
+        id = 886521,
+        url = https://www.pexels.com/photo/person-s-left-hand-holding-green-leaf-plant-886521/,
+        photographer = Alena Koval,
+        src = PhotoSrc(
+            original = https://images.pexels.com/photos/886521/pexels-photo-886521.jpeg,
+            medium   = https://images.pexels.com/photos/886521/pexels-photo-886521.jpeg?auto=compress&cs=tinysrgb&h=350,
+            small    = https://images.pexels.com/photos/886521/pexels-photo-886521.jpeg?auto=compress&cs=tinysrgb&h=130
+        )
+    ),
+    ...
+]

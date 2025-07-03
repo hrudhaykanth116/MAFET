@@ -73,6 +73,7 @@ dependencies {
     implementation(project(":features:tv"))
     implementation(project(":features:auth"))
     implementation(project(":features:journal"))
+    implementation(project(":features:media"))
     implementation(project(":training"))
 
     // Hilt
