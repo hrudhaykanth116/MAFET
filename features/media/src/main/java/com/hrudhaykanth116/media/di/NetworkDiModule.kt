@@ -19,6 +19,10 @@ object NetworkDiModule {
 
     // TODO: Reuse dependencies from other modules.
 
+    @Provides
+    @Named("pexels_api_key")
+    fun providePexelsApiKey(): String = BuildConfig.PEXELS_API_KEY
+
     @Named("media_moshi")
     @Provides
     fun provideMoshi(): Moshi = Moshi.Builder()
