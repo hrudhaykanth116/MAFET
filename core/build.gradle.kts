@@ -118,6 +118,10 @@ dependencies {
 
     api(libs.androidx.metrics.performance)
 
+    implementation(libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.ui)
+    implementation(libs.androidx.media3.common)
+
     /***************************** Jetpack Compose ****************************/
 
     /*********** Firebase ************/

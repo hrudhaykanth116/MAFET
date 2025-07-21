@@ -1,8 +1,10 @@
 package com.hrudhaykanth116.media.data.network
 
 import com.hrudhaykanth116.media.data.models.CuratedPhotosResponse
+import com.hrudhaykanth116.media.data.models.GetPopularVideosResponse
 import com.hrudhaykanth116.media.data.models.PhotoResponse
 import com.hrudhaykanth116.media.data.models.PhotoSearchResponse
+import com.hrudhaykanth116.media.data.models.VideoResponse
 import javax.inject.Inject
 import javax.inject.Named
 import javax.inject.Singleton
@@ -21,5 +23,11 @@ class PexelsRemoteDataSource @Inject constructor(
 
     suspend fun getPhotoById(id: Int): PhotoResponse =
         api.getPhotoById(apiKey, id)
+
+    suspend fun getVideoById(id: Int): VideoResponse =
+        api.getVideoById(apiKey, id)
+
+    suspend fun getPopularVideos(perPage: Int): GetPopularVideosResponse =
+        api.getPopularVideos(apiKey, perPage)
 
 }
