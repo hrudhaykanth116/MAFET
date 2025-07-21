@@ -7,6 +7,6 @@ import androidx.compose.ui.tooling.preview.Preview
     name = "App preview",
     showSystemUi = true,
     showBackground = true,
-    backgroundColor = 0xFFFFFF
+    backgroundColor = 0xFFFFFF, device = "id:5.1in WVGA"
 )
 annotation class AppPreview

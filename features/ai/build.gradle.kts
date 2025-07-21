@@ -11,7 +11,7 @@ plugins {
 }
 
 android {
-    namespace = "com.hrudhaykanth116.chatgpt"
+    namespace = "com.hrudhaykanth116.ai"
 
     compileSdk = libs.versions.compileSdk.get().toInt()
 
