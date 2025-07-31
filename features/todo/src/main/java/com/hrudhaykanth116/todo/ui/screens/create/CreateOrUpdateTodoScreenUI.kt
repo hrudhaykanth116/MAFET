@@ -16,6 +16,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.common.resources.Dimens
 import com.hrudhaykanth116.core.common.resources.Dimens.DEFAULT_PADDING
+import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.ui.components.AppFormButton
@@ -122,11 +123,13 @@ fun CreateOrUpdateTodoScreenUI(
 @MyPreview
 @Composable
 fun CreateOrUpdateTodoScreenUIPreview() {
-    CreateOrUpdateTodoScreenUI(
-        state = CreateOrUpdateTodoUIState(),
-        onTitleChanged = {},
-        onDescriptionChanged = {},
-        onCategoryChanged = {},
-        onCreateBtnClicked = {},
-    )
+    AppPreviewContainer {
+        CreateOrUpdateTodoScreenUI(
+            state = CreateOrUpdateTodoUIState(),
+            onTitleChanged = {},
+            onDescriptionChanged = {},
+            onCategoryChanged = {},
+            onCreateBtnClicked = {},
+        )
+    }
 }

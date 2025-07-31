@@ -28,11 +28,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.hrudhaykanth116.core.R as CoreR
 import androidx.compose.ui.window.DialogProperties
 import com.hrudhaykanth116.core.common.resources.Dimens
+import com.hrudhaykanth116.core.common.ui.preview.AppPreview
+import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.ui.components.AppFormButton
 import com.hrudhaykanth116.core.ui.components.AppProgressBar
@@ -96,10 +100,12 @@ fun UpdateMyTvScreenUIContent(
     val updateTvData = state.updateTvData ?: return
 
     Box(
-        modifier = modifier.background(
-            color = MaterialTheme.colorScheme.surfaceVariant,
-            shape = RoundedCornerShape(10)
-        ).padding(Dimens.DEFAULT_PADDING)
+        modifier = modifier
+            .background(
+                color = MaterialTheme.colorScheme.surfaceVariant,
+                shape = RoundedCornerShape(10)
+            )
+            .padding(Dimens.DEFAULT_PADDING)
     ) {
         Column(
             modifier = Modifier.padding(Dimens.DEFAULT_PADDING),
@@ -147,7 +153,7 @@ fun UpdateMyTvScreenUIContent(
                     readOnly = true,
                     trailingIcon = {
                         AppClickableIcon(
-                            imageHolder = CoreR.drawable.ic_save.toImageHolder(),
+                            imageHolder = CoreR.drawable.ic_calendar.toImageHolder(),
                             onClick = {
                                 updateMyTvScreenCallbacks.onLastWatchedDatePickerOpenRequest()
                             }
@@ -181,4 +187,27 @@ fun UpdateMyTvScreenUIContent(
 
     }
 
+}
+
+@AppPreview
+@Composable
+private fun UpdateMyTvScreenUIContentPreview() {
+    AppPreviewContainer {
+        UpdateMyTvScreenUIContent(
+            state = UpdateMyTvUIStateActual(
+                updateTvData = UpdateMyTvUIStateActual.UpdateTvData(
+                    id = 1,
+                    name = "name",
+                    lastWatchedSeason = TextFieldValue("1"),
+                    lastWatchedEpisode = TextFieldValue("22"),
+                    lastWatchedTime = null,
+                    lastWatchedTimeUIText = TextFieldValue("12/5/2021"),
+                    imgSource = CoreR.drawable.ic_calendar.toImageHolder()
+                )
+            ),
+            updateMyTvScreenCallbacks = UpdateMyTvScreenCallbacks({}, {}, {}, {}),
+            modifier = Modifier
+        )
+
+    }
 }

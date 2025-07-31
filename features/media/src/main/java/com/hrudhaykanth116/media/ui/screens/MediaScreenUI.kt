@@ -23,15 +23,15 @@ fun MediaScreenUI(
     CenteredColumn(
         modifier = Modifier.fillMaxSize()
     ) {
-        // PhotoGridScreen(
-        //     state.photoList
-        // )
+        PhotoGridScreen(
+            state.photoList
+        )
 
-        state.videoUrl?.let {
-            VideoPlayerScreen(
-                it
-            )
-        }
+        // state.videoUrl?.let {
+        //     VideoPlayerScreen(
+        //         it
+        //     )
+        // }
     }
 
 

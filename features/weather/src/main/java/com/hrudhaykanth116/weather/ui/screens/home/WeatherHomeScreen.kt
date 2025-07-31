@@ -17,6 +17,9 @@ import androidx.core.content.PermissionChecker
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.android.gms.location.LocationServices
+import com.hrudhaykanth116.core.common.utils.gps.GpsUtils
+import com.hrudhaykanth116.core.common.utils.gps.GpsUtils.isGpsEnabled
+import com.hrudhaykanth116.core.common.utils.gps.GpsUtils.requestEnableGps
 import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.ui.components.AppText
@@ -37,6 +40,15 @@ fun WeatherHomeScreen(
     val state: State<WeatherHomeScreenUIState> =
         weatherHomeScreenViewModel.stateFlow.collectAsStateWithLifecycle()
 
+    val launcher = rememberLauncherForActivityResult(
+        ActivityResultContracts.StartIntentSenderForResult()
+    ) {
+        if (GpsUtils.isGpsEnabled(context)) {
+            weatherHomeScreenViewModel.fetchLocationAndWeather()
+        }else{
+            weatherHomeScreenViewModel.handleLocationOrGpsUnAvailableCases()
+        }
+    }
 
     val locationPermissionLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -51,8 +63,13 @@ fun WeatherHomeScreen(
     LaunchedEffect(Unit) {
         when (ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION)) {
             PermissionChecker.PERMISSION_GRANTED -> {
-                Logger.d(TAG, "WeatherHomeScreen: ")
-                weatherHomeScreenViewModel.fetchLocationAndWeather()
+                if (!isGpsEnabled(context)) {
+                    requestEnableGps(context) { intentSenderRequest ->
+                        launcher.launch(intentSenderRequest)
+                    }
+                } else {
+                    weatherHomeScreenViewModel.fetchLocationAndWeather()
+                }
             }
             else -> locationPermissionLauncher.launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
         }

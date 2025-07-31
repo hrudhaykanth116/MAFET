@@ -3,6 +3,9 @@ package com.hrudhaykanth116.weather.ui.screens.home
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -16,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.common.resources.Dimens
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
+import com.hrudhaykanth116.core.common.utils.compose.modifier.largeRadialBackground
 import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.theme.grey_00dp
 import com.hrudhaykanth116.core.theme.grey_06dp
@@ -43,17 +47,22 @@ fun WeatherHomeScreenUI(
 ) {
 
     BottomSheetScaffold(
-        modifier = modifier,
+        modifier = modifier.largeRadialBackground(
+            listOf(
+                Color(0xFF045587),
+                Color(0xFF1B5B7E)
+            )
+        ),
         containerColor = Color.Transparent,
         sheetContainerColor = Color(grey_06dp),
-        topBar = {
-            WeatherHomeTopBar(
-                uiState.location,
-                uiState.isSearchActive,
-                weatherHomeScreenCallbacks,
-                modifier = Modifier.fillMaxWidth()
-            )
-        },
+        // topBar = {
+        //     WeatherHomeTopBar(
+        //         uiState.location,
+        //         uiState.isSearchActive,
+        //         weatherHomeScreenCallbacks,
+        //         modifier = Modifier.fillMaxWidth()
+        //     )
+        // },
         sheetContent = {
             if (!uiState.isSearchActive) {
                 WeatherHomeBottomSheet(
@@ -85,20 +94,32 @@ private fun ContentContainer(
     val weather = state.todayWeatherUIState ?: return
 
     Column(
-        modifier = modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
+        modifier = modifier
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        WeatherHomeTopBar(
+            state.location,
+            state.isSearchActive,
+            weatherHomeScreenCallbacks,
+            modifier = Modifier.fillMaxWidth()
+        )
         VerticalSpacer()
         TodayWeatherElements(
             state.todayWeatherUIState.weatherElementUIState,
             weather.weatherMain,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
         )
-        VerticalSpacer()
+        Spacer(
+            modifier = Modifier
+                // .weight(1f)
+                .height(8.dp)
+        )
         HourlyView(
             state.todayWeatherUIState.weatherHourlyList,
             modifier = Modifier.fillMaxWidth()
         )
-
     }
 
 
@@ -134,6 +155,30 @@ fun WeatherHomeScreenUIPreview(
         WeatherElementUIState(
             weatherElement = WeatherElement.SUNRISE,
             value = "6:00 AM".toUIText()
+        ),
+        WeatherElementUIState(
+            weatherElement = WeatherElement.PRESSURE,
+            value = "1012 hPa".toUIText()
+        ),
+        WeatherElementUIState(
+            weatherElement = WeatherElement.VISIBILITY,
+            value = "10 km".toUIText()
+        ),
+        WeatherElementUIState(
+            weatherElement = WeatherElement.UVI,
+            value = "High".toUIText()
+        ),
+        WeatherElementUIState(
+            weatherElement = WeatherElement.SUNRISE,
+            value = "6:00 AM".toUIText()
+        ),
+        WeatherElementUIState(
+            weatherElement = WeatherElement.UVI,
+            value = "High".toUIText()
+        ),
+        WeatherElementUIState(
+            weatherElement = WeatherElement.SUNRISE,
+            value = "6:00 AM".toUIText()
         )
     )
 
@@ -144,16 +189,76 @@ fun WeatherHomeScreenUIPreview(
     )
 
     val hourlyWeather = persistentListOf(
-        HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
-        HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
-        HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
-        HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
-        HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
-        HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
-        HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
-        HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
-        HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
-        HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
+        HourlyWeatherUIState(
+            weatherMain = WeatherMain(
+                "Cloudy".toUIText(),
+                "Rainy".toUIText(),
+                R.drawable.ic_clouds.toImageHolder()
+            ), time = "22 09".toUIText()
+        ),
+        HourlyWeatherUIState(
+            weatherMain = WeatherMain(
+                "Cloudy".toUIText(),
+                "Rainy".toUIText(),
+                R.drawable.ic_clouds.toImageHolder()
+            ), time = "22 09".toUIText()
+        ),
+        HourlyWeatherUIState(
+            weatherMain = WeatherMain(
+                "Cloudy".toUIText(),
+                "Rainy".toUIText(),
+                R.drawable.ic_clouds.toImageHolder()
+            ), time = "22 09".toUIText()
+        ),
+        HourlyWeatherUIState(
+            weatherMain = WeatherMain(
+                "Cloudy".toUIText(),
+                "Rainy".toUIText(),
+                R.drawable.ic_clouds.toImageHolder()
+            ), time = "22 09".toUIText()
+        ),
+        HourlyWeatherUIState(
+            weatherMain = WeatherMain(
+                "Cloudy".toUIText(),
+                "Rainy".toUIText(),
+                R.drawable.ic_clouds.toImageHolder()
+            ), time = "22 09".toUIText()
+        ),
+        HourlyWeatherUIState(
+            weatherMain = WeatherMain(
+                "Cloudy".toUIText(),
+                "Rainy".toUIText(),
+                R.drawable.ic_clouds.toImageHolder()
+            ), time = "22 09".toUIText()
+        ),
+        HourlyWeatherUIState(
+            weatherMain = WeatherMain(
+                "Cloudy".toUIText(),
+                "Rainy".toUIText(),
+                R.drawable.ic_clouds.toImageHolder()
+            ), time = "22 09".toUIText()
+        ),
+        HourlyWeatherUIState(
+            weatherMain = WeatherMain(
+                "Cloudy".toUIText(),
+                "Rainy".toUIText(),
+                R.drawable.ic_clouds.toImageHolder()
+            ), time = "22 09".toUIText()
+        ),
+        HourlyWeatherUIState(
+            weatherMain = WeatherMain(
+                "Cloudy".toUIText(),
+                "Rainy".toUIText(),
+                R.drawable.ic_clouds.toImageHolder()
+            ), time = "22 09".toUIText()
+        ),
+        HourlyWeatherUIState(
+            weatherMain = WeatherMain(
+                "Cloudy".toUIText(),
+                "Rainy".toUIText(),
+                R.drawable.ic_clouds.toImageHolder()
+            ), time = "22 09".toUIText()
+        ),
     )
 
 

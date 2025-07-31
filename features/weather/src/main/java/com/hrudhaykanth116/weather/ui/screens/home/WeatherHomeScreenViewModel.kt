@@ -176,12 +176,20 @@ class WeatherHomeScreenViewModel @Inject constructor(
         }
     }
 
+    fun handleLocationOrGpsUnAvailableCases(){
+
+        val lastKnownLocation = "Hyderabad"
+        onAddressFetched(lastKnownLocation)
+        fetchData(lastKnownLocation)
+
+    }
+
     @SuppressLint("MissingPermission")
     private suspend fun getCurrentLocation(
         fusedLocationClient: FusedLocationProviderClient,
     ): Location? = suspendCancellableCoroutine { cont ->
         fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null)
-            .addOnSuccessListener { location: Location ->
+            .addOnSuccessListener { location: Location? ->
                 cont.resume(location, null)
             }
             .addOnFailureListener {

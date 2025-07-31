@@ -13,9 +13,6 @@ Features:
     * List of entries.
 
 * Weather
-    * Location Permission.
-    * Location based weather.
-    * Better ui for components.
     * Refresh ability and lastRefreshedTime ui element.
 * Tv
     * List of my tv list that contains the tv series currently being watched or watched already.
@@ -25,8 +22,10 @@ Features:
 Splash screen:
 https://www.youtube.com/watch?v=Oy0oXwv3kSc
 
+Tech:
+ * Navigation3
+
 APIS:
-  * Licensed pictures, Videos, Audio: https://api.openverse.engineering/v1/
 
 Compose UI:
   RenderEffect: https://blog.canopas.com/how-to-use-render-effects-in-jetpack-compose-for-stunning-visuals-01287d7f00db

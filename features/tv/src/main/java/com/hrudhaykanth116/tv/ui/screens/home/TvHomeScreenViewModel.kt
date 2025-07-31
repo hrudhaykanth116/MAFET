@@ -1,5 +1,6 @@
 package com.hrudhaykanth116.tv.ui.screens.home
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
 import com.hrudhaykanth116.core.udf.UDFViewModel
@@ -28,6 +29,7 @@ class TvHomeScreenViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             getMyTvListUseCase().collectLatest {
+                Log.d(TAG, "tv list: $it")
                 setState {
                     copy(
                         tvShows = it.toUIState(dateTimeUtils),
@@ -77,6 +79,10 @@ class TvHomeScreenViewModel @Inject constructor(
         //         shouldNavigateToSearchScreen = true
         //     )
         // }
+    }
+
+    companion object{
+        private const val TAG = "TvHomeScreenViewModel"
     }
 
 

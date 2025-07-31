@@ -12,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 
@@ -25,17 +26,17 @@ fun AppCard(
     Card(
         modifier = modifier,
         elevation = CardDefaults.cardElevation(
-            defaultElevation = 20.dp,
+            defaultElevation = 4.dp,
             pressedElevation = 2.dp,
             focusedElevation = 4.dp
         ),
         shape = RoundedCornerShape(percent = cornerPercent),
-        // colors = CardDefaults.cardColors(
-        //     contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-        //     containerColor = MaterialTheme.colorScheme.primaryContainer,
-        //     disabledContentColor = MaterialTheme.colorScheme.surface,
-        //     disabledContainerColor = MaterialTheme.colorScheme.onSurface,
-        // ),
+        colors = CardDefaults.cardColors(
+            contentColor = Color.Unspecified,
+            containerColor = Color.Unspecified,
+            disabledContentColor = Color.Unspecified,
+            disabledContainerColor = Color.Unspecified,
+        ),
         content = content,
         border = borderStroke
     )
