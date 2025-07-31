@@ -18,7 +18,7 @@ fun AppClickableIcon(
     contentDescriptionUIText: UIText? = null,
     enabled: Boolean = true,
     // iconBackgroundColor: Color = Color.Unspecified,
-    iconColor: Color = LocalContentColor.current,
+    iconColor: Color = Color.Unspecified,
     // disabledContainerColor: Color = Color.Unspecified,
     // disabledContentColor: Color = iconColor.copy(alpha = 0.38f),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },

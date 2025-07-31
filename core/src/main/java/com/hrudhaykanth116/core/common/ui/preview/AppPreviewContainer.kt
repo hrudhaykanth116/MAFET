@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.hrudhaykanth116.core.common.utils.compose.modifier.screenBackground
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
 
 @Composable
@@ -14,9 +15,7 @@ fun AppPreviewContainer(
 ) {
 
     CenteredColumn(
-        modifier = modifier.fillMaxSize().background(
-            color = Color(0xFF0594F2)
-        ),
+        modifier = modifier.fillMaxSize().screenBackground()
     ){
         content()
     }

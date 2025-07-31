@@ -11,6 +11,7 @@ import com.hrudhaykanth116.core.common.utils.date.DateTimeFormats.SECONDS
 import com.hrudhaykanth116.core.common.utils.date.DateTimeFormats.YEAR
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -24,7 +25,7 @@ class DateTimeUtils @Inject constructor(
         millis ?: return null
 
         // TODO: Use better formatter
-        val formatter = SimpleDateFormat("dd/MMM")
+        val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         return formatter.format(Date(millis))
     }
 
@@ -33,7 +34,7 @@ class DateTimeUtils @Inject constructor(
         seconds ?: return null
 
         // TODO: Use better formatter
-        val formatter = SimpleDateFormat("dd/MMM")
+        val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         return formatter.format(Date(seconds * 1000L))
     }
 

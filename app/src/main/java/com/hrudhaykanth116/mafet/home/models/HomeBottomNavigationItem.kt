@@ -8,8 +8,7 @@ enum class HomeBottomNavigationItem(val displayName: String,val iconDrawable: In
     // Create/update pending tasks with priority, target time
     TODO("Todo", CoreR.drawable.ic_clipboard, HomeRoute.Todo.route),
 
-
-    JOURNAL("Journal", CoreR.drawable.ic_journal, HomeRoute.Journal.route),
+    JOURNAL("Journal", CoreR.drawable.ic_diary, HomeRoute.Journal.route),
 
     // Shows today's weather for a search field and 7 days forecast.
     WEATHER("Weather", CoreR.drawable.ic_weather, HomeRoute.Weather.route),
@@ -27,7 +26,7 @@ enum class HomeBottomNavigationItem(val displayName: String,val iconDrawable: In
     ENTERTAINMENT("Tv", CoreR.drawable.ic_tv, HomeRoute.Entertainment.route),
 
     // Images and Videos
-    MEDIA("Media", CoreR.drawable.ic_tv, HomeRoute.Media.route),
+    MEDIA("Media", CoreR.drawable.ic_pictures, HomeRoute.Media.route),
 
     // Logout, App github link, Credits
     ACCOUNT("Account", CoreR.drawable.ic_account, HomeRoute.Account.route),

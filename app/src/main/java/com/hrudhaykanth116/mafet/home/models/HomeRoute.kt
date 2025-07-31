@@ -27,8 +27,8 @@ sealed class HomeRoute(val route: String){
                 Weather,
                 Media,
                 Translate,
-                Dictionary,
                 Journal,
+                Dictionary,
                 Entertainment,
                 Account
             )

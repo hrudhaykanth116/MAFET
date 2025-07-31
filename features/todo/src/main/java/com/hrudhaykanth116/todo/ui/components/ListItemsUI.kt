@@ -19,12 +19,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.common.resources.Dimens
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 @SuppressLint("UnrememberedMutableState")
 @OptIn(ExperimentalFoundationApi::class)
@@ -41,7 +43,7 @@ fun ListItemsUI(
     // val isItemAdded = listItems.size > currentSize
     var isItemAdded by mutableStateOf(listItems.size > currentSize)
 
-    LaunchedEffect(isItemAdded) { //Won't be called upon item deletion
+    LaunchedEffect(isItemAdded) {
         if (isItemAdded) {
             listState.animateScrollToItem(listItems.size)
             currentSize = listItems.size
@@ -50,9 +52,7 @@ fun ListItemsUI(
 
     LazyColumn(
         state = listState,
-        // Adds space between items
         verticalArrangement = Arrangement.spacedBy(Dimens.DEFAULT_PADDING),
-        // Adds padding to the row. Out side of the list item.
         contentPadding = PaddingValues(horizontal = Dimens.DEFAULT_PADDING),
     ) {
 
@@ -110,11 +110,51 @@ fun ListItemsUI(
 @MyPreview
 @Composable
 fun ListItemUIPreview() {
-    // ListItemsUI(
-        // listItems = listOf(
-        //     ToDoTaskUIState(data = TodoUIModel()),
-        //     ToDoTaskUIState(data = TodoUIModel()),
-        //     ToDoTaskUIState(data = TodoUIModel()),
-        // )
-    // )
+
+    val sampleTasks = persistentListOf(
+        ToDoTaskUIState(
+            data = TodoUIModel(
+                id = "1",
+                title = TextFieldValue("Buy groceries"),
+                description = TextFieldValue("Milk, Eggs, Bread, and Coffee"),
+                category = TextFieldValue("Shopping"),
+                priority = 2,
+                targetTime = TextFieldValue("2025-07-25 10:00 AM")
+            )
+        ),
+        ToDoTaskUIState(
+            data = TodoUIModel(
+                id = "2",
+                title = TextFieldValue("Morning Workout"),
+                description = TextFieldValue("Cardio and stretches"),
+                category = TextFieldValue("Health"),
+                priority = 4,
+                targetTime = TextFieldValue("2025-07-24 06:30 AM")
+            ),
+        ),
+        ToDoTaskUIState(
+            data = TodoUIModel(
+                id = "3",
+                title = TextFieldValue("Project Meeting"),
+                description = TextFieldValue("Weekly sync-up with dev team"),
+                category = TextFieldValue("Work"),
+                priority = 5,
+                targetTime = TextFieldValue("2025-07-24 11:00 AM")
+            )
+        ),
+        ToDoTaskUIState(
+            data = TodoUIModel(
+                id = "4",
+                title = TextFieldValue("Read Book"),
+                description = TextFieldValue("Read 50 pages of 'Atomic Habits'"),
+                category = TextFieldValue("Personal Development"),
+                priority = 3,
+                targetTime = TextFieldValue("2025-07-24 08:00 PM")
+            ),
+        )
+    )
+
+    ListItemsUI(
+        listItems = sampleTasks
+    )
 }

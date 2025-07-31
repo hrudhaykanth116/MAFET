@@ -19,6 +19,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.common.resources.Dimens
+import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.ui.components.AppCard
@@ -73,13 +74,6 @@ fun TodoListItemUI(
                 .padding(Dimens.DEFAULT_PADDING)
         ) {
 
-            if (toDoTaskUIState.showCategoryIcon) {
-                // Category image.
-                AppCircularImage(
-                    image = CoreR.drawable.profile_icon.toImageHolder()
-                )
-            }
-
             Column(
                 modifier = Modifier.weight(1f)
             ) {
@@ -128,7 +122,7 @@ fun TodoListItemUI(
 @MyPreview
 @Composable
 fun TodoListItemUIPreview() {
-    CenteredColumn {
+    AppPreviewContainer {
         TodoListItemUI(
             toDoTaskUIState = ToDoTaskUIState(
                 TodoUIModel(
@@ -137,22 +131,7 @@ fun TodoListItemUIPreview() {
                     TextFieldValue("Description"),
                 )
             ),
-            modifier = Modifier
-                .height(80.dp)
-                .padding(horizontal = 10.dp),
-        )
-        // Spacer(modifier = Modifier.height(20.dp))
-        TodoListItemUI(
-            toDoTaskUIState = ToDoTaskUIState(
-                TodoUIModel(
-                    "1",
-                    TextFieldValue("Title"),
-                    TextFieldValue("Description"),
-                )
-            ),
-            modifier = Modifier
-                .height(80.dp)
-                .padding(horizontal = 10.dp),
+            modifier = Modifier.padding(8.dp)
         )
     }
 }

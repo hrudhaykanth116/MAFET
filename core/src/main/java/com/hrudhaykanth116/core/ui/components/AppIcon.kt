@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -26,6 +27,7 @@ fun AppIcon(
     imageHolder: ImageHolder,
     modifier: Modifier = Modifier,
     iconModifier: Modifier = Modifier,
+    space: Dp = 2.dp,
     uiText: UIText? = null,
     isTextFirst: Boolean = false,
     fontSize: TextUnit = TextUnit.Unspecified,
@@ -43,6 +45,8 @@ fun AppIcon(
         if (isTextFirst) {
             AppIconText(uiText, fontSize)
         }
+
+        VerticalSpacer(space)
 
         when (imageHolder) {
             is ImageHolder.ImageBitmapSource -> {
