@@ -16,7 +16,7 @@ import kotlin.random.Random
  */
 class PopularTvShowsRemoteDataSource constructor(
     private val retroApis: RetroApis,
-) : PagingSource<Int, TvShowData>() {
+): PagingSource<Int, TvShowData>() {
 
     private var initialPageId = Random.nextInt(1, 20)
 
@@ -28,16 +28,26 @@ class PopularTvShowsRemoteDataSource constructor(
         return try {
             val tvShowDataPagedResponse: Response<TvShowDataPagedResponse> =
                 retroApis.getPopularTvShows(currentKey)
-            // TODO: 12/06/21 Check if response is successful
+
+            if (!tvShowDataPagedResponse.isSuccessful) {
+                return LoadResult.Error(HttpException(tvShowDataPagedResponse))
+            }
+
             val tvShowsList = tvShowDataPagedResponse.body()?.tvShowsList ?: listOf()
+
+            val nextKey = if (tvShowDataPagedResponse.code() != 200) {
+                null
+            } else {
+                currentKey + 1
+            }
 
             LoadResult.Page(
                 data = tvShowsList,
                 prevKey = if (currentKey == initialPageId) null else currentKey - 1,
-                nextKey = currentKey + 1
+                nextKey = nextKey
             )
 
-        } catch (exception: IOException) {
+        }catch (exception: IOException) {
             Log.e(TAG, "load: ", exception)
             LoadResult.Error(exception)
         } catch (exception: HttpException) {
@@ -61,7 +71,7 @@ class PopularTvShowsRemoteDataSource constructor(
         return refreshKey
     }
 
-    companion object {
+    companion object{
         private const val TAG = "PopularTvShowsDataSourc"
     }
 

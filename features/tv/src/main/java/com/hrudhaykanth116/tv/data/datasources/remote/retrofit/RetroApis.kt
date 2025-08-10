@@ -47,19 +47,19 @@ public interface RetroApis {
         @Query("api_key", encoded = true) apiKey: String = MoviesDbConstants.API_KEY,
     ): Response<PopularMoviesResponse>
 
-    @GET("tv/popular/")
+    @GET("tv/popular")
     suspend fun getPopularTvShows(
         @Query("page") pageId: Int,
         @Query("api_key") apiKey: String = MoviesDbConstants.API_KEY,
     ): Response<TvShowDataPagedResponse>
 
-    @GET("tv/top_rated/")
+    @GET("tv/top_rated")
     suspend fun getTopRatedTvShows(
         @Query("page") pageId: Int,
         @Query("api_key") apiKey: String = MoviesDbConstants.API_KEY,
     ): Response<TvShowDataPagedResponse>
 
-    @GET("tv/airing_today/")
+    @GET("tv/airing_today")
     suspend fun getAiringTodayShows(
         @Query("page") pageId: Int,
         @Query("api_key") apiKey: String = MoviesDbConstants.API_KEY,

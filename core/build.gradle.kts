@@ -124,6 +124,9 @@ dependencies {
 
     /***************************** Jetpack Compose ****************************/
 
+    api(libs.androidx.paging.runtime)
+    api(libs.androidx.paging.compose)
+
     /*********** Firebase ************/
     api(platform(libs.firebase.bom))
     // Firebase authentication
