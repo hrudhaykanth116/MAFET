@@ -28,6 +28,16 @@ fun EntertainmentNavigation() {
         }
 
         composable(
+            route = "tv_popular",
+        ) { backStackEntry ->
+            TvHomeScreen(
+                onNavigateToSearchScreen = {
+                    navController.navigate("tv_search")
+                }
+            )
+        }
+
+        composable(
             route = "tv_search"
         ){
             SearchTvScreen()

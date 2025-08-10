@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -30,6 +31,7 @@ import com.hrudhaykanth116.mafet.home.models.HomeRoute
 import com.hrudhaykanth116.media.ui.screens.MediaScreen
 import com.hrudhaykanth116.todo.navigation.TodoNavigation
 import com.hrudhaykanth116.tv.ui.EntertainmentNavigation
+import com.hrudhaykanth116.tv.ui.screens.PopularTvScreen
 import com.hrudhaykanth116.weather.ui.screens.home.WeatherNavigation
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -52,7 +54,7 @@ fun HomeScreenUI(
     ) {
 
 
-        Box(modifier = Modifier) {
+        Box(modifier = Modifier.padding(bottom = 15.dp)) {
             NavHost(navController, startDestination = HomeRoute.Todo.route) {
 
                 HomeRoute.getRoutes().forEach { homeRoute: HomeRoute ->
@@ -105,7 +107,7 @@ fun HomeScreenUI(
 
                         HomeRoute.Entertainment -> {
                             composable(HomeRoute.Entertainment.route) {
-                                EntertainmentNavigation()
+                                PopularTvScreen()
                             }
                         }
 
