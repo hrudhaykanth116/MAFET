@@ -7,11 +7,18 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.ime
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -58,30 +65,6 @@ fun TodoListScreenUI(
     todoListAppBarCallbacks: TodoListAppBarCallbacks = TodoListAppBarCallbacks(),
 ) {
 
-    // Scaffold(
-    //     modifier = modifier,
-    //     topBar = {
-    //         TodoListAppBar(
-    //             categories = uiState.filterOptions,
-    //             selectedFilter =uiState.selectedFilter,
-    //             isCategoriesPopUpShown = uiState.isCategoryListMenuVisible,
-    //             isMenuVisible = uiState.isMenuVisible,
-    //             isSortMenuVisible = uiState.isSortMenuVisible,
-    //             todoListAppBarCallbacks = todoListAppBarCallbacks,
-    //         )
-    //     },
-    // ) {
-    //     ContentContainer(
-    //         paddingValues = it,
-    //         modifier = modifier,
-    //         uiState = uiState,
-    //         onRemoveTask = onRemoveTask,
-    //         onItemClicked = onItemClicked,
-    //         onTodoTitleChanged = onTodoTitleChanged,
-    //         onCreateBtnClicked = onCreateBtnClicked
-    //     )
-    // }
-
     ContentContainer(
         modifier = modifier,
         uiState = uiState,
@@ -106,8 +89,7 @@ private fun ContentContainer(
     todoListAppBarCallbacks: TodoListAppBarCallbacks = TodoListAppBarCallbacks(),
 ) {
     Column(
-        modifier = modifier
-            .screenBackground()
+        modifier = modifier.screenBackground()
     ) {
 
         TodoListAppBar(
@@ -201,7 +183,7 @@ private fun ContentContainer(
         Row(
             modifier = Modifier
                 .height(IntrinsicSize.Min)
-                .fillMaxWidth().background(color = Color.Green)
+                .fillMaxWidth()
                 .padding(horizontal = 10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -225,6 +207,11 @@ private fun ContentContainer(
             )
         }
         Spacer(modifier = Modifier.height(10.dp))
+        // Spacer(
+        //     Modifier.windowInsetsBottomHeight(
+        //         WindowInsets.ime.exclude(WindowInsets.navigationBars)
+        //     )
+        // )
     }
 }
 
