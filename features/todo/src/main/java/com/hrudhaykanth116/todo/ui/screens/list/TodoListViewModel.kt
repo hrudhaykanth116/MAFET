@@ -2,6 +2,8 @@ package com.hrudhaykanth116.todo.ui.screens.list
 
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.viewModelScope
+import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
+import com.hrudhaykanth116.core.common.utils.network.NetworkMonitor
 import com.hrudhaykanth116.core.domain.models.DomainState
 import com.hrudhaykanth116.core.udf.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
@@ -10,8 +12,8 @@ import com.hrudhaykanth116.todo.domain.model.create.CreateOrUpdateTodoDomainMode
 import com.hrudhaykanth116.todo.domain.use_cases.CreateTodoTaskUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.DeleteTaskUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.ObserveTasksUseCase
-import com.hrudhaykanth116.todo.ui.mappers.toState
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
+import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateTodoEffect
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenEvent
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenMenuItem
@@ -21,12 +23,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toImmutableSet
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -36,41 +35,88 @@ class TodoListViewModel @Inject constructor(
     private val observeTasksUseCase: ObserveTasksUseCase,
     private val createTodoTaskUseCase: CreateTodoTaskUseCase,
     private val deleteTaskUseCase: DeleteTaskUseCase,
+    private val networkMonitor: NetworkMonitor,
+    private val dateTimeUtils: DateTimeUtils,
 ) : UIStateViewModel<TodoListUIState, TodoListScreenEvent, CreateTodoEffect>(
-    UIState.Idle(TodoListUIState())
+    initialState = UIState.Idle(TodoListUIState()),
+    defaultState = TodoListUIState(),
+    networkMonitor = networkMonitor,
 ) {
 
     init {
 
-        val result: Flow<List<TodoModel>> =
-            contentStateFlow.filterNotNull().mapLatest { it: TodoListUIState ->
-                Triple(it.search, it.selectedFilter, it.sortItem)
-            }.distinctUntilChanged().flatMapLatest {
-                observeTasksUseCase(it.first, it.second, it.third.displayName)
-            }
-
-        contentStateFlow.filterNotNull().mapLatest {
-            it.sortItem
-        }.distinctUntilChanged().mapLatest {
-
-        }
-
         viewModelScope.launch {
-            contentStateFlow.filterNotNull().mapLatest {
-                // TODO: Dont observe sort here which will trigger db query
-                Triple(it.search, it.selectedFilter, it.sortItem)
-            }.distinctUntilChanged().flatMapLatest {
-                observeTasksUseCase(it.first, it.second, it.third.key)
-            }.collectLatest { todoDomainModelList ->
-                val toDoTaskUIStates = todoDomainModelList.map { it.toState() }.sortedBy {
-                    it.data.priority
-                }
+
+            contentStateFlow.distinctUntilChanged().flatMapLatest { state: TodoListUIState ->
+                observeTasksUseCase(
+                    state.search,
+                    state.selectedFilter,
+                    state.sortItem.key
+                )
+            }.collectLatest { todoDomainModelList: List<TodoModel> ->
+
+
+                val toDoTaskUIStates: List<ToDoTaskUIState> =
+                    todoDomainModelList.map { todoDomainModel ->
+                        ToDoTaskUIState(
+                            data = with(todoDomainModel) {
+                                TodoUIModel(
+                                    id = id,
+                                    title = TextFieldValue(title),
+                                    description = TextFieldValue(description),
+                                    category = TextFieldValue(category),
+                                    priority = priority,
+                                    targetTime = TextFieldValue(targetTime?.let {
+                                        dateTimeUtils.getFormattedDateTime(it)
+                                    } ?: ""),
+                                )
+                            },
+                        )
+                    }
                 setTasksList(toDoTaskUIStates)
             }
+
         }
 
+        // val result: Flow<List<TodoModel>> =
+        //     contentStateFlow.filterNotNull().mapLatest { it: TodoListUIState ->
+        //         Triple(it.search, it.selectedFilter, it.sortItem)
+        //     }.distinctUntilChanged().flatMapLatest {
+        //         observeTasksUseCase(it.first, it.second, it.third.displayName)
+        //     }
+        //
+        // contentStateFlow.filterNotNull().mapLatest {
+        //     it.sortItem
+        // }.distinctUntilChanged().mapLatest {
+        //
+        //     observeTasksUseCase(
+        //         search = currentContentState.search,
+        //         filterCategory = currentContentState.selectedFilter,
+        //         sortItem = it.third.displayName
+        //     )
+        //
+        // }
+        //
+        // viewModelScope.launch {
+        //     contentStateFlow.filterNotNull().mapLatest {
+        //         // TODO: Dont observe sort here which will trigger db query
+        //         Triple(it.search, it.selectedFilter, it.sortItem)
+        //     }.distinctUntilChanged().flatMapLatest {
+        //         observeTasksUseCase(it.first, it.second, it.third.key)
+        //     }.collectLatest { todoDomainModelList ->
+        //         val toDoTaskUIStates = todoDomainModelList.map { it.toState() }.sortedBy {
+        //             it.data.priority
+        //         }
+        //         setTasksList(toDoTaskUIStates)
+        //     }
+        // }
+
         viewModelScope.launch {
-            observeTasksUseCase("", "", (contentState ?: TodoListUIState()).sortItem.key).collectLatest { todoModelList ->
+            observeTasksUseCase(
+                null,
+                null,
+                currentContentState.sortItem.key
+            ).collectLatest { todoModelList ->
 
                 // TODO: Get categories list without groupBY. Using domain model ??
                 val categories = todoModelList.groupBy { todoModel ->
@@ -125,6 +171,10 @@ class TodoListViewModel @Inject constructor(
             TodoListScreenEvent.SortIconClicked -> onSortIconClicked()
             is TodoListScreenEvent.SortOptionSelected -> onSortOptionClicked(event.sortItem)
         }
+    }
+
+    override fun onRetry() {
+
     }
 
     private fun onSortIconClicked() {
@@ -231,9 +281,6 @@ class TodoListViewModel @Inject constructor(
                     onTodoTaskTitleChanged(TextFieldValue())
                 }
 
-                is DomainState.LoadingDomainState -> {
-
-                }
             }
         }
     }

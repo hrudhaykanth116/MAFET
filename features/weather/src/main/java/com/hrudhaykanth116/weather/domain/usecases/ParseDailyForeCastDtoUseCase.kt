@@ -59,7 +59,7 @@ class ParseDailyForeCastDtoUseCase @Inject constructor(
             weatherElementsList = listOf(),
             weatherMain = WeatherMain(
                 description = weatherMain.description.replaceIfBlank("- -").toUIText(),
-                icon = getWeatherIconUseCase(weatherMain.id).toImageHolder(),
+                icon = getWeatherIconUseCase(weatherMain.id),
                 title = weatherMain.main.replaceIfBlank("- -").toUIText()
 
             ),

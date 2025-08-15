@@ -6,13 +6,17 @@ import com.google.gson.reflect.TypeToken
 import com.hrudhaykanth116.core.data.models.DataResult
 import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.core.common.utils.log.Logger
+import com.hrudhaykanth116.core.common.utils.network.NetworkMonitor
 import com.hrudhaykanth116.core.common.utils.network.OnlineTracker
+import com.hrudhaykanth116.core.data.models.ErrorConstants
 import com.hrudhaykanth116.core.data.models.toUIText
 import okhttp3.ResponseBody
 import retrofit2.Response
 import java.io.IOException
 import java.net.SocketTimeoutException
 import java.util.concurrent.TimeoutException
+import javax.inject.Inject
+import javax.inject.Singleton
 
 abstract class NetworkDataSource {
 
@@ -59,16 +63,19 @@ abstract class NetworkDataSource {
                     uiMessage = "Socket time out".toUIText()
                 )
             }
-             is IOException -> {
-                 DataResult.Error(
-                     uiMessage = "Something went wrong".toUIText()
-                 )
-             }
+
+            is IOException -> {
+                DataResult.Error(
+                    uiMessage = "Something went wrong".toUIText()
+                )
+            }
+
             is TimeoutException -> {
                 DataResult.Error(
                     uiMessage = "Time out".toUIText()
                 )
             }
+
             else -> {
                 DataResult.Error(
                     uiMessage = "Something went wrong".toUIText()
@@ -77,27 +84,34 @@ abstract class NetworkDataSource {
         }
     }
 
-    fun parseError(errorBody: ResponseBody?, code: Int): DataResult.Error{
+    fun parseError(errorBody: ResponseBody?, code: Int): DataResult.Error {
 
         // TODO: Use Moshi
         val gson = Gson()
         val type = object : TypeToken<ApiError>() {}.type
         val errorResponse: ApiError? = gson.fromJson(errorBody?.charStream(), type)
 
+        // TODO: Handle api error messages properly
+
         return DataResult.Error(
-            uiMessage = errorResponse?.message?.toUIText() ?: "Something went wrong".toUIText(),
-            uiDescription = errorResponse?.description?.let { UIText.Text(it) },
-            code = errorResponse?.code
+            uiMessage = "Something went wrong".toUIText(),
+            uiDescription = "Something went wrong".toUIText(),
+            code = ErrorConstants.UNKNOWN_ERROR_CODE
         )
     }
 
-    data class ApiError(
-        var message: String? = null,
-        var description: String? = null,
-        var code: String? = null
-    )
+    sealed interface ApiError {
+        data class ResponseCodeError(val error: String) : ApiError
+        data class NetworkError(val io: IOException) : ApiError
+        object NoInternetError : ApiError
+        data class TimeOutError(val error: SocketTimeoutException) : ApiError
+        object NullResponseError : ApiError
+        data class ExceptionError(val exception: java.lang.Exception) : ApiError
+        data class CustomError(val message: UIText) : ApiError
+        object SomethingWentWrong : ApiError
+    }
 
-    companion object{
+    companion object {
         private const val TAG = "NetworkDataSource"
     }
 

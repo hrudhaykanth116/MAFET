@@ -1,8 +1,6 @@
 package com.hrudhaykanth116.weather.ui.screens.home
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -14,13 +12,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.common.resources.Dimens
 import com.hrudhaykanth116.core.data.models.toUIText
-import com.hrudhaykanth116.core.ui.components.AppCard
 import com.hrudhaykanth116.core.ui.components.AppIcon
 import com.hrudhaykanth116.core.ui.components.AppText
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
@@ -81,7 +77,7 @@ private fun HourlyViewRow(
                     .padding(Dimens.DEFAULT_PADDING)
             ) {
                 AppIcon(
-                    imageHolder = weatherMain.icon,
+                    resId = weatherMain.icon,
                     uiText = hourlyWeatherUIState.time,
                     isTextFirst = true,
                     modifier = Modifier,
@@ -103,16 +99,16 @@ private fun HourlyViewRow(
 fun HourlyViewPreview() {
     HourlyView(
         state = listOf(
-            HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
-            HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
-            HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
-            HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
-            HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
-            HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
-            HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
-            HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
-            HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
-            HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds.toImageHolder()), time = "22 09".toUIText()),
+            HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds), time = "22 09".toUIText()),
+            HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds), time = "22 09".toUIText()),
+            HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds), time = "22 09".toUIText()),
+            HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds), time = "22 09".toUIText()),
+            HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds), time = "22 09".toUIText()),
+            HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds), time = "22 09".toUIText()),
+            HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds), time = "22 09".toUIText()),
+            HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds), time = "22 09".toUIText()),
+            HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds), time = "22 09".toUIText()),
+            HourlyWeatherUIState(weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds), time = "22 09".toUIText()),
         ),
         modifier = Modifier
     )

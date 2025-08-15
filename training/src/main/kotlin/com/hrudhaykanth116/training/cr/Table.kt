@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -26,7 +25,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInWindow
@@ -167,7 +165,7 @@ fun DragableCard(text: UIText, i: Int, moved: Boolean, modifier: Modifier = Modi
 
         AppText(uiText = text, color = Color.White, modifier = Modifier.fillMaxWidth())
         AppIcon(
-            imageHolder = R.drawable.ic_account.toImageHolder(),
+            resId = R.drawable.ic_account,
             modifier = Modifier.size(40.dp),
             tint = Color.White,
         )
@@ -196,7 +194,7 @@ fun Card(text: UIText, modifier: Modifier = Modifier) {
 
         AppText(uiText = text, color = Color.White, modifier = Modifier.fillMaxWidth())
         AppIcon(
-            imageHolder = R.drawable.ic_account.toImageHolder(),
+            resId = R.drawable.ic_account,
             modifier = Modifier.size(40.dp),
             tint = Color.White,
         )

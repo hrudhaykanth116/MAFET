@@ -194,6 +194,7 @@ dependencies {
     //intuit sdp(scalable dp) and ssp(scalable sp)
     api(libs.sdp.android)
     api(libs.ssp.android)
+    api(libs.sdp.compose)
 
     // ViewPager
     api(libs.androidx.viewpager2)
@@ -205,6 +206,7 @@ dependencies {
     // Coil
     api(libs.coil)
     api(libs.coil.kt.compose)
+    api(libs.coil.gif)
 
     // Paging
     api(libs.androidx.paging.runtime.ktx)

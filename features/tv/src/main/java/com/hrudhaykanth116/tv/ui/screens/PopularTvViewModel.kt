@@ -1,27 +1,40 @@
 package com.hrudhaykanth116.tv.ui.screens
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.hrudhaykanth116.core.udf.UDFViewModel
-import com.hrudhaykanth116.core.udf.UIStateViewModel
-import com.hrudhaykanth116.core.ui.models.UIState
+import com.hrudhaykanth116.core.data.models.DataResult
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowData
+import com.hrudhaykanth116.tv.data.datasources.remote.models.genres.GetTvGenresResponse
 import com.hrudhaykanth116.tv.data.repositories.tv.PopularTvShowsRepository
+import com.hrudhaykanth116.tv.data.repositories.tv.TvShowsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class PopularTvViewModel @Inject constructor(
-    private val popularTvShowsRepository: PopularTvShowsRepository
+    private val popularTvShowsRepository: PopularTvShowsRepository,
+    private val tvShowsRepository: TvShowsRepository,
 ): ViewModel(){
 
     init {
 
 
+
+    }
+
+    fun initialiseData(){
+
+        viewModelScope.launch {
+            val tvGenresDataResultDeferred: Deferred<DataResult<GetTvGenresResponse>> = async {
+                tvShowsRepository.getTvGenres()
+            }
+        }
 
     }
 

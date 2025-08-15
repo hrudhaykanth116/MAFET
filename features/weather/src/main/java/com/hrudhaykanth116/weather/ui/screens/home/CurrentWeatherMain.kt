@@ -30,7 +30,7 @@ fun CurrentWeatherMain(
         horizontalArrangement = Arrangement.Center
     ) {
         AppIcon(
-            imageHolder = weatherMain.icon,
+            resId = weatherMain.icon,
             iconModifier = Modifier.size(60.dp),
             tint = Color.Unspecified
         )

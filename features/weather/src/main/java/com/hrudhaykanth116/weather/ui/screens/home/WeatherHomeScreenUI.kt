@@ -193,70 +193,70 @@ fun WeatherHomeScreenUIPreview(
             weatherMain = WeatherMain(
                 "Cloudy".toUIText(),
                 "Rainy".toUIText(),
-                R.drawable.ic_clouds.toImageHolder()
+                R.drawable.ic_clouds
             ), time = "22 09".toUIText()
         ),
         HourlyWeatherUIState(
             weatherMain = WeatherMain(
                 "Cloudy".toUIText(),
                 "Rainy".toUIText(),
-                R.drawable.ic_clouds.toImageHolder()
+                R.drawable.ic_clouds
             ), time = "22 09".toUIText()
         ),
         HourlyWeatherUIState(
             weatherMain = WeatherMain(
                 "Cloudy".toUIText(),
                 "Rainy".toUIText(),
-                R.drawable.ic_clouds.toImageHolder()
+                R.drawable.ic_clouds
             ), time = "22 09".toUIText()
         ),
         HourlyWeatherUIState(
             weatherMain = WeatherMain(
                 "Cloudy".toUIText(),
                 "Rainy".toUIText(),
-                R.drawable.ic_clouds.toImageHolder()
+                R.drawable.ic_clouds
             ), time = "22 09".toUIText()
         ),
         HourlyWeatherUIState(
             weatherMain = WeatherMain(
                 "Cloudy".toUIText(),
                 "Rainy".toUIText(),
-                R.drawable.ic_clouds.toImageHolder()
+                R.drawable.ic_clouds
             ), time = "22 09".toUIText()
         ),
         HourlyWeatherUIState(
             weatherMain = WeatherMain(
                 "Cloudy".toUIText(),
                 "Rainy".toUIText(),
-                R.drawable.ic_clouds.toImageHolder()
+                R.drawable.ic_clouds
             ), time = "22 09".toUIText()
         ),
         HourlyWeatherUIState(
             weatherMain = WeatherMain(
                 "Cloudy".toUIText(),
                 "Rainy".toUIText(),
-                R.drawable.ic_clouds.toImageHolder()
+                R.drawable.ic_clouds
             ), time = "22 09".toUIText()
         ),
         HourlyWeatherUIState(
             weatherMain = WeatherMain(
                 "Cloudy".toUIText(),
                 "Rainy".toUIText(),
-                R.drawable.ic_clouds.toImageHolder()
+                R.drawable.ic_clouds
             ), time = "22 09".toUIText()
         ),
         HourlyWeatherUIState(
             weatherMain = WeatherMain(
                 "Cloudy".toUIText(),
                 "Rainy".toUIText(),
-                R.drawable.ic_clouds.toImageHolder()
+                R.drawable.ic_clouds
             ), time = "22 09".toUIText()
         ),
         HourlyWeatherUIState(
             weatherMain = WeatherMain(
                 "Cloudy".toUIText(),
                 "Rainy".toUIText(),
-                R.drawable.ic_clouds.toImageHolder()
+                R.drawable.ic_clouds
             ), time = "22 09".toUIText()
         ),
     )
@@ -281,7 +281,7 @@ fun WeatherHomeScreenUIPreview(
                     weatherMain = WeatherMain(
                         title = "Atmosphere".toUIText(),
                         description = "sdflksf".toUIText(),
-                        icon = ImageHolder.LocalDrawableResource(R.drawable.ic_atmosphere)
+                        icon = R.drawable.ic_atmosphere
                     ),
                     time = "Today".toUIText()
                 )

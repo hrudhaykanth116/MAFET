@@ -27,10 +27,7 @@ fun CreateOrUpdateTodoScreen(
     val state: UIState<CreateOrUpdateTodoUIState> by viewModel.uiStateFlow.collectAsStateWithLifecycle()
 
     AppUIState(
-        state = state,
-        onUserMessageShown = {
-            viewModel.processEvent(CreateTodoEvent.UserMessageShown)
-        }
+        viewModel = viewModel,
     ) { contentState: CreateOrUpdateTodoUIState? ->
 
         // No content state, nothing to display. May be a progress bar will be shown in [AppUIState]
@@ -57,6 +54,18 @@ fun CreateOrUpdateTodoScreen(
             { viewModel.processEvent(CreateTodoEvent.PriorityChanged(it)) }
         }
 
+        val onTargetTimeDateTimePickerCloseRequest = remember<() -> Unit> {
+            { viewModel.processEvent(CreateTodoEvent.OnTargetTimeDateTimePickerCloseRequest) }
+        }
+
+        val onTargetTimeChanged = remember<(Long) -> Unit> {
+            { viewModel.processEvent(CreateTodoEvent.OnTargetTimeChanged(it)) }
+        }
+
+        val onTargetFieldClicked = remember<() -> Unit> {
+            { viewModel.processEvent(CreateTodoEvent.OnTargetFieldClicked) }
+        }
+
         // TODO: ISSUES Called multiple times
         if (contentState.isSubmitted) {
             onCreated()
@@ -68,7 +77,10 @@ fun CreateOrUpdateTodoScreen(
                 onCreateBtnClicked = onCreateBtnClicked,
                 onCategoryChanged = onCategoryChanged,
                 onBackClicked = onBackClicked,
-                onPriorityChanged = onPriorityChanged
+                onPriorityChanged = onPriorityChanged,
+                onTargetTimeDateTimePickerCloseRequest = onTargetTimeDateTimePickerCloseRequest,
+                onTargetTimeChanged = onTargetTimeChanged,
+                onTargetFieldClicked = onTargetFieldClicked
             )
         }
     }

@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
+@Deprecated("Use UISTATEViewModel instead")
 abstract class UDFViewModel<STATE, EVENT, EFFECT>(
     private val initialState: STATE,
 ) : ViewModel() {

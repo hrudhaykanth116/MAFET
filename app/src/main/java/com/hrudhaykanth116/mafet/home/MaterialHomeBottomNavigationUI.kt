@@ -31,7 +31,7 @@ fun MaterialHomeBottomNavigationUI(
                 },
                 icon = {
                     AppIcon(
-                        imageHolder = navigationItem.iconDrawable.toImageHolder(),
+                        resId = navigationItem.iconDrawable,
                         modifier = Modifier.size(24.dp),
                         // tint = if(isSelected) Color.Blue else Color.White
                     )

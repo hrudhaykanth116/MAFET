@@ -71,20 +71,20 @@ fun AppInputText(
         when (textFieldData.inputType) {
             is InputType.PwdInputType -> {
                 AppPwdTextField(
-                    textFieldData, modifier = modifier, onInputChange,
+                    textFieldData, modifier = Modifier.fillMaxWidth(), onInputChange,
                 )
             }
 
             is InputType.RegularInputType -> {
                 AppTextField(
-                    textFieldData, modifier = modifier, onInputChange = onInputChange
+                    textFieldData, modifier = Modifier.fillMaxWidth(), onInputChange = onInputChange
                 )
             }
 
             InputType.EmailInputType -> {
                 AppTextField(
                     textFieldData, onInputChange = onInputChange,
-                    modifier = modifier,
+                    modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
                     enabled = enabled,
                     readOnly = readOnly,
@@ -151,7 +151,7 @@ fun AppTextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
 ) {
     OutlinedTextField(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier,
         value = textFieldData.inputValue,
         isError = textFieldData.error?.isNotBlank() == true,
         enabled = enabled,

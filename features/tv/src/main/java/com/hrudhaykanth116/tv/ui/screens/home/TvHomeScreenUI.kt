@@ -1,6 +1,5 @@
 package com.hrudhaykanth116.tv.ui.screens.home
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,7 +13,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -51,7 +49,7 @@ fun TvHomeScreenUI(
     Scaffold(
         floatingActionButton = {
             AppIcon(
-                imageHolder = CoreR.drawable.ic_add_filled.toImageHolder(),
+                resId = CoreR.drawable.ic_add_filled,
                 iconModifier = Modifier
                     .size(40.dp)
                     .clickable {

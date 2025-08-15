@@ -31,18 +31,3 @@ fun CreateOrUpdateTodoDomainModel.toUIModel(): CreateOrUpdateTodoUIState {
     )
 
 }
-
-fun CreateOrUpdateTodoUIState.toDomainModel(
-    id: String? = null,
-): CreateOrUpdateTodoDomainModel {
-    return CreateOrUpdateTodoDomainModel(
-        id= id,
-        isInEditMode = isInEditMode,
-        title = todoUIModel.title.text,
-        // titleError = titleError,
-        description = todoUIModel.description.text,
-        category = todoUIModel.category.text,
-        priority = todoUIModel.priority,
-        isSubmitted = isSubmitted
-    )
-}

@@ -4,6 +4,7 @@ import android.R.attr.apiKey
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import androidx.room.util.copy
+import com.hrudhaykanth116.core.common.utils.network.NetworkMonitor
 import com.hrudhaykanth116.core.udf.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.media.data.models.PhotoResponse
@@ -16,11 +17,18 @@ import kotlin.random.Random
 @HiltViewModel
 class MediaViewModel @Inject constructor(
     private val pexelsRepository: PexelsRepository,
+    private val networkMonitor: NetworkMonitor,
 ) : UIStateViewModel<MediaScreenUIState, MediaScreenEvent, MediaScreenEffect>(
-    UIState.Idle(contentState = MediaScreenUIState())
+    initialState = UIState.Idle(contentState = MediaScreenUIState()),
+    defaultState = MediaScreenUIState(),
+    networkMonitor = networkMonitor
 ) {
 
     init {
+        loadData()
+    }
+
+    private fun loadData() {
         viewModelScope.launch {
             try {
                 // Test: Get curated photos
@@ -76,6 +84,10 @@ class MediaViewModel @Inject constructor(
 
             }
         }
+    }
+
+    override fun onRetry() {
+        loadData()
     }
 
     companion object {

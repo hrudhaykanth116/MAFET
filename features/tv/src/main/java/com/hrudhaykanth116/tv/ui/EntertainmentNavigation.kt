@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.hrudhaykanth116.tv.ui.screens.PopularTvScreen
 import com.hrudhaykanth116.tv.ui.screens.home.TvHomeScreen
 import com.hrudhaykanth116.tv.ui.screens.search.SearchTvScreen
 
@@ -22,7 +23,7 @@ fun EntertainmentNavigation() {
         ) { backStackEntry ->
             TvHomeScreen(
                 onNavigateToSearchScreen = {
-                    navController.navigate("tv_search")
+                    navController.navigate("tv_popular")
                 }
             )
         }
@@ -30,7 +31,7 @@ fun EntertainmentNavigation() {
         composable(
             route = "tv_popular",
         ) { backStackEntry ->
-            TvHomeScreen(
+            PopularTvScreen(
                 onNavigateToSearchScreen = {
                     navController.navigate("tv_search")
                 }

@@ -30,6 +30,7 @@ import com.hrudhaykanth116.core.ui.components.HorizontalSpacer
 import com.hrudhaykanth116.core.ui.components.RoundedImage
 import com.hrudhaykanth116.core.ui.components.VerticalSpacer
 import com.hrudhaykanth116.core.ui.models.ImageParams
+import com.hrudhaykanth116.core.ui.models.toImageHolder
 import com.hrudhaykanth116.core.R as CoreR
 
 @Composable
@@ -47,10 +48,7 @@ fun LoginScreenUI(
                 .padding(horizontal = DEFAULT_PADDING)
         ) {
             RoundedImage(
-                imageParams = ImageParams(
-                    image = CoreR.drawable.ic_account,
-
-                    ),
+                imageHolder = CoreR.drawable.ic_account.toImageHolder(),
                 modifier = Modifier
                     .size(120.dp)
                     .clip(CircleShape)

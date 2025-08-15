@@ -23,6 +23,12 @@ class TodoRepository @Inject constructor(
         return todoLocalDataSource.getTodoTasks()
     }
 
+    fun getTasks(search: String?, category: String?, sort: String) = todoLocalDataSource.getTasks(
+        search = search,
+        category = category,
+        sort = sort
+    )
+
     fun getTodoTasksFlow(
         search: String,
         filterCategory: String?,

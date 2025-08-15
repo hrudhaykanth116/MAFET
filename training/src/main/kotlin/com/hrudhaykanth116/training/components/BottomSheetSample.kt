@@ -90,7 +90,7 @@ private fun ModalBottomSheetSample(
             // )
 
             AppIcon(
-                imageHolder = R.drawable.ic_expand_arrow.toImageHolder(),
+                resId = R.drawable.ic_expand_arrow,
                 modifier = Modifier.size(100.dp)
             )
 

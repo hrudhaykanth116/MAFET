@@ -56,6 +56,17 @@ interface TodoTasksDao : BaseDao<TodoTaskDbEntity> {
         sortItem: String
     ): Flow<List<TodoTaskDbEntity>>
 
+    @Query("""
+        SELECT * FROM TodoTaskDbEntity
+        WHERE (:search IS NULL OR title LIKE '%' || :search || '%' OR description LIKE '%' || :search || '%')
+        AND (:category IS NULL OR category = :category)
+        ORDER BY 
+            CASE WHEN :sort = 'priority' THEN priority END DESC,
+            CASE WHEN :sort = 'targetTime' THEN targetTime IS NULL END ASC,
+            CASE WHEN :sort = 'targetTime' THEN targetTime END ASC
+    """)
+    fun getTasks(search: String?, category: String?, sort: String): Flow<List<TodoTaskDbEntity>>
+
     /**
      * Select a task by id.
      *
