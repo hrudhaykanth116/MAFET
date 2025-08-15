@@ -2,6 +2,7 @@ package com.hrudhaykanth116.mafet.main
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.getValue
@@ -27,6 +28,9 @@ class MainActivity : AppCompatActivity() {
         val splashScreen = installSplashScreen()
 
         super.onCreate(savedInstanceState)
+
+        // To force edge to edge in older versions than 15
+        enableEdgeToEdge()
 
         var uiState: MainUiState by mutableStateOf(MainUiState.Loading)
 
