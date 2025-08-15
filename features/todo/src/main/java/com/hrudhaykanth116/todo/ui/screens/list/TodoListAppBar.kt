@@ -37,7 +37,7 @@ fun TodoListAppBar(
 
             Box(modifier = Modifier) {
                 AppClickableIcon(
-                    imageHolder = R.drawable.ic_filter.toImageHolder(),
+                    resId = R.drawable.ic_filter,
                     onClick = todoListAppBarCallbacks.onCategoriesIconClicked
                 )
                 DropdownMenu(
@@ -54,7 +54,7 @@ fun TodoListAppBar(
                                     // .background(MaterialTheme.colorScheme.surfaceVariant)
                                 )
                             },
-                            trailingIcon = { if(it == selectedFilter) AppIcon(imageHolder = R.drawable.ic_check.toImageHolder(), tint = Color.Unspecified) },
+                            trailingIcon = { if(it == selectedFilter) AppIcon(resId = R.drawable.ic_check, tint = Color.Unspecified) },
                             onClick = { todoListAppBarCallbacks.onCategorySelected(it) },
                         )
                     }
@@ -67,7 +67,7 @@ fun TodoListAppBar(
 
             Box(modifier = Modifier) {
                 AppClickableIcon(
-                    imageHolder = R.drawable.ic_sort_vertical.toImageHolder(),
+                    resId = R.drawable.ic_sort_vertical,
                     onClick = todoListAppBarCallbacks.onSortIconClicked
                 )
 
@@ -88,7 +88,7 @@ fun TodoListAppBar(
             Spacer(modifier = Modifier.width(10.dp))
             Box(modifier = Modifier) {
                 AppClickableIcon(
-                    imageHolder = R.drawable.ic_menu_vertical.toImageHolder(),
+                    resId = R.drawable.ic_menu_vertical,
                     onClick = todoListAppBarCallbacks.onMenuItemClicked
                 )
                 DropdownMenu(

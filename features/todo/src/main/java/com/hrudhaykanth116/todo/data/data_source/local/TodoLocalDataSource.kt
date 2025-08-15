@@ -18,6 +18,14 @@ class TodoLocalDataSource @Inject constructor(
         return todoTasksDao.getTasks()
     }
 
+    fun getTasks(
+        search: String?, category: String?, sort: String
+    ) = todoTasksDao.getTasks(
+        search = search,
+        category = category,
+        sort = sort
+    )
+
     fun getTodoTasksFlow(
         search: String,
         filterCategory: String?,

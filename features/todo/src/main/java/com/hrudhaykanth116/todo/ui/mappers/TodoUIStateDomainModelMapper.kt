@@ -30,9 +30,6 @@ fun DomainState<CreateOrUpdateTodoDomainModel>.toUIState(): UIState<CreateOrUpda
 
             return UIState.Idle(contentState.toUIModel(), userMessage)
         }
-        is DomainState.LoadingDomainState -> {
-            return UIState.Loading(contentState?.toUIModel())
-        }
     }
 
 

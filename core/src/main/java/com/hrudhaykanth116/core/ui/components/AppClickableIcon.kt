@@ -1,18 +1,17 @@
 package com.hrudhaykanth116.core.ui.components
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.hrudhaykanth116.core.data.models.UIText
-import com.hrudhaykanth116.core.ui.models.ImageHolder
 
 @Composable
 fun AppClickableIcon(
-    imageHolder: ImageHolder,
+    @DrawableRes resId: Int,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     contentDescriptionUIText: UIText? = null,
@@ -36,7 +35,7 @@ fun AppClickableIcon(
         interactionSource = interactionSource
     ) {
         AppIcon(
-            imageHolder = imageHolder,
+            resId = resId,
             modifier = Modifier,
             contentDescriptionUIText = contentDescriptionUIText,
             tint = iconColor

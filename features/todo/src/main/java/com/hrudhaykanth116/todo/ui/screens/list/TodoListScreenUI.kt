@@ -1,43 +1,42 @@
 package com.hrudhaykanth116.todo.ui.screens.list
 
+import android.R.attr.singleLine
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeContent
-import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 import com.hrudhaykanth116.core.common.utils.compose.isBlank
-import com.hrudhaykanth116.core.common.utils.compose.modifier.largeRadialBackground
 import com.hrudhaykanth116.core.common.utils.compose.modifier.screenBackground
 import com.hrudhaykanth116.core.common.utils.functions.TextFieldChangedHandler
 import com.hrudhaykanth116.core.ui.components.AppClickableIcon
+import com.hrudhaykanth116.core.ui.components.AppInputText
+import com.hrudhaykanth116.core.ui.models.TextFieldData
 import com.hrudhaykanth116.core.ui.models.toImageHolder
 import com.hrudhaykanth116.todo.R
 import com.hrudhaykanth116.core.R as CoreR
@@ -122,7 +121,7 @@ private fun ContentContainer(
 
         Box(
             modifier = Modifier
-                .fillMaxSize()
+                .weight(1f)
         ) {
 
             val coroutineScope = rememberCoroutineScope()
@@ -201,21 +200,27 @@ private fun ContentContainer(
         Spacer(modifier = Modifier.height(10.dp))
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 10.dp)
+                .height(IntrinsicSize.Min)
+                .fillMaxWidth().background(color = Color.Green)
+                .padding(horizontal = 10.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            // AppInputText() This is causing UI issues. Check.
-            OutlinedTextField(
+            AppInputText(
                 modifier = Modifier.weight(1f),
-                value = uiState.todoTitle,
-                onValueChange = onTodoTitleChanged
+                textFieldData = TextFieldData(
+                    inputValue = uiState.todoTitle,
+                    hint = "Enter task title to save",
+                    maxLines = 1,
+                    minLines = 1
+                ),
+                onInputChange = onTodoTitleChanged
             )
-            Spacer(modifier = Modifier.width(10.dp))
+            Spacer(modifier = Modifier.width(8.dp))
             AppClickableIcon(
-                imageHolder = if (uiState.todoTitle.isBlank())
-                    R.drawable.ic_new_note.toImageHolder()
+                resId = if (uiState.todoTitle.isBlank())
+                    R.drawable.ic_new_note
                 else
-                    CoreR.drawable.ic_save.toImageHolder(),
+                    CoreR.drawable.ic_save,
                 onClick = onCreateBtnClicked
             )
         }

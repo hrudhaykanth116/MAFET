@@ -18,17 +18,17 @@ fun MediaScreen(
         viewModel.processEvent(it)
     }
 
-    AppUIState(
-        state,
-        onUserMessageShown = {}
-    ) {
-
-        MediaScreenUI(
-            state = it ?: MediaScreenUIState(),
-            processEvent = onEvent,
-            modifier = Modifier
-        )
-
-    }
+    // AppUIState(
+    //     state,
+    //     onUserMessageShown = {}
+    // ) {
+    //
+    //     MediaScreenUI(
+    //         state = it ?: MediaScreenUIState(),
+    //         processEvent = onEvent,
+    //         modifier = Modifier
+    //     )
+    //
+    // }
 
 }

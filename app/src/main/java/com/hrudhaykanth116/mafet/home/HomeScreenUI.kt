@@ -33,6 +33,7 @@ import com.hrudhaykanth116.todo.navigation.TodoNavigation
 import com.hrudhaykanth116.tv.ui.EntertainmentNavigation
 import com.hrudhaykanth116.tv.ui.screens.PopularTvScreen
 import com.hrudhaykanth116.weather.ui.screens.home.WeatherNavigation
+import ir.kaaveh.sdpcompose.sdp
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -54,7 +55,7 @@ fun HomeScreenUI(
     ) {
 
 
-        Box(modifier = Modifier.padding(bottom = 15.dp)) {
+        Box(modifier = Modifier.padding(bottom = 70.sdp)) {
             NavHost(navController, startDestination = HomeRoute.Todo.route) {
 
                 HomeRoute.getRoutes().forEach { homeRoute: HomeRoute ->
@@ -107,7 +108,7 @@ fun HomeScreenUI(
 
                         HomeRoute.Entertainment -> {
                             composable(HomeRoute.Entertainment.route) {
-                                PopularTvScreen()
+                                EntertainmentNavigation()
                             }
                         }
 

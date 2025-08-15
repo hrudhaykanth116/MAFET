@@ -1,4 +1,4 @@
-package com.hrudhaykanth116.tv.ui.screens
+package com.hrudhaykanth116.tv.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -34,29 +34,25 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.LoadState
-import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
+import com.hrudhaykanth116.core.common.ui.preview.AppPreview
+import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.common.utils.compose.modifier.aspectRatio
 import com.hrudhaykanth116.core.domain.models.ErrorState
 import com.hrudhaykanth116.core.ui.models.UIState
-import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowData
 import com.hrudhaykanth116.tv.domaintemp.models.constants.BaseUrlConstants
 
 @Composable
-fun PopularTvScreen(
-    onNavigateToSearchScreen: () -> Unit,
-    viewModel: PopularTvViewModel = hiltViewModel(),
-) {
-
-    val lazyPagingItems: LazyPagingItems<TvShowData> = viewModel.getPopularTvShows().collectAsLazyPagingItems()
-
-    PopularTvScreenUI(
-        lazyPagingItems,
-        onNavigateToSearchScreen = onNavigateToSearchScreen,
-        modifier = Modifier.fillMaxSize()
+fun MoviePoster(imageUrl: String?) {
+    AsyncImage(
+        model = imageUrl,
+        contentDescription = null,
+        modifier = Modifier
+            .aspectRatio(2f / 3f)
+            .clip(RoundedCornerShape(12.dp))
+            .background(Color.DarkGray),
+        contentScale = ContentScale.Crop
     )
-
 }

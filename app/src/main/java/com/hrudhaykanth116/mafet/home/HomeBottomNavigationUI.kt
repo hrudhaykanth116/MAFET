@@ -84,7 +84,7 @@ private fun AppBottomBarItem(
         }
     ) {
         AppIcon(
-            imageHolder = navigationItem.homeBottomNavigationItem.iconDrawable.toImageHolder(),
+            resId = navigationItem.homeBottomNavigationItem.iconDrawable,
             modifier = Modifier.size(24.dp),
             tint = if (navigationItem.isSelected) Color.Blue else Color.White
         )

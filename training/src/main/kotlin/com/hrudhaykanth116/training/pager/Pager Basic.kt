@@ -37,6 +37,7 @@ import com.hrudhaykanth116.core.common.utils.log.COMPOSE_TAG
 import com.hrudhaykanth116.core.ui.components.AppImage
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
 import com.hrudhaykanth116.core.ui.models.ImageParams
+import com.hrudhaykanth116.core.ui.models.toUrlImageHolder
 import com.hrudhaykanth116.training.data.SAMPLE_IMAGE_URL
 import com.hrudhaykanth116.training.data.getRandomImage
 import kotlinx.coroutines.launch
@@ -108,7 +109,7 @@ fun MyPagerContainer() {
             //     modifier = Modifier.background(color = Color.Cyan)
             // )
             AppImage(
-                imageParams = ImageParams(image = getRandomImage("${page + randomImageIdOffset}")),
+                imageSource = getRandomImage("${page + randomImageIdOffset}").toUrlImageHolder(),
                 // image = SAMPLE_IMAGE_URL,
                 modifier = Modifier
                     .fillMaxSize()

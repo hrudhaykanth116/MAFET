@@ -19,6 +19,7 @@ import com.hrudhaykanth116.core.data.models.toUIText
 fun AppFormButton(
     btnText: UIText,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     onClick: (() -> Unit)? = null,
 ) {
 
@@ -26,6 +27,7 @@ fun AppFormButton(
         onClick = {
             onClick?.invoke()
         },
+        enabled = enabled,
         modifier = modifier,
         // colors = ButtonDefaults.buttonColors(
         //     containerColor = Color.Black

@@ -25,11 +25,7 @@ import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.ui.components.AppCard
 import com.hrudhaykanth116.core.ui.components.AppClickableIcon
 import com.hrudhaykanth116.core.ui.components.AppText
-import com.hrudhaykanth116.core.ui.components.CenteredColumn
-import com.hrudhaykanth116.core.ui.components.AppCircularImage
 import com.hrudhaykanth116.core.ui.models.ImageHolder
-import com.hrudhaykanth116.core.ui.models.toImageHolder
-import com.hrudhaykanth116.todo.R
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 
@@ -98,9 +94,7 @@ fun TodoListItemUI(
             Spacer(modifier = Modifier.width(8.dp))
 
             AppClickableIcon(
-                imageHolder = ImageHolder.LocalDrawableResource(
-                    if(isExpanded) CoreR.drawable.ic_collapse_arrow else CoreR.drawable.ic_expand_arrow
-                ),
+                resId = if(isExpanded) CoreR.drawable.ic_collapse_arrow else CoreR.drawable.ic_expand_arrow,
                 contentDescriptionUIText = "Expand".toUIText(),
                 onClick = {
                     isExpanded = !isExpanded
@@ -108,9 +102,7 @@ fun TodoListItemUI(
             )
 
             AppClickableIcon(
-                imageHolder = ImageHolder.LocalDrawableResource(
-                    CoreR.drawable.ic_delete
-                ),
+                resId = CoreR.drawable.ic_delete,
                 contentDescriptionUIText = "Delete".toUIText(),
                 onClick = onRemoveClicked
             )

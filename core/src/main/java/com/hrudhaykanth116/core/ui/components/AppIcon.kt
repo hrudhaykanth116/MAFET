@@ -1,5 +1,6 @@
 package com.hrudhaykanth116.core.ui.components
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,12 +20,11 @@ import com.hrudhaykanth116.core.R
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.core.data.models.toUIText
-import com.hrudhaykanth116.core.ui.models.ImageHolder
 import com.hrudhaykanth116.core.ui.models.toImageHolder
 
 @Composable
 fun AppIcon(
-    imageHolder: ImageHolder,
+    @DrawableRes resId: Int,
     modifier: Modifier = Modifier,
     iconModifier: Modifier = Modifier,
     space: Dp = 2.dp,
@@ -48,28 +48,12 @@ fun AppIcon(
 
         VerticalSpacer(space)
 
-        when (imageHolder) {
-            is ImageHolder.ImageBitmapSource -> {
-                // TODO: Implement other image/icon resources
-            }
-
-            is ImageHolder.LocalDrawableResource -> {
-                Icon(
-                    painter = painterResource(id = imageHolder.resId),
-                    contentDescription = contentDescriptionUIText?.getText(),
-                    tint = tint,
-                    modifier = iconModifier
-                )
-            }
-
-            is ImageHolder.Url -> {
-
-            }
-
-            is ImageHolder.BitmapSource -> {
-
-            }
-        }
+        Icon(
+            painter = painterResource(id = resId),
+            contentDescription = contentDescriptionUIText?.getText(),
+            tint = tint,
+            modifier = iconModifier
+        )
 
         if (!isTextFirst) {
             AppIconText(uiText, fontSize)
@@ -95,7 +79,7 @@ private fun AppIconText(
 @Composable
 fun AppIconPreview() {
     AppIcon(
-        imageHolder = R.drawable.profile_icon.toImageHolder(),
+        resId = R.drawable.profile_icon,
         uiText = "Profile image".toUIText(),
         modifier = Modifier
             .size(200.dp)

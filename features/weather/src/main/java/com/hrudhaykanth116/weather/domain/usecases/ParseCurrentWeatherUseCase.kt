@@ -77,7 +77,7 @@ class ParseCurrentWeatherUseCase @Inject constructor(
             weatherMain = WeatherMain(
                 title = currentWeather?.main.replaceIfBlank("- -").toUIText(),
                 description = currentWeather?.description.replaceIfBlank("- -").toUIText(),
-                icon = getWeatherIconUseCase(currentWeather?.id).toImageHolder(),
+                icon = getWeatherIconUseCase(currentWeather?.id),
             ),
             // TODO: Optimise code.
             weatherElementUIState = persistentListOf<WeatherElementUIState>(
@@ -109,7 +109,7 @@ class ParseCurrentWeatherUseCase @Inject constructor(
             hourlyWeather?.let { hourly: WeatherForeCastResponse.Hourly ->
                 val weatherMain = hourly.weather?.firstOrNull() ?: return@forEach
 
-                val icon = getWeatherIconUseCase(weatherMain.id).toImageHolder()
+                val icon = getWeatherIconUseCase(weatherMain.id)
 
                 val hourlyWeatherUIState = HourlyWeatherUIState(
                     weatherMain = WeatherMain(

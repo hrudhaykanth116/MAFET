@@ -1,14 +1,10 @@
 package com.hrudhaykanth116.weather.ui.screens.home
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
@@ -25,9 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.common.resources.Dimens
-import com.hrudhaykanth116.core.common.utils.compose.modifier.largeRadialBackground
 import com.hrudhaykanth116.core.data.models.toUIText
-import com.hrudhaykanth116.core.ui.components.AppCard
 import com.hrudhaykanth116.core.ui.components.AppIcon
 import com.hrudhaykanth116.core.ui.components.AppText
 import com.hrudhaykanth116.core.ui.components.VerticalSpacer
@@ -89,7 +83,7 @@ fun TodayWeatherElements(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 AppIcon(
-                    imageHolder = it.weatherElement.displayIcon,
+                    resId = it.weatherElement.displayIcon,
                     uiText = it.weatherElement.displayName,
                     isTextFirst = true,
                     modifier = Modifier,

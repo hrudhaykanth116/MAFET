@@ -1,9 +1,7 @@
 <resources>
     <string name="app_name">Weather Tens</string>
 
-    <!-- Network/Data related -->
-    <string name="something_went_wrong">Something went wrong</string>
-    <string name="image_content_default_description">Unknown image</string>
+    <string name="empty" />
 
     <!-- Login screen -->
     <string name="login_to_your_app">Login to your app</string>
@@ -13,5 +11,18 @@
     <string name="sign_up">SIGN UP</string>
     <string name="password">Password</string>
 
+    <!-- Ap error messages   -->
+    <string name="no_internet">No internet</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="time_out">Time out</string>
+    <string name="loading">loading</string>
+    <string name="reload">Reload</string>
+    <string name="trying_to_connect">Trying to connect</string>
+    <string name="issue_encountered">We encountered an issue while trying to load the data. Please try again later.</string>
+    <string name="internet_offline">Internet Connection Offline</string>
+    <string name="oops">Oops!</string>
+    <string name="internet_offline_something_went_wrong_description">Something went wrong. Please try again…</string>
+    <string name="internet_offline_description">Please check your data/WiFi connection and try again later</string>
+    <string name="image_content_default_description">Unknown image</string>
 
 </resources>

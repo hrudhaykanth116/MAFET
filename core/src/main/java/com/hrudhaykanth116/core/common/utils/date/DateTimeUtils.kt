@@ -58,11 +58,20 @@ class DateTimeUtils @Inject constructor(
         return formatter.format(Date(seconds * 1000L))
     }
 
+    fun getFormattedDateTime(timeMillis: Long, pattern: String = COMPLETE_DATE_TIME_FORMAT): String{
+        val sdf = SimpleDateFormat(pattern, Locale.getDefault())
+        return sdf.format(Date(timeMillis))
+    }
+
+    fun getMillisFromDateTime(dateTime: String, pattern: String = COMPLETE_DATE_TIME_FORMAT): Long? {
+        val sdf = SimpleDateFormat(pattern, Locale.getDefault())
+        return sdf.parse(dateTime)?.time
+    }
+
     companion object {
 
-        // const val COMPLETE_DATE_TIME_FORMAT = "EEEE, yyyy LLLL d, yyyy HH:mm:ss aaa"
         const val COMPLETE_DATE_TIME_FORMAT =
-            "$YEAR-$MONTH_STRING_FULL-$DATE,$HOUR_12:$MINUTES:$SECONDS $AM_PM"
+            "$DATE $MONTH_STRING_FULL $YEAR $HOUR_12:$MINUTES $AM_PM"
 
         const val HOURS_MIN_FORMAT = "HH:mm"
         const val DAY_DATE_FORMAT = "$DAY_SHORT $DATE"
