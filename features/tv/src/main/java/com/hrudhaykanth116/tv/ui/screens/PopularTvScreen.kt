@@ -48,14 +48,20 @@ import com.hrudhaykanth116.tv.domaintemp.models.constants.BaseUrlConstants
 @Composable
 fun PopularTvScreen(
     onNavigateToSearchScreen: () -> Unit,
+    onNavigateToDetailsScreen: (Int) -> Unit,
     viewModel: PopularTvViewModel = hiltViewModel(),
 ) {
 
-    val lazyPagingItems: LazyPagingItems<TvShowData> = viewModel.getPopularTvShows().collectAsLazyPagingItems()
+    val lazyPagingItems: LazyPagingItems<TvShowData> = viewModel.popularTvShows.collectAsLazyPagingItems()
+
 
     PopularTvScreenUI(
         lazyPagingItems,
         onNavigateToSearchScreen = onNavigateToSearchScreen,
+        onNavigateToDetailsScreen = onNavigateToDetailsScreen,
+        onRetry = {
+            lazyPagingItems.retry()
+        },
         modifier = Modifier.fillMaxSize()
     )
 

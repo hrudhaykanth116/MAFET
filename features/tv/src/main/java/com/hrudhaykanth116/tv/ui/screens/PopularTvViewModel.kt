@@ -22,11 +22,9 @@ class PopularTvViewModel @Inject constructor(
     private val tvShowsRepository: TvShowsRepository,
 ): ViewModel(){
 
-    init {
-
-
-
-    }
+    val popularTvShows: Flow<PagingData<TvShowData>> =
+        popularTvShowsRepository.getTvShows()
+            .cachedIn(viewModelScope)
 
     fun initialiseData(){
 
@@ -37,21 +35,6 @@ class PopularTvViewModel @Inject constructor(
         }
 
     }
-
-    fun getPopularTvShows(): Flow<PagingData<TvShowData>> {
-        return popularTvShowsRepository.getTvShows().cachedIn(viewModelScope)
-
-    }
-
-    // fun getPopularTvShows(): Flow<PagingData<TvShowData>> {
-    //     if(popularTvShowsLiveData != null){
-    //         return popularTvShowsLiveData!!
-    //     }
-    //     val newResult: Flow<PagingData<TvShowData>> =
-    //         popularTvShowsRepository.getTvShows().cachedIn(viewModelScope)
-    //     popularTvShowsLiveData = newResult
-    //     return newResult
-    // }
 
     companion object {
         private const val TAG = "PopularTvViewModel"

@@ -45,11 +45,11 @@ import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.tv.domaintemp.models.constants.BaseUrlConstants
 
 @Composable
-fun MoviePoster(imageUrl: String?) {
+fun MoviePoster(imageUrl: String?, modifier: Modifier = Modifier) {
     AsyncImage(
         model = imageUrl,
         contentDescription = null,
-        modifier = Modifier
+        modifier = modifier
             .aspectRatio(2f / 3f)
             .clip(RoundedCornerShape(12.dp))
             .background(Color.DarkGray),

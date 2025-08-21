@@ -6,7 +6,6 @@ Acronym for "My Application For Essential Things". This project is aimed at prov
 
 ## Features
 
-- Login (Basic Firebase setup)
 - Home (🚧 Planning phase)
 - Todo (Basic development done)
 - Weather (Basic development done)
