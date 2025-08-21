@@ -1,6 +1,7 @@
 package com.hrudhaykanth116.tv.ui.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -53,6 +54,8 @@ import com.hrudhaykanth116.tv.ui.components.MoviePoster
 fun PopularTvScreenUI(
     lazyPagingItems: LazyPagingItems<TvShowData>,
     onNavigateToSearchScreen: () -> Unit,
+    onNavigateToDetailsScreen: (Int) -> Unit,
+    onRetry: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
@@ -68,7 +71,12 @@ fun PopularTvScreenUI(
             items(lazyPagingItems.itemCount) { index ->
                 val item = lazyPagingItems[index]
                 if (item != null) {
-                    MoviePoster((BaseUrlConstants.IMAGES_BASE_URL + item.posterPath))
+                    MoviePoster(
+                        (BaseUrlConstants.IMAGES_BASE_URL + item.posterPath),
+                        modifier = Modifier.clickable{
+                            onNavigateToDetailsScreen(item.id)
+                        }
+                    )
                 } else {
                     Box(
                         modifier = Modifier

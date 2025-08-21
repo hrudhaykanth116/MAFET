@@ -1,10 +1,15 @@
 package com.hrudhaykanth116.tv.ui
 
+import android.R.attr.defaultValue
+import android.R.attr.type
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.hrudhaykanth116.tv.ui.screens.PopularTvScreen
+import com.hrudhaykanth116.tv.ui.screens.details.TvDetailsScreen
 import com.hrudhaykanth116.tv.ui.screens.home.TvHomeScreen
 import com.hrudhaykanth116.tv.ui.screens.search.SearchTvScreen
 
@@ -29,19 +34,32 @@ fun EntertainmentNavigation() {
         }
 
         composable(
+            route = "tv_search"
+        ) {
+            SearchTvScreen()
+        }
+
+        composable(
             route = "tv_popular",
         ) { backStackEntry ->
             PopularTvScreen(
                 onNavigateToSearchScreen = {
                     navController.navigate("tv_search")
+                },
+                onNavigateToDetailsScreen = { id ->
+                    navController.navigate("tv_details/$id")
                 }
             )
         }
 
         composable(
-            route = "tv_search"
-        ){
-            SearchTvScreen()
+            route = "tv_details/{id}",
+            arguments = listOf(
+                navArgument("id") {
+                    type = NavType.IntType
+                }
+            )) {
+            TvDetailsScreen()
         }
 
     }

@@ -5,15 +5,13 @@ Features:
     * Centralised place with most important&relevant information from each feature.
 
 * TODOLIST
-    * Multi selection.
-    * Bottom sheet for filter options.
-    * Sort based on priority, target time, created time, category.
 
 * Journal
     * List of entries.
 
 * Weather
     * Refresh ability and lastRefreshedTime ui element.
+
 * Tv
     * List of my tv list that contains the tv series currently being watched or watched already.
         * This list allows me to track last watched episode, fav episodes, fav scene time interval etc..
