@@ -28,18 +28,17 @@ import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.ui.components.AppIcon
 import com.hrudhaykanth116.core.ui.components.AppText
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
-import com.hrudhaykanth116.core.ui.models.toImageHolder
 import com.hrudhaykanth116.tv.ui.models.home.MyTvUIState
-import com.hrudhaykanth116.tv.ui.models.home.TvHomeScreenCallbacks
-import com.hrudhaykanth116.tv.ui.models.home.TvHomeScreenUIState
+import com.hrudhaykanth116.tv.ui.models.home.EntertainmentHomeScreenCallbacks
+import com.hrudhaykanth116.tv.ui.models.home.EntertainmentHomeScreenUIState
 import com.hrudhaykanth116.tv.ui.models.updatemytv.UpdateMyTvUIStateActual
 import com.hrudhaykanth116.tv.ui.screens.updatemytv.UpdateTvScreen
 import com.hrudhaykanth116.core.R as CoreR
 
 @Composable
-fun TvHomeScreenUI(
-    state: TvHomeScreenUIState,
-    tvHomeScreenCallbacks: TvHomeScreenCallbacks,
+fun EntertainmentHomeScreenUI(
+    state: EntertainmentHomeScreenUIState,
+    entertainmentHomeScreenCallbacks: EntertainmentHomeScreenCallbacks,
 ) {
 
     val list = state.tvShows
@@ -53,7 +52,7 @@ fun TvHomeScreenUI(
                 iconModifier = Modifier
                     .size(40.dp)
                     .clickable {
-                        tvHomeScreenCallbacks.onAddNewClicked()
+                        entertainmentHomeScreenCallbacks.onAddNewClicked()
                     },
                 tint = Color.Green
             )
@@ -91,7 +90,7 @@ fun TvHomeScreenUI(
                         MyTvListItemUI(
                             state = myTv,
                             modifier = Modifier.clickable {
-                                tvHomeScreenCallbacks.onTvListItemClicked(myTv)
+                                entertainmentHomeScreenCallbacks.onTvListItemClicked(myTv)
                             }
                         )
                     }
@@ -115,7 +114,7 @@ fun TvHomeScreenUI(
 
                     UpdateTvScreen(
                         onCancelled = {
-                            tvHomeScreenCallbacks.onUpdateTvCloseRequest()
+                            entertainmentHomeScreenCallbacks.onUpdateTvCloseRequest()
                         },
                         // TODO: Quick way. Check this.
                         updateMyTvViewModel = hiltViewModel<UpdateMyTvViewModel>().apply {
@@ -133,8 +132,8 @@ fun TvHomeScreenUI(
 @Preview
 @Composable
 private fun TvHomeScreenUIPreview() {
-    TvHomeScreenUI(
-        state = TvHomeScreenUIState(
+    EntertainmentHomeScreenUI(
+        state = EntertainmentHomeScreenUIState(
             tvShows = listOf(
                 MyTvUIState(
                     id = 1,
@@ -149,7 +148,7 @@ private fun TvHomeScreenUIPreview() {
                 )
             )
         ),
-        tvHomeScreenCallbacks = TvHomeScreenCallbacks(
+        entertainmentHomeScreenCallbacks = EntertainmentHomeScreenCallbacks(
             {}, {}, {}, {}
         )
     )

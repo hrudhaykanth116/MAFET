@@ -5,7 +5,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.hrudhaykanth116.tv.data.datasources.remote.retrofit.RetroApis
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowData
-import com.hrudhaykanth116.tv.data.datasources.remote.models.discover.GetDiscoverTvResponse
+import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDataPagedResponse
 import com.hrudhaykanth116.tv.data.datasources.remote.models.genres.Genre
 import retrofit2.HttpException
 import retrofit2.Response
@@ -41,10 +41,10 @@ class DiscoverTvShowsRemoteDataSource constructor(
         Log.d(TAG, "load: currentKey: $currentKey")
 
         return try {
-            val discoverTvShowsResponse: Response<GetDiscoverTvResponse> =
+            val discoverTvShowsResponse: Response<TvShowDataPagedResponse> =
                 retroApis.discoverTv(currentKey, commaSeparatedGenreIds)
             val tvShowsList: List<TvShowData> =
-                discoverTvShowsResponse.body()?.results ?: arrayListOf()
+                discoverTvShowsResponse.body()?.tvShowsList ?: arrayListOf()
 
             // TODO: 29/05/21 Check if the response is successful
 
