@@ -6,25 +6,24 @@ import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
 import com.hrudhaykanth116.core.udf.UDFViewModel
 import com.hrudhaykanth116.tv.domaintemp.DeleteMyTvUseCase
 import com.hrudhaykanth116.tv.domaintemp.GetMyTvListUseCase
-import com.hrudhaykanth116.tv.domaintemp.UpdateMyTvUseCase
 import com.hrudhaykanth116.tv.ui.mappers.toUIState
 import com.hrudhaykanth116.tv.ui.models.home.MyTvUIState
-import com.hrudhaykanth116.tv.ui.models.home.TvHomeScreenEffect
-import com.hrudhaykanth116.tv.ui.models.home.TvHomeScreenEvent
-import com.hrudhaykanth116.tv.ui.models.home.TvHomeScreenUIState
+import com.hrudhaykanth116.tv.ui.models.home.EntertainmentHomeScreenEffect
+import com.hrudhaykanth116.tv.ui.models.home.EntertainmentHomeScreenEvent
+import com.hrudhaykanth116.tv.ui.models.home.EntertainmentHomeScreenUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TvHomeScreenViewModel @Inject constructor(
+class EntertainmentHomeScreenViewModel @Inject constructor(
     private val getMyTvListUseCase: GetMyTvListUseCase,
     private val dateTimeUtils: DateTimeUtils,
     private val deleteMyTvUseCase: DeleteMyTvUseCase,
 
     ) :
-    UDFViewModel<TvHomeScreenUIState, TvHomeScreenEvent, TvHomeScreenEffect>(TvHomeScreenUIState()) {
+    UDFViewModel<EntertainmentHomeScreenUIState, EntertainmentHomeScreenEvent, EntertainmentHomeScreenEffect>(EntertainmentHomeScreenUIState()) {
 
     init {
         viewModelScope.launch {
@@ -41,12 +40,12 @@ class TvHomeScreenViewModel @Inject constructor(
 
     }
 
-    override fun processEvent(event: TvHomeScreenEvent) {
+    override fun processEvent(event: EntertainmentHomeScreenEvent) {
 
         when (event) {
-            is TvHomeScreenEvent.Delete -> deleteMyTv(event.id)
-            is TvHomeScreenEvent.MyTvListItemClicked -> onMyTvListItemClicked(event.myTv)
-            TvHomeScreenEvent.CloseUpdateTv -> closeUpdateTv()
+            is EntertainmentHomeScreenEvent.Delete -> deleteMyTv(event.id)
+            is EntertainmentHomeScreenEvent.MyEntertainmentListItemClicked -> onMyTvListItemClicked(event.myTv)
+            EntertainmentHomeScreenEvent.CloseUpdateTv -> closeUpdateTv()
         }
 
     }
@@ -81,7 +80,7 @@ class TvHomeScreenViewModel @Inject constructor(
         // }
     }
 
-    companion object{
+    companion object Companion {
         private const val TAG = "TvHomeScreenViewModel"
     }
 
