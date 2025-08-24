@@ -1,23 +1,38 @@
 package com.hrudhaykanth116.tv.ui.screens.details
 
+import android.R.attr.contentDescription
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.hrudhaykanth116.core.common.ui.preview.AppPreview
 import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
+import com.hrudhaykanth116.core.common.utils.compose.modifier.gradientBackground
+import com.hrudhaykanth116.core.ui.components.AppIcon
+import com.hrudhaykanth116.core.ui.components.AppRoundedIcon
+import com.hrudhaykanth116.core.ui.components.FancyChipsFlow
+import com.hrudhaykanth116.core.ui.components.HorizontalSpacer
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDetails
 import com.hrudhaykanth116.tv.data.datasources.remote.models.genres.Genre
+import ir.kaaveh.sdpcompose.sdp
+import ir.kaaveh.sdpcompose.ssp
 
 @Composable
 fun TvDetailsScreenUI(
@@ -28,76 +43,123 @@ fun TvDetailsScreenUI(
 
     val tvShow = state.tvShowDetails
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState()) // allow scrolling
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+    Box(
+        modifier = modifier
     ) {
-        // Poster
-        if (!tvShow.posterPath.isNullOrEmpty()) {
-            AsyncImage(
-                model = "https://image.tmdb.org/t/p/w500${tvShow.posterPath}",
-                contentDescription = "${tvShow.name} poster",
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        )
+        {
+
+            Box {
+                if (!tvShow.posterPath.isNullOrEmpty()) {
+                    AsyncImage(
+                        model = "https://image.tmdb.org/t/p/w500${tvShow.posterPath}",
+                        contentDescription = "${tvShow.name} poster",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(300.sdp),
+                        contentScale = ContentScale.Crop
+                    )
+                }
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(300.sdp)
+                        .gradientBackground(
+                            listOf(
+                                Color.Transparent,
+                                Color.Transparent,
+                                Color(0xFF000000),
+                            )
+                        )
+                        .padding(horizontal = 8.sdp, vertical = 10.sdp),
+                    verticalArrangement = Arrangement.Bottom
+                ) {
+                    // Title
+                    Text(
+                        text = tvShow.name ?: tvShow.originalName.orEmpty(),
+                        fontSize = 18.ssp,
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold
+                    )
+
+                    Spacer(Modifier.height(8.sdp))
+
+                    // First Air Date & Status
+                    Row() {
+                        Text(
+                            text = "${tvShow.firstAirDate.orEmpty()} - ${tvShow.lastAirDate.orEmpty()}",
+                            fontSize = 10.ssp,
+                            color = Color.White
+                        )
+                        HorizontalSpacer(width = 1.sdp)
+                        Text(
+                            text = " | ",
+                            fontSize = 10.ssp,
+                            color = Color.White
+                        )
+                        HorizontalSpacer(width = 1.sdp)
+                        Text(
+                            text = "${String.format(java.util.Locale.getDefault(),"%.1f", tvShow.voteAverage ?: 0.0)} / 10",
+                            color = Color.White,
+                            fontSize = 10.ssp,
+                        )
+                    }
+
+                    Spacer(Modifier.height(8.sdp))
+
+                    val genres = tvShow.genres?.mapNotNull { it?.name }
+
+                    if (!genres.isNullOrEmpty()) {
+                        FancyChipsFlow(
+                            items = genres,
+                        )
+                    }
+                }
+            }
+
+
+
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(250.dp)
-                    .clip(RoundedCornerShape(12.dp)),
-                contentScale = ContentScale.Crop
-            )
+                    .fillMaxHeight()
+                    .background(
+                        color = Color(0xFF000000)
+                    )
+            ) {
+                Spacer(Modifier.height(20.sdp))
+
+                Text(
+                    text = tvShow.overview.orEmpty(),
+                    color = Color.White,
+                    fontSize = 12.ssp,
+                    modifier = Modifier.padding(horizontal = 8.sdp)
+                )
+            }
         }
 
-        Spacer(Modifier.height(16.dp))
-
-        // Title
-        Text(
-            text = tvShow.name ?: tvShow.originalName.orEmpty(),
-            style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.Bold
+        AppRoundedIcon(
+            icon = com.hrudhaykanth116.core.R.drawable.ic_back,
+            tint = Color.White,
+            iconSize = 30.sdp,
+            modifier = Modifier
+                .align(Alignment.TopStart)
         )
 
-        Spacer(Modifier.height(8.dp))
-
-        // First Air Date & Status
-        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text(
-                text = "First Air: ${tvShow.firstAirDate.orEmpty()}",
-                style = MaterialTheme.typography.bodyMedium
-            )
-            Text(
-                text = "Status: ${tvShow.status.orEmpty()}",
-                style = MaterialTheme.typography.bodyMedium
-            )
-        }
-
-        Spacer(Modifier.height(8.dp))
-
-        // Genres
-        if (!tvShow.genres.isNullOrEmpty()) {
-            val genreNames = tvShow.genres.filterNotNull().joinToString { it?.name.orEmpty() }
-            Text(
-                text = "Genres: $genreNames",
-                style = MaterialTheme.typography.bodyMedium
-            )
-        }
-
-        Spacer(Modifier.height(12.dp))
-
-        // Rating
-        Text(
-            text = "Rating: ${String.format("%.1f", tvShow.voteAverage ?: 0.0)} / 10",
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.primary
+        AppRoundedIcon(
+            icon = com.hrudhaykanth116.core.R.drawable.ic_menu_vertical,
+            tint = Color.White,
+            iconSize = 30.sdp,
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .clickable{
+                    processEvent(TvDetailsScreenEvent.OnAddClicked(tvShow.id))
+                }
         )
 
-        Spacer(Modifier.height(16.dp))
-
-        // Overview
-        Text(
-            text = tvShow.overview.orEmpty(),
-            style = MaterialTheme.typography.bodyLarge
-        )
     }
 
 }
@@ -200,7 +262,7 @@ private fun TvDetailsScreenPreview() {
                 tvShowDetails = dummyTvShow
             ),
             processEvent = {},
-            modifier = Modifier,
+            modifier = Modifier.fillMaxSize(),
         )
     }
 

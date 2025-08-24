@@ -37,7 +37,10 @@ fun EntertainmentNavigation() {
         ) { backStackEntry ->
             TvHomeScreen(
                 onNavigateToSearchScreen = {
-                    navController.navigate("tv_popular")
+                    navController.navigate("tv_search")
+                },
+                onItemClick = { id ->
+                    navController.navigate("tv_details/$id")
                 }
             )
         }
