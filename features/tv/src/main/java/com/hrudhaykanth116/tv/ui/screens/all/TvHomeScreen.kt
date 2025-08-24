@@ -12,6 +12,7 @@ import com.hrudhaykanth116.core.ui.models.UIState
 fun TvHomeScreen(
     viewModel: TvHomeViewModel = hiltViewModel(),
     onNavigateToSearchScreen: () -> Unit,
+    onItemClick: (Int) -> Unit,
 ) {
     val state by viewModel.uiStateTemp.collectAsStateWithLifecycle()
 
@@ -22,6 +23,8 @@ fun TvHomeScreen(
     TvHomeScreenUI(
         uiState = state,
         processEvent = onEvent,
+        onNavigateToSearch = onNavigateToSearchScreen,
+        onItemClick = onItemClick,
         modifier = Modifier
     )
 

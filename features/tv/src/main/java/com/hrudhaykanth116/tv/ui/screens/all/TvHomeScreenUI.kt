@@ -1,5 +1,6 @@
 package com.hrudhaykanth116.tv.ui.screens.all
 
+import android.R.attr.onClick
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -20,6 +21,7 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -33,12 +35,14 @@ import com.hrudhaykanth116.core.ui.components.AppClickableIcon
 import com.hrudhaykanth116.core.ui.components.AppIcon
 import com.hrudhaykanth116.core.ui.components.HorizontalSpacer
 import ir.kaaveh.sdpcompose.sdp
+import ir.kaaveh.sdpcompose.ssp
 
 @Composable
 fun TvHomeScreenUI(
     uiState: TvHomeScreenUIState,
     processEvent: (TvHomeScreenEvent) -> Unit,
     onNavigateToSearch: () -> Unit,
+    onItemClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -49,18 +53,25 @@ fun TvHomeScreenUI(
 
         item {
             Row(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth()
-                    .clip(RoundedCornerShape(percent = 20))
-                    .clickable {
-                        onNavigateToSearch()
-                    }
-                    .padding(10.sdp)
+                    .clip(RoundedCornerShape(50))
+                    .background(Color.LightGray.copy(alpha = 0.3f))
+                    .clickable { onNavigateToSearch() }
+                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                Text("Search for Tv show", modifier = Modifier.weight(1f))
-                HorizontalSpacer()
                 AppIcon(
                     resId = R.drawable.ic_search,
+                    tint = Color.White
+                )
+                HorizontalSpacer()
+                Text(
+                    "Search for Tv show",
+                    modifier = Modifier.weight(1f),
+                    fontSize = 12.ssp,
+                    color = Color.White
                 )
             }
         }
@@ -82,6 +93,9 @@ fun TvHomeScreenUI(
                                 .height(180.dp)
                                 .clip(RoundedCornerShape(8.dp))
                                 .background(Color.Gray)
+                                .clickable {
+                                    onItemClick(show.id)
+                                }
                         ) {
                             AsyncImage(
                                 model = "https://image.tmdb.org/t/p/w500${show.posterUrl}",
@@ -107,6 +121,7 @@ private fun TvHomeScreenPreview() {
             uiState = TvHomeScreenUIState(),
             processEvent = {},
             onNavigateToSearch = {},
+            onItemClick = {},
             modifier = Modifier,
         )
     }
