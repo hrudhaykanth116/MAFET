@@ -17,7 +17,7 @@ import com.hrudhaykanth116.core.ui.components.AppIcon
 import com.hrudhaykanth116.core.ui.components.AppToolbar
 import com.hrudhaykanth116.core.ui.models.toImageHolder
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenMenuItem
-import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenSortItem
+import com.hrudhaykanth116.todo.data.models.TodoListScreenSortItem
 
 @Composable
 fun TodoListAppBar(

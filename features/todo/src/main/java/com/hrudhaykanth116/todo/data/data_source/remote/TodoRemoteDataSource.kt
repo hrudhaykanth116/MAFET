@@ -1,10 +1,11 @@
 package com.hrudhaykanth116.todo.data.data_source.remote
 
+import com.hrudhaykanth116.core.common.di.IoDispatcher
 import com.hrudhaykanth116.todo.data.remote.models.GetTodoResponse
 import com.hrudhaykanth116.todo.data.remote.models.PostTodoResponse
+import com.hrudhaykanth116.todo.data.remote.models.CreateTodoRequest
 import com.hrudhaykanth116.todo.data.remote.retrofit.TodoTasksApiService
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -12,11 +13,10 @@ import javax.inject.Singleton
 @Singleton
 class TodoRemoteDataSource @Inject constructor(
     private val todoTasksApiService: TodoTasksApiService,
-): com.hrudhaykanth116.core.data.remote.NetworkDataSource() {
+    @IoDispatcher private val dispatcher: CoroutineDispatcher,
+): com.hrudhaykanth116.core.data.remote.NetworkDataSource(), ITodoRemoteDataSource {
 
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
-
-    suspend fun getTodoTasks(): com.hrudhaykanth116.core.data.models.DataResult<GetTodoResponse> = withContext(
+    override suspend fun getTodoTasks(): com.hrudhaykanth116.core.data.models.DataResult<GetTodoResponse> = withContext(
         dispatcher
     ){
         val apiResponse: com.hrudhaykanth116.core.data.models.DataResult<GetTodoResponse> = getResult {
@@ -25,15 +25,23 @@ class TodoRemoteDataSource @Inject constructor(
         return@withContext apiResponse
     }
 
-    suspend fun createTodoTask(
+    override suspend fun createTodoTask(
         id: Long,
         title: String,
         description: String?,
         category: String,
         active: Boolean
-    ): com.hrudhaykanth116.core.data.models.DataResult<PostTodoResponse> {
-        return getResult {
-            todoTasksApiService.postTodoTask()
+    ): com.hrudhaykanth116.core.data.models.DataResult<PostTodoResponse> = withContext(dispatcher) {
+        getResult {
+            todoTasksApiService.postTodoTask(
+                CreateTodoRequest(
+                    id = id,
+                    title = title,
+                    description = description,
+                    category = category,
+                    active = active,
+                )
+            )
         }
     }
 

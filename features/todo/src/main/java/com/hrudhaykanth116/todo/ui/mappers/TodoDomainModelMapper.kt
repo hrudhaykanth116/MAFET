@@ -9,7 +9,9 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class TodoDomainModelMapper @Inject constructor(){
+class TodoDomainModelMapper @Inject constructor(
+    private val dateTimeUtils: DateTimeUtils,
+){
 
     fun mapToUIModel(todoModel: TodoModel?): TodoUIModel {
 
@@ -21,11 +23,17 @@ class TodoDomainModelMapper @Inject constructor(){
             description = TextFieldValue(todoModel.description),
             category = TextFieldValue(todoModel.category),
             priority = todoModel.priority,
-            targetTime = TextFieldValue(DateTimeUtils.DAY_DATE_FORMAT),
+            targetTime = TextFieldValue(todoModel.targetTime?.let { dateTimeUtils.getFormattedDateTime(it) } ?: ""),
         )
 
     }
 
+    fun mapToUIState(todoModel: TodoModel?): ToDoTaskUIState {
+        return ToDoTaskUIState(data = mapToUIModel(todoModel))
+    }
+
+    fun mapListToUIStates(domainModels: List<TodoModel>): List<ToDoTaskUIState> =
+        domainModels.map { mapToUIState(it) }
 }
 
 fun TodoModel?.toUIModel(): TodoUIModel {

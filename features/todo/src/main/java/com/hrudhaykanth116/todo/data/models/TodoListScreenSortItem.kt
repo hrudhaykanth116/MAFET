@@ -1,4 +1,4 @@
-package com.hrudhaykanth116.todo.ui.models.todolist
+package com.hrudhaykanth116.todo.data.models
 
 enum class TodoListScreenSortItem(val key: String, val displayName: String) {
     // CATEGORY("Category"),

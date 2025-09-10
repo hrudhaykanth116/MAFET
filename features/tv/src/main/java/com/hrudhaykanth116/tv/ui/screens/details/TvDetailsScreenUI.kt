@@ -150,7 +150,7 @@ fun TvDetailsScreenUI(
         )
 
         AppRoundedIcon(
-            icon = com.hrudhaykanth116.core.R.drawable.ic_menu_vertical,
+            icon = com.hrudhaykanth116.core.R.drawable.ic_bookmark,
             tint = Color.White,
             iconSize = 30.sdp,
             modifier = Modifier

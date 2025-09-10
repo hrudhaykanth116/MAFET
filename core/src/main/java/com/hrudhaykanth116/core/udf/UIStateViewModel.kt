@@ -18,6 +18,9 @@ abstract class UIStateViewModel<STATE, EVENT, EFFECT>(
 
     private val _uiStateFlow = MutableStateFlow(initialState)
     val uiStateFlow: StateFlow<UIState<STATE>> = _uiStateFlow.asStateFlow()
+        // .onStart {
+        //     onRetry()
+        // }.stateIn(viewModelScope, SharingStarted.Eagerly, initialState)
 
     // Currently using Shared flow which could cause effect lose if collector is paused.
     // These are typically viewModel events. User events can be handled within UI.
@@ -54,24 +57,24 @@ abstract class UIStateViewModel<STATE, EVENT, EFFECT>(
     }
 
     protected fun updateContentState(contentState: STATE.() -> STATE) {
-        _uiStateFlow.update{
+        _uiStateFlow.update {
             it.copyUIState(newContentState = currentContentState.contentState())
         }
     }
 
-    protected fun setLoadingState(contentSTATE: STATE? = null, ){
+    protected fun setLoadingState(contentSTATE: STATE? = null) {
         setState {
             UIState.Loading(contentSTATE)
         }
     }
 
-    protected fun setIdleState(contentSTATE: STATE? = null){
+    protected fun setIdleState(contentSTATE: STATE? = null) {
         setState {
             UIState.Idle(contentSTATE)
         }
     }
 
-    protected fun setIdleState(contentState: STATE.() -> STATE){
+    protected fun setIdleState(contentState: STATE.() -> STATE) {
         setState {
             UIState.Idle(
                 currentContentState.contentState()
