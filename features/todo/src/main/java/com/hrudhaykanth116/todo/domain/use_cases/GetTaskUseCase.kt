@@ -1,14 +1,13 @@
 package com.hrudhaykanth116.todo.domain.use_cases
 
-import com.hrudhaykanth116.todo.data.repositories.TodoRepository
-import com.hrudhaykanth116.todo.domain.mappers.toDomainModel
 import com.hrudhaykanth116.todo.domain.model.TodoModel
+import com.hrudhaykanth116.todo.domain.repository.ITodoRepository
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class GetTaskUseCase @Inject constructor(
-    private val todoRepository: TodoRepository,
+    private val todoRepository: ITodoRepository,
 ) {
 
     // TODO: Add filtering, sorting kind of things.
@@ -20,11 +19,7 @@ class GetTaskUseCase @Inject constructor(
             return null
         }
 
-        // TODO: Let's think about this return type
-        return todoRepository.getTodoTask(
-            taskId
-        )?.toDomainModel()
-
+        return todoRepository.getTodoTask(taskId)
     }
 
 }

@@ -3,6 +3,7 @@ package com.hrudhaykanth116.core.data.models
 object ErrorConstants {
 
     const val WRONG_PASSWORD: String = "E_WRONG_PASSWORD"
+    const val NO_INTERNET: String = "NO_INTERNET"
     const val USER_NOT_FOUND: String = "E_USER_NOT_FOUND"
     const val E_PASSWORD_RESET_REQUIRED: String = "E_PASSWORD_RESET_REQUIRED"
     const val BAD_REQUEST: String = "E_BADREQUEST"

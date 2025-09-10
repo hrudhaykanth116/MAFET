@@ -1,95 +1,86 @@
 package com.hrudhaykanth116.todo.data.repositories
 
 import com.hrudhaykanth116.core.common.di.IoDispatcher
+import com.hrudhaykanth116.core.common.time.TimeProvider
 import com.hrudhaykanth116.core.data.models.DataResult
-import com.hrudhaykanth116.todo.data.data_source.local.TodoLocalDataSource
-import com.hrudhaykanth116.todo.data.data_source.remote.TodoRemoteDataSource
+import com.hrudhaykanth116.todo.data.data_source.local.ITodoLocalDataSource
+import com.hrudhaykanth116.todo.data.data_source.remote.ITodoRemoteDataSource
 import com.hrudhaykanth116.todo.data.local.room.tables.TodoTaskDbEntity
+import com.hrudhaykanth116.todo.data.mappers.toDomain
+import com.hrudhaykanth116.todo.data.mappers.toLocal
+import com.hrudhaykanth116.todo.domain.model.TodoModel
+import com.hrudhaykanth116.todo.domain.model.create.CreateTodoParams
+import com.hrudhaykanth116.todo.domain.repository.ITodoRepository
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class TodoRepository @Inject constructor(
-    // TODO: Follow dependency inversion principle
-    private val todoLocalDataSource: TodoLocalDataSource,
-    private val remoteDataSource: TodoRemoteDataSource,
+    private val todoLocalDataSource: ITodoLocalDataSource,
+    private val remoteDataSource: ITodoRemoteDataSource,
+    private val timeProvider: TimeProvider,
     @IoDispatcher private val dispatcher: CoroutineDispatcher,
-) {
+): ITodoRepository {
 
-    suspend fun getTodoTask(): List<TodoTaskDbEntity> {
-        return todoLocalDataSource.getTodoTasks()
+    override suspend fun getTodoTask(): List<TodoModel> = withContext(dispatcher) {
+        todoLocalDataSource.getTodoTasks().map { it.toDomain() }
     }
 
-    fun getTasks(search: String?, category: String?, sort: String) = todoLocalDataSource.getTasks(
-        search = search,
-        category = category,
-        sort = sort
-    )
+    override fun getTasks(search: String?, category: String?, sort: String): Flow<List<TodoModel>> =
+        todoLocalDataSource.getTasks(
+            search = search,
+            category = category,
+            sort = sort
+        ).map { list: List<TodoTaskDbEntity> -> list.map { it.toDomain() } }
 
-    fun getTodoTasksFlow(
+    override fun getTodoTasksFlow(
         search: String,
         filterCategory: String?,
         sortItem: String,
-    ) = todoLocalDataSource.getTodoTasksFlow(search, filterCategory, sortItem)
+    ): Flow<List<TodoModel>> =
+        todoLocalDataSource.getTodoTasksFlow(search, filterCategory, sortItem)
+            .map { list: List<TodoTaskDbEntity> -> list.map { it.toDomain() } }
 
-    suspend fun getTodoTask(id: String): TodoTaskDbEntity? = withContext(dispatcher){
-        todoLocalDataSource.getTodoTask(id)
+    override suspend fun getTodoTask(id: String): TodoModel? = withContext(dispatcher){
+        todoLocalDataSource.getTodoTask(id)?.toDomain()
     }
 
+    override suspend fun createTodoTask(params: CreateTodoParams): DataResult<String> = withContext(dispatcher){
 
-    suspend fun createTodoTask(
-        id: String,
-        title: String,
-        description: String,
-        category: String,
-        priority: Int,
-        targetTime: Long? = null,
-    ): DataResult<Unit> = withContext(dispatcher){
-
-        todoLocalDataSource.createTodoTask(
-            TodoTaskDbEntity(
-                id = id,
-                title = title,
-                description = description,
-                completed = false,
-                category = category,
-                priority = priority,
-                targetTime = targetTime,
-                timeUpdated = System.currentTimeMillis()
-            )
-        )
-
-        DataResult.Success(Unit)
-
-
-        // val response: com.hrudhaykanth116.core.data.models.DataResult<PostTodoResponse> = remoteDataSource.createTodoTask(
-        //     id, title, description, category, active
-        // )
-        // return when (response) {
-        //     is com.hrudhaykanth116.core.data.models.DataResult.Success -> {
-        //         val data: PostTodoResponse.TodoData = response.data.data
-        //         val todoTaskDbEntity = data.toDbEntity()
-        //         todoLocalDataSource.createTodoTask(
-        //             todoTaskDbEntity
-        //         )
-        //         com.hrudhaykanth116.core.data.models.DataResult.Success(Unit)
-        //     }
-        //     is com.hrudhaykanth116.core.data.models.DataResult.Error -> {
-        //         com.hrudhaykanth116.core.data.models.DataResult.Error(
-        //             uiMessage = com.hrudhaykanth116.core.data.models.UIText.Text("Api error failure.")
-        //         )
-        //     }
-        // }
+        val idLong: Long = params.id.toLongOrNull() ?: 0L
+        when (val remote = remoteDataSource.createTodoTask(
+            id = idLong,
+            title = params.title,
+            description = params.description,
+            category = params.category,
+            active = true,
+        )) {
+            is DataResult.Success -> {
+                val local = TodoModel(
+                    id = params.id,
+                    title = params.title,
+                    description = params.description,
+                    completed = false,
+                    category = params.category,
+                    priority = params.priority,
+                    targetTime = params.targetTime,
+                ).toLocal(timeProvider.currentTimeMillis())
+                todoLocalDataSource.createTodoTask(local)
+                DataResult.Success(params.id)
+            }
+            is DataResult.Error -> remote
+        }
     }
 
-    suspend fun deleteTasks(taskId: List<String>) = withContext(dispatcher){
+    override suspend fun deleteTasks(taskId: List<String>): Unit = withContext(dispatcher){
         todoLocalDataSource.deleteTasks(taskId)
     }
 
-    suspend fun deleteAllTasks() = withContext(dispatcher){
+    override suspend fun deleteAllTasks(): Unit = withContext(dispatcher){
         todoLocalDataSource.deleteAllTasks()
     }
 

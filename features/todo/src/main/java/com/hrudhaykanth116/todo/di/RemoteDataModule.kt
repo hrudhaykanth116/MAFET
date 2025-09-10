@@ -1,14 +1,12 @@
 package com.hrudhaykanth116.todo.di
 
 import com.hrudhaykanth116.todo.data.remote.retrofit.TodoTasksApiService
-import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -17,11 +15,17 @@ internal object RemoteDataModule {
 
     @Provides
     @Singleton
+    @Named("todo_base_url")
+    fun provideBaseUrl(): String = "https://dummyjson.com/"
+
+    @Provides
+    @Singleton
     fun provideRetrofit(
-        retrofitBuilder: Retrofit.Builder
+        retrofitBuilder: Retrofit.Builder,
+        @Named("todo_base_url") baseUrl: String,
     ): Retrofit {
         return retrofitBuilder
-            .baseUrl("https://dummyjson.com/")
+            .baseUrl(baseUrl)
             .build()
     }
 

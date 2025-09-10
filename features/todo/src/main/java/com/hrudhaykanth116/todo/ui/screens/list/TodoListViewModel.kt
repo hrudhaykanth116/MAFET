@@ -12,12 +12,13 @@ import com.hrudhaykanth116.todo.domain.model.create.CreateOrUpdateTodoDomainMode
 import com.hrudhaykanth116.todo.domain.use_cases.CreateTodoTaskUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.DeleteTaskUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.ObserveTasksUseCase
+import com.hrudhaykanth116.todo.ui.mappers.TodoDomainModelMapper
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateTodoEffect
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenEvent
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenMenuItem
-import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenSortItem
+import com.hrudhaykanth116.todo.data.models.TodoListScreenSortItem
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
@@ -37,6 +38,7 @@ class TodoListViewModel @Inject constructor(
     private val deleteTaskUseCase: DeleteTaskUseCase,
     private val networkMonitor: NetworkMonitor,
     private val dateTimeUtils: DateTimeUtils,
+    private val mapper: TodoDomainModelMapper,
 ) : UIStateViewModel<TodoListUIState, TodoListScreenEvent, CreateTodoEffect>(
     initialState = UIState.Idle(TodoListUIState()),
     defaultState = TodoListUIState(),
@@ -55,61 +57,11 @@ class TodoListViewModel @Inject constructor(
                 )
             }.collectLatest { todoDomainModelList: List<TodoModel> ->
 
-
-                val toDoTaskUIStates: List<ToDoTaskUIState> =
-                    todoDomainModelList.map { todoDomainModel ->
-                        ToDoTaskUIState(
-                            data = with(todoDomainModel) {
-                                TodoUIModel(
-                                    id = id,
-                                    title = TextFieldValue(title),
-                                    description = TextFieldValue(description),
-                                    category = TextFieldValue(category),
-                                    priority = priority,
-                                    targetTime = TextFieldValue(targetTime?.let {
-                                        dateTimeUtils.getFormattedDateTime(it)
-                                    } ?: ""),
-                                )
-                            },
-                        )
-                    }
+                val toDoTaskUIStates: List<ToDoTaskUIState> = mapper.mapListToUIStates(todoDomainModelList)
                 setTasksList(toDoTaskUIStates)
             }
 
         }
-
-        // val result: Flow<List<TodoModel>> =
-        //     contentStateFlow.filterNotNull().mapLatest { it: TodoListUIState ->
-        //         Triple(it.search, it.selectedFilter, it.sortItem)
-        //     }.distinctUntilChanged().flatMapLatest {
-        //         observeTasksUseCase(it.first, it.second, it.third.displayName)
-        //     }
-        //
-        // contentStateFlow.filterNotNull().mapLatest {
-        //     it.sortItem
-        // }.distinctUntilChanged().mapLatest {
-        //
-        //     observeTasksUseCase(
-        //         search = currentContentState.search,
-        //         filterCategory = currentContentState.selectedFilter,
-        //         sortItem = it.third.displayName
-        //     )
-        //
-        // }
-        //
-        // viewModelScope.launch {
-        //     contentStateFlow.filterNotNull().mapLatest {
-        //         // TODO: Dont observe sort here which will trigger db query
-        //         Triple(it.search, it.selectedFilter, it.sortItem)
-        //     }.distinctUntilChanged().flatMapLatest {
-        //         observeTasksUseCase(it.first, it.second, it.third.key)
-        //     }.collectLatest { todoDomainModelList ->
-        //         val toDoTaskUIStates = todoDomainModelList.map { it.toState() }.sortedBy {
-        //             it.data.priority
-        //         }
-        //         setTasksList(toDoTaskUIStates)
-        //     }
-        // }
 
         viewModelScope.launch {
             observeTasksUseCase(
@@ -316,5 +268,4 @@ class TodoListViewModel @Inject constructor(
             )
         }
     }
-
 }

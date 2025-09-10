@@ -2,10 +2,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <application>
-        <activity
-            android:name="com.hrudhaykanth116.weather.ui.screens.WeatherActivity"
-            android:theme="@style/Theme.AppCompat" />
-    </application>
 
 </manifest>

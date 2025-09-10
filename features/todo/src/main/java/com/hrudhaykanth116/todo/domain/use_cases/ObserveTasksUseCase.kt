@@ -1,19 +1,16 @@
 package com.hrudhaykanth116.todo.domain.use_cases
 
-import com.hrudhaykanth116.todo.data.local.room.tables.TodoTaskDbEntity
-import com.hrudhaykanth116.todo.data.repositories.TodoRepository
-import com.hrudhaykanth116.todo.domain.mappers.toDomainModel
 import com.hrudhaykanth116.todo.domain.model.TodoModel
+import com.hrudhaykanth116.todo.domain.repository.ITodoRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.mapLatest
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @Singleton
 class ObserveTasksUseCase @Inject constructor(
-    private val todoRepository: TodoRepository
+    private val todoRepository: ITodoRepository
 ) {
 
     operator fun invoke(
@@ -21,12 +18,7 @@ class ObserveTasksUseCase @Inject constructor(
         filterCategory: String?,
         sortItem: String,
     ): Flow<List<TodoModel>> {
-
-        return todoRepository.getTasks(
-            search, filterCategory, sortItem
-        ).mapLatest { list: List<TodoTaskDbEntity> ->
-            list.map { it.toDomainModel() }
-        }
+        return todoRepository.getTasks(search, filterCategory, sortItem)
     }
 
 }

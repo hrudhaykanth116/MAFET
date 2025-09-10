@@ -65,4 +65,16 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     api(libs.androidx.room.ktx)
 
+    // Unit tests
+    testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.android)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.inline)
+    testImplementation(libs.mockk)
+    testImplementation(libs.junit.jupiter)
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }

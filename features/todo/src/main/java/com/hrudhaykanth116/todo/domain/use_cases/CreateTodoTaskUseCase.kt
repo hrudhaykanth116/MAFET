@@ -5,21 +5,18 @@ import com.hrudhaykanth116.core.common.utils.string.replaceIfBlank
 import com.hrudhaykanth116.core.data.models.DataResult
 import com.hrudhaykanth116.core.domain.models.DomainState
 import com.hrudhaykanth116.core.domain.models.ErrorState
-import com.hrudhaykanth116.todo.data.repositories.TodoRepository
+import com.hrudhaykanth116.todo.domain.repository.ITodoRepository
 import com.hrudhaykanth116.todo.domain.model.TASK_CATEGORY_DEFAULT_NAME
 import com.hrudhaykanth116.todo.domain.model.create.CreateOrUpdateTodoDomainModel
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
+import com.hrudhaykanth116.todo.domain.model.create.CreateTodoParams
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class CreateTodoTaskUseCase @Inject constructor(
-    private val todoRepository: TodoRepository,
+    private val todoRepository: ITodoRepository,
     private val uniqueIdGenerator: UniqueIdGenerator,
 ) {
-
-    private val dispatcher: CoroutineDispatcher = Dispatchers.Default
 
     suspend operator fun invoke(
         createOrUpdateTodoDomainModel: CreateOrUpdateTodoDomainModel,
@@ -30,7 +27,7 @@ class CreateTodoTaskUseCase @Inject constructor(
         if (stateAfterValidation.containsError()) {
             return DomainState.LoadedDomainState(stateAfterValidation)
         } else {
-            val result: DataResult<Unit> = todoRepository.createTodoTask(
+            val params = CreateTodoParams(
                 id = createOrUpdateTodoDomainModel.id ?: uniqueIdGenerator.getUniqueId(),
                 title = stateAfterValidation.title.trim(),
                 description = stateAfterValidation.description.trim(),
@@ -40,6 +37,7 @@ class CreateTodoTaskUseCase @Inject constructor(
                 priority = createOrUpdateTodoDomainModel.priority,
                 targetTime = createOrUpdateTodoDomainModel.targetTime,
             )
+            val result: DataResult<String> = todoRepository.createTodoTask(params)
 
             return result.process(
                 onSuccess = {
