@@ -1,9 +1,11 @@
 package com.hrudhaykanth116.auth.domain.usecases
 
 import com.hrudhaykanth116.auth.data.models.SignUpRequest
+import com.hrudhaykanth116.auth.data.models.SignUpResult
 import com.hrudhaykanth116.auth.data.repository.IAuthRepository
 import com.hrudhaykanth116.auth.domain.models.signup.SignUpFormState
-import com.hrudhaykanth116.core.data.models.DataResult
+import com.hrudhaykanth116.core.common.mappers.mapToUIText
+import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
 import javax.inject.Inject
 
 class SignUpUseCase @Inject constructor(
@@ -21,7 +23,7 @@ class SignUpUseCase @Inject constructor(
         if (newUIState.containsError()) {
             return newUIState
         } else {
-            val signUpResult = authRepository.signUp(
+            val signUpResult: RepoResultWrapper<SignUpResult> = authRepository.signUp(
                 SignUpRequest(
                     email = signUpUIState.emailTextFieldValue.text,
                     password = signUpUIState.passwordTextFieldValue.text,
@@ -31,13 +33,13 @@ class SignUpUseCase @Inject constructor(
                 )
             )
             return when (signUpResult) {
-                is DataResult.Error -> {
+                is RepoResultWrapper.Error -> {
                     newUIState.copy(
-                        userMessage = signUpResult.uiMessage
+                        userMessage = signUpResult.errorState.mapToUIText()
                     )
                 }
 
-                is DataResult.Success -> {
+                is RepoResultWrapper.Success -> {
                     newUIState.copy(
                         isSignedUp = true
                     )

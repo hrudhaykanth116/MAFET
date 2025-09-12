@@ -1,7 +1,7 @@
 package com.hrudhaykanth116.tv.domaintemp
 
-import com.hrudhaykanth116.core.data.models.DataResult
-import com.hrudhaykanth116.core.data.models.UIText
+import com.hrudhaykanth116.core.domain.models.ErrorState
+import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowData
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDataPagedResponse
 import com.hrudhaykanth116.tv.data.datasources.remote.models.tv.CategorisedTvShows
@@ -14,16 +14,16 @@ import javax.inject.Singleton
 @Singleton
 class GetAllTvShowsUseCase @Inject constructor(private val repository: TvRepository) {
 
-    suspend operator fun invoke(): DataResult<CategorisedTvShows> = coroutineScope {
+    suspend operator fun invoke(): RepoResultWrapper<CategorisedTvShows> = coroutineScope {
         val popularDeferred = async { repository.getPopularTvShows(1) }
         val topRatedDeferred = async { repository.getTopRatedTvShows(1) }
         val airingTodayDeferred = async { repository.getAiringTodayShows(1) }
         val trendingDeferred = async { repository.getTrendingTv("day") }
 
-        val popularResult: DataResult<TvShowDataPagedResponse> = popularDeferred.await()
-        val topRatedResult: DataResult<TvShowDataPagedResponse> = topRatedDeferred.await()
-        val airingTodayResult: DataResult<TvShowDataPagedResponse> = airingTodayDeferred.await()
-        val trendingResult: DataResult<TvShowDataPagedResponse> = trendingDeferred.await()
+        val popularResult: RepoResultWrapper<TvShowDataPagedResponse> = popularDeferred.await()
+        val topRatedResult: RepoResultWrapper<TvShowDataPagedResponse> = topRatedDeferred.await()
+        val airingTodayResult: RepoResultWrapper<TvShowDataPagedResponse> = airingTodayDeferred.await()
+        val trendingResult: RepoResultWrapper<TvShowDataPagedResponse> = trendingDeferred.await()
 
         val popular = extractList(popularResult)
         val topRated = extractList(topRatedResult)
@@ -36,10 +36,10 @@ class GetAllTvShowsUseCase @Inject constructor(private val repository: TvReposit
         return@coroutineScope if (allEmpty) {
             val firstError =
                 listOf(popularResult, topRatedResult, airingTodayResult, trendingResult)
-                    .firstOrNull { it is DataResult.Error } as? DataResult.Error
-            firstError ?: DataResult.Error(UIText.Text("Unknown error"))
+                    .firstOrNull { it is RepoResultWrapper.Error } as? RepoResultWrapper.Error
+            firstError ?: RepoResultWrapper.Error(ErrorState.SomethingWentWrong)
         } else {
-            DataResult.Success(
+            RepoResultWrapper.Success(
                 CategorisedTvShows(
                     popular = popular,
                     topRated = topRated,
@@ -50,9 +50,9 @@ class GetAllTvShowsUseCase @Inject constructor(private val repository: TvReposit
         }
     }
 
-    private fun extractList(result: DataResult<*>): List<TvShowData> {
+    private fun extractList(result: RepoResultWrapper<*>): List<TvShowData> {
         return when (result) {
-            is DataResult.Success -> when (val data = result.data) {
+            is RepoResultWrapper.Success -> when (val data = result.data) {
                 is TvShowDataPagedResponse -> data.tvShowsList
                 else -> emptyList()
             }

@@ -5,16 +5,16 @@ import android.content.Context
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
-import androidx.compose.runtime.remember
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
+import com.hrudhaykanth116.core.common.mappers.mapToUIMessage
 import com.hrudhaykanth116.core.common.ui.models.UserMessage
 import com.hrudhaykanth116.core.common.utils.log.Logger
-import com.hrudhaykanth116.core.data.models.DataResult
 import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.core.data.models.toUIText
+import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
 import com.hrudhaykanth116.core.udf.UDFViewModel
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenEffect
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenEvent
@@ -82,16 +82,16 @@ class WeatherHomeScreenViewModel @Inject constructor(
             )
 
             when (foreCastDataResult) {
-                is DataResult.Error -> {
+                is RepoResultWrapper.Error -> {
                     setState {
                         copy(
-                            errorMessage = foreCastDataResult.uiMessage?.let { UserMessage.Error(it) },
+                            errorMessage = foreCastDataResult.errorState.mapToUIMessage(),
                             isLoading = false,
                         )
                     }
                 }
 
-                is DataResult.Success -> {
+                is RepoResultWrapper.Success -> {
 
                     setState {
                         copy(
@@ -126,16 +126,16 @@ class WeatherHomeScreenViewModel @Inject constructor(
             )
 
             when (foreCastDataResult) {
-                is DataResult.Error -> {
+                is RepoResultWrapper.Error -> {
                     setState {
                         copy(
-                            errorMessage = foreCastDataResult.uiMessage?.let { UserMessage.Error(it) },
+                            errorMessage = foreCastDataResult.errorState.mapToUIMessage(),
                             isLoading = false,
                         )
                     }
                 }
 
-                is DataResult.Success -> {
+                is RepoResultWrapper.Success -> {
 
                     setState {
                         copy(
@@ -176,7 +176,7 @@ class WeatherHomeScreenViewModel @Inject constructor(
         }
     }
 
-    fun handleLocationOrGpsUnAvailableCases(){
+    fun handleLocationOrGpsUnAvailableCases() {
 
         val lastKnownLocation = "Hyderabad"
         onAddressFetched(lastKnownLocation)

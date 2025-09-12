@@ -1,6 +1,6 @@
 package com.hrudhaykanth116.todo.domain.use_cases
 
-import com.hrudhaykanth116.core.data.models.DataResult
+import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
 import com.hrudhaykanth116.todo.data.repositories.TodoRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -9,7 +9,7 @@ import javax.inject.Singleton
 
 @Singleton
 class DeleteTaskUseCase @Inject constructor(
-    private val todoRepository: TodoRepository
+    private val todoRepository: TodoRepository,
 ) {
 
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
@@ -19,19 +19,19 @@ class DeleteTaskUseCase @Inject constructor(
      */
     suspend operator fun invoke(
         taskIdsToDelete: List<String>? = null,
-    ): DataResult<Unit> {
+    ): RepoResultWrapper<Unit> {
 
         if (taskIdsToDelete == null) {
             // TODO: A simple check to delete all tasks.
             todoRepository.deleteAllTasks()
-        }else{
+        } else {
             todoRepository.deleteTasks(
                 taskId = taskIdsToDelete,
             )
         }
 
 
-        return DataResult.Success(Unit)
+        return RepoResultWrapper.Success(Unit)
 
     }
 }

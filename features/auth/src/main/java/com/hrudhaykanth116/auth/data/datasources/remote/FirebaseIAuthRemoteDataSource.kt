@@ -11,8 +11,11 @@ import com.hrudhaykanth116.auth.data.models.SignUpRequest
 import com.hrudhaykanth116.auth.data.models.SignUpResult
 import com.hrudhaykanth116.core.common.utils.await
 import com.hrudhaykanth116.core.common.utils.awaitOrNull
-import com.hrudhaykanth116.core.data.models.DataResult
+import com.hrudhaykanth116.core.data.models.ApiError
+import com.hrudhaykanth116.core.data.models.ApiResultWrapper
 import com.hrudhaykanth116.core.data.models.UIText
+import com.hrudhaykanth116.core.data.models.toUIText
+import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
@@ -27,56 +30,61 @@ class FirebaseIAuthRemoteDataSource @Inject constructor(
 
     private val dispatcher = Dispatchers.IO
 
-    override suspend fun getLoggedInUserId(): DataResult<String> = withContext(dispatcher) {
+    override suspend fun getLoggedInUserId(): ApiResultWrapper<String> = withContext(dispatcher) {
         val currentUser = firebaseAuth.currentUser
 
         return@withContext if (currentUser != null) {
-            DataResult.Success(
+            ApiResultWrapper.Success(
                 currentUser.uid
             )
         } else {
-            DataResult.Error(
-                fullDescription = "No logged in user found."
+            ApiResultWrapper.Error(
+                ApiError.SomethingWentWrong
             )
         }
 
     }
 
-    override suspend fun login(loginRequest: LoginRequest): DataResult<LoginResult> =
+    override suspend fun login(loginRequest: LoginRequest): ApiResultWrapper<LoginResult> =
         withContext(dispatcher) {
-            val signInResult: DataResult<AuthResult> = firebaseAuth.signInWithEmailAndPassword(
+            val signInResult: RepoResultWrapper<AuthResult> = firebaseAuth.signInWithEmailAndPassword(
                 loginRequest.email,
                 loginRequest.password
             ).await()
 
             return@withContext when (signInResult) {
-                is DataResult.Error -> signInResult
-                is DataResult.Success -> {
-                    DataResult.Success(
+                is RepoResultWrapper.Error -> {
+                    ApiResultWrapper.Error(ApiError.SomethingWentWrong)
+                }
+
+                is RepoResultWrapper.Success -> {
+                    ApiResultWrapper.Success(
                         LoginResult(
-                            // TODO: Handle null cases
-                            userId = signInResult.data.user?.uid!!,
-                            message = UIText.Text("Logged in successfully")
+                            signInResult.data.user?.uid!!,
+                            "Successfully logged in".toUIText()
                         )
                     )
                 }
             }
         }
 
-    override suspend fun signUp(signUpRequest: SignUpRequest): DataResult<SignUpResult> =
+    override suspend fun signUp(signUpRequest: SignUpRequest): ApiResultWrapper<SignUpResult> =
         withContext(dispatcher) {
-            val signInResult: DataResult<AuthResult> = firebaseAuth.createUserWithEmailAndPassword(
+            val signInResult: RepoResultWrapper<AuthResult> = firebaseAuth.createUserWithEmailAndPassword(
                 signUpRequest.email,
                 signUpRequest.password
             ).await()
 
 
             return@withContext when (signInResult) {
-                is DataResult.Error -> signInResult
-                is DataResult.Success -> {
+                is RepoResultWrapper.Error -> {
+                    ApiResultWrapper.Error(ApiError.SomethingWentWrong)
+                }
+
+                is RepoResultWrapper.Success -> {
 
                     val user = signInResult.data.user
-                        ?: return@withContext DataResult.Error(UIText.Text("Something went wrong"))
+                        ?: return@withContext ApiResultWrapper.Error(ApiError.SomethingWentWrong)
 
                     val userNode = database.child("data").child(user.uid)
 
@@ -95,11 +103,11 @@ class FirebaseIAuthRemoteDataSource @Inject constructor(
                             firebaseStorage.reference.child("${user.uid}/profileImg.jpg")
                         val result = profileImageRef.putBytes(data).await()
                         when (result) {
-                            is DataResult.Error -> {
+                            is RepoResultWrapper.Error -> {
 
                             }
 
-                            is DataResult.Success -> {
+                            is RepoResultWrapper.Success -> {
                                 val url = profileImageRef.downloadUrl.awaitOrNull()?.toString()
                                 userNode.child("profileImgUrl").setValue(url).await()
                             }
@@ -114,7 +122,7 @@ class FirebaseIAuthRemoteDataSource @Inject constructor(
                     // val displayName =
                     //     firebaseUser?.updateProfile(UserProfileChangeRequest()) ?: "No display name"
 
-                    DataResult.Success(
+                    ApiResultWrapper.Success(
                         SignUpResult(
                             message = UIText.Text("Successfully signed up")
                         )
@@ -123,9 +131,9 @@ class FirebaseIAuthRemoteDataSource @Inject constructor(
             }
         }
 
-    override suspend fun logout(): DataResult<UIText> {
+    override suspend fun logout(): ApiResultWrapper<UIText> {
         firebaseAuth.signOut()
-        return DataResult.Success(UIText.Text("Signed out successfully"))
+        return ApiResultWrapper.Success(UIText.Text("Signed out successfully"))
     }
 
     companion object {

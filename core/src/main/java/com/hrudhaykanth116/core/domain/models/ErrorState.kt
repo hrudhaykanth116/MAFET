@@ -1,10 +1,14 @@
 package com.hrudhaykanth116.core.domain.models
 
-enum class ErrorState {
+sealed class ErrorState {
 
-    Unknown,
-    EMPTY_FIELD,
-    MAX_CHARACTERS_EXCEEDED,
-    MIN_CHARACTERS_FAILED,
-
+    object Validation : ErrorState()
+    object NoNetwork : ErrorState()
+    data class Api(val message: String?, val description: String?) : ErrorState()
+    object TimeOut : ErrorState()
+    data class Unknown(val throwable: Throwable) : ErrorState()
+    object SomethingWentWrong: ErrorState()
+    object InvalidUser: ErrorState()
+    object NotFound : ErrorState()
+    object Unauthorized : ErrorState()
 }

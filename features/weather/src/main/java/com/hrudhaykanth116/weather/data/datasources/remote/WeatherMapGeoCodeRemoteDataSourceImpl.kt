@@ -1,6 +1,6 @@
 package com.hrudhaykanth116.weather.data.datasources.remote
 
-import com.hrudhaykanth116.core.data.models.DataResult
+import com.hrudhaykanth116.core.data.models.ApiResultWrapper
 import com.hrudhaykanth116.core.data.remote.NetworkDataSource
 import com.hrudhaykanth116.weather.data.datasources.remote.retrofit.OpenWeatherApiService
 import com.hrudhaykanth116.weather.data.models.OWMReverseGeocodingResponseItem
@@ -17,7 +17,7 @@ class WeatherMapGeoCodeRemoteDataSourceImpl @Inject constructor(
     override suspend fun getReverseGeoCoding(
         latitude: String,
         longitude: String,
-    ): DataResult<List<OWMReverseGeocodingResponseItem>> = getResult {
+    ): ApiResultWrapper<List<OWMReverseGeocodingResponseItem>> = getResult {
         openWeatherApiService.reverseGeoCoding(latitude, longitude)
     }
 

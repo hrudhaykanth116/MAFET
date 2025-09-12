@@ -15,7 +15,7 @@ class MyTvListLocalDataSource @Inject constructor(
         return dao.observeMyTvList()
     }
 
-    suspend fun getMyTvList() = dao.getMyTvList()
+    suspend fun getMyTvList(): List<MyTvEntity> = dao.getMyTvList()
 
     suspend fun insertMyTvEntity(myTvEntity: MyTvEntity){
         dao.insert(myTvEntity)

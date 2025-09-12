@@ -2,18 +2,18 @@ package com.hrudhaykanth116.auth.data.repository.user
 
 import com.hrudhaykanth116.auth.data.datasources.remote.user.IUserRemoteDataSource
 import com.hrudhaykanth116.auth.data.models.UserData
-import com.hrudhaykanth116.core.data.models.DataResult
+import com.hrudhaykanth116.core.common.di.IoDispatcher
+import com.hrudhaykanth116.core.data.BaseRepository
+import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
     private val remoteDataSource: IUserRemoteDataSource,
-) : IUserRepository {
+    @IoDispatcher private val dispatcher: kotlinx.coroutines.CoroutineDispatcher = Dispatchers.IO
+) : IUserRepository, BaseRepository() {
 
-    private val dispatcher = Dispatchers.IO
-
-    override suspend fun getUserData(): DataResult<UserData> = withContext(dispatcher) {
-        return@withContext remoteDataSource.getUserData()
+    override suspend fun getUserData(): RepoResultWrapper<UserData> = getResult {
+        remoteDataSource.getUserData()
     }
 }

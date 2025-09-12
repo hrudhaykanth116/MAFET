@@ -2,19 +2,18 @@ package com.hrudhaykanth116.todo.ui.screens.list
 
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.viewModelScope
+import com.hrudhaykanth116.core.common.ui.models.toErrorMessage
 import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
 import com.hrudhaykanth116.core.common.utils.network.NetworkMonitor
-import com.hrudhaykanth116.core.domain.models.DomainState
+import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
 import com.hrudhaykanth116.core.udf.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.todo.domain.model.TodoModel
-import com.hrudhaykanth116.todo.domain.model.create.CreateOrUpdateTodoDomainModel
 import com.hrudhaykanth116.todo.domain.use_cases.CreateTodoTaskUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.DeleteTaskUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.ObserveTasksUseCase
 import com.hrudhaykanth116.todo.ui.mappers.TodoDomainModelMapper
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
-import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateTodoEffect
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenEvent
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenMenuItem
@@ -37,7 +36,6 @@ class TodoListViewModel @Inject constructor(
     private val createTodoTaskUseCase: CreateTodoTaskUseCase,
     private val deleteTaskUseCase: DeleteTaskUseCase,
     private val networkMonitor: NetworkMonitor,
-    private val dateTimeUtils: DateTimeUtils,
     private val mapper: TodoDomainModelMapper,
 ) : UIStateViewModel<TodoListUIState, TodoListScreenEvent, CreateTodoEffect>(
     initialState = UIState.Idle(TodoListUIState()),
@@ -57,7 +55,8 @@ class TodoListViewModel @Inject constructor(
                 )
             }.collectLatest { todoDomainModelList: List<TodoModel> ->
 
-                val toDoTaskUIStates: List<ToDoTaskUIState> = mapper.mapListToUIStates(todoDomainModelList)
+                val toDoTaskUIStates: List<ToDoTaskUIState> =
+                    mapper.mapListToUIStates(todoDomainModelList)
                 setTasksList(toDoTaskUIStates)
             }
 
@@ -221,18 +220,33 @@ class TodoListViewModel @Inject constructor(
 
     private fun createTodoTask(taskTitle: String) {
         viewModelScope.launch {
-            val result: DomainState<CreateOrUpdateTodoDomainModel> = createTodoTaskUseCase(
-                CreateOrUpdateTodoDomainModel(title = taskTitle)
+            val result: RepoResultWrapper<Unit> = createTodoTaskUseCase(
+                TodoModel(
+                    id = null,
+                    title = taskTitle,
+                    description = "",
+                    category = "General",
+                    priority = 3,
+                )
             )
             when (result) {
-                is DomainState.ErrorDomainState -> {
-
+                is RepoResultWrapper.Error -> {
+                    setState {
+                        UIState.Idle(
+                            currentContentState,
+                            userMessage = "Something went wrong. Please try again.".toErrorMessage()
+                        )
+                    }
                 }
 
-                is DomainState.LoadedDomainState -> {
-                    onTodoTaskTitleChanged(TextFieldValue())
+                is RepoResultWrapper.Success -> {
+                    setState {
+                        UIState.Idle(
+                            currentContentState.copy(todoTitle = TextFieldValue()),
+                            userMessage = "Something went wrong. Please try again.".toErrorMessage()
+                        )
+                    }
                 }
-
             }
         }
     }

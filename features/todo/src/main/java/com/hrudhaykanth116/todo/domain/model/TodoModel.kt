@@ -1,7 +1,7 @@
 package com.hrudhaykanth116.todo.domain.model
 
 data class TodoModel(
-    val id: String,
+    val id: String?, // TODO: P1 Make it non-nullable. Use localId and serverId if needed
     val title: String,
     val description: String = "",
     val completed: Boolean = true,

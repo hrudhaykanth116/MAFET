@@ -1,6 +1,7 @@
 package com.hrudhaykanth116.todo.data.data_source.remote
 
 import com.hrudhaykanth116.core.common.di.IoDispatcher
+import com.hrudhaykanth116.core.data.models.ApiResultWrapper
 import com.hrudhaykanth116.todo.data.remote.models.GetTodoResponse
 import com.hrudhaykanth116.todo.data.remote.models.PostTodoResponse
 import com.hrudhaykanth116.todo.data.remote.models.CreateTodoRequest
@@ -16,10 +17,10 @@ class TodoRemoteDataSource @Inject constructor(
     @IoDispatcher private val dispatcher: CoroutineDispatcher,
 ): com.hrudhaykanth116.core.data.remote.NetworkDataSource(), ITodoRemoteDataSource {
 
-    override suspend fun getTodoTasks(): com.hrudhaykanth116.core.data.models.DataResult<GetTodoResponse> = withContext(
+    override suspend fun getTodoTasks():ApiResultWrapper<GetTodoResponse> = withContext(
         dispatcher
     ){
-        val apiResponse: com.hrudhaykanth116.core.data.models.DataResult<GetTodoResponse> = getResult {
+        val apiResponse: ApiResultWrapper<GetTodoResponse> = getResult {
             todoTasksApiService.getTodoTasks()
         }
         return@withContext apiResponse
@@ -31,7 +32,7 @@ class TodoRemoteDataSource @Inject constructor(
         description: String?,
         category: String,
         active: Boolean
-    ): com.hrudhaykanth116.core.data.models.DataResult<PostTodoResponse> = withContext(dispatcher) {
+    ): ApiResultWrapper<PostTodoResponse> = withContext(dispatcher) {
         getResult {
             todoTasksApiService.postTodoTask(
                 CreateTodoRequest(
