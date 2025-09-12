@@ -1,8 +1,8 @@
 package com.hrudhaykanth116.tv.ui.screens.search
 
 import androidx.lifecycle.viewModelScope
-import com.hrudhaykanth116.core.common.ui.models.UserMessage
-import com.hrudhaykanth116.core.data.models.DataResult
+import com.hrudhaykanth116.core.common.mappers.mapToUIMessage
+import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
 import com.hrudhaykanth116.core.udf.UDFViewModel
 import com.hrudhaykanth116.tv.data.repositories.tv.MyTvListRepository
 import com.hrudhaykanth116.tv.domaintemp.AddMyTvUseCase
@@ -94,27 +94,27 @@ class SearchTvScreenViewModel @Inject constructor(
                 )
             }
 
-            val result: DataResult<List<SearchScreenItemUIState>?> = getTvListByQuery(it)
+            val result: RepoResultWrapper<List<SearchScreenItemUIState>?> = getTvListByQuery(it)
 
-            result.process(
-                onSuccess = {
+            when (result) {
+                is RepoResultWrapper.Error -> {
                     setState {
                         copy(
-                            searchResults = it ?: emptyList(),
-                            userMessage = null,
-                            isLoading = false,
-                        )
-                    }
-                },
-                onError = {
-                    setState {
-                        copy(
-                            userMessage = UserMessage.Error(it.uiMessage),
+                            userMessage = result.errorState.mapToUIMessage(),
                             isLoading = false,
                         )
                     }
                 }
-            )
+                is RepoResultWrapper.Success -> {
+                    setState {
+                        copy(
+                            searchResults = result.data ?: emptyList(),
+                            userMessage = null,
+                            isLoading = false,
+                        )
+                    }
+                }
+            }
         }
     }
 
@@ -140,15 +140,15 @@ class SearchTvScreenViewModel @Inject constructor(
             val result = addMyTvUseCase(event.id)
 
             when (result) {
-                is DataResult.Error -> {
+                is RepoResultWrapper.Error -> {
                     setState {
                         copy(
-                            userMessage = UserMessage.Success(message = result.uiMessage),
+                            userMessage = result.errorState.mapToUIMessage(),
                         )
                     }
                 }
 
-                is DataResult.Success -> {
+                is RepoResultWrapper.Success -> {
                     setState {
                         copy(
                             userMessage = null,

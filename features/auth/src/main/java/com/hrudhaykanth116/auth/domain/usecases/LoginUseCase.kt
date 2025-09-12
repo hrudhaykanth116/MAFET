@@ -4,8 +4,9 @@ import com.hrudhaykanth116.auth.data.models.LoginRequest
 import com.hrudhaykanth116.auth.data.models.LoginResult
 import com.hrudhaykanth116.auth.data.repository.IAuthRepository
 import com.hrudhaykanth116.auth.domain.models.login.LoginScreenState
-import com.hrudhaykanth116.core.data.models.DataResult
+import com.hrudhaykanth116.core.common.mappers.mapToUIText
 import com.hrudhaykanth116.core.data.models.UIText
+import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -27,20 +28,20 @@ class LoginUseCase @Inject constructor(
             )
         }
 
-        val loginResult: DataResult<LoginResult> = authRepository.login(
+        val loginResult: RepoResultWrapper<LoginResult> = authRepository.login(
             LoginRequest(
                 email, password
             )
         )
 
         return when (loginResult) {
-            is DataResult.Error -> {
+            is RepoResultWrapper.Error -> {
                 loginUIState.copy(
-                    loginError = loginResult.uiMessage
+                    loginError = loginResult.errorState.mapToUIText()
                 )
             }
 
-            is DataResult.Success -> {
+            is RepoResultWrapper.Success -> {
                 loginUIState.copy(
                     isLoggedIn = true
                 )

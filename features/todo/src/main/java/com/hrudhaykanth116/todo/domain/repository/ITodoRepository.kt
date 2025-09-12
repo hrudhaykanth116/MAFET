@@ -1,8 +1,7 @@
 package com.hrudhaykanth116.todo.domain.repository
 
-import com.hrudhaykanth116.core.data.models.DataResult
+import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
 import com.hrudhaykanth116.todo.domain.model.TodoModel
-import com.hrudhaykanth116.todo.domain.model.create.CreateTodoParams
 import kotlinx.coroutines.flow.Flow
 
 interface ITodoRepository {
@@ -21,9 +20,9 @@ interface ITodoRepository {
         sortItem: String,
     ): Flow<List<TodoModel>>
 
-    suspend fun getTodoTask(id: String): TodoModel?
+    suspend fun getTodoTask(id: String): RepoResultWrapper<TodoModel>
 
-    suspend fun createTodoTask(params: CreateTodoParams): DataResult<String>
+    suspend fun createTodoTask(todoModel: TodoModel, id: String): RepoResultWrapper<Unit>
 
     suspend fun deleteTasks(taskId: List<String>)
 

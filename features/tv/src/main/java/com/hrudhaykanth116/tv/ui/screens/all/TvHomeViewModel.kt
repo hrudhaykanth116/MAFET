@@ -2,7 +2,7 @@ package com.hrudhaykanth116.tv.ui.screens.all
 
 import androidx.lifecycle.viewModelScope
 import com.hrudhaykanth116.core.common.utils.network.NetworkMonitor
-import com.hrudhaykanth116.core.data.models.DataResult
+import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
 import com.hrudhaykanth116.core.udf.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowData
@@ -43,10 +43,10 @@ class TvHomeViewModel @Inject constructor(
     fun loadTvShows() {
         viewModelScope.launch {
             when (val result = getAllTvShowsUseCase()) {
-                is DataResult.Success -> {
+                is RepoResultWrapper.Success -> {
                     _uiState.value = result.data.toUiState()
                 }
-                is DataResult.Error -> {
+                is RepoResultWrapper.Error -> {
                     // _error.emit(result.message ?: "Something went wrong")
                 }
             }

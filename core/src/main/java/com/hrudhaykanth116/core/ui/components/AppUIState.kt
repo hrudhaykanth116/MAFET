@@ -114,15 +114,15 @@ fun <T> AppUIState(
                     content(contentState)
                 }
 
-                ApiErrorScreen(
-                    onRetry = {
-                        viewModel.onRetry()
-                    },
-                    apiError = NetworkDataSource.ApiError.CustomError("Something went wrong".toUIText()),
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(color = Color(0xFF040404)),
-                )
+                // ApiErrorScreen(
+                //     onRetry = {
+                //         viewModel.onRetry()
+                //     },
+                //     apiError = NetworkDataSource.ApiError.CustomError("Something went wrong".toUIText()),
+                //     modifier = Modifier
+                //         .fillMaxSize()
+                //         .background(color = Color(0xFF040404)),
+                // )
             }
 
             is UIState.Idle -> {

@@ -2,10 +2,11 @@ package com.hrudhaykanth116.tv.ui.screens.details
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.hrudhaykanth116.core.common.mappers.mapToUIMessage
 import com.hrudhaykanth116.core.common.ui.models.UserMessage
 import com.hrudhaykanth116.core.common.utils.network.NetworkMonitor
-import com.hrudhaykanth116.core.data.models.DataResult
 import com.hrudhaykanth116.core.data.models.toUIText
+import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
 import com.hrudhaykanth116.core.udf.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDetails
@@ -40,13 +41,13 @@ class TvDetailsViewModel @Inject constructor(
     private fun fetchData() {
         viewModelScope.launch {
 
-            val tvDetailsUseCase: DataResult<TvShowDetails> = getTvDetailsUseCase(id)
+            val tvDetailsUseCase: RepoResultWrapper<TvShowDetails> = getTvDetailsUseCase(id)
             when (tvDetailsUseCase) {
-                is DataResult.Error -> {
+                is RepoResultWrapper.Error -> {
                     setState { UIState.Error("Something went wrong".toUIText()) }
                 }
 
-                is DataResult.Success -> {
+                is RepoResultWrapper.Success -> {
                     setState {
                         UIState.Idle(
                             TvDetailsScreenUIState(
@@ -74,15 +75,15 @@ class TvDetailsViewModel @Inject constructor(
             val result = addMyTvUseCase(event.id)
 
             when (result) {
-                is DataResult.Error -> {
+                is RepoResultWrapper.Error -> {
                     setState {
                         copyUIState(
-                            newUserMessage = UserMessage.Error(message = result.uiMessage),
+                            newUserMessage = result.errorState.mapToUIMessage(),
                         )
                     }
                 }
 
-                is DataResult.Success -> {
+                is RepoResultWrapper.Success -> {
                     setState {
                         copyUIState(
                             newUserMessage = UserMessage.Success(message = "Added to Your List".toUIText()),

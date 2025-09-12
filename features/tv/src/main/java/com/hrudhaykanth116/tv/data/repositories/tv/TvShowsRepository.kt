@@ -1,6 +1,8 @@
 package com.hrudhaykanth116.tv.data.repositories.tv
 
-import com.hrudhaykanth116.core.data.models.DataResult
+import com.hrudhaykanth116.core.common.di.IoDispatcher
+import com.hrudhaykanth116.core.data.BaseRepository
+import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvCreditsResponse
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvImagesResponse
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvReviewsResponse
@@ -10,52 +12,56 @@ import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDetails
 import com.hrudhaykanth116.tv.data.datasources.remote.models.genres.GetTvGenresResponse
 import com.hrudhaykanth116.tv.data.datasources.remote.models.search.TvShowSearchResults
 import com.hrudhaykanth116.tv.data.datasources.remote.sources.tvshows.TvShowsRemoteDataSource
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 
 class TvShowsRepository @Inject constructor(
     private val tvShowsRemoteDataSource: TvShowsRemoteDataSource,
-) {
+    @IoDispatcher private val dispatcher: CoroutineDispatcher,
+) : BaseRepository(dispatcher), ITvShowsRepository {
 
-    // TODO: Make it injectable
-    private val dispatcher = Dispatchers.IO
-
-    suspend fun getTvShowDetails(tvShowId: Int): DataResult<TvShowDetails> =
-        withContext(dispatcher) {
+    override suspend fun getTvShowDetails(tvShowId: Int): RepoResultWrapper<TvShowDetails> =
+        getResult {
             tvShowsRemoteDataSource.fetchTvShowDetails(tvShowId)
         }
 
-    suspend fun searchTvShow(query: String): DataResult<TvShowSearchResults> =
-        withContext(dispatcher) {
+    override suspend fun searchTvShow(query: String): RepoResultWrapper<TvShowSearchResults> =
+        getResult {
             tvShowsRemoteDataSource.searchTvShow(query)
         }
 
-    suspend fun getTvGenres(): DataResult<GetTvGenresResponse> = withContext(dispatcher) {
+    override suspend fun getTvGenres(): RepoResultWrapper<GetTvGenresResponse> = getResult {
         tvShowsRemoteDataSource.getTvGenres()
     }
 
-    suspend fun getTvImages(tvId: Int): DataResult<GetTvImagesResponse> = withContext(dispatcher) {
-        tvShowsRemoteDataSource.getTvImages(tvId)
-    }
+    override suspend fun getTvImages(tvId: Int): RepoResultWrapper<GetTvImagesResponse> =
+        getResult {
+            tvShowsRemoteDataSource.getTvImages(tvId)
+        }
 
-    suspend fun getTvShowVideos(tvId: Int): DataResult<GetTvVideosResponse> =
-        withContext(dispatcher) {
+    override suspend fun getTvShowVideos(tvId: Int): RepoResultWrapper<GetTvVideosResponse> =
+        getResult {
             tvShowsRemoteDataSource.getTvShowVideos(tvId)
         }
 
-    suspend fun getTvShowsSimilar(tvId: Int, pageId: Int): DataResult<TvShowDataPagedResponse> =
-        withContext(dispatcher) {
+    override suspend fun getTvShowsSimilar(
+        tvId: Int,
+        pageId: Int,
+    ): RepoResultWrapper<TvShowDataPagedResponse> =
+        getResult {
             tvShowsRemoteDataSource.getTvShowsSimilar(tvId, pageId)
         }
 
-    suspend fun getTvReviews(tvId: Int, pageId: Int): DataResult<GetTvReviewsResponse> =
-        withContext(dispatcher) {
+    override suspend fun getTvReviews(
+        tvId: Int,
+        pageId: Int,
+    ): RepoResultWrapper<GetTvReviewsResponse> =
+        getResult {
             tvShowsRemoteDataSource.getTvReviews(tvId, pageId)
         }
 
-    suspend fun getTvCredits(tvId: Int): DataResult<GetTvCreditsResponse> =
-        withContext(dispatcher) {
+    override suspend fun getTvCredits(tvId: Int): RepoResultWrapper<GetTvCreditsResponse> =
+        getResult {
             tvShowsRemoteDataSource.getTvCredits(tvId)
         }
 

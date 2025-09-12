@@ -19,6 +19,7 @@ import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.core.R
 import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.data.remote.NetworkDataSource
+import com.hrudhaykanth116.core.domain.models.ErrorState
 import com.hrudhaykanth116.core.ui.models.ImageHolder
 import ir.kaaveh.sdpcompose.sdp
 import ir.kaaveh.sdpcompose.ssp
@@ -27,12 +28,12 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun ApiErrorScreen(
-    apiError: NetworkDataSource.ApiError?,
+    apiError: ErrorState,
     onRetry: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     when (apiError) {
-        NetworkDataSource.ApiError.NoInternetError -> {
+        is ErrorState.NoNetwork -> {
             // No internet ui
             ApiErrorScreenUI(
                 title = stringResource(R.string.oops).toUIText(),
@@ -40,6 +41,16 @@ fun ApiErrorScreen(
                 onRetry = onRetry,
                 modifier = modifier,
                 resId = R.drawable.icon_no_internet
+            )
+        }
+        is ErrorState.Api -> {
+            // Api error ui
+            ApiErrorScreenUI(
+                title = apiError.message?.toUIText() ?: stringResource(R.string.something_went_wrong).toUIText(),
+                description = apiError.description?.toUIText(),
+                onRetry = onRetry,
+                modifier = modifier,
+                resId = R.drawable.ic_server_connection_lost
             )
         }
         else -> {

@@ -1,6 +1,6 @@
 package com.hrudhaykanth116.tv.domaintemp
 
-import com.hrudhaykanth116.core.data.models.DataResult
+import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
 import com.hrudhaykanth116.tv.data.repositories.tv.MyTvListRepository
 import com.hrudhaykanth116.tv.domaintemp.mappers.toMyTvDataEntity
 import com.hrudhaykanth116.tv.domaintemp.models.MyTvDomainModel
@@ -13,13 +13,13 @@ class UpdateMyTvUseCase @Inject constructor(
 ) {
 
     // TODO: Update only season, episode, time
-    suspend operator fun invoke(myTvDomainModel: MyTvDomainModel): DataResult<Unit> {
+    suspend operator fun invoke(myTvDomainModel: MyTvDomainModel): RepoResultWrapper<Unit> {
 
         myTvListRepository.updateMyTvEntity(
             myTvDomainModel.toMyTvDataEntity()
         )
 
-        return DataResult.Success(Unit)
+        return RepoResultWrapper.Success(Unit)
 
     }
 
