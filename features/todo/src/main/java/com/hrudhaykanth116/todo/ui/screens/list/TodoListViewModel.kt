@@ -49,7 +49,7 @@ class TodoListViewModel @Inject constructor(
     networkMonitor = networkMonitor,
 ) {
 
-    fun initialize() {
+    override fun initializeData() {
 
         viewModelScope.launch(dispatcher) {
 

@@ -36,7 +36,7 @@ class TvHomeViewModel @Inject constructor(
     private val _error = MutableSharedFlow<String>()
     val error: SharedFlow<String> = _error.asSharedFlow()
 
-    init {
+    override fun initializeData() {
         loadTvShows()
     }
 
