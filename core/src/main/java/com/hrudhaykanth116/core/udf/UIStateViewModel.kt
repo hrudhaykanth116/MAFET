@@ -48,7 +48,7 @@ abstract class UIStateViewModel<STATE, EVENT, EFFECT>(
 
     val currentContentState: STATE get() = uiState.contentState ?: defaultState
 
-    // abstract fun initialize() // Initial setup if any. Should be called once when screen is launched when data is needed to be fetched
+    abstract fun initializeData() // Initial data if any. Should be called once when screen is launched when data is needed to be fetched
     abstract fun processEvent(event: EVENT)
     abstract fun onRetry() // Fetch main data needed for the screen
 

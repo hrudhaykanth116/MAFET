@@ -10,6 +10,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -51,6 +52,11 @@ fun <T> AppUIState(
     val coroutineScope = rememberCoroutineScope()
 
     val context = LocalContext.current
+
+    // Lets initialize data when this composable is first launched
+    LaunchedEffect(Unit) {
+        viewModel.initializeData()
+    }
 
     Box(modifier.fillMaxSize()) {
 

@@ -23,7 +23,7 @@ fun TodoListScreen(
     Logger.d(TAG, "TodoListScreen: ")
 
     LaunchedEffect(Unit) {
-        todoListViewModel.initialize()
+        todoListViewModel.initializeData()
     }
 
     val uiState: State<TodoListUIState?> =

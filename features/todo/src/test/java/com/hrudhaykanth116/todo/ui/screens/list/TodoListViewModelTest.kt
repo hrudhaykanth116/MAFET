@@ -9,20 +9,14 @@ import com.hrudhaykanth116.todo.domain.use_cases.ObserveTasksUseCase
 import com.hrudhaykanth116.todo.ui.mappers.TodoDomainModelMapper
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenEvent
 import junit.framework.TestCase.assertEquals
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
-import org.mockito.Mockito.`when`
 import org.mockito.kotlin.any
-import org.mockito.kotlin.anyOrNull
+import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -37,11 +31,11 @@ class TodoListViewModelTest {
 
     @Before
     fun setup() {
-        observeTasksUseCase = mock(ObserveTasksUseCase::class.java)
-        createTodoTaskUseCase = mock(CreateTodoTaskUseCase::class.java)
-        deleteTaskUseCase = mock(DeleteTaskUseCase::class.java)
-        networkMonitor = mock(NetworkMonitor::class.java)
-        mapper = mock(TodoDomainModelMapper::class.java)
+        observeTasksUseCase = mock<ObserveTasksUseCase>()
+        createTodoTaskUseCase = mock<CreateTodoTaskUseCase>()
+        deleteTaskUseCase = mock<DeleteTaskUseCase>()
+        networkMonitor = mock<NetworkMonitor>()
+        mapper = mock<TodoDomainModelMapper>()
 
         viewModel = TodoListViewModel(
             observeTasksUseCase,
@@ -87,7 +81,7 @@ class TodoListViewModelTest {
     @Test
     fun `create todo event calls use case and updates state`() = runTest {
 
-        `when`(createTodoTaskUseCase.invoke(any())).thenReturn(RepoResultWrapper.Success(Unit))
+        whenever(createTodoTaskUseCase.invoke(any())).thenReturn(RepoResultWrapper.Success(Unit))
 
         val todoTitle = "New Task"
         viewModel.processEvent(TodoListScreenEvent.CreateTodoTask(todoTitle))
