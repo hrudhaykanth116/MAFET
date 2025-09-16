@@ -75,9 +75,5 @@ dependencies {
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.inline)
     testImplementation(libs.mockk)
-    testImplementation(libs.junit.jupiter)
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
+    testImplementation(libs.mockito.kotlin)
 }

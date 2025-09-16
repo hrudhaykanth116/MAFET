@@ -2,7 +2,10 @@ package com.hrudhaykanth116.todo.ui.screens.list
 
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.viewModelScope
+import com.hrudhaykanth116.core.common.di.IoDispatcher
+import com.hrudhaykanth116.core.common.di.MainDispatcher
 import com.hrudhaykanth116.core.common.ui.models.toErrorMessage
+import com.hrudhaykanth116.core.common.ui.models.toSuccessMessage
 import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
 import com.hrudhaykanth116.core.common.utils.network.NetworkMonitor
 import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
@@ -22,6 +25,8 @@ import com.hrudhaykanth116.todo.ui.models.todolist.TodoListUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toImmutableSet
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -37,15 +42,16 @@ class TodoListViewModel @Inject constructor(
     private val deleteTaskUseCase: DeleteTaskUseCase,
     private val networkMonitor: NetworkMonitor,
     private val mapper: TodoDomainModelMapper,
+    @MainDispatcher private val dispatcher: CoroutineDispatcher = Dispatchers.Main,
 ) : UIStateViewModel<TodoListUIState, TodoListScreenEvent, CreateTodoEffect>(
     initialState = UIState.Idle(TodoListUIState()),
     defaultState = TodoListUIState(),
     networkMonitor = networkMonitor,
 ) {
 
-    init {
+    fun initialize() {
 
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher) {
 
             contentStateFlow.distinctUntilChanged().flatMapLatest { state: TodoListUIState ->
                 observeTasksUseCase(
@@ -62,7 +68,7 @@ class TodoListViewModel @Inject constructor(
 
         }
 
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher) {
             observeTasksUseCase(
                 null,
                 null,
@@ -101,7 +107,7 @@ class TodoListViewModel @Inject constructor(
 
 
     private fun removeTaskItems(taskIdsToDelete: List<String>) {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher) {
             deleteTaskUseCase(taskIdsToDelete)
         }
     }
@@ -170,7 +176,7 @@ class TodoListViewModel @Inject constructor(
     }
 
     private fun deleteTasks() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher) {
             deleteTaskUseCase()
         }
     }
@@ -219,7 +225,7 @@ class TodoListViewModel @Inject constructor(
     }
 
     private fun createTodoTask(taskTitle: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher) {
             val result: RepoResultWrapper<Unit> = createTodoTaskUseCase(
                 TodoModel(
                     id = null,
@@ -243,7 +249,7 @@ class TodoListViewModel @Inject constructor(
                     setState {
                         UIState.Idle(
                             currentContentState.copy(todoTitle = TextFieldValue()),
-                            userMessage = "Something went wrong. Please try again.".toErrorMessage()
+                            userMessage = "Successfully created task".toSuccessMessage()
                         )
                     }
                 }
