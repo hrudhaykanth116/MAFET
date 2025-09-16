@@ -1,0 +1,6 @@
+
+1. Always INJECT DISPATCHER IN VIEWMODEL so that there wont be dispatcher issues in tests and any dispatcher can be injected that wont block the tests.
+2. Use FAKE repositories and services to isolate the unit being tested.
+3. Use MOCKING frameworks like Moq or NSubstitute to create mock objects for dependencies when tests intermediate and miscellaneous layers.
+4. DO NOT FETCH DATA IN INIT BLOCK of viewmodel as it will make it hard to test the viewmodel. Instead use a separate method to fetch data and call that method from init block. This way you can test the viewmodel without fetching data.
+6. Use Rules to set up common test scenerios before and after each test. Use inbuilt ones like TemporaryFolder, InstantTaskExecutorRule etc.

@@ -4,6 +4,12 @@ coreSplashscreen = "1.0.1"
 kotlinxCoroutinesTest = "1.10.2"
 media3 = "1.7.1"
 minSdk = "24"
+
+mockk = "1.14.5"
+mockitoInline = "5.2.0"
+mockitoKotlin = "6.0.0"
+mockitoCore = "5.19.0"
+
 targetSdk = "36"
 kotlinCompilerExtensionVersion = "1.5.15"
 
@@ -130,11 +136,11 @@ hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hil
 kotpref-initializer = { module = "com.chibatching.kotpref:initializer", version.ref = "initializer" }
 
 junit = { module = "junit:junit", version.ref = "junit" }
-junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version = "5.13.4" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
 mockito-core = { module = "org.mockito:mockito-core", version = "5.19.0" }
 mockito-inline = { module = "org.mockito:mockito-inline", version = "5.2.0" }
 mockk = { module = "io.mockk:mockk", version = "1.14.5" }
+mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
 
 kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinx_immutable" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }

@@ -5,6 +5,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenEvent
@@ -21,10 +22,8 @@ fun TodoListScreen(
 ) {
     Logger.d(TAG, "TodoListScreen: ")
 
-    // Property delegation helps us in remembering the value of state directly into the field instead
-    // Remember savable saves the values over configuration changes.
-    var test by rememberSaveable() {
-        mutableStateOf(true)
+    LaunchedEffect(Unit) {
+        todoListViewModel.initialize()
     }
 
     val uiState: State<TodoListUIState?> =
