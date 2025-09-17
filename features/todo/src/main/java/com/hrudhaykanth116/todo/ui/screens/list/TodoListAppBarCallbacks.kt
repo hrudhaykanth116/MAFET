@@ -4,7 +4,7 @@ import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenMenuItem
 import com.hrudhaykanth116.todo.data.models.TodoListScreenSortItem
 
 data class TodoListAppBarCallbacks(
-    // TODO: Multiple filters
+    // hrudhay_check_list: Multiple filters
     val onCategorySelected: (String) -> Unit = {},
     val onClearFilterClicked: () -> Unit = {},
     val onMenuItemSelected: (TodoListScreenMenuItem) -> Unit = {},

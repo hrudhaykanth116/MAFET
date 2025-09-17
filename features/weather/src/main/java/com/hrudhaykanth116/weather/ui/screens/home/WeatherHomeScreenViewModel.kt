@@ -277,7 +277,7 @@ class WeatherHomeScreenViewModel @Inject constructor(
             }
 
             WeatherHomeScreenEvent.GpsIconClicked -> {
-                // TODO: check permissions and location state
+                // hrudhay_check_list: check permissions and location state
                 fetchLocationAndWeather()
             }
         }

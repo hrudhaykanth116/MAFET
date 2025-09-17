@@ -4,7 +4,4 @@ import javax.inject.Inject
 
 class WeatherForeCastLocalDataSource @Inject constructor(
 
-) {
-
-
-}
+)

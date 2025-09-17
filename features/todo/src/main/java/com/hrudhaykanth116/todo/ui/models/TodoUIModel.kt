@@ -11,8 +11,6 @@ data class TodoUIModel(
 
     val targetTime: TextFieldValue = TextFieldValue(),
 
-    // TODO: Remove this unnecessary field
+    // hrudhay_check_list: Remove this unnecessary field
     val completed: Boolean = false,
-
-    ) {
-}
+)

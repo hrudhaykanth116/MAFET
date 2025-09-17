@@ -48,7 +48,7 @@ class SearchTvScreenViewModel @Inject constructor(
         }
 
 
-        // TODO: P4 Optimise this based on requirement
+        // hrudhay_check_list: P4 Optimise this based on requirement
         viewModelScope.launch(Dispatchers.Default) {
 
             data.collectLatest { myTvEntityList ->
@@ -72,7 +72,7 @@ class SearchTvScreenViewModel @Inject constructor(
         searchTvJob?.cancel()
 
         if (it.isEmpty()) {
-            // TODO: Show top tv/popular/suggested shows
+            // hrudhay_check_list: Show top tv/popular/suggested shows
             setState {
                 copy(
                     searchResults = listOf(),

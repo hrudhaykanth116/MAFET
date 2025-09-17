@@ -35,7 +35,7 @@ data class DiscoverResult(
 ){
 
     companion object{
-        // TODO: 12/07/21 Ignoring the diff as list stays in the same position.
+        // hrudhay_check_list: 12/07/21 Ignoring the diff as list stays in the same position.
         public val diffUtilCallback = object: DiffUtil.ItemCallback<DiscoverResult>(){
             override fun areItemsTheSame(oldItem: DiscoverResult, newItem: DiscoverResult): Boolean {
                 // return oldItem.id == newItem.id

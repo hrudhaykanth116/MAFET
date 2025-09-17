@@ -28,7 +28,6 @@ object RepositoryModule {
         @IoDispatcher ioDispatcher: CoroutineDispatcher,
     ): IWeatherForeCastRepository = WeatherForeCastRepositoryImpl(
         remoteDataSource,
-        localDataSource,
         ioDispatcher
     )
 

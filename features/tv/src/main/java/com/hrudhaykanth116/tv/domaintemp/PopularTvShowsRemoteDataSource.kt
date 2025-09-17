@@ -28,7 +28,7 @@ class PopularTvShowsRemoteDataSource constructor(
         return try {
             val tvShowDataPagedResponse: Response<TvShowDataPagedResponse> =
                 retroApis.getPopularTvShows(currentKey)
-            // TODO: 12/06/21 Check if response is successful
+            // hrudhay_check_list: 12/06/21 Check if response is successful
             val tvShowsList = tvShowDataPagedResponse.body()?.tvShowsList ?: listOf()
 
             LoadResult.Page(

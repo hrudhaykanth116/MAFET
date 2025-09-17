@@ -9,8 +9,6 @@ import kotlin.coroutines.resume
 suspend fun <T> Task<T>.await(): RepoResultWrapper<T> {
     return suspendCancellableCoroutine { cont ->
 
-        // TODO: Use success failure as below
-
         addOnCompleteListener { task: Task<T> ->
             task.exception?.let { exception ->
                 cont.resume(

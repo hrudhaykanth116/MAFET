@@ -10,7 +10,7 @@ import kotlinx.collections.immutable.persistentSetOf
 
 data class TodoListUIState(
     val uiList: ImmutableList<ToDoTaskUIState> = persistentListOf(),
-    // TODO: Have some enum class of list.
+    // hrudhay_check_list: Have some enum class of list.
     val filterOptions: ImmutableSet<String> = persistentSetOf(),
     val selectedFilter: String? = null,
     val todoTitle: TextFieldValue = TextFieldValue(),

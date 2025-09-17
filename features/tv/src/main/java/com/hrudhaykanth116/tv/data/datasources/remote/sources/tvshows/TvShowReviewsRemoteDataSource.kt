@@ -29,7 +29,7 @@ class TvShowReviewsRemoteDataSource constructor(
             val tvShowsList: List<GetTvReviewsResponse.ReviewDetails>? =
                 discoverTvShowsResponse.body()?.reviewDetails
 
-            // TODO: 29/05/21 Check if the response is successful
+            // hrudhay_check_list: 29/05/21 Check if the response is successful
 
             if (tvShowsList.isNullOrEmpty()) {
                 Log.e(TAG, "load: Error: ${discoverTvShowsResponse.message()}")

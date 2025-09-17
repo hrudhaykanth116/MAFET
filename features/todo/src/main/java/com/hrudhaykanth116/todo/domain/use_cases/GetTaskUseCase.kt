@@ -11,7 +11,7 @@ class GetTaskUseCase @Inject constructor(
     private val todoRepository: ITodoRepository,
 ) {
 
-    // TODO: Add filtering, sorting kind of things.
+    // hrudhay_check_list: Add filtering, sorting kind of things.
     suspend operator fun invoke(
         taskId: String,
     ): RepoResultWrapper<TodoModel> {

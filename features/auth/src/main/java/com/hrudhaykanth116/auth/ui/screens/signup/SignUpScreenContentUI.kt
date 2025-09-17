@@ -34,7 +34,7 @@ fun SignUpScreenContentUI(
     state: SignUpFormState = SignUpFormState(),
     signUpScreenCallbacks: SignUpScreenCallbacks = SignUpScreenCallbacks(),
 ) {
-    // TODO: Add progress bar based on state.isLoading.
+    // hrudhay_check_list: Add progress bar based on state.isLoading.
     Column(
         modifier = modifier
             .padding(16.dp)

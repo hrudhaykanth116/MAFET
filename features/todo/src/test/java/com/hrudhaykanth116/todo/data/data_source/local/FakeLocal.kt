@@ -24,7 +24,7 @@ class FakeLocal : ITodoLocalDataSource {
         if (!search.isNullOrBlank()) {
             filtered = filtered.filter {
                 it.title.contains(search, ignoreCase = true) ||
-                (it.description?.contains(search, ignoreCase = true) ?: false)
+                        it.description.contains(search, ignoreCase = true)
             }
         }
         if (!category.isNullOrBlank()) {

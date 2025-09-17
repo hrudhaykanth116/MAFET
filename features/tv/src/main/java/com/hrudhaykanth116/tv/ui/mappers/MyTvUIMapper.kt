@@ -8,12 +8,9 @@ import com.hrudhaykanth116.core.ui.models.toUrlImageHolder
 import com.hrudhaykanth116.tv.domaintemp.models.MyTvDomainModel
 import com.hrudhaykanth116.tv.ui.models.home.MyTvUIState
 
-class MyTvUIMapper {
-}
-
 fun MyTvDomainModel.toUIState(dateTimeUtils: DateTimeUtils): MyTvUIState {
 
-    // TODO: Handle null case
+    // hrudhay_check_list: Handle null case
     val lastWatchedSeasonEpisode = UIText.Text("S${lastWatchedSeason ?: 0}E${lastWatchedEpisode ?: 0}")
 
     return MyTvUIState(

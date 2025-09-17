@@ -5,6 +5,4 @@ import androidx.compose.runtime.mutableStateOf
 
 data class ToDoTaskUIState(
     val data: TodoUIModel,
-){
-
-}
+)

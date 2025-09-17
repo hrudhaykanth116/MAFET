@@ -51,7 +51,7 @@ fun PopularTvScreenUI(
                 val item = lazyPagingItems[index]
                 if (item != null) {
                     MoviePoster(
-                        (BaseUrlConstants.IMAGES_BASE_URL + item.posterPath),
+                        BaseUrlConstants.IMAGES_BASE_URL + item.posterPath,
                         modifier = Modifier.clickable{
                             onNavigateToDetailsScreen(item.id)
                         }

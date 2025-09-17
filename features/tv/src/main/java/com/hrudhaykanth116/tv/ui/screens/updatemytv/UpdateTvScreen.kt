@@ -23,7 +23,7 @@ fun UpdateTvScreen(
     updateMyTvViewModel: UpdateMyTvViewModel,
 ) {
 
-    // TODO: For each new composable we need to create new view model with updated data
+    // hrudhay_check_list: For each new composable we need to create new view model with updated data
     // val factory: ViewModelProvider.Factory =
     //     object : ViewModelProvider.Factory {
     //         override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
@@ -80,7 +80,7 @@ fun UpdateTvScreen(
     val state by updateMyTvViewModel.stateFlow.collectAsStateWithLifecycle()
 
     if (state.isClosed) {
-        // TODO: New state ?
+        // hrudhay_check_list: New state ?
         updateMyTvScreenCallbacks.onCancelled()
         updateMyTvViewModel.resetState()
     }else{

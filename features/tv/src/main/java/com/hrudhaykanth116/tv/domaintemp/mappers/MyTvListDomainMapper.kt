@@ -8,10 +8,7 @@ import javax.inject.Singleton
 @Singleton
 class MyTvListMapper @Inject constructor(
 
-) {
-
-
-}
+)
 
 fun MyTvEntity.toMyTvDomainModel(): MyTvDomainModel {
     return MyTvDomainModel(
@@ -36,7 +33,7 @@ fun MyTvDomainModel.toMyTvDataEntity(): MyTvEntity {
 }
 
 
-// TODO: Create generic list mapper
+// hrudhay_check_list: Create generic list mapper
 fun List<MyTvEntity>.toDomainModel(): List<MyTvDomainModel> {
 
     return map {

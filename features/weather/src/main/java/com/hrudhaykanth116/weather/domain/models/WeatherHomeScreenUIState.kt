@@ -56,7 +56,7 @@ data class DailyWeatherUIState(
     val time: UIText,
 )
 
-// // TODO: Move the class
+// // hrudhay_check_list: Move the class
 // data class WeatherElementUIState(
 //     // Temperature in Kelvin
 //     // Wind speed in meter/sec
