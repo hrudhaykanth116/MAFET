@@ -139,7 +139,7 @@ fun DragableCard(text: UIText, i: Int, moved: Boolean, modifier: Modifier = Modi
                     onDragEnd = {
                         Log.d(TAG, "DragableCard: ${offsetX}")
                         if (offsetX > discardOffSet!!.x
-                            && (offsetX < discardOffSet!!.x + discardSize!!.width)
+                            && offsetX < discardOffSet!!.x + discardSize!!.width
                         ) {
                             Log.d(TAG, "DragableCard: In position")
                         } else {

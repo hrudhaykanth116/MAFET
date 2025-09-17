@@ -1,3 +1,3 @@
 package com.hrudhaykanth116.tv.ui.screens.details
 
-sealed interface TvDetailsScreenEffect {}
+sealed interface TvDetailsScreenEffect
