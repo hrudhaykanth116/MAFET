@@ -1,3 +1,3 @@
 package com.hrudhaykanth116.media.ui.screens
 
-sealed interface MediaScreenEffect {}
+sealed interface MediaScreenEffect
