@@ -56,13 +56,10 @@ class TvHomeViewModel @Inject constructor(
 
     override fun processEvent(event: TvHomeScreenEvent) {
         when (event) {
+            TvHomeScreenEvent.Temp -> {
 
-            else -> {}
+            }
         }
-    }
-
-    override fun onRetry() {
-
     }
 
     fun CategorisedTvShows.toUiState(): TvHomeScreenUIState {

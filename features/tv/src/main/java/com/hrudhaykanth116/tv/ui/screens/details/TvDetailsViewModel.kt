@@ -93,10 +93,6 @@ class TvDetailsViewModel @Inject constructor(
         }
     }
 
-    override fun onRetry() {
-
-    }
-
     companion object {
         private const val TAG = "TvDetailsViewModel"
     }

@@ -86,10 +86,6 @@ class MediaViewModel @Inject constructor(
         }
     }
 
-    override fun onRetry() {
-        loadData()
-    }
-
     companion object {
         private const val TAG = "MediaViewModel"
     }

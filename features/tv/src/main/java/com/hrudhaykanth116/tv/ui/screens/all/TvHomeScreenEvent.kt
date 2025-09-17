@@ -1,3 +1,5 @@
 package com.hrudhaykanth116.tv.ui.screens.all
 
-sealed interface TvHomeScreenEvent {}
+sealed interface TvHomeScreenEvent {
+    object Temp: TvHomeScreenEvent
+}

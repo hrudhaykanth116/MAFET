@@ -130,10 +130,6 @@ class TodoListViewModel @Inject constructor(
         }
     }
 
-    override fun onRetry() {
-
-    }
-
     private fun onSortIconClicked() {
         setState {
             UIState.Idle(

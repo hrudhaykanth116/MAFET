@@ -1,3 +1,7 @@
+Tech features to be implemented in the project.
+* CI/CD pipeline with github actions.
+* 
+
 
 Features:
 

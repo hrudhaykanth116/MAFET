@@ -50,7 +50,10 @@ abstract class UIStateViewModel<STATE, EVENT, EFFECT>(
 
     abstract fun initializeData() // Initial data if any. Should be called once when screen is launched when data is needed to be fetched
     abstract fun processEvent(event: EVENT)
-    abstract fun onRetry() // Fetch main data needed for the screen
+
+    fun onRetry() {
+        initializeData()
+    }
 
     // Prevent setting newState. Always use copy to avoid wrong state being set when done in parallel.
     protected fun setState(newState: UIState<STATE>.() -> UIState<STATE>) {

@@ -233,10 +233,6 @@ class CreateOrUpdateTodoListViewModel @Inject constructor(
         }
     }
 
-    override fun onRetry() {
-        initData(noteId)
-    }
-
     private fun getOrCreateContentState(
 
     ): CreateOrUpdateTodoUIState {
