@@ -31,6 +31,10 @@ import androidx.compose.ui.unit.sp
 import com.hrudhaykanth116.core.common.ui.preview.AppPreview
 import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
 
+/**
+ * https://developer.android.com/develop/ui/compose/graphics/draw/shadows
+ */
+
 fun Modifier.dropShadow(
     shape: Shape,
     color: Color = Color.Black.copy(0.25f),
