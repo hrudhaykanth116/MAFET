@@ -5,6 +5,7 @@
 [![UI Toolkit](https://img.shields.io/badge/Jetpack-Compose-purple.svg)](https://developer.android.com/jetpack/compose)
 [![Architecture](https://img.shields.io/badge/Architecture-MVI%20%7C%20UDF-yellow.svg)](https://developer.android.com/topic/libraries/architecture)
 [![Testing](https://img.shields.io/badge/Testing-JUnit%20%7C%20Mockito%20-red.svg)](https://junit.org)
+[![CodeFactor](https://www.codefactor.io/repository/github/igorwojda/android-showcase/badge)](https://www.codefactor.io/repository/github/hrudhaykanth116/mafet)
 
 ## Introduction
 This project is aimed at providing easy access to the day-to-day essential things for the user.
@@ -26,8 +27,8 @@ Built with modern Android development tools and libraries, prioritizing, project
 
 **Language:**
 - **[Kotlin 2.2](https://kotlinlang.org/)**
-    - **[Coroutines](https://kotlinlang.org/docs/coroutines-overview.html)**
-    - **[KSP (Kotlin Symbol Processing)](https://kotlinlang.org/docs/ksp-overview.html)**
+  - **[Coroutines](https://kotlinlang.org/docs/coroutines-overview.html)**
+  - **[KSP (Kotlin Symbol Processing)](https://kotlinlang.org/docs/ksp-overview.html)**
 
 **Android Jetpack:**
 - **[Compose](https://developer.android.com/jetpack/compose)** - Declarative UI framework
@@ -84,6 +85,7 @@ Feel free to fork the repository and submit pull requests. For major changes, pl
 Hrudhay kanth Thangella
 hrudhaykanth116@gmail.com
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=social&logo=linkedin)](https://www.linkedin.com/in/hrudhay-thangella)
+
 
 ## License
 [MIT](https://github.com/hrudhaykanth116/MAFET/blob/main/LICENSE.md)
