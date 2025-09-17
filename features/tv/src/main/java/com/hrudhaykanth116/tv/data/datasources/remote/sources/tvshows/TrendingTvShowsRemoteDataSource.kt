@@ -7,8 +7,4 @@ import javax.inject.Singleton
 @Singleton
 class TrendingTvShowsRemoteDataSource @Inject constructor(
     private val retroApis: RetroApis
-) {
-
-
-
-}
+)

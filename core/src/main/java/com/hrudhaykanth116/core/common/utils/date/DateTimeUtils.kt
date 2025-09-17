@@ -20,20 +20,15 @@ class DateTimeUtils @Inject constructor(
 
 ) {
 
-    // TODO: Use millis everywhere.
     fun getDateFromMillis(millis: Long?): String? {
         millis ?: return null
 
-        // TODO: Use better formatter
         val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         return formatter.format(Date(millis))
     }
 
-    // TODO: Remove this function
     fun getDateFromSecs(seconds: Int?): String? {
         seconds ?: return null
-
-        // TODO: Use better formatter
         val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         return formatter.format(Date(seconds * 1000L))
     }
@@ -53,7 +48,6 @@ class DateTimeUtils @Inject constructor(
     ): String? {
 
         seconds ?: return null
-        // TODO: Use better formatter
         val formatter = SimpleDateFormat(format)
         return formatter.format(Date(seconds * 1000L))
     }

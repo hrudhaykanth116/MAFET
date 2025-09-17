@@ -37,7 +37,7 @@ fun TodoListItemUI(
     modifier: Modifier = Modifier,
     onRemoveClicked: () -> Unit = {}
 ) {
-    // TODO: May be this could be hoisted. Savable because, state retained on scroll or more.
+    // hrudhay_check_list: May be this could be hoisted. Savable because, state retained on scroll or more.
     var isExpanded by rememberSaveable {
         mutableStateOf(false)
     }
@@ -83,7 +83,7 @@ fun TodoListItemUI(
                     Spacer(modifier = Modifier.height(4.dp))
                     AppText(
                         uiText = toDoTaskUIState.data.description.text.toUIText(),
-                        // TODO: Modify according to final ui
+                        // hrudhay_check_list: Modify according to final ui
                         maxLines = if (isExpanded) Int.MAX_VALUE else 3,
                         overflow = if (isExpanded) TextOverflow.Visible else TextOverflow.Ellipsis,
                         style = MaterialTheme.typography.bodyMedium,

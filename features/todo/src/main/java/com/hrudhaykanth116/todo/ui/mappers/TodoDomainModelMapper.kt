@@ -51,7 +51,7 @@ fun TodoModel?.toUIModel(): TodoUIModel {
 
 }
 
-// TODO: Wrong. Do something
+// hrudhay_check_list: Wrong. Do something
 fun TodoModel.toState(): ToDoTaskUIState{
     return ToDoTaskUIState(
         data = this.toUIModel(),

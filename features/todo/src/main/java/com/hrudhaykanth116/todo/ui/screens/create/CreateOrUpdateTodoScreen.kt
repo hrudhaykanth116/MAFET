@@ -66,7 +66,6 @@ fun CreateOrUpdateTodoScreen(
             { viewModel.processEvent(CreateTodoEvent.OnTargetFieldClicked) }
         }
 
-        // TODO: ISSUES Called multiple times
         if (contentState.isSubmitted) {
             onCreated()
         } else {

@@ -62,7 +62,7 @@ fun AppCircularImage(
             }
     )
 
-    // TODO: Add more image types and make more concise. 
+    // hrudhay_check_list: Add more image types and make more concise. 
     // val imageModifier = Modifier
     //     .size(64.dp)
     //     .clickable { onClicked() }

@@ -16,7 +16,6 @@ fun HomeBottomNavigation(
     onNavItemSelected: (HomeBottomNavigationItem) -> Unit = {},
 ) {
 
-    // TODO: Listen for navigation stack changes and update icon accordingly 
     HomeBottomNavigationUI(
         uiState = uiState,
         modifier = modifier,

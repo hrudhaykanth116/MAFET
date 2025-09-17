@@ -30,7 +30,6 @@ class MainViewModel @Inject constructor(
                     MainUiState.Training
                 }
             } else {
-                // TODO: Use AuthRepo
                 _state.update {
                     MainUiState.LoggedIn
                 }

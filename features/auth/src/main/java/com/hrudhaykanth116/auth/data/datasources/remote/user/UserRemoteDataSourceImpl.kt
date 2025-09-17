@@ -19,18 +19,18 @@ class UserRemoteDataSourceImpl(
         val user = firebaseAuth.currentUser
             ?: return ApiResultWrapper.Error(ApiError.InvalidUser)
 
-        // TODO: Use data models to put data and handle exceptions while put operation
+        // hrudhay_check_list: Use data models to put data and handle exceptions while put operation
 
         val userNode = database.child("data").child(user.uid)
 
-        // TODO: Catch parse exceptions
+        // hrudhay_check_list: Catch parse exceptions
         val userData: UserData =
             userNode.get().awaitOrNull()?.getValue(UserData::class.java)
                 ?: return ApiResultWrapper.Error(
                     apiError = ApiError.InvalidUser
                 )
 
-        // TODO: Use async for parallel work.
+        // hrudhay_check_list: Use async for parallel work.
         // val userName: String = userNode.child("userName").get().awaitOrNull()?.getValue(String::class.java) ?: "No display name found"
         // val bio = userNode.child("bio").get().awaitOrNull()
         // val imgUri = userNode.child("profileImgUrl").get().awaitOrNull()?.getValue(String::class.java)

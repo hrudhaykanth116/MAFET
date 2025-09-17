@@ -23,7 +23,7 @@ class AddMyTvUseCase @Inject constructor(
 
         when (tvShowDetails) {
             is RepoResultWrapper.Error -> {
-                // TODO: Handle error
+                // hrudhay_check_list: Handle error
                 return tvShowDetails
             }
             is RepoResultWrapper.Success -> {

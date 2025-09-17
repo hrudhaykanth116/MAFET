@@ -46,7 +46,7 @@ class DiscoverTvShowsRemoteDataSource constructor(
             val tvShowsList: List<TvShowData> =
                 discoverTvShowsResponse.body()?.tvShowsList ?: arrayListOf()
 
-            // TODO: 29/05/21 Check if the response is successful
+            // hrudhay_check_list: 29/05/21 Check if the response is successful
 
             LoadResult.Page(
                 data = tvShowsList,

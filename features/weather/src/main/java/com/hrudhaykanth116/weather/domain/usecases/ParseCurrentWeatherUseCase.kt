@@ -79,7 +79,7 @@ class ParseCurrentWeatherUseCase @Inject constructor(
                 description = currentWeather?.description.replaceIfBlank("- -").toUIText(),
                 icon = getWeatherIconUseCase(currentWeather?.id),
             ),
-            // TODO: Optimise code.
+            // hrudhay_check_list: Optimise code.
             weatherElementUIState = persistentListOf<WeatherElementUIState>(
                 WeatherElementUIState(WeatherElement.TEMP, temp),
                 WeatherElementUIState(WeatherElement.FEELS_LIKE, feelsLike),

@@ -34,7 +34,6 @@ fun HomeScreen(
         )
     }
 
-    // TODO: P6 Double recomposition happens probably two states are dependent on each other here. fix.
     bottomUIState = bottomUIState.copy(
         list = navItemList
     )

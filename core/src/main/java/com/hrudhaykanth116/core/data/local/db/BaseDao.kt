@@ -42,7 +42,7 @@ interface BaseDao<T> {
 
 }
 
-// TODO: Use Upsert in latest room version
+// hrudhay_check_list: Use Upsert in latest room version
 @Transaction
 suspend inline fun <reified T> BaseDao<T>.insertOrUpdate(item: T) {
     if (insert(item) != -1L) return

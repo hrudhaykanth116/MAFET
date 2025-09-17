@@ -47,7 +47,7 @@ val grey_12dp = 0xFF323232
 val grey_16dp = 0xFF353535
 val grey_24dp = 0xFF373737
 
-// TODO: Rename
+// hrudhay_check_list: Rename
 val darkThemeBlue = 0xFF021D2C
 
 // Buttons, checkboxes

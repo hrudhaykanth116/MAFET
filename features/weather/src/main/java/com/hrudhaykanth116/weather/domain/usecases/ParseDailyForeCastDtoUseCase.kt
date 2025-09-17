@@ -21,7 +21,7 @@ class ParseDailyForeCastDtoUseCase @Inject constructor(
     private val getWeatherIconUseCase: GetWeatherIconUseCase,
 ) {
 
-    // TODO: Use DI to inject this
+    // hrudhay_check_list: Use DI to inject this
     private val dispatcher = Dispatchers.Default
 
     suspend operator fun invoke(data: WeatherForeCastResponse): List<DailyWeatherUIState> =

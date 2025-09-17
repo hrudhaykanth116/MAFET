@@ -113,7 +113,7 @@ private fun Header(
             .fillMaxWidth()
             .graphicsLayer {
                 translationY = -scroll.value.toFloat() / 2f // Parallax effect
-                alpha = (-1f / headerHeightPx) * scroll.value + 1
+                alpha = -1f / headerHeightPx * scroll.value + 1
             }
     ) {
         Image(
@@ -262,7 +262,7 @@ private fun Title(
         fontWeight = FontWeight.Bold,
         modifier = modifier
             .graphicsLayer {
-                val collapseRange: Float = (headerHeightPx - toolbarHeightPx)
+                val collapseRange: Float = headerHeightPx - toolbarHeightPx
                 val collapseFraction: Float = (scroll.value / collapseRange).coerceIn(0f, 1f)
 
                 val titleYFirstInterpolatedPoint = lerp(

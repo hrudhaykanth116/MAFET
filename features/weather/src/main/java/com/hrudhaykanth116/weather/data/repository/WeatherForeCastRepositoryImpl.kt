@@ -10,9 +10,8 @@ import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 
 class WeatherForeCastRepositoryImpl @Inject constructor(
-    // TODO: Implement abstraction depending on the use case
+    // hrudhay_check_list: Implement abstraction depending on the use case
     private val weatherForeCastRemoteDataSource: WeatherForeCastRemoteDataSource,
-    private val weatherForeCastLocalDataSource: WeatherForeCastLocalDataSource,
     @IoDispatcher private val dispatcher: CoroutineDispatcher
 ) : BaseRepository(
     dispatcher

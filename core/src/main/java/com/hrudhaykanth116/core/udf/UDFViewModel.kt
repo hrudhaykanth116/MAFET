@@ -18,7 +18,7 @@ abstract class UDFViewModel<STATE, EVENT, EFFECT>(
     @Composable
     fun collectAsState() = stateFlow.collectAsStateWithLifecycle()
 
-    // TODO: A different mechanism may be used to handle effect like channel.
+    // hrudhay_check_list: A different mechanism may be used to handle effect like channel.
     // Currently using Shared flow which could cause effect lose if collector is paused.
     // These are typically viewModel events. User events can be handled within UI.
     private val _effect: MutableSharedFlow<EFFECT> = MutableSharedFlow()
@@ -28,12 +28,12 @@ abstract class UDFViewModel<STATE, EVENT, EFFECT>(
 
     abstract fun processEvent(event: EVENT)
 
-    // TODO: Prevent setting newState. Always use copy to avoid wrong state being set when done in parallel.
+    // hrudhay_check_list: Prevent setting newState. Always use copy to avoid wrong state being set when done in parallel.
     protected fun setState(newState: STATE.() -> STATE) {
         _state.update(newState)
     }
 
-    // TODO: Find more concise way
+    // hrudhay_check_list: Find more concise way
     protected fun updateState(newState: STATE.() -> STATE) {
         setState {
             newState()

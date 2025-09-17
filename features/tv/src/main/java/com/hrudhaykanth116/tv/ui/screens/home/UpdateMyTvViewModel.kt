@@ -49,7 +49,7 @@ class UpdateMyTvViewModel @Inject constructor(
                         dateTimeUtils.getDateFromMillis(time) ?: ""
                     )
                 ),
-                // TODO: P8 Currently this is how we are handling
+                // hrudhay_check_list: P8 Currently this is how we are handling
                 isLastWatchedDatePickerOpened = false,
             )
         }
@@ -82,7 +82,7 @@ class UpdateMyTvViewModel @Inject constructor(
 
     private fun onSubmit() {
         viewModelScope.launch {
-            // TODO: Not the case expecting. Handle/Check this
+            // hrudhay_check_list: Not the case expecting. Handle/Check this
             val data = state.updateTvData ?: return@launch
 
             setState {
@@ -98,7 +98,7 @@ class UpdateMyTvViewModel @Inject constructor(
                     lastWatchedSeason = data.lastWatchedSeason.text.toIntOrNull(),
                     lastWatchedEpisode = data.lastWatchedEpisode.text.toIntOrNull(),
                     lastWatchedTime = data.lastWatchedTime,
-                    // TODO: Should not update image source
+                    // hrudhay_check_list: Should not update image source
                     imgSource = data.imgSource?.data as? String
                 )
             )

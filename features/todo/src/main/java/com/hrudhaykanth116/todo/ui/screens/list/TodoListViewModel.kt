@@ -75,7 +75,7 @@ class TodoListViewModel @Inject constructor(
                 currentContentState.sortItem.key
             ).collectLatest { todoModelList ->
 
-                // TODO: Get categories list without groupBY. Using domain model ??
+                // hrudhay_check_list: Get categories list without groupBY. Using domain model ??
                 val categories = todoModelList.groupBy { todoModel ->
                     todoModel.category
                 }.keys

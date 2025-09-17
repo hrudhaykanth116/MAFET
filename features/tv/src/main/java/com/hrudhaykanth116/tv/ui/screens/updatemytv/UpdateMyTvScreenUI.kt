@@ -81,7 +81,7 @@ fun UpdateMyTvScreenUIContent(
     modifier: Modifier,
 ) {
 
-    // TODO: Should not be the case of null, check this
+    // hrudhay_check_list: Should not be the case of null, check this
     val updateTvData = state.updateTvData ?: return
 
     Box(
@@ -113,7 +113,7 @@ fun UpdateMyTvScreenUIContent(
             ) {
                 AppText(uiText = "S".toUIText())
                 HorizontalSpacer()
-                // TODO: Make this popup with seasons list
+                // hrudhay_check_list: Make this popup with seasons list
                 AppTextField(
                     textFieldData = TextFieldData(updateTvData.lastWatchedSeason),
                     modifier = Modifier.requiredWidth(50.dp),
@@ -123,7 +123,7 @@ fun UpdateMyTvScreenUIContent(
                 HorizontalSpacer()
                 AppText(uiText = "E".toUIText())
                 HorizontalSpacer()
-                // TODO: Make this popup with episodes list
+                // hrudhay_check_list: Make this popup with episodes list
                 AppTextField(
                     textFieldData = TextFieldData(updateTvData.lastWatchedEpisode),
                     modifier = Modifier.requiredWidth(70.dp),
@@ -166,7 +166,7 @@ fun UpdateMyTvScreenUIContent(
 
         }
         if (state.isLoading) {
-            // TODO: Prevent touch
+            // hrudhay_check_list: Prevent touch
             AppProgressBar()
         }
 

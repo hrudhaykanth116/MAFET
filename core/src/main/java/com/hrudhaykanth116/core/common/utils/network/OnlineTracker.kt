@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 import javax.inject.Singleton
 
-// TODO: Remove this
 @Deprecated("Use Network monitor")
 class OnlineTracker {
 

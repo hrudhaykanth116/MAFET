@@ -22,7 +22,7 @@ fun TodoNavigation(
         startDestination = TodoNavScreen.TodoListScreen.route
     ) {
 
-        // TODO: Use optional params and use utils function
+        // hrudhay_check_list: Use optional params and use utils function
         composable(route = TodoNavScreen.TodoListScreen.route) {
             TodoListScreen(
                 navigateToCreateScreen = {
@@ -55,7 +55,7 @@ fun TodoNavigation(
                 isInEditMode = true,
                 noteId = noteId,
                 onCreated = {
-                    // TODO: ISSUES jst popBackStack()
+                    // hrudhay_check_list: ISSUES jst popBackStack()
                     navController.popBackStack(
                         route = TodoNavScreen.TodoListScreen.route,
                         inclusive = false

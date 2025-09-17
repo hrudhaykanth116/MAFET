@@ -88,7 +88,7 @@ class FirebaseIAuthRemoteDataSource @Inject constructor(
 
                     val userNode = database.child("data").child(user.uid)
 
-                    // TODO: Use async for parallel work.
+                    // hrudhay_check_list: Use async for parallel work.
                     userNode.child("userName").setValue(signUpRequest.userName).await()
                     userNode.child("bio").setValue(signUpRequest.bio).await()
 

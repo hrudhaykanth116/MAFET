@@ -6,7 +6,7 @@ import com.hrudhaykanth116.core.ui.models.ImageHolder
 
 data class UpdateMyTvUIStateActual(
     val updateTvData: UpdateTvData? = null,
-    // TODO: More suitable way
+    // hrudhay_check_list: More suitable way
     val isLoading: Boolean = false,
     val isLastWatchedDatePickerOpened: Boolean = false,
     val isClosed: Boolean = false,

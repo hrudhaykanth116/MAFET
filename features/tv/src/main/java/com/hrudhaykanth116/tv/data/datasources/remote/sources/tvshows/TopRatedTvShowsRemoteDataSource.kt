@@ -28,7 +28,7 @@ class TopRatedTvShowsRemoteDataSource @Inject constructor(
                 retroApis.getTopRatedTvShows(currentKey)
             val tvShowsList = topRatedTvShowsResponse.body()?.tvShowsList ?: listOf()
 
-            // TODO: 29/05/21 Check if the response is successful
+            // hrudhay_check_list: 29/05/21 Check if the response is successful
 
             LoadResult.Page(
                 data = tvShowsList,

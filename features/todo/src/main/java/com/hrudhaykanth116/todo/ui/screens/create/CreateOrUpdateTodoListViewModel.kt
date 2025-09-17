@@ -91,8 +91,6 @@ class CreateOrUpdateTodoListViewModel @Inject constructor(
 
             CreateTodoEvent.Submit -> {
 
-                // TODO: Priority 1: Validation
-
                 viewModelScope.launch {
                     setState {
                         UIState.Loading(contentState)

@@ -22,7 +22,7 @@ class DeleteTaskUseCase @Inject constructor(
     ): RepoResultWrapper<Unit> {
 
         if (taskIdsToDelete == null) {
-            // TODO: A simple check to delete all tasks.
+            // hrudhay_check_list: A simple check to delete all tasks.
             todoRepository.deleteAllTasks()
         } else {
             todoRepository.deleteTasks(

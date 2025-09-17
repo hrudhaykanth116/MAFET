@@ -12,7 +12,7 @@ class UpdateMyTvUseCase @Inject constructor(
     private val myTvListRepository: MyTvListRepository,
 ) {
 
-    // TODO: Update only season, episode, time
+    // hrudhay_check_list: Update only season, episode, time
     suspend operator fun invoke(myTvDomainModel: MyTvDomainModel): RepoResultWrapper<Unit> {
 
         myTvListRepository.updateMyTvEntity(

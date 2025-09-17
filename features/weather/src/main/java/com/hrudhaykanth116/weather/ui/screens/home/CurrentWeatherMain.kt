@@ -21,7 +21,7 @@ fun CurrentWeatherMain(
     modifier: Modifier = Modifier,
 ) {
 
-    // TODO: Add some ui or ignore
+    // hrudhay_check_list: Add some ui or ignore
     weatherMain ?: return
 
     Row(

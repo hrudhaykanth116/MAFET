@@ -34,7 +34,7 @@ class GetWeatherElementIconUseCase @Inject constructor(
 
 }
 
-// TODO: Extract out these classes
+// hrudhay_check_list: Extract out these classes
 data class WeatherElementUIState(
     val weatherElement: WeatherElement,
     val value: UIText,

@@ -2,7 +2,7 @@ package com.hrudhaykanth116.mafet.home.models
 
 data class HomeBottomNavigationUIState(
 
-    // TODO: P7 Combine as one state. navigationItem, isSelected.
+    // P7 Combine as one state. navigationItem, isSelected.
     val list: List<NavigationItemUIState> = listOf(
         NavigationItemUIState(HomeBottomNavigationItem.TODO),
         NavigationItemUIState(HomeBottomNavigationItem.JOURNAL),

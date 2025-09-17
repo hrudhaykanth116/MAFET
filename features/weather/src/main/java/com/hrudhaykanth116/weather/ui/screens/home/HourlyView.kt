@@ -33,7 +33,7 @@ fun HourlyView(
 
     state ?: return
 
-    // TODO: Card may not be needed
+    // hrudhay_check_list: Card may not be needed
     // AppCard(
     //     modifier = modifier
     //         .padding(

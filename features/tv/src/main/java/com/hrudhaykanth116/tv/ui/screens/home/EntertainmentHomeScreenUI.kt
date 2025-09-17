@@ -71,7 +71,7 @@ fun EntertainmentHomeScreenUI(
         }
     ) {
         if (list.isNullOrEmpty()) {
-            // TODO: Better UI
+            // hrudhay_check_list: Better UI
             CenteredColumn(modifier = Modifier.fillMaxSize()) {
                 AppText(uiText = "No data".toUIText())
             }
@@ -116,7 +116,7 @@ fun EntertainmentHomeScreenUI(
                         onCancelled = {
                             entertainmentHomeScreenCallbacks.onUpdateTvCloseRequest()
                         },
-                        // TODO: Quick way. Check this.
+                        // hrudhay_check_list: Quick way. Check this.
                         updateMyTvViewModel = hiltViewModel<UpdateMyTvViewModel>().apply {
                             setData(data)
                         },
