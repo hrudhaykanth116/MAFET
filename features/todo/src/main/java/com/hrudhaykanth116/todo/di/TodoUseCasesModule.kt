@@ -29,6 +29,5 @@ object TodoUseCasesModule {
     @Singleton
     fun provideCreateTodoTaskUseCase(
         repo: ITodoRepository,
-        uniqueIdGenerator: UniqueIdGenerator,
-    ): CreateTodoTaskUseCase = CreateTodoTaskUseCase(repo, uniqueIdGenerator)
+    ): CreateTodoTaskUseCase = CreateTodoTaskUseCase(repo)
 } 

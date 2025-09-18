@@ -44,7 +44,7 @@ fun <T> AppUIState(
     modifier: Modifier = Modifier,
     // onUserMessageShown: (() -> Unit),
     // onRetry: (() -> Unit),
-    content: @Composable ((T?) -> Unit),
+    content: @Composable ((T) -> Unit),
 ) {
 
     val state: UIState<T> by viewModel.uiStateFlow.collectAsStateWithLifecycle()
@@ -91,7 +91,9 @@ fun <T> AppUIState(
 
                     }
                 } else {
-                    content(state.contentState)
+                    state.contentState?.let {
+                        content(it)
+                    }
                     CenteredColumn(
                         modifier = Modifier
                             .align(Alignment.Center)
@@ -132,7 +134,9 @@ fun <T> AppUIState(
             }
 
             is UIState.Idle -> {
-                content(state.contentState)
+                state.contentState?.let {
+                    content(it)
+                }
 
                 when (val userMessage = state.userMessage) {
                     is UserMessage.Error -> showUserMessageAndResetState(context, userMessage.message.getText(context), viewModel)

@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hrudhaykanth116.core.common.utils.network.NetworkMonitor
 import com.hrudhaykanth116.core.ui.models.UIState
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -46,7 +45,8 @@ abstract class UIStateViewModel<STATE, EVENT, EFFECT>(
         return networkMonitor.isNetworkAvailable()
     }
 
-    val currentContentState: STATE get() = uiState.contentState ?: defaultState
+    val currentContentState: STATE? get() = uiState.contentState
+    val contentStateOrDefault: STATE get() = uiState.contentState ?: defaultState
 
     abstract fun initializeData() // Initial data if any. Should be called once when screen is launched when data is needed to be fetched
     abstract fun processEvent(event: EVENT)
@@ -62,7 +62,7 @@ abstract class UIStateViewModel<STATE, EVENT, EFFECT>(
 
     protected fun updateContentState(contentState: STATE.() -> STATE) {
         _uiStateFlow.update {
-            it.copyUIState(newContentState = currentContentState.contentState())
+            it.copyUIState(newContentState = contentStateOrDefault.contentState())
         }
     }
 
@@ -81,7 +81,7 @@ abstract class UIStateViewModel<STATE, EVENT, EFFECT>(
     protected fun setIdleState(contentState: STATE.() -> STATE) {
         setState {
             UIState.Idle(
-                currentContentState.contentState()
+                contentStateOrDefault.contentState()
             )
         }
     }

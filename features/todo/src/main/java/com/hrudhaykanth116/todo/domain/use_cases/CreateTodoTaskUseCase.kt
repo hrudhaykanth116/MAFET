@@ -1,5 +1,6 @@
 package com.hrudhaykanth116.todo.domain.use_cases
 
+import coil.util.CoilUtils.result
 import com.hrudhaykanth116.core.common.utils.random.UniqueIdGenerator
 import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
 import com.hrudhaykanth116.todo.domain.repository.ITodoRepository
@@ -7,10 +8,12 @@ import com.hrudhaykanth116.todo.domain.model.TodoModel
 import javax.inject.Inject
 import javax.inject.Singleton
 
+/**
+ * Creates or updates a todo task based on the provided [TodoModel].
+ */
 @Singleton
 class CreateTodoTaskUseCase @Inject constructor(
     private val todoRepository: ITodoRepository,
-    private val uniqueIdGenerator: UniqueIdGenerator,
 ) {
 
     suspend operator fun invoke(
@@ -44,10 +47,7 @@ class CreateTodoTaskUseCase @Inject constructor(
         //     )
         // }
 
-
-        val result: RepoResultWrapper<Unit> = todoRepository.createTodoTask(todoModel,
-            id = uniqueIdGenerator.getUniqueId()
-        )
+        val result: RepoResultWrapper<Unit> = todoRepository.createTodoTask(todoModel)
 
         return result
     }

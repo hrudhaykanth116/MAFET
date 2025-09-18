@@ -46,7 +46,7 @@ class UpdateMyTvViewModel @Inject constructor(
                 updateTvData = currentUpdateTvData?.copy(
                     lastWatchedTime = time,
                     lastWatchedTimeUIText = TextFieldValue(
-                        dateTimeUtils.getDateFromMillis(time) ?: ""
+                        dateTimeUtils.getFormattedDateTime(time, "dd/MM/yyyy") ?: ""
                     )
                 ),
                 // hrudhay_check_list: P8 Currently this is how we are handling

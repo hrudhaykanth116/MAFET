@@ -2,10 +2,10 @@ package com.hrudhaykanth116.weather.domain.usecases
 
 import com.hrudhaykanth116.core.common.utils.conversions.TemperatureConverter
 import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
+import com.hrudhaykanth116.core.common.utils.date.toMillis
 import com.hrudhaykanth116.core.common.utils.number.truncateToDecimals
 import com.hrudhaykanth116.core.common.utils.string.replaceIfBlank
 import com.hrudhaykanth116.core.data.models.toUIText
-import com.hrudhaykanth116.core.ui.models.toImageHolder
 import com.hrudhaykanth116.weather.data.models.WeatherForeCastResponse
 import com.hrudhaykanth116.weather.domain.models.HourlyWeatherUIState
 import com.hrudhaykanth116.weather.domain.models.TodayWeatherUIState
@@ -13,7 +13,6 @@ import com.hrudhaykanth116.weather.domain.models.WeatherMain
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
-import okhttp3.internal.immutableListOf
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -51,15 +50,20 @@ class ParseCurrentWeatherUseCase @Inject constructor(
         val currentWeather = current?.weather?.firstOrNull()
 
         val humidity = current?.humidity.toUIText("- -")
-        val sunrise = dateTimeUtils.getTimeFromSecs(current?.sunrise).toUIText("- -")
-        val sunset = dateTimeUtils.getTimeFromSecs(current?.sunset).toUIText("- -")
+        val sunrise =
+            dateTimeUtils.getFormattedDateTime(current?.sunrise?.toMillis(), pattern = "HH:mm:ss")
+                .toUIText("- -")
+        val sunset =
+            dateTimeUtils.getFormattedDateTime(current?.sunset?.toMillis(), pattern = "HH:mm:ss")
+                .toUIText("- -")
         val windSpeed = current?.windSpeed.toUIText("- -")
         val clouds = current?.clouds.toUIText("- -")
         val pressure = current?.pressure.toUIText("- -")
         val temp = temperatureConverter.getCelsiusFromKelvin(current?.temp)
             ?.truncateToDecimals(1).toUIText("- -")
         val dewPoint = current?.dewPoint.toUIText("- -")
-        val dt = dateTimeUtils.getDateFromSecs(current?.dt).orEmpty().toUIText()
+        val dt = dateTimeUtils.getFormattedDateTime(current?.dt?.toMillis(), "dd/MM/yyyy").orEmpty()
+            .toUIText()
         val feelsLike = current?.feelsLike.toUIText("- -")
         val uvi = current?.uvi.toUIText("- -")
         val visibility = current?.visibility.toUIText("- -")
@@ -117,8 +121,8 @@ class ParseCurrentWeatherUseCase @Inject constructor(
                         icon = icon,
                         title = weatherMain.main.replaceIfBlank("- -").toUIText()
                     ),
-                    time = dateTimeUtils.getTimeFromSecs(
-                        hourly.dt,
+                    time = dateTimeUtils.getFormattedDateTime(
+                        hourly.dt?.toMillis(),
                         DateTimeUtils.HOURS_MIN_FORMAT
                     ).replaceIfBlank("- -").toUIText()
                 )

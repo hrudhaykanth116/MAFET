@@ -29,21 +29,12 @@ object NetworkDiModule {
     @Provides
     fun provideBaseUrl() = "https://api.openweathermap.org/"
 
-    @Named("weather_okhttp")
-    @Singleton
-    @Provides
-    fun provideOkHttpClient() =
-        OkHttpClient.Builder()
-            // .addInterceptor()
-            // .addTimeOut()
-            .build()
-
 
     @Named("weather_retrofit")
     @Singleton
     @Provides
     fun provideRetrofit(
-        @Named("weather_okhttp") okHttpClient: OkHttpClient,
+        okHttpClient: OkHttpClient,
         @Named("weather_baseurl") BASE_URL: String,
         @Named("weather_moshi") moshi: Moshi,
     ): Retrofit = Retrofit.Builder()

@@ -24,8 +24,6 @@ fun CreateOrUpdateTodoScreen(
 ) {
     Logger.d(TAG, "CreateTodoListScreen: ")
 
-    val state: UIState<CreateOrUpdateTodoUIState> by viewModel.uiStateFlow.collectAsStateWithLifecycle()
-
     AppUIState(
         viewModel = viewModel,
     ) { contentState: CreateOrUpdateTodoUIState? ->

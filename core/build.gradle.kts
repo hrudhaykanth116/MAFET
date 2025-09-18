@@ -178,6 +178,8 @@ dependencies {
     api(libs.livedata.support)
 
     // Network
+    api(libs.okhttp)
+    api(libs.logging.interceptor)
     api(libs.retrofit)
     api(libs.converter.gson)
     // Moshi

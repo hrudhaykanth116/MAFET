@@ -54,28 +54,28 @@ class TodoListViewModelTest {
 
         viewModel.processEvent(TodoListScreenEvent.TodoTaskTitleChanged(newTitle))
 
-        assertEquals(newTitle, viewModel.currentContentState.todoTitle)
+        assertEquals(newTitle, viewModel.contentStateOrDefault.todoTitle)
     }
 
     @Test
     fun `search event updates search text in state`() = runTest {
         val searchText = "meeting"
         viewModel.processEvent(TodoListScreenEvent.Search(searchText))
-        assertEquals(searchText, viewModel.currentContentState.search)
+        assertEquals(searchText, viewModel.contentStateOrDefault.search)
     }
 
     @Test
     fun `filter event updates selected filter in state`() = runTest {
         val filterCategory = "Work"
         viewModel.processEvent(TodoListScreenEvent.FilterCategory(filterCategory))
-        assertEquals(filterCategory, viewModel.currentContentState.selectedFilter)
+        assertEquals(filterCategory, viewModel.contentStateOrDefault.selectedFilter)
     }
 
     @Test
     fun `sort event updates sort item in state`() = runTest {
         val sortItem = com.hrudhaykanth116.todo.data.models.TodoListScreenSortItem.PRIORITY
         viewModel.processEvent(TodoListScreenEvent.SortOptionSelected(sortItem))
-        assertEquals(sortItem, viewModel.currentContentState.sortItem)
+        assertEquals(sortItem, viewModel.contentStateOrDefault.sortItem)
     }
 
     @Test
@@ -88,7 +88,7 @@ class TodoListViewModelTest {
 
         dispatcher.scheduler.advanceUntilIdle()
 
-        assertEquals(TextFieldValue(), viewModel.currentContentState.todoTitle)
+        assertEquals(TextFieldValue(), viewModel.contentStateOrDefault.todoTitle)
         verify(createTodoTaskUseCase).invoke(any())
     }
 
