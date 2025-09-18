@@ -13,7 +13,7 @@ fun TodoTaskDbEntity.toDomain(): TodoModel = TodoModel(
     targetTime = targetTime,
 )
 
-fun TodoModel.toLocal(timeUpdated: Long, id: String): TodoTaskDbEntity = TodoTaskDbEntity(
+fun TodoModel.toLocal(timeUpdated: Long): TodoTaskDbEntity = TodoTaskDbEntity(
     id = id,
     title = title,
     description = description,

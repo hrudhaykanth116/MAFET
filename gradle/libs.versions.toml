@@ -60,7 +60,11 @@ moshiKotlinCodegen = "1.15.2"
 navigationTesting = "2.9.0"
 pagingRuntimeKtx = "3.3.6"
 playServicesLocation = "21.3.0"
+
 retrofit = "3.0.0"
+okhttp = "5.1.0"
+loggingInterceptor = "5.1.0"
+
 safeArgs = "2.9.0"
 # @keep
 room = "2.7.2"
@@ -142,6 +146,10 @@ mockito-inline = { module = "org.mockito:mockito-inline", version = "5.2.0" }
 mockk = { module = "io.mockk:mockk", version = "1.14.5" }
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
 
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "loggingInterceptor" }
+
 kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinx_immutable" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 kotpref = { module = "com.chibatching.kotpref:kotpref", version.ref = "kotpref" }
@@ -154,7 +162,6 @@ moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "mosh
 moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
 moshi-kotlin-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshiKotlinCodegen" }
 play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmer" }
 
 ssp-android = { module = "com.intuit.ssp:ssp-android", version.ref = "sdpAndroid" }

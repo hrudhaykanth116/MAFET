@@ -56,12 +56,18 @@ class TodoRepository @Inject constructor(
             }
         }
 
-    override suspend fun createTodoTask(todoModel: TodoModel, id: String): RepoResultWrapper<Unit> =
+    override suspend fun createTodoTask(todoModel: TodoModel): RepoResultWrapper<Unit> =
         withContext(dispatcher) {
-            val local = todoModel.toLocal(timeProvider.currentTimeMillis(), id)
+            val local = todoModel.toLocal(timeProvider.currentTimeMillis())
             todoLocalDataSource.createTodoTask(local)
             RepoResultWrapper.Success(Unit)
         }
+
+    override suspend fun updateTodoTask(todoModel: TodoModel): RepoResultWrapper<Unit> = withContext(dispatcher){
+        val local = todoModel.toLocal(timeProvider.currentTimeMillis(),)
+        todoLocalDataSource.createTodoTask(local)
+        RepoResultWrapper.Success(Unit)
+    }
 
 
     override suspend fun deleteTasks(taskId: List<String>): Unit = withContext(dispatcher) {

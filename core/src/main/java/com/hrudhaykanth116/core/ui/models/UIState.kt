@@ -29,13 +29,12 @@ sealed class UIState<T>(
     }
 
     data class Error<T>(
-        val uiText: UIText? = null,
         override val contentState: T? = null,
         override val userMessage: UserMessage? = null
     ) : UIState<T>(contentState) {
 
         override fun copyUIState(newContentState: T?, newUserMessage: UserMessage?): UIState<T> {
-            return copy(uiText = uiText, contentState = newContentState, userMessage = newUserMessage)
+            return copy(contentState = newContentState, userMessage = newUserMessage)
         }
     }
 

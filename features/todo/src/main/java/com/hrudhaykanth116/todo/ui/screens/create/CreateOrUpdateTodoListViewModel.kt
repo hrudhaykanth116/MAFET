@@ -7,6 +7,7 @@ import com.hrudhaykanth116.core.common.ui.models.toErrorMessage
 import com.hrudhaykanth116.core.common.ui.models.toSuccessMessage
 import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
 import com.hrudhaykanth116.core.common.utils.network.NetworkMonitor
+import com.hrudhaykanth116.core.common.utils.random.UniqueIdGenerator
 import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
 import com.hrudhaykanth116.core.udf.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
@@ -28,7 +29,9 @@ class CreateOrUpdateTodoListViewModel @Inject constructor(
     private val getTaskUseCase: GetTaskUseCase,
     private val networkMonitor: NetworkMonitor,
     private val dateTimeUtils: DateTimeUtils,
-) : UIStateViewModel<CreateOrUpdateTodoUIState, CreateTodoEvent, CreateTodoEffect>(
+    private val uniqueIdGenerator: UniqueIdGenerator,
+
+    ) : UIStateViewModel<CreateOrUpdateTodoUIState, CreateTodoEvent, CreateTodoEffect>(
     initialState = UIState.Loading(CreateOrUpdateTodoUIState()),
     defaultState = CreateOrUpdateTodoUIState(),
     networkMonitor = networkMonitor
@@ -49,6 +52,7 @@ class CreateOrUpdateTodoListViewModel @Inject constructor(
                     is RepoResultWrapper.Error -> {
                         null
                     }
+
                     is RepoResultWrapper.Success -> {
                         getTaskResult.data
                     }
@@ -98,7 +102,7 @@ class CreateOrUpdateTodoListViewModel @Inject constructor(
 
                     val todoModel = with(currentContentState) {
                         TodoModel(
-                            id = noteId,
+                            id = noteId ?: uniqueIdGenerator.getUniqueId(), // new id if new note.
                             title = todoUIModel.title.text,
                             description = todoUIModel.description.text,
                             category = todoUIModel.category.text,
@@ -211,7 +215,7 @@ class CreateOrUpdateTodoListViewModel @Inject constructor(
                         currentContentState.copy(
                             todoUIModel = currentContentState.todoUIModel.copy(
                                 targetTime = TextFieldValue(
-                                    text = formatedDateTime
+                                    text = formatedDateTime ?: ""
                                 )
                             )
                         ),
@@ -235,7 +239,7 @@ class CreateOrUpdateTodoListViewModel @Inject constructor(
 
     ): CreateOrUpdateTodoUIState {
 
-        return currentContentState
+        return contentStateOrDefault
 
     }
 

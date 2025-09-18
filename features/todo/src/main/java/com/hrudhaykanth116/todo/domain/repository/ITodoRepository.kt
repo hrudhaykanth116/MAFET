@@ -22,7 +22,8 @@ interface ITodoRepository {
 
     suspend fun getTodoTask(id: String): RepoResultWrapper<TodoModel>
 
-    suspend fun createTodoTask(todoModel: TodoModel, id: String): RepoResultWrapper<Unit>
+    suspend fun createTodoTask(todoModel: TodoModel): RepoResultWrapper<Unit>
+    suspend fun updateTodoTask(todoModel: TodoModel): RepoResultWrapper<Unit>
 
     suspend fun deleteTasks(taskId: List<String>)
 

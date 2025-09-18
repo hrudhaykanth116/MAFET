@@ -33,7 +33,7 @@ class TvDetailsViewModel @Inject constructor(
     }
 
     override fun initializeData() {
-        fetchData()
+        // fetchData()
     }
 
     private fun fetchData() {
@@ -42,7 +42,10 @@ class TvDetailsViewModel @Inject constructor(
             val tvDetailsUseCase: RepoResultWrapper<TvShowDetails> = getTvDetailsUseCase(id)
             when (tvDetailsUseCase) {
                 is RepoResultWrapper.Error -> {
-                    setState { UIState.Error("Something went wrong".toUIText()) }
+                    setState { UIState.Error(
+                        contentState = contentState,
+                        userMessage = tvDetailsUseCase.errorState.mapToUIMessage()
+                    ) }
                 }
 
                 is RepoResultWrapper.Success -> {

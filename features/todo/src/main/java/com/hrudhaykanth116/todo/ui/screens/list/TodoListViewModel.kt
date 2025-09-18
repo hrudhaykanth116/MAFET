@@ -2,12 +2,11 @@ package com.hrudhaykanth116.todo.ui.screens.list
 
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.viewModelScope
-import com.hrudhaykanth116.core.common.di.IoDispatcher
 import com.hrudhaykanth116.core.common.di.MainDispatcher
 import com.hrudhaykanth116.core.common.ui.models.toErrorMessage
 import com.hrudhaykanth116.core.common.ui.models.toSuccessMessage
-import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
 import com.hrudhaykanth116.core.common.utils.network.NetworkMonitor
+import com.hrudhaykanth116.core.common.utils.random.UniqueIdGenerator
 import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
 import com.hrudhaykanth116.core.udf.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
@@ -42,6 +41,7 @@ class TodoListViewModel @Inject constructor(
     private val deleteTaskUseCase: DeleteTaskUseCase,
     private val networkMonitor: NetworkMonitor,
     private val mapper: TodoDomainModelMapper,
+    private val uniqueIdGenerator: UniqueIdGenerator,
     @MainDispatcher private val dispatcher: CoroutineDispatcher = Dispatchers.Main,
 ) : UIStateViewModel<TodoListUIState, TodoListScreenEvent, CreateTodoEffect>(
     initialState = UIState.Idle(TodoListUIState()),
@@ -72,7 +72,7 @@ class TodoListViewModel @Inject constructor(
             observeTasksUseCase(
                 null,
                 null,
-                currentContentState.sortItem.key
+                contentStateOrDefault.sortItem.key
             ).collectLatest { todoModelList ->
 
                 // hrudhay_check_list: Get categories list without groupBY. Using domain model ??
@@ -224,7 +224,7 @@ class TodoListViewModel @Inject constructor(
         viewModelScope.launch(dispatcher) {
             val result: RepoResultWrapper<Unit> = createTodoTaskUseCase(
                 TodoModel(
-                    id = null,
+                    id = uniqueIdGenerator.getUniqueId(),
                     title = taskTitle,
                     description = "",
                     category = "General",
@@ -235,7 +235,7 @@ class TodoListViewModel @Inject constructor(
                 is RepoResultWrapper.Error -> {
                     setState {
                         UIState.Idle(
-                            currentContentState,
+                            contentStateOrDefault,
                             userMessage = "Something went wrong. Please try again.".toErrorMessage()
                         )
                     }
@@ -244,7 +244,7 @@ class TodoListViewModel @Inject constructor(
                 is RepoResultWrapper.Success -> {
                     setState {
                         UIState.Idle(
-                            currentContentState.copy(todoTitle = TextFieldValue()),
+                            contentStateOrDefault.copy(todoTitle = TextFieldValue()),
                             userMessage = "Successfully created task".toSuccessMessage()
                         )
                     }

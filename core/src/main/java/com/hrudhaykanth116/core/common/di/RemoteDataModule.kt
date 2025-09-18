@@ -8,6 +8,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
@@ -30,18 +31,15 @@ object RemoteDataModule {
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
 
-        return if (BuildConfig.DEBUG) {
-            // val httpLoggingInterceptor = HttpLoggingInterceptor()
-            // httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-            builder
-                // .authenticator(TokenAuthenticator())
-                // .addInterceptor(RequestHeaderInterceptor())
-                // .addInterceptor(httpLoggingInterceptor)
-                .build()
-        } else builder
-            // .authenticator(TokenAuthenticator())
-            // .addInterceptor(RequestHeaderInterceptor()).build()
-            .build()
+        if (BuildConfig.DEBUG) {
+            val loggingInterceptor = HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            }
+            builder.addInterceptor(loggingInterceptor)
+        }
+
+        return builder.build()
+
     }
 
     @Provides
