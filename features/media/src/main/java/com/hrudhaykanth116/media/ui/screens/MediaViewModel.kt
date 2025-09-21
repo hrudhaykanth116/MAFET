@@ -35,7 +35,7 @@ class MediaViewModel @Inject constructor(
                 val curatedPhotos: List<PhotoResponse> =
                     pexelsRepository.getCuratedPhotos(page = Random.nextInt(1, 10), perPage = 20)
                 setState {
-                    copyUIState(newContentState = contentState?.copy(photoList = curatedPhotos))
+                    UIState.Idle(contentState = contentState?.copy(photoList = curatedPhotos))
                 }
 
                 val searchedPhotos =
@@ -70,7 +70,7 @@ class MediaViewModel @Inject constructor(
                 // val staticUrl = "https://www.pexels.com/video/a-person-holding-a-eucalyptus-plant-with-soil-6963395/"
 
                 setState {
-                    copyUIState(newContentState = contentState?.copy(videoUrl = videoUrl))
+                    UIState.Idle(contentState = contentState?.copy(videoUrl = videoUrl))
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "API error: ${e.message}", e)

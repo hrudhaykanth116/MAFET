@@ -51,6 +51,10 @@ class WeatherHomeScreenViewModel @Inject constructor(
 
     fun fetchLocationAndWeather() {
 
+        setState {
+            UIState.Loading(currentContentState)
+        }
+
         viewModelScope.launch {
             val location = getCurrentLocation(fusedLocationClient)
 
@@ -109,7 +113,7 @@ class WeatherHomeScreenViewModel @Inject constructor(
                     Logger.e(TAG, "fetchData: foreCastDataResult: ${foreCastDataResult.errorState}")
                     setState {
                         UIState.Error(
-                            userMessage = foreCastDataResult.errorState.mapToUIMessage(),
+                            errorState = foreCastDataResult.errorState,
                         )
                     }
                 }
@@ -153,7 +157,7 @@ class WeatherHomeScreenViewModel @Inject constructor(
                 is RepoResultWrapper.Error -> {
                     setState {
                         UIState.Error(
-                            userMessage = foreCastDataResult.errorState.mapToUIMessage(),
+                            errorState = foreCastDataResult.errorState,
                         )
                     }
                 }

@@ -12,7 +12,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.hrudhaykanth116.core.common.utils.gps.GpsUtils
 import com.hrudhaykanth116.core.common.utils.gps.GpsUtils.isGpsEnabled
 import com.hrudhaykanth116.core.common.utils.gps.GpsUtils.requestEnableGps
-import com.hrudhaykanth116.core.ui.components.AppUIState
+import com.hrudhaykanth116.core.ui.components.AppScreen
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenCallbacks
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenEvent
 
@@ -61,7 +61,7 @@ fun WeatherHomeScreen(
         }
     }
 
-    AppUIState(
+    AppScreen(
         weatherHomeScreenViewModel
     ) { state ->
 

@@ -145,60 +145,56 @@ class CreateOrUpdateTodoListViewModel @Inject constructor(
 
             is CreateTodoEvent.DescriptionChanged -> {
                 setState {
-                    uiState.copyUIState(
+                    UIState.Idle(
                         currentContentState.copy(
                             todoUIModel = currentContentState.todoUIModel.copy(description = event.textFieldValue)
                         ),
-                        newUserMessage = uiState.userMessage
                     )
                 }
             }
 
             is CreateTodoEvent.CategoryChanged -> {
                 setState {
-                    uiState.copyUIState(
+                    UIState.Idle(
                         currentContentState.copy(
                             todoUIModel = currentContentState.todoUIModel.copy(category = event.textFieldValue)
                         ),
-                        newUserMessage = uiState.userMessage
                     )
                 }
             }
 
             is CreateTodoEvent.PriorityChanged -> {
                 setState {
-                    uiState.copyUIState(
+                    UIState.Idle(
                         currentContentState.copy(
                             todoUIModel = currentContentState.todoUIModel.copy(priority = event.priority)
                         ),
-                        newUserMessage = uiState.userMessage
                     )
                 }
             }
 
             is CreateTodoEvent.TitleChanged -> {
                 setState {
-                    uiState.copyUIState(
+                    UIState.Idle(
                         currentContentState.copy(
                             todoUIModel = currentContentState.todoUIModel.copy(title = event.textFieldValue)
                         ),
-                        newUserMessage = uiState.userMessage
                     )
                 }
             }
 
             CreateTodoEvent.UserMessageShown -> {
                 setState {
-                    uiState.copyUIState(
+                    UIState.Idle(
                         currentContentState,
-                        newUserMessage = null
+                        userMessage = null
                     )
                 }
             }
 
             CreateTodoEvent.OnTargetFieldClicked -> {
                 setState {
-                    uiState.copyUIState(
+                    UIState.Idle(
                         currentContentState.copy(
                             showTargetTimePicker = true
                         ),
@@ -211,7 +207,7 @@ class CreateOrUpdateTodoListViewModel @Inject constructor(
                 val formatedDateTime = dateTimeUtils.getFormattedDateTime(event.timeMillis)
 
                 setState {
-                    uiState.copyUIState(
+                    UIState.Idle(
                         currentContentState.copy(
                             todoUIModel = currentContentState.todoUIModel.copy(
                                 targetTime = TextFieldValue(
@@ -225,7 +221,7 @@ class CreateOrUpdateTodoListViewModel @Inject constructor(
 
             CreateTodoEvent.OnTargetTimeDateTimePickerCloseRequest -> {
                 setState {
-                    uiState.copyUIState(
+                    UIState.Idle(
                         currentContentState.copy(
                             showTargetTimePicker = false
                         ),
