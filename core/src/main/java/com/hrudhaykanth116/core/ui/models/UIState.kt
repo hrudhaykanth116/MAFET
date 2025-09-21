@@ -1,7 +1,7 @@
 package com.hrudhaykanth116.core.ui.models
 
 import com.hrudhaykanth116.core.common.ui.models.UserMessage
-import com.hrudhaykanth116.core.data.models.UIText
+import com.hrudhaykanth116.core.domain.models.ErrorState
 
 /**
  * During loading/error states, this content state may or may not have some data state.
@@ -9,45 +9,22 @@ import com.hrudhaykanth116.core.data.models.UIText
  */
 sealed class UIState<T>(
     open val contentState: T?,
-    open val userMessage: UserMessage? = null
+    // open val userMessage: UserMessage? = null
 ) {
-
-    abstract fun copyUIState(
-        newContentState: T? = contentState,
-        newUserMessage: UserMessage? = userMessage
-    ): UIState<T>
 
     data class Loading<T>(
         override val contentState: T? = null,
-        override val userMessage: UserMessage? = null
-    ) : UIState<T>(contentState) {
-
-        override fun copyUIState(newContentState: T?, newUserMessage: UserMessage?): UIState<T> {
-            return copy(contentState = newContentState, userMessage = newUserMessage)
-        }
-
-    }
+    ) : UIState<T>(contentState)
 
     data class Error<T>(
+        val errorState: ErrorState,
         override val contentState: T? = null,
-        override val userMessage: UserMessage? = null
-    ) : UIState<T>(contentState) {
-
-        override fun copyUIState(newContentState: T?, newUserMessage: UserMessage?): UIState<T> {
-            return copy(contentState = newContentState, userMessage = newUserMessage)
-        }
-    }
+    ) : UIState<T>(contentState)
 
     data class Idle<T>(
         override val contentState: T? = null,
-        override val userMessage: UserMessage? = null
-    ) : UIState<T>(contentState) {
-
-        override fun copyUIState(newContentState: T?, newUserMessage: UserMessage?): UIState<T> {
-            return copy(contentState = newContentState, userMessage = newUserMessage)
-        }
-
-    }
+        val userMessage: UserMessage? = null
+    ) : UIState<T>(contentState)
 
 }
 

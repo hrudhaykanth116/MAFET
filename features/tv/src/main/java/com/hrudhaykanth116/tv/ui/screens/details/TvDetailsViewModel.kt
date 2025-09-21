@@ -44,7 +44,7 @@ class TvDetailsViewModel @Inject constructor(
                 is RepoResultWrapper.Error -> {
                     setState { UIState.Error(
                         contentState = contentState,
-                        userMessage = tvDetailsUseCase.errorState.mapToUIMessage()
+                        errorState = tvDetailsUseCase.errorState
                     ) }
                 }
 
@@ -78,16 +78,18 @@ class TvDetailsViewModel @Inject constructor(
             when (result) {
                 is RepoResultWrapper.Error -> {
                     setState {
-                        copyUIState(
-                            newUserMessage = result.errorState.mapToUIMessage(),
+                        UIState.Idle(
+                            contentState = contentState,
+                            userMessage = result.errorState.mapToUIMessage(),
                         )
                     }
                 }
 
                 is RepoResultWrapper.Success -> {
                     setState {
-                        copyUIState(
-                            newUserMessage = UserMessage.Success(message = "Added to Your List".toUIText()),
+                        UIState.Idle(
+                            contentState = contentState,
+                            userMessage = UserMessage.Success(message = "Added to Your List".toUIText()),
                         )
                     }
                 }

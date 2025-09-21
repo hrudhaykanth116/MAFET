@@ -167,7 +167,9 @@ fun UpdateMyTvScreenUIContent(
         }
         if (state.isLoading) {
             // hrudhay_check_list: Prevent touch
-            AppProgressBar()
+            AppProgressBar(
+                modifier = Modifier.align(Alignment.Center)
+            )
         }
 
     }

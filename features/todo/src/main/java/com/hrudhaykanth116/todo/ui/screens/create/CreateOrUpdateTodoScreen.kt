@@ -1,13 +1,10 @@
 package com.hrudhaykanth116.todo.ui.screens.create
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.hrudhaykanth116.core.ui.components.AppUIState
-import com.hrudhaykanth116.core.ui.models.UIState
+import com.hrudhaykanth116.core.ui.components.AppScreen
 import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateOrUpdateTodoUIState
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateTodoEvent
@@ -24,12 +21,12 @@ fun CreateOrUpdateTodoScreen(
 ) {
     Logger.d(TAG, "CreateTodoListScreen: ")
 
-    AppUIState(
+    AppScreen(
         viewModel = viewModel,
     ) { contentState: CreateOrUpdateTodoUIState? ->
 
         // No content state, nothing to display. May be a progress bar will be shown in [AppUIState]
-        contentState ?: return@AppUIState
+        contentState ?: return@AppScreen
 
         // Remembered lambdas prevent recomposition as lambdas are considered unstable.
         val onTitleChanged = remember<(TextFieldValue) -> Unit> {

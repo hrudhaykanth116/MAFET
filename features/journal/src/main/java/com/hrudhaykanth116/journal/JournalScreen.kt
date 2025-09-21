@@ -218,7 +218,7 @@ fun JournalScreen() {
             iterations = LottieConstants.IterateForever,
             isPlaying = isListening,
             restartOnPlay = true,
-            cancellationBehavior = LottieCancellationBehavior.OnIterationFinish
+            cancellationBehavior = LottieCancellationBehavior.Immediately
         )
 
         LottieAnimation(

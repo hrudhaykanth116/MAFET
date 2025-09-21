@@ -32,11 +32,11 @@ abstract class UIStateViewModel<STATE, EVENT, EFFECT>(
         it.contentState ?: defaultState
     }
 
-    fun onUserMessageShown() {
+    fun onUserMessageShown(idleUIState: UIState.Idle<STATE>) {
         setState {
-            copyUIState(
-                // uiState = uiState.contentState, // this could cause issue if no new state is created
-                newUserMessage = null
+            UIState.Idle(
+                contentState = idleUIState.contentState,
+                userMessage = null
             )
         }
     }
@@ -60,11 +60,11 @@ abstract class UIStateViewModel<STATE, EVENT, EFFECT>(
         _uiStateFlow.update(newState)
     }
 
-    protected fun updateContentState(contentState: STATE.() -> STATE) {
-        _uiStateFlow.update {
-            it.copyUIState(newContentState = contentStateOrDefault.contentState())
-        }
-    }
+    // protected fun updateContentState(contentState: STATE.() -> STATE) {
+    //     _uiStateFlow.update {
+    //         it.copyUIState(newContentState = contentStateOrDefault.contentState())
+    //     }
+    // }
 
     protected fun setLoadingState(contentSTATE: STATE? = null) {
         setState {
@@ -108,13 +108,13 @@ abstract class UIStateViewModel<STATE, EVENT, EFFECT>(
     //     }
     // }
 
-    fun hideToastMessage() {
-        setState {
-            copyUIState(
-                newUserMessage = null
-            )
-        }
-    }
+    // fun hideToastMessage() {
+    //     setState {
+    //         copyUIState(
+    //             newUserMessage = null
+    //         )
+    //     }
+    // }
 
     // fun <T> callMultiApiOnThread(
     //     requests: MutableList<Flow<ApiResultWrapper<T>>>,

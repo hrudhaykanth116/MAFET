@@ -13,6 +13,7 @@ import androidx.compose.ui.res.*
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.*
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.data.models.UIText
@@ -141,6 +142,7 @@ fun ApiErrorScreenUI(
     }
 }
 
+@Preview(showBackground = true)
 @Composable
 fun ApiErrorScreenPreview() {
     AppPreviewContainer {
