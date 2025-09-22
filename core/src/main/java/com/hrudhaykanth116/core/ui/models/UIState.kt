@@ -9,7 +9,6 @@ import com.hrudhaykanth116.core.domain.models.ErrorState
  */
 sealed class UIState<T>(
     open val contentState: T?,
-    // open val userMessage: UserMessage? = null
 ) {
 
     data class Loading<T>(

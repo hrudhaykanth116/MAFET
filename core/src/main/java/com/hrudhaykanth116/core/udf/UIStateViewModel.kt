@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 abstract class UIStateViewModel<STATE, EVENT, EFFECT>(
     initialState: UIState<STATE>,
-    private val defaultState: STATE,
+    val defaultState: STATE,
     private val networkMonitor: NetworkMonitor,
 ) : ViewModel() {
 
