@@ -16,7 +16,7 @@ sealed interface UserMessage{
 
 
 fun UIText.toSuccessMessage(): UserMessage = UserMessage.Success(this)
-fun UIText.toErrorMessage(): UserMessage = UserMessage.Error(this)
+fun UIText.toErrorMessage(): UserMessage.Error = UserMessage.Error(this)
 fun UIText.toWarningMessage(): UserMessage = UserMessage.Warning(this)
 
 fun String.toSuccessMessage(): UserMessage = UserMessage.Success(UIText.Text(this))

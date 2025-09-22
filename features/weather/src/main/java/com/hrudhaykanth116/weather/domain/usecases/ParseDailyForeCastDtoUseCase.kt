@@ -64,7 +64,7 @@ class ParseDailyForeCastDtoUseCase @Inject constructor(
                 title = weatherMain.main.replaceIfBlank("- -").toUIText()
 
             ),
-            time = dayData.dt?.milliseconds?.inWholeMilliseconds?.let { dateTimeUtils.getFormattedDateTime(it, "HH:mm:ss") }
+            time = dayData.dt?.milliseconds?.inWholeMilliseconds?.let { dateTimeUtils.getFormattedDateTime(it, DAY_DATE_FORMAT) }
                 .replaceIfBlank("- -").toUIText(),
         )
     }

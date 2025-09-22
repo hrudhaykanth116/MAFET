@@ -28,6 +28,7 @@ import com.hrudhaykanth116.core.ui.components.VerticalSpacer
 import com.hrudhaykanth116.weather.domain.models.WeatherMain
 import com.hrudhaykanth116.weather.domain.usecases.WeatherElement
 import com.hrudhaykanth116.weather.domain.usecases.WeatherElementUIState
+import ir.kaaveh.sdpcompose.sdp
 
 @Composable
 fun TodayWeatherElements(
@@ -90,7 +91,7 @@ fun TodayWeatherElements(
                     iconModifier = Modifier.size(24.dp),
                     tint = Color.Unspecified
                 )
-                VerticalSpacer(1.dp)
+                VerticalSpacer(8.sdp)
                 AppText(uiText = it.value, style = MaterialTheme.typography.bodyMedium)
             }
         }

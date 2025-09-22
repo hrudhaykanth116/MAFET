@@ -18,8 +18,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.common.resources.Dimens
+import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 import com.hrudhaykanth116.core.common.utils.compose.modifier.largeRadialBackground
+import com.hrudhaykanth116.core.common.utils.compose.modifier.screenBackground
 import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.theme.grey_00dp
 import com.hrudhaykanth116.core.theme.grey_06dp
@@ -35,6 +37,7 @@ import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenUIState
 import com.hrudhaykanth116.weather.domain.models.WeatherMain
 import com.hrudhaykanth116.weather.domain.usecases.WeatherElement
 import com.hrudhaykanth116.weather.domain.usecases.WeatherElementUIState
+import ir.kaaveh.sdpcompose.sdp
 import kotlinx.collections.immutable.immutableListOf
 import kotlinx.collections.immutable.persistentListOf
 
@@ -47,14 +50,9 @@ fun WeatherHomeScreenUI(
 ) {
 
     BottomSheetScaffold(
-        modifier = modifier.largeRadialBackground(
-            listOf(
-                Color(0xFF045587),
-                Color(0xFF1B5B7E)
-            )
-        ),
+        modifier = modifier.screenBackground(),
         containerColor = Color.Transparent,
-        sheetContainerColor = Color(grey_06dp),
+        sheetContainerColor = Color.White,
         // topBar = {
         //     WeatherHomeTopBar(
         //         uiState.location,
@@ -84,7 +82,7 @@ fun WeatherHomeScreenUI(
 }
 
 @Composable
-private fun ContentContainer(
+fun ContentContainer(
     state: WeatherHomeScreenUIState,
     weatherHomeScreenCallbacks: WeatherHomeScreenCallbacks,
     modifier: Modifier = Modifier,
@@ -99,7 +97,7 @@ private fun ContentContainer(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         WeatherHomeTopBar(
-            state.location,
+            state.location ?: "",
             state.isSearchActive,
             weatherHomeScreenCallbacks,
             modifier = Modifier.fillMaxWidth()
@@ -262,31 +260,32 @@ fun WeatherHomeScreenUIPreview(
     )
 
 
-    WeatherHomeScreenUI(
-        modifier = Modifier.background(color = Color.Gray),
-        uiState = WeatherHomeScreenUIState(
-            location = "Bangalore",
-            isSearchActive = false,
-            todayWeatherUIState = TodayWeatherUIState(
-                weatherElementUIState = sampleWeatherElements,
-                weatherMain = sampleWeatherMain,
-                weatherHourlyList = hourlyWeather
-            ),
-            isLoading = false,
-            weatherForeCastListItemsUIState = listOf(
-                DailyWeatherUIState(
-                    weatherElementsList = listOf(
-                        WeatherElement.TEMP
-                    ),
-                    weatherMain = WeatherMain(
-                        title = "Atmosphere".toUIText(),
-                        description = "sdflksf".toUIText(),
-                        icon = R.drawable.ic_atmosphere
-                    ),
-                    time = "Today".toUIText()
+    AppPreviewContainer {
+        WeatherHomeScreenUI(
+            modifier = Modifier.background(color = Color.Gray),
+            uiState = WeatherHomeScreenUIState(
+                location = "Bangalore",
+                isSearchActive = false,
+                todayWeatherUIState = TodayWeatherUIState(
+                    weatherElementUIState = sampleWeatherElements,
+                    weatherMain = sampleWeatherMain,
+                    weatherHourlyList = hourlyWeather
+                ),
+                weatherForeCastListItemsUIState = listOf(
+                    DailyWeatherUIState(
+                        weatherElementsList = listOf(
+                            WeatherElement.TEMP
+                        ),
+                        weatherMain = WeatherMain(
+                            title = "Atmosphere".toUIText(),
+                            description = "sdflksf".toUIText(),
+                            icon = R.drawable.ic_atmosphere
+                        ),
+                        time = "Today".toUIText()
+                    )
                 )
             )
         )
-    )
+    }
 
 }

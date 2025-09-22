@@ -79,7 +79,6 @@ fun ApiErrorScreenUI(
     // }
 
     val coroutineScope = rememberCoroutineScope()
-    var isLoading by remember { mutableStateOf(false) }
 
     Column(
         modifier = modifier
@@ -128,15 +127,10 @@ fun ApiErrorScreenUI(
         AppFormButton(
             modifier = Modifier
                 .fillMaxWidth(),
-            enabled = !isLoading,
+            enabled = true,
             btnText = "RETRY".toUIText(),
             onClick = {
                 onRetry()
-                coroutineScope.launch() {
-                    isLoading = true
-                    delay(500)
-                    isLoading = false
-                }
             }
         )
     }

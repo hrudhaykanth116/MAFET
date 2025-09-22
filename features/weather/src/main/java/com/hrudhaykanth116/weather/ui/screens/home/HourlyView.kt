@@ -20,10 +20,12 @@ import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.ui.components.AppIcon
 import com.hrudhaykanth116.core.ui.components.AppText
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
+import com.hrudhaykanth116.core.ui.components.VerticalSpacer
 import com.hrudhaykanth116.core.ui.models.toImageHolder
 import com.hrudhaykanth116.weather.R
 import com.hrudhaykanth116.weather.domain.models.HourlyWeatherUIState
 import com.hrudhaykanth116.weather.domain.models.WeatherMain
+import ir.kaaveh.sdpcompose.sdp
 
 @Composable
 fun HourlyView(
@@ -84,6 +86,7 @@ private fun HourlyViewRow(
                     iconModifier = Modifier.size(24.dp),
                     tint = Color.Unspecified
                 )
+                VerticalSpacer(height = 4.sdp)
                 AppText(
                     uiText = weatherMain.title,
                     style = MaterialTheme.typography.bodyMedium

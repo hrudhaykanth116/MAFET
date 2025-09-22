@@ -2,19 +2,20 @@ package com.hrudhaykanth116.weather.domain.models
 
 import com.hrudhaykanth116.core.common.ui.models.UserMessage
 import com.hrudhaykanth116.core.data.models.UIText
+import com.hrudhaykanth116.core.domain.models.ErrorState
 import com.hrudhaykanth116.weather.domain.usecases.WeatherElement
 import com.hrudhaykanth116.weather.domain.usecases.WeatherElementUIState
 import kotlinx.collections.immutable.ImmutableList
 
 data class WeatherHomeScreenUIState(
-    val location: String = "Hyderabad",
+    val location: String? = null,
+    val searchText: String? = null,
     val locationError: UIText? = null,
-    val isLoading: Boolean = true,
-    val isLoggedOut: Boolean = false,
     val isSearchActive: Boolean = false,
     val weatherForeCastListItemsUIState: List<DailyWeatherUIState> = listOf(),
     val todayWeatherUIState: TodayWeatherUIState? = null,
-    val errorMessage: UserMessage? = null,
+
+    val errorState: ErrorState? = null
 )
 
 data class TodayWeatherUIState(
