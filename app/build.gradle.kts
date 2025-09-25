@@ -74,6 +74,7 @@ dependencies {
     implementation(project(":features:auth"))
     implementation(project(":features:journal"))
     implementation(project(":features:media"))
+    implementation(project(":features:games"))
     implementation(project(":training"))
 
     // Hilt
