@@ -1,6 +1,7 @@
 package com.hrudhaykanth116.games.util
 
 import androidx.compose.ui.input.pointer.AwaitPointerEventScope
+import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.games.domain.GameStatus
 
 suspend fun AwaitPointerEventScope.detectMoveGesture(
@@ -12,18 +13,18 @@ suspend fun AwaitPointerEventScope.detectMoveGesture(
     while (gameStatus == GameStatus.Started) {
         val downEvent = awaitPointerEvent()
         val initialDown = downEvent.changes.firstOrNull { it.pressed }
-        if (initialDown == null) continue
+        if(initialDown == null) continue
 
         val primaryPointerId = initialDown.id
         var previousPosition = initialDown.position
 
-        while (true) {
+        while(true) {
             val event = awaitPointerEvent()
             val change = event.changes.firstOrNull {
                 it.id == primaryPointerId
             }
 
-            if (change == null || !change.pressed) {
+            if(change == null || !change.pressed) {
                 onFingerLifted()
                 break
             }
@@ -31,9 +32,11 @@ suspend fun AwaitPointerEventScope.detectMoveGesture(
             val currentPosition = change.position
             val deltaX = currentPosition.x - previousPosition.x
 
+            Logger.d("hrudhay_logs", ": detectMoveGesture: currentPosition: $currentPosition, previousPosition: $previousPosition, deltaX: $deltaX")
+
             if (deltaX < 0) {
                 onLeft()
-            } else if (deltaX > 0) {
+            } else if(deltaX > 0) {
                 onRight()
             }
 
