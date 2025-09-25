@@ -10,6 +10,7 @@ mockitoInline = "5.2.0"
 mockitoKotlin = "6.0.0"
 mockitoCore = "5.19.0"
 
+sprite = "1.1.0"
 targetSdk = "36"
 kotlinCompilerExtensionVersion = "1.5.15"
 
@@ -164,9 +165,15 @@ moshi-kotlin-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", ver
 play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
 shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmer" }
 
+sprite = { module = "com.stevdza-san:sprite", version.ref = "sprite" }
+
 ssp-android = { module = "com.intuit.ssp:ssp-android", version.ref = "sdpAndroid" }
 sdp-android = { module = "com.intuit.sdp:sdp-android", version.ref = "sdpAndroid" }
 sdp-compose = { module = "com.github.Kaaveh:sdp-compose", version.ref = "sdpCompose" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

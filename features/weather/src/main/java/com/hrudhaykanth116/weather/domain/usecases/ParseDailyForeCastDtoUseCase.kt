@@ -14,6 +14,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 
 @Singleton
 class ParseDailyForeCastDtoUseCase @Inject constructor(
@@ -64,7 +65,7 @@ class ParseDailyForeCastDtoUseCase @Inject constructor(
                 title = weatherMain.main.replaceIfBlank("- -").toUIText()
 
             ),
-            time = dayData.dt?.milliseconds?.inWholeMilliseconds?.let { dateTimeUtils.getFormattedDateTime(it, DAY_DATE_FORMAT) }
+            time = dayData.dt?.seconds?.inWholeMilliseconds?.let { dateTimeUtils.getFormattedDateTime(it, DAY_DATE_FORMAT) }
                 .replaceIfBlank("- -").toUIText(),
         )
     }

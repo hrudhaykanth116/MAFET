@@ -13,9 +13,15 @@ https://github.com/androidx/androidx/blob/androidx-main/compose/compiler/design/
     * Types:
         * Immutable. val
         * Stable. Mutable but compose runtime will be notified when any public properties change.
-        * Unstable. List, set, map are unstable always. Use ImmutableList.
+        * Unstable. List, set, map are unstable always. Use ImmutableList. Causing recomposition always. marks composable as nonSkippable.
     * @Immutable or @Stable marks a data class stable which has inner dependency on external module data class.
     * Not every function needs to be skip-able. Only if seen performance issues.
+
+* Immutable: Nothing in this object ever changes. If changes need to be applied, new reference will be passed.
+data class User(var name: String, val age: Int, val list: List<String>) // not immutable technically but if marked @Immutable, compose runtime will consider it immutable and recomposes only if reference changes.
+
+* Stable: Contents are mutable but changes will be notified to compose runtime. If new changes need to be applied, contents need to be compared by compose runtime.
+data class User(val age: Int, val list: List<String>) // not immutable technically(since list could arrayList) but if marked @Stable, compose runtime will consider it stable and recomposes only if properties change.
 
 * Handling unstable classes:
     * Use wrapper around(constructor) external class and mark it immutable.
