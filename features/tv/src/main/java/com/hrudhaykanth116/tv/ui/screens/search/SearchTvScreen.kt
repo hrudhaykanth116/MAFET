@@ -11,6 +11,8 @@ import com.hrudhaykanth116.tv.ui.models.search.SearchScreenState
 @Composable
 fun SearchTvScreen(
     viewModel: SearchTvScreenViewModel = hiltViewModel(),
+    onItemClick: (Int) -> Unit,
+    onBackClicked: () -> Unit,
 ) {
 
     val state: State<SearchScreenState> =
@@ -18,6 +20,7 @@ fun SearchTvScreen(
 
     SearchTvScreenUI(
         state.value,
+        onBackClicked = onBackClicked,
         searchScreenCallbacks = SearchScreenCallbacks(
             onSearchTextChanged = {
                 viewModel.processEvent(SearchScreenEvent.OnSearchTextChanged(it))
@@ -27,7 +30,8 @@ fun SearchTvScreen(
             },
             onAddClicked = {
                 viewModel.processEvent(SearchScreenEvent.OnAddClicked(it))
-            }
+            },
+            onSearchItemClicked = onItemClick
         ),
     )
 

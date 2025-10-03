@@ -20,7 +20,6 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import com.hrudhaykanth116.core.common.ui.preview.AppPreview
 import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
@@ -34,8 +33,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
-const val NINJA_FRAME_WIDTH = 253
-const val NINJA_FRAME_HEIGHT = 303
+private const val NINJA_FRAME_WIDTH = 253
+private const val NINJA_FRAME_HEIGHT = 303
 
 @Composable
 fun GameScreen(modifier: Modifier = Modifier) {

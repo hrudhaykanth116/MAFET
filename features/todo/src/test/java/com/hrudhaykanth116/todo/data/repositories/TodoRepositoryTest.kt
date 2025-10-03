@@ -57,7 +57,7 @@ class TodoRepositoryTest {
         `when`(timeProvider.currentTimeMillis()).thenReturn(999L)
 
         val repo = TodoRepository(localDataSource, remoteDataSource, timeProvider, dispatcher)
-        val result = repo.createTodoTask(params, "123")
+        val result = repo.createTodoTask(params)
         assertTrue(result is RepoResultWrapper.Success)
 
         verify(localDataSource).createTodoTask(anyOrNull())

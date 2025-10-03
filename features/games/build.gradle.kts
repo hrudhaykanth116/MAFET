@@ -66,6 +66,4 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     api(libs.androidx.room.ktx)
 
-    implementation(libs.sprite)
-
 }

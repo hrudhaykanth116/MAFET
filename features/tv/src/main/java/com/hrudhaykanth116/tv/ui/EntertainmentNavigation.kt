@@ -1,5 +1,9 @@
 package com.hrudhaykanth116.tv.ui
 
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -19,7 +23,31 @@ fun EntertainmentNavigation() {
 
     NavHost(
         navController,
-        startDestination = "entertainment_home"
+        startDestination = "entertainment_home",
+        enterTransition = {
+            slideInHorizontally(
+                initialOffsetX = { fullWidth -> fullWidth },
+                animationSpec = tween(320, easing = FastOutSlowInEasing)
+            )
+        },
+        exitTransition = {
+            slideOutHorizontally(
+                targetOffsetX = { fullWidth -> -fullWidth / 3 },
+                animationSpec = tween(300, easing = FastOutSlowInEasing)
+            )
+        },
+        popEnterTransition = {
+            slideInHorizontally(
+                initialOffsetX = { fullWidth -> -fullWidth / 3 },
+                animationSpec = tween(300, easing = FastOutSlowInEasing)
+            )
+        },
+        popExitTransition = {
+            slideOutHorizontally(
+                targetOffsetX = { fullWidth -> fullWidth },
+                animationSpec = tween(320, easing = FastOutSlowInEasing)
+            )
+        }
     ) {
 
         composable(
@@ -41,6 +69,9 @@ fun EntertainmentNavigation() {
                 },
                 onItemClick = { id ->
                     navController.navigate("tv_details/$id")
+                },
+                onBackClicked = {
+                    navController.popBackStack()
                 }
             )
         }
@@ -48,7 +79,14 @@ fun EntertainmentNavigation() {
         composable(
             route = "tv_search"
         ) {
-            SearchTvScreen()
+            SearchTvScreen(
+                onItemClick = { id ->
+                    navController.navigate("tv_details/$id")
+                },
+                onBackClicked = {
+                    navController.popBackStack()
+                }
+            )
         }
 
         composable(
@@ -70,8 +108,13 @@ fun EntertainmentNavigation() {
                 navArgument("id") {
                     type = NavType.IntType
                 }
-            )) {
-            TvDetailsScreen()
+            )
+        ) {
+            TvDetailsScreen(
+                onBackClicked = {
+                    navController.popBackStack()
+                }
+            )
         }
 
     }

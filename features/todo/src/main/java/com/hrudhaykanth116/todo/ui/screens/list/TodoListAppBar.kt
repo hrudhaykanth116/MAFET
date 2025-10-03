@@ -38,7 +38,8 @@ fun TodoListAppBar(
             Box(modifier = Modifier) {
                 AppClickableIcon(
                     resId = R.drawable.ic_filter,
-                    onClick = todoListAppBarCallbacks.onCategoriesIconClicked
+                    onClick = todoListAppBarCallbacks.onCategoriesIconClicked,
+                    iconColor = Color.Black
                 )
                 DropdownMenu(
                     expanded = isCategoriesPopUpShown,
@@ -68,7 +69,8 @@ fun TodoListAppBar(
             Box(modifier = Modifier) {
                 AppClickableIcon(
                     resId = R.drawable.ic_sort_vertical,
-                    onClick = todoListAppBarCallbacks.onSortIconClicked
+                    onClick = todoListAppBarCallbacks.onSortIconClicked,
+                    iconColor = Color.Black
                 )
 
                 DropdownMenu(
@@ -89,7 +91,8 @@ fun TodoListAppBar(
             Box(modifier = Modifier) {
                 AppClickableIcon(
                     resId = R.drawable.ic_menu_vertical,
-                    onClick = todoListAppBarCallbacks.onMenuItemClicked
+                    onClick = todoListAppBarCallbacks.onMenuItemClicked,
+                    iconColor = Color.Black
                 )
                 DropdownMenu(
                     expanded = isMenuVisible,

@@ -24,7 +24,7 @@ fun AppClickableIcon(
 ) {
     IconButton(
         onClick = onClick,
-        modifier = modifier,
+        modifier = Modifier,
         enabled = enabled,
         // colors = IconButtonDefaults.iconButtonColors(
         //     iconBackgroundColor,
@@ -36,7 +36,7 @@ fun AppClickableIcon(
     ) {
         AppIcon(
             resId = resId,
-            modifier = Modifier,
+            iconModifier = modifier,
             contentDescriptionUIText = contentDescriptionUIText,
             tint = iconColor
         )

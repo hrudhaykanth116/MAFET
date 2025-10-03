@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -31,8 +32,10 @@ import coil.compose.AsyncImage
 import com.hrudhaykanth116.core.R
 import com.hrudhaykanth116.core.common.ui.preview.AppPreview
 import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
+import com.hrudhaykanth116.core.common.utils.compose.modifier.screenBackground
 import com.hrudhaykanth116.core.ui.components.AppClickableIcon
 import com.hrudhaykanth116.core.ui.components.AppIcon
+import com.hrudhaykanth116.core.ui.components.AppRoundedIcon
 import com.hrudhaykanth116.core.ui.components.HorizontalSpacer
 import ir.kaaveh.sdpcompose.sdp
 import ir.kaaveh.sdpcompose.ssp
@@ -42,37 +45,55 @@ fun TvHomeScreenUI(
     uiState: TvHomeScreenUIState,
     processEvent: (TvHomeScreenEvent) -> Unit,
     onNavigateToSearch: () -> Unit,
+    onBackClick: () -> Unit,
     onItemClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .screenBackground(),
         verticalArrangement = Arrangement.spacedBy(16.dp),
         contentPadding = PaddingValues(16.dp)
     ) {
 
         item {
             Row(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(50))
-                    .background(Color.LightGray.copy(alpha = 0.3f))
-                    .clickable { onNavigateToSearch() }
-                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                AppIcon(
-                    resId = R.drawable.ic_search,
-                    tint = Color.White
+                AppRoundedIcon(
+                    icon = com.hrudhaykanth116.core.R.drawable.ic_back,
+                    tint = Color.White,
+                    iconSize = 30.sdp,
+                    modifier = Modifier
+                        .clickable {
+                            onBackClick()
+                        }
                 )
-                HorizontalSpacer()
-                Text(
-                    "Search for Tv show",
-                    modifier = Modifier.weight(1f),
-                    fontSize = 12.ssp,
-                    color = Color.White
-                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(50))
+                        .background(Color.LightGray.copy(alpha = 0.3f))
+                        .clickable { onNavigateToSearch() }
+                        .padding(horizontal = 16.dp, vertical = 12.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    AppIcon(
+                        resId = R.drawable.ic_search,
+                        tint = Color.White
+                    )
+                    HorizontalSpacer()
+                    Text(
+                        "Search for Tv show",
+                        modifier = Modifier.weight(1f),
+                        fontSize = 12.ssp,
+                        color = Color.White
+                    )
+                }
             }
         }
 
@@ -123,6 +144,7 @@ private fun TvHomeScreenPreview() {
             onNavigateToSearch = {},
             onItemClick = {},
             modifier = Modifier,
+            onBackClick = {}
         )
     }
 

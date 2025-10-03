@@ -24,10 +24,12 @@ import com.hrudhaykanth116.tv.ui.models.search.SearchScreenItemUIState
 @Composable
 fun TvSearchItemUI(
     state: SearchScreenItemUIState,
-    onAdd: () -> Unit
+    onAdd: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
 
     AppCard(
+        modifier = modifier
     ) {
 
         Row(

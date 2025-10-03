@@ -26,6 +26,7 @@ import com.hrudhaykanth116.core.common.resources.Dimens
 import com.hrudhaykanth116.core.common.resources.Dimens.DEFAULT_PADDING
 import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
+import com.hrudhaykanth116.core.common.utils.compose.modifier.screenBackground
 import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.ui.components.AppFormButton
 import com.hrudhaykanth116.core.ui.components.AppInputText
@@ -52,6 +53,7 @@ fun CreateOrUpdateTodoScreenUI(
     Column(
         modifier = modifier
             .fillMaxSize()
+            .screenBackground()
             .padding(bottom = DEFAULT_PADDING)
     ) {
 
@@ -74,7 +76,9 @@ fun CreateOrUpdateTodoScreenUI(
                     inputValue = state.todoUIModel.title,
                     error = state.titleError
                 ),
-                onInputChange = onTitleChanged
+                onInputChange = onTitleChanged,
+                singleLine = true
+
             )
             Spacer(modifier = Modifier.height(Dimens.DEFAULT_PADDING))
             AppInputText(

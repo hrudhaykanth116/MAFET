@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.*
@@ -83,15 +84,16 @@ fun ApiErrorScreenUI(
     Column(
         modifier = modifier
             .fillMaxSize()
+            .padding(10.sdp)
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Box(modifier = Modifier){
             AppImage(
-                imageSource = ImageHolder.LocalDrawableResource(R.drawable.image_error_holder),
+                imageSource = ImageHolder.LocalDrawableResource(resId),
                 contentScale = ContentScale.Fit,
-                modifier = Modifier.size(60.dp)
+                modifier = Modifier.size(100.sdp)
             )
             AppIcon(
                 resId = resId,
@@ -105,9 +107,9 @@ fun ApiErrorScreenUI(
         Text(
             text = title.getText(),
             style = TextStyle(
-                fontSize = 12.ssp,
+                fontSize = 25.ssp,
                 fontWeight = FontWeight(700),
-                color = Color(0xFFFFFFFF),
+                color = Color(0xFFEC4949),
                 textAlign = TextAlign.Center,
             )
         )
@@ -116,17 +118,16 @@ fun ApiErrorScreenUI(
             Text(
                 text = description.getText(),
                 style = TextStyle(
-                    fontSize = 12.ssp,
+                    fontSize = 15.ssp,
                     fontWeight = FontWeight(400),
-                    color = Color(0xFFD2D2D2),
+                    color = Color(0xFF232020),
                     textAlign = TextAlign.Center,
                 )
             )
         }
         VerticalSpacer(20.sdp)
         AppFormButton(
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier = Modifier,
             enabled = true,
             btnText = "RETRY".toUIText(),
             onClick = {

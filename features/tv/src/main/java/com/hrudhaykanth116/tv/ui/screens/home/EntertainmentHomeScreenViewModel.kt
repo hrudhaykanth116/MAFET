@@ -3,7 +3,10 @@ package com.hrudhaykanth116.tv.ui.screens.home
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
+import com.hrudhaykanth116.core.common.utils.network.NetworkMonitor
 import com.hrudhaykanth116.core.udf.UDFViewModel
+import com.hrudhaykanth116.core.udf.UIStateViewModel
+import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.tv.domaintemp.DeleteMyTvUseCase
 import com.hrudhaykanth116.tv.domaintemp.GetMyTvListUseCase
 import com.hrudhaykanth116.tv.ui.mappers.toUIState
@@ -21,51 +24,55 @@ class EntertainmentHomeScreenViewModel @Inject constructor(
     private val getMyTvListUseCase: GetMyTvListUseCase,
     private val dateTimeUtils: DateTimeUtils,
     private val deleteMyTvUseCase: DeleteMyTvUseCase,
+    private val networkMonitor: NetworkMonitor,
+) : UIStateViewModel<EntertainmentHomeScreenUIState, EntertainmentHomeScreenEvent, EntertainmentHomeScreenEffect>(
+    initialState = UIState.Idle(),
+    defaultState = EntertainmentHomeScreenUIState(),
+    networkMonitor = networkMonitor
+) {
 
-    ) :
-    UDFViewModel<EntertainmentHomeScreenUIState, EntertainmentHomeScreenEvent, EntertainmentHomeScreenEffect>(EntertainmentHomeScreenUIState()) {
-
-    init {
+    override fun initializeData() {
         viewModelScope.launch {
             getMyTvListUseCase().collectLatest {
                 Log.d(TAG, "tv list: $it")
-                setState {
+                setIdleState {
                     copy(
                         tvShows = it.toUIState(dateTimeUtils),
                     )
                 }
             }
         }
-
-
     }
 
     override fun processEvent(event: EntertainmentHomeScreenEvent) {
 
         when (event) {
             is EntertainmentHomeScreenEvent.Delete -> deleteMyTv(event.id)
-            is EntertainmentHomeScreenEvent.MyEntertainmentListItemClicked -> onMyTvListItemClicked(event.myTv)
+            is EntertainmentHomeScreenEvent.MyEntertainmentListItemClicked -> onMyTvListItemClicked(
+                event.myTv
+            )
+
             EntertainmentHomeScreenEvent.CloseUpdateTv -> closeUpdateTv()
         }
 
     }
 
-    private fun deleteMyTv(id: Int){
+    private fun deleteMyTv(id: Int) {
         viewModelScope.launch {
             deleteMyTvUseCase(id)
         }
     }
 
     private fun closeUpdateTv() {
-        setState {
+        setIdleState {
             copy(
-                updateTv = null,
+                updateTv = null
             )
         }
     }
 
     private fun onMyTvListItemClicked(myTv: MyTvUIState) {
-        setState {
+        setIdleState {
             copy(
                 updateTv = myTv
             )
