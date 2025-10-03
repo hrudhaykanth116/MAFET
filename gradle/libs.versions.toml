@@ -10,7 +10,6 @@ mockitoInline = "5.2.0"
 mockitoKotlin = "6.0.0"
 mockitoCore = "5.19.0"
 
-sprite = "1.1.0"
 targetSdk = "36"
 kotlinCompilerExtensionVersion = "1.5.15"
 
@@ -164,8 +163,6 @@ moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
 moshi-kotlin-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshiKotlinCodegen" }
 play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
 shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmer" }
-
-sprite = { module = "com.stevdza-san:sprite", version.ref = "sprite" }
 
 ssp-android = { module = "com.intuit.ssp:ssp-android", version.ref = "sdpAndroid" }
 sdp-android = { module = "com.intuit.sdp:sdp-android", version.ref = "sdpAndroid" }

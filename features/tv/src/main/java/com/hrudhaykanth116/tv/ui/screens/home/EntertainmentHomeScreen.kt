@@ -5,6 +5,7 @@ import androidx.compose.runtime.State
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.hrudhaykanth116.core.common.utils.ui.ToastHelper
+import com.hrudhaykanth116.core.ui.components.AppScreen
 import com.hrudhaykanth116.tv.ui.models.home.EntertainmentHomeScreenCallbacks
 import com.hrudhaykanth116.tv.ui.models.home.EntertainmentHomeScreenEvent
 import com.hrudhaykanth116.tv.ui.models.home.EntertainmentHomeScreenUIState
@@ -15,13 +16,6 @@ fun EntertainmentHomeScreen(
     entertainmentHomeScreenViewModel: EntertainmentHomeScreenViewModel = hiltViewModel(),
 ) {
 
-    val state: State<EntertainmentHomeScreenUIState> =
-        entertainmentHomeScreenViewModel.collectAsState()
-
-    val userMessage = state.value.userMessage
-    if (userMessage != null) {
-        ToastHelper.show(LocalContext.current, userMessage)
-    }
 
     val entertainmentHomeScreenCallbacks = EntertainmentHomeScreenCallbacks(
         onAddNewClicked = onNavigateToSearchScreen,
@@ -36,10 +30,14 @@ fun EntertainmentHomeScreen(
         }
     )
 
-    EntertainmentHomeScreenUI(
-        state = state.value,
-        entertainmentHomeScreenCallbacks = entertainmentHomeScreenCallbacks,
-    )
+    AppScreen(
+        viewModel = entertainmentHomeScreenViewModel
+    ) { state ->
+        EntertainmentHomeScreenUI(
+            state = state,
+            entertainmentHomeScreenCallbacks = entertainmentHomeScreenCallbacks,
+        )
+    }
 
 
 }

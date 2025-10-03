@@ -8,18 +8,26 @@ import com.hrudhaykanth116.core.ui.components.AppScreen
 @Composable
 fun TvDetailsScreen(
     viewModel: TvDetailsViewModel = hiltViewModel(),
+    onBackClicked: () -> Unit = {},
 ) {
 
-    val onEvent: (TvDetailsScreenEvent) -> Unit = {
-        viewModel.processEvent(it)
+    val onBackClicked = {
+        onBackClicked()
     }
 
+    val onBookMarkClicked = { id: Int ->
+        viewModel.processEvent(TvDetailsScreenEvent.OnAddClicked(id))
+    }
+
+
+
     AppScreen(viewModel) { state ->
-        state?.let {
+        state.let {
             TvDetailsScreenUI(
                 state = it,
-                processEvent = onEvent,
                 modifier = Modifier,
+                onBackClicked = onBackClicked,
+                onBookMarkClicked = onBookMarkClicked
             )
         }
 

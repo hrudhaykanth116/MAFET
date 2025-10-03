@@ -28,6 +28,7 @@ import com.hrudhaykanth116.core.ui.components.AppText
 import com.hrudhaykanth116.core.ui.models.ImageHolder
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
+import ir.kaaveh.sdpcompose.sdp
 
 import com.hrudhaykanth116.core.R as CoreR
 
@@ -67,7 +68,7 @@ fun TodoListItemUI(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(Dimens.DEFAULT_PADDING)
+                .padding(vertical = Dimens.DEFAULT_PADDING, horizontal = 20.sdp)
         ) {
 
             Column(

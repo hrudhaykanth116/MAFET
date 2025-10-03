@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.hrudhaykanth116.core.common.resources.Dimens
+import com.hrudhaykanth116.core.common.utils.compose.modifier.screenBackground
 import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.ui.components.AppIcon
@@ -46,6 +47,7 @@ fun EntertainmentHomeScreenUI(
     val listState: LazyListState = rememberLazyListState()
 
     Scaffold(
+        modifier = Modifier.screenBackground(),
         floatingActionButton = {
             AppIcon(
                 resId = CoreR.drawable.ic_add_filled,

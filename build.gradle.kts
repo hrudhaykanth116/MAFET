@@ -25,3 +25,17 @@ extra["PEXELS_API_KEY"] = secrets["PEXELS_API_KEY"] ?: ""
 extra["TMDB_API_KEY"] = secrets["TMDB_API_KEY"] ?: ""
 extra["OPEN_WEATHER_GEO_CODING_API_KEY"] = secrets["OPEN_WEATHER_GEO_CODING_API_KEY"] ?: ""
 extra["OPEN_WEATHER_FORECAST_API_KEY"] = secrets["OPEN_WEATHER_FORECAST_API_KEY"] ?: ""
+
+// Run all unit tests before building the release APK/AAB
+// subprojects {
+//     plugins.withId("com.android.application") {
+//         tasks.named("build") {
+//             dependsOn(tasks.matching { it.name.endsWith("UnitTest") })
+//         }
+//     }
+//     plugins.withId("com.android.library") {
+//         tasks.named("build") {
+//             dependsOn(tasks.matching { it.name.endsWith("UnitTest") })
+//         }
+//     }
+// }

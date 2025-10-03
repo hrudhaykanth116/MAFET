@@ -25,6 +25,7 @@ import androidx.paging.compose.LazyPagingItems
 import com.hrudhaykanth116.core.common.ui.components.paging.ErrorState
 import com.hrudhaykanth116.core.common.ui.components.paging.LoadingState
 import com.hrudhaykanth116.core.common.utils.compose.modifier.aspectRatio
+import com.hrudhaykanth116.core.common.utils.compose.modifier.screenBackground
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowData
 import com.hrudhaykanth116.tv.domaintemp.models.constants.BaseUrlConstants
 import com.hrudhaykanth116.tv.ui.components.MoviePoster
@@ -38,7 +39,9 @@ fun PopularTvScreenUI(
     modifier: Modifier = Modifier,
 ) {
 
-    Column(modifier = modifier) {
+    Column(
+        modifier = modifier.fillMaxSize().screenBackground()
+    ) {
 
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),

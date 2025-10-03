@@ -5,5 +5,6 @@ import androidx.compose.ui.text.input.TextFieldValue
 class SearchScreenCallbacks(
     val onSearchTextChanged: (String) -> Unit,
     val onSearchIconClicked: () -> Unit,
-    val onAddClicked: (Int) -> Unit
+    val onAddClicked: (Int) -> Unit,
+    val onSearchItemClicked: (Int) -> Unit,
 )

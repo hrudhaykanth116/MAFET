@@ -21,7 +21,7 @@ fun PriorityField(
 ) {
 
     Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
-        Text(text = "Priority: $value")
+        Text(text = "Priority:")
         HorizontalSpacer(width = Dimens.DEFAULT_PADDING)
 
         AppSlider(

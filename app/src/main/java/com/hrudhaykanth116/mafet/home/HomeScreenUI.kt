@@ -19,7 +19,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
-import com.hrudhaykanth116.games.GameScreen
+import com.hrudhaykanth116.games.GameScreenStevdza
 import com.hrudhaykanth116.journal.JournalScreen
 import com.hrudhaykanth116.mafet.account.navigation.AccountNavigation
 import com.hrudhaykanth116.mafet.home.models.HomeBottomNavigationItem
@@ -104,8 +104,7 @@ fun HomeScreenUI(
 
                         HomeRoute.Entertainment -> {
                             composable(HomeRoute.Entertainment.route) {
-                                // EntertainmentNavigation()
-                                GameScreen()
+                                EntertainmentNavigation()
                             }
                         }
 

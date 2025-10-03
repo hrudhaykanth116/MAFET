@@ -33,19 +33,27 @@ class TvDetailsViewModel @Inject constructor(
     }
 
     override fun initializeData() {
-        // fetchData()
+        fetchData()
     }
 
     private fun fetchData() {
         viewModelScope.launch {
 
+            setState {
+                UIState.Loading(
+                    currentContentState
+                )
+            }
+
             val tvDetailsUseCase: RepoResultWrapper<TvShowDetails> = getTvDetailsUseCase(id)
             when (tvDetailsUseCase) {
                 is RepoResultWrapper.Error -> {
-                    setState { UIState.Error(
-                        contentState = contentState,
-                        errorState = tvDetailsUseCase.errorState
-                    ) }
+                    setState {
+                        UIState.Error(
+                            contentState = contentState,
+                            errorState = tvDetailsUseCase.errorState
+                        )
+                    }
                 }
 
                 is RepoResultWrapper.Success -> {
@@ -73,6 +81,13 @@ class TvDetailsViewModel @Inject constructor(
 
     private fun onAddClicked(event: TvDetailsScreenEvent.OnAddClicked) {
         viewModelScope.launch {
+
+            setState {
+                UIState.Loading(
+                    contentState
+                )
+            }
+
             val result = addMyTvUseCase(event.id)
 
             when (result) {

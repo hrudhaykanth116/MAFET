@@ -37,8 +37,9 @@ import ir.kaaveh.sdpcompose.ssp
 @Composable
 fun TvDetailsScreenUI(
     state: TvDetailsScreenUIState,
-    processEvent: (TvDetailsScreenEvent) -> Unit,
     modifier: Modifier = Modifier,
+    onBackClicked: () -> Unit = {},
+    onBookMarkClicked: (Int) -> Unit = {},
 ) {
 
     val tvShow = state.tvShowDetails
@@ -147,6 +148,10 @@ fun TvDetailsScreenUI(
             iconSize = 30.sdp,
             modifier = Modifier
                 .align(Alignment.TopStart)
+                .offset(y = 10.sdp)
+                .clickable{
+                    onBackClicked()
+                }
         )
 
         AppRoundedIcon(
@@ -155,8 +160,9 @@ fun TvDetailsScreenUI(
             iconSize = 30.sdp,
             modifier = Modifier
                 .align(Alignment.TopEnd)
+                .offset(y = 10.sdp)
                 .clickable{
-                    processEvent(TvDetailsScreenEvent.OnAddClicked(tvShow.id))
+                    onBookMarkClicked(tvShow.id)
                 }
         )
 
@@ -261,7 +267,6 @@ private fun TvDetailsScreenPreview() {
             state = TvDetailsScreenUIState(
                 tvShowDetails = dummyTvShow
             ),
-            processEvent = {},
             modifier = Modifier.fillMaxSize(),
         )
     }

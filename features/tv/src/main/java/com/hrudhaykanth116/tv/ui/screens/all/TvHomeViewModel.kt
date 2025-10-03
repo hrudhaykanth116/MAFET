@@ -26,7 +26,6 @@ class TvHomeViewModel @Inject constructor(
     initialState = UIState.Loading(),
     defaultState = TvHomeScreenUIState(),
     networkMonitor = networkMonitor
-
 ) {
 
 
@@ -42,12 +41,23 @@ class TvHomeViewModel @Inject constructor(
 
     fun loadTvShows() {
         viewModelScope.launch {
+
+            setState {
+                UIState.Loading(currentContentState)
+            }
+
             when (val result = getAllTvShowsUseCase()) {
                 is RepoResultWrapper.Success -> {
-                    _uiState.value = result.data.toUiState()
+                    setIdleState {
+                        result.data.toUiState()
+                    }
                 }
                 is RepoResultWrapper.Error -> {
-                    // _error.emit(result.message ?: "Something went wrong")
+                    setState {
+                        UIState.Error(
+                            result.errorState
+                        )
+                    }
                 }
             }
         }

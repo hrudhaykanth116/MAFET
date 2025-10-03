@@ -2,6 +2,7 @@ package com.hrudhaykanth116.todo.ui.screens.list
 
 import android.R.attr.singleLine
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -16,12 +17,14 @@ import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
@@ -35,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
@@ -43,6 +47,7 @@ import com.hrudhaykanth116.core.common.utils.compose.modifier.screenBackground
 import com.hrudhaykanth116.core.common.utils.functions.TextFieldChangedHandler
 import com.hrudhaykanth116.core.ui.components.AppClickableIcon
 import com.hrudhaykanth116.core.ui.components.AppInputText
+import com.hrudhaykanth116.core.ui.components.CenteredColumn
 import com.hrudhaykanth116.core.ui.models.TextFieldData
 import com.hrudhaykanth116.core.ui.models.toImageHolder
 import com.hrudhaykanth116.todo.R
@@ -51,6 +56,8 @@ import com.hrudhaykanth116.todo.ui.components.ListItemsUI
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListUIState
+import ir.kaaveh.sdpcompose.sdp
+import ir.kaaveh.sdpcompose.ssp
 import kotlinx.collections.immutable.persistentListOf
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -88,18 +95,23 @@ private fun ContentContainer(
     onCreateBtnClicked: () -> Unit = {},
     todoListAppBarCallbacks: TodoListAppBarCallbacks = TodoListAppBarCallbacks(),
 ) {
+
+    val tasksList = uiState.uiList
+
     Column(
         modifier = modifier.screenBackground()
     ) {
 
-        TodoListAppBar(
-            categories = uiState.filterOptions,
-            selectedFilter = uiState.selectedFilter,
-            isCategoriesPopUpShown = uiState.isCategoryListMenuVisible,
-            isMenuVisible = uiState.isMenuVisible,
-            isSortMenuVisible = uiState.isSortMenuVisible,
-            todoListAppBarCallbacks = todoListAppBarCallbacks,
-        )
+        if(tasksList.isNotEmpty()){
+            TodoListAppBar(
+                categories = uiState.filterOptions,
+                selectedFilter = uiState.selectedFilter,
+                isCategoriesPopUpShown = uiState.isCategoryListMenuVisible,
+                isMenuVisible = uiState.isMenuVisible,
+                isSortMenuVisible = uiState.isSortMenuVisible,
+                todoListAppBarCallbacks = todoListAppBarCallbacks,
+            )
+        }
 
         Box(
             modifier = Modifier
@@ -120,12 +132,15 @@ private fun ContentContainer(
                 }
             }
 
-            val tasksList = uiState.uiList
             if (tasksList.isEmpty()) {
-                Text(
-                    text = "No todo tasks are pending.",
-                    modifier = Modifier.align(Alignment.Center)
-                )
+                CenteredColumn(
+                    modifier = Modifier.fillMaxSize().padding(20.sdp)
+                ) {
+                    Text(
+                        text = "No tasks are pending. \nStart adding by clicking on the + button at the bottom.",
+                        fontSize = 20.ssp
+                    )
+                }
             } else {
                 // SearchBar(
                 //     query =,
@@ -195,15 +210,23 @@ private fun ContentContainer(
                     maxLines = 1,
                     minLines = 1
                 ),
+                singleLine = true,
                 onInputChange = onTodoTitleChanged
             )
             Spacer(modifier = Modifier.width(8.dp))
-            AppClickableIcon(
-                resId = if (uiState.todoTitle.isBlank())
-                    R.drawable.ic_new_note
-                else
-                    CoreR.drawable.ic_save,
-                onClick = onCreateBtnClicked
+
+            val resId = if (uiState.todoTitle.isBlank())
+                R.drawable.ic_new_note
+            else
+                CoreR.drawable.ic_save
+
+            Icon(
+                painter = painterResource(id = resId),
+                contentDescription = "Add icon",
+                tint = Color.Black,
+                modifier = Modifier.size(24.sdp).clickable{
+                    onCreateBtnClicked()
+                }
             )
         }
         Spacer(modifier = Modifier.height(10.dp))

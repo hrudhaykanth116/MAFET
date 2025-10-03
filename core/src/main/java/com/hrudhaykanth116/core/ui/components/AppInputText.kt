@@ -1,5 +1,6 @@
 package com.hrudhaykanth116.core.ui.components
 
+import android.R.attr.singleLine
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imeNestedScroll
@@ -15,6 +16,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -29,23 +31,32 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.sp
+import com.hrudhaykanth116.core.common.ui.preview.AppPreview
+import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.ui.models.InputType
 import com.hrudhaykanth116.core.ui.models.TextFieldData
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 import com.hrudhaykanth116.core.common.utils.functions.TextFieldChangedHandler
+import ir.kaaveh.sdpcompose.ssp
 
-@MyPreview
+@AppPreview
 @Composable
-fun AppInputTextPreview() {
-    AppInputText(
-        textFieldData = TextFieldData(
-            inputValue = TextFieldValue(),
-            inputType = InputType.RegularInputType,
-            label = "User name",
-            hint = "Enter user name",
-            error = "Field cannot be empty."
-        )
-    )
+private fun AppInputTextPreview() {
+    AppPreviewContainer {
+        CenteredColumn {
+            AppInputText(
+                textFieldData = TextFieldData(
+                    // inputValue = TextFieldValue("Hai"),
+                    inputType = InputType.RegularInputType,
+                    label = "User name",
+                    hint = "Enter user name",
+                    // error = "Field cannot be empty."
+                ),
+                enabled = true,
+            )
+        }
+    }
 }
 
 @Composable
@@ -54,6 +65,7 @@ fun AppInputText(
     textFieldData: TextFieldData = TextFieldData(),
     enabled: Boolean = true,
     readOnly: Boolean = false,
+    singleLine: Boolean = false,
     onInputChange: TextFieldChangedHandler = {},
 ) {
 
@@ -77,7 +89,7 @@ fun AppInputText(
 
             is InputType.RegularInputType -> {
                 AppTextField(
-                    textFieldData, modifier = Modifier.fillMaxWidth(), onInputChange = onInputChange
+                    textFieldData, modifier = Modifier.fillMaxWidth(), onInputChange = onInputChange, enabled = enabled, singleLine = singleLine
                 )
             }
 
@@ -165,18 +177,37 @@ fun AppTextField(
         },
         // visualTransformation = PasswordVisualTransformation(),
         label = {
-            textFieldData.hint?.let { Text(text = it, style = TextStyle(color = Color.Gray)) }
+            textFieldData.hint?.let {
+                Text(
+                    text = it,
+                    style = TextStyle(
+                        color = if (enabled) Color(0xFF616161) else Color(0xFF9E9E9E),
+                        fontSize = 14.ssp
+                    )
+                )
+            }
         },
+        textStyle = TextStyle(
+            color = if (enabled) Color(0xFF212121) else Color(0xFF757575),
+            fontSize = 16.ssp
+        ),
+        colors = OutlinedTextFieldDefaults.colors(
+            focusedBorderColor = Color(0xFF000000),
+            unfocusedBorderColor = Color(0xFF000000),
+            disabledBorderColor = Color(0xFF9E9E9E),
+            errorBorderColor = Color(0xFFD32F2F),
+            focusedLabelColor = Color(0xFF2962FF),
+            unfocusedLabelColor = Color(0xFF616161),
+            errorLabelColor = Color(0xFFD32F2F),
+            cursorColor = Color(0xFF2962FF),
+            disabledTextColor = Color(0xFF9E9E9E)
+        ),
         maxLines = textFieldData.maxLines ?: Int.MAX_VALUE,
         minLines = textFieldData.minLines ?: 1,
         trailingIcon = trailingIcon,
         visualTransformation = visualTransformation,
         keyboardOptions = keyboardOptions,
         singleLine = singleLine,
-        // colors = TextFieldDefaults.textFieldColors(
-        //     containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-        //     textColor = MaterialTheme.colorScheme.onTertiaryContainer
-        // ),
         shape = RoundedCornerShape(30)
     )
 }

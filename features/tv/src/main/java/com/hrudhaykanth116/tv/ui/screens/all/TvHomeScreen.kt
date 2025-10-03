@@ -5,34 +5,33 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.hrudhaykanth116.core.ui.components.AppScreen
 
 @Composable
 fun TvHomeScreen(
     viewModel: TvHomeViewModel = hiltViewModel(),
     onNavigateToSearchScreen: () -> Unit,
     onItemClick: (Int) -> Unit,
+    onBackClicked: () -> Unit,
 ) {
-    val state by viewModel.uiStateTemp.collectAsStateWithLifecycle()
 
     val onEvent: (TvHomeScreenEvent) -> Unit = {
         viewModel.processEvent(it)
     }
 
-    TvHomeScreenUI(
-        uiState = state,
-        processEvent = onEvent,
-        onNavigateToSearch = onNavigateToSearchScreen,
-        onItemClick = onItemClick,
-        modifier = Modifier
-    )
+    AppScreen(
+        viewModel = viewModel
+    ){ state ->
+        TvHomeScreenUI(
+            uiState = state,
+            processEvent = onEvent,
+            onNavigateToSearch = onNavigateToSearchScreen,
+            onItemClick = onItemClick,
+            modifier = Modifier,
+            onBackClick = onBackClicked
+        )
+    }
 
-    // AppUIState(viewModel) { state ->
-    //     TvHomeScreenUI(
-    //         state = state!!,
-    //         processEvent = onEvent,
-    //         modifier = Modifier
-    //     )
-    //
-    // }
+
 
 }
