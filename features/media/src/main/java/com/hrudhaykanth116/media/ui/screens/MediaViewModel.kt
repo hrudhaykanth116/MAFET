@@ -24,6 +24,10 @@ class MediaViewModel @Inject constructor(
     networkMonitor = networkMonitor
 ) {
 
+    init {
+        initializeData()
+    }
+
     override fun initializeData() {
         loadData()
     }

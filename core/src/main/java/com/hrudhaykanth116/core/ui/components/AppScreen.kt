@@ -31,10 +31,10 @@ fun <T> AppScreen(
 
     val uIState: UIState<T> by viewModel.uiStateFlow.collectAsStateWithLifecycle()
 
-    // Lets initialize data when this composable is first launched
-    LaunchedEffect(Unit) {
-        viewModel.initializeData()
-    }
+    // During Navigation, ViewModel is preserved but Composable is recreated. So, initializeData will be called everytime composable is created.
+    // LaunchedEffect(viewModel) {
+    //     viewModel.initializeData()
+    // }
 
 
     // state variable to preserve the exact type in when statement

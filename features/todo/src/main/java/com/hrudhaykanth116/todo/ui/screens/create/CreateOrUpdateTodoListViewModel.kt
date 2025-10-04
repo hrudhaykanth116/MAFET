@@ -39,6 +39,10 @@ class CreateOrUpdateTodoListViewModel @Inject constructor(
 
     private val noteId: String? = savedStateHandle["id"]
 
+    init {
+        initializeData()
+    }
+
     override fun initializeData() {
         initData(noteId)
     }

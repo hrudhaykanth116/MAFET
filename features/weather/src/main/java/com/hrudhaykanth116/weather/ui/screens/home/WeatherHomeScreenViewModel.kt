@@ -47,6 +47,10 @@ class WeatherHomeScreenViewModel @Inject constructor(
         LocationServices.getFusedLocationProviderClient(context)
     }
 
+    init {
+        initializeData()
+    }
+
     fun fetchLocationAndWeather() {
 
         viewModelScope.launch {

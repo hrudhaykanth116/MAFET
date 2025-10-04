@@ -32,6 +32,10 @@ class TvDetailsViewModel @Inject constructor(
         "ViewModel requires an id argument"
     }
 
+    init {
+        initializeData()
+    }
+
     override fun initializeData() {
         fetchData()
     }

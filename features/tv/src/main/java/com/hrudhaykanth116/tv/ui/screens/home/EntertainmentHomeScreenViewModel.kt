@@ -31,6 +31,10 @@ class EntertainmentHomeScreenViewModel @Inject constructor(
     networkMonitor = networkMonitor
 ) {
 
+    init {
+        initializeData()
+    }
+
     override fun initializeData() {
         viewModelScope.launch {
             getMyTvListUseCase().collectLatest {

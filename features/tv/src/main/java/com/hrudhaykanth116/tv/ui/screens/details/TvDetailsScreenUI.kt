@@ -5,6 +5,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -22,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.hrudhaykanth116.core.R
 import com.hrudhaykanth116.core.common.ui.preview.AppPreview
 import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.common.utils.compose.modifier.gradientBackground
@@ -29,6 +32,7 @@ import com.hrudhaykanth116.core.ui.components.AppIcon
 import com.hrudhaykanth116.core.ui.components.AppRoundedIcon
 import com.hrudhaykanth116.core.ui.components.FancyChipsFlow
 import com.hrudhaykanth116.core.ui.components.HorizontalSpacer
+import com.hrudhaykanth116.core.ui.components.VerticalSpacer
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDetails
 import com.hrudhaykanth116.tv.data.datasources.remote.models.genres.Genre
 import ir.kaaveh.sdpcompose.sdp
@@ -51,13 +55,12 @@ fun TvDetailsScreenUI(
             modifier = Modifier
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
-        )
-        {
+        ) {
 
             Box {
                 if (!tvShow.posterPath.isNullOrEmpty()) {
                     AsyncImage(
-                        model = "https://image.tmdb.org/t/p/w500${tvShow.posterPath}",
+                        model = "https://image.tmdb.org/t/p/w500${tvShow.backdropPath}",
                         contentDescription = "${tvShow.name} poster",
                         modifier = Modifier
                             .fillMaxWidth()
@@ -104,7 +107,13 @@ fun TvDetailsScreenUI(
                         )
                         HorizontalSpacer(width = 1.sdp)
                         Text(
-                            text = "${String.format(java.util.Locale.getDefault(),"%.1f", tvShow.voteAverage ?: 0.0)} / 10",
+                            text = "${
+                                String.format(
+                                    java.util.Locale.getDefault(),
+                                    "%.1f",
+                                    tvShow.voteAverage ?: 0.0
+                                )
+                            } / 10",
                             color = Color.White,
                             fontSize = 10.ssp,
                         )
@@ -118,6 +127,54 @@ fun TvDetailsScreenUI(
                         FancyChipsFlow(
                             items = genres,
                         )
+                    }
+
+
+                    if (!tvShow.networks.isNullOrEmpty()) {
+                        VerticalSpacer()
+                        LazyRow(
+                            horizontalArrangement = Arrangement.spacedBy(8.sdp),
+                            // contentPadding = PaddingValues(horizontal = 8.sdp)
+                        ) {
+                            items(tvShow.networks) { it: TvShowDetails.Network ->
+                                Column(
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    modifier = Modifier
+                                        .clip(RoundedCornerShape(8.sdp))
+                                        .background(Color(0xFFD9D9D9))
+                                        .padding(horizontal = 8.sdp, vertical = 4.sdp)
+                                ) {
+                                    if (!it.logoPath.isNullOrEmpty()) {
+                                        AsyncImage(
+                                            model = "https://image.tmdb.org/t/p/w500${it.logoPath}",
+                                            contentDescription = it.name,
+                                            modifier = Modifier
+                                                .height(30.sdp)
+                                                .width(60.sdp)
+                                                .clip(RoundedCornerShape(4.sdp)),
+                                            contentScale = ContentScale.Fit
+                                        )
+                                    } else {
+                                        Box(
+                                            modifier = Modifier
+                                                .height(30.sdp)
+                                                .width(60.sdp)
+                                                .clip(RoundedCornerShape(4.sdp))
+                                                .background(Color.Gray),
+                                            contentAlignment = Alignment.Center
+                                        ) {
+                                            Text(
+                                                text = it.name!!,
+                                                fontSize = 8.ssp,
+                                                color = Color.White,
+                                                modifier = Modifier.padding(4.sdp),
+                                                maxLines = 2
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -143,25 +200,25 @@ fun TvDetailsScreenUI(
         }
 
         AppRoundedIcon(
-            icon = com.hrudhaykanth116.core.R.drawable.ic_back,
+            icon = R.drawable.ic_back,
             tint = Color.White,
             iconSize = 30.sdp,
             modifier = Modifier
                 .align(Alignment.TopStart)
-                .offset(y = 10.sdp)
-                .clickable{
+                .offset(y = 10.sdp, x = 10.sdp)
+                .clickable {
                     onBackClicked()
                 }
         )
 
         AppRoundedIcon(
-            icon = com.hrudhaykanth116.core.R.drawable.ic_bookmark,
+            icon = R.drawable.ic_bookmark,
             tint = Color.White,
             iconSize = 30.sdp,
             modifier = Modifier
                 .align(Alignment.TopEnd)
-                .offset(y = 10.sdp)
-                .clickable{
+                .offset(y = 10.sdp, x = (-10).sdp)
+                .clickable {
                     onBookMarkClicked(tvShow.id)
                 }
         )
