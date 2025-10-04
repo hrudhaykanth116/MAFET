@@ -35,7 +35,7 @@ data class TvShowDetails(
     @Json(name = "name")
     val name: String? = "",
     @Json(name = "networks")
-    val networks: List<Network?>? = listOf(),
+    val networks: List<Network>? = listOf(),
     // this json object yet to be analysed.
     // @Json(name = "next_episode_to_air")
     // val nextEpisodeToAir: Any? = Any(),

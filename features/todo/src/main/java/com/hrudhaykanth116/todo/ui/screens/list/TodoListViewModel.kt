@@ -42,12 +42,16 @@ class TodoListViewModel @Inject constructor(
     private val networkMonitor: NetworkMonitor,
     private val mapper: TodoDomainModelMapper,
     private val uniqueIdGenerator: UniqueIdGenerator,
-    @MainDispatcher private val dispatcher: CoroutineDispatcher = Dispatchers.Main,
+    @MainDispatcher private val dispatcher: CoroutineDispatcher,
 ) : UIStateViewModel<TodoListUIState, TodoListScreenEvent, CreateTodoEffect>(
     initialState = UIState.Idle(TodoListUIState()),
     defaultState = TodoListUIState(),
     networkMonitor = networkMonitor,
 ) {
+
+    init {
+        initializeData()
+    }
 
     override fun initializeData() {
 

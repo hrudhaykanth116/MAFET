@@ -22,15 +22,12 @@ fun TvDetailsScreen(
 
 
     AppScreen(viewModel) { state ->
-        state.let {
-            TvDetailsScreenUI(
-                state = it,
-                modifier = Modifier,
-                onBackClicked = onBackClicked,
-                onBookMarkClicked = onBookMarkClicked
-            )
-        }
-
+        TvDetailsScreenUI(
+            state = state,
+            modifier = Modifier,
+            onBackClicked = onBackClicked,
+            onBookMarkClicked = onBookMarkClicked
+        )
     }
 
 }

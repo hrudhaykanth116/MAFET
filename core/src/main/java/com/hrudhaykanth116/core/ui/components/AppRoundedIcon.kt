@@ -27,7 +27,7 @@ fun AppRoundedIcon(
     @DrawableRes icon: Int,
     modifier: Modifier = Modifier,
     iconSize: Dp = 24.sdp,
-    containerColor: Color = Color.White.copy(alpha = 0.2f),
+    containerColor: Color = Color.Black.copy(alpha = 0.4f),
     tint: Color = Color.Unspecified,
     onClick: (() -> Unit)? = null,
 ) {

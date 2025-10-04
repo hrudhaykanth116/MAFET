@@ -32,6 +32,12 @@ abstract class UIStateViewModel<STATE, EVENT, EFFECT>(
         it.contentState ?: defaultState
     }
 
+    val currentContentState: STATE? get() = uiState.contentState
+    val contentStateOrDefault: STATE get() = uiState.contentState ?: defaultState
+
+    abstract fun initializeData() // Initial data if any. Should be called once when screen is launched when data is needed to be fetched
+    abstract fun processEvent(event: EVENT)
+
     fun onUserMessageShown(idleUIState: UIState.Idle<STATE>) {
         setState {
             UIState.Idle(
@@ -44,12 +50,6 @@ abstract class UIStateViewModel<STATE, EVENT, EFFECT>(
     fun isNetworkAvailable(): Boolean {
         return networkMonitor.isNetworkAvailable()
     }
-
-    val currentContentState: STATE? get() = uiState.contentState
-    val contentStateOrDefault: STATE get() = uiState.contentState ?: defaultState
-
-    abstract fun initializeData() // Initial data if any. Should be called once when screen is launched when data is needed to be fetched
-    abstract fun processEvent(event: EVENT)
 
     fun onRetry() {
         initializeData()

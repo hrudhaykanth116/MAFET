@@ -25,12 +25,12 @@ class GetTvDetailsUseCase @Inject constructor(
         val tvShowDetailsDeferred: Deferred<RepoResultWrapper<TvShowDetails>> = async {
             tvShowsRepository.getTvShowDetails(tvShowId)
         }
-        val tvImagesDeferred: Deferred<RepoResultWrapper<GetTvImagesResponse>> = async(start = CoroutineStart.LAZY) {
+        val tvImagesDeferred: Deferred<RepoResultWrapper<GetTvImagesResponse>> = async {
             tvShowsRepository.getTvImages(tvShowId)
         }
+        val tvShowImages = tvImagesDeferred.await()
 
         val tvShowDetails = tvShowDetailsDeferred.await()
-        val tvShowImages = tvImagesDeferred.await()
 
         return@coroutineScope tvShowDetails
 
