@@ -79,6 +79,7 @@ dependencies {
 
     // Hilt
     api(libs.hilt.android)
+    implementation(libs.play.services.ads.api)
     ksp(libs.hilt.compiler)
 
 

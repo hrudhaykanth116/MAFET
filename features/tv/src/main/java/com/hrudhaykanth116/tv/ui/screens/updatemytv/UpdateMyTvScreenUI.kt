@@ -30,7 +30,7 @@ import com.hrudhaykanth116.core.ui.components.AppDialog
 import com.hrudhaykanth116.core.ui.components.AppFormButton
 import com.hrudhaykanth116.core.ui.components.AppProgressBar
 import com.hrudhaykanth116.core.ui.components.AppText
-import com.hrudhaykanth116.core.ui.components.AppTextField
+import com.hrudhaykanth116.core.ui.components.inputtexts.AppTextField
 import com.hrudhaykanth116.core.ui.components.HorizontalSpacer
 import com.hrudhaykanth116.core.ui.components.VerticalSpacer
 import com.hrudhaykanth116.core.ui.models.TextFieldData

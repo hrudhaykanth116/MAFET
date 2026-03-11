@@ -65,6 +65,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+    }
+
     companion object {
         private const val TAG = "MainActivity"
     }

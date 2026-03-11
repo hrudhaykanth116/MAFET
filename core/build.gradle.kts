@@ -82,6 +82,8 @@ dependencies {
     // Kotlin immutable collections. (https://github.com/Kotlin/kotlinx.collections.immutable)
     api(libs.kotlinx.collections.immutable)
 
+    api(libs.kotlinx.datetime)
+
     /************************** Kotlin ******************************/
 
     /***************************** Jetpack Compose ****************************/
@@ -143,6 +145,7 @@ dependencies {
     /*********** Google ***************/
 
     api(libs.play.services.location)
+    api(libs.play.services.ads)
 
     /*********** Google ***************/
 

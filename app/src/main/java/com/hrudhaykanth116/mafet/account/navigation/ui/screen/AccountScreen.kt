@@ -1,12 +1,11 @@
 package com.hrudhaykanth116.mafet.account.navigation.ui.screen
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import com.hrudhaykanth116.core.ads.BannerAd
+import com.hrudhaykanth116.core.ads.MyAdUnitIds
 import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.ui.components.AppFormButton
 import com.hrudhaykanth116.core.ui.components.AppText
@@ -24,6 +23,11 @@ fun AccountScreen(onLoggedOut: (() -> Unit)? = null) {
         AppFormButton(btnText = "Logout".toUIText()) {
             onLoggedOut?.invoke()
         }
+        VerticalSpacer()
+        BannerAd(
+            adUnitId = MyAdUnitIds.BANNER,
+            modifier = Modifier.fillMaxWidth()
+        )
     }
 
 }
