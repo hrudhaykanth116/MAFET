@@ -2,6 +2,7 @@
 compileSdk = "36"
 coreSplashscreen = "1.0.1"
 kotlinxCoroutinesTest = "1.10.2"
+kotlinxDatetime = "0.7.1"
 media3 = "1.7.1"
 minSdk = "24"
 
@@ -59,6 +60,8 @@ moshiKotlin = "1.15.2"
 moshiKotlinCodegen = "1.15.2"
 navigationTesting = "2.9.0"
 pagingRuntimeKtx = "3.3.6"
+
+playServicesAds = "24.9.0"
 playServicesLocation = "21.3.0"
 
 retrofit = "3.0.0"
@@ -75,6 +78,7 @@ sdpCompose = "1.1.0"
 # @keep
 shimmer = "0.5.0"
 viewpager2 = "1.1.0"
+playServicesAdsApi = "24.9.0"
 
 [libraries]
 androidx-activity-compose-v1101 = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
@@ -152,6 +156,8 @@ logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", ver
 
 kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinx_immutable" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
+
 kotpref = { module = "com.chibatching.kotpref:kotpref", version.ref = "kotpref" }
 glide-ksp = { module = "com.github.bumptech.glide:ksp", version.ref = "glideKspVersion" }
 livedata-support = { module = "com.chibatching.kotpref:livedata-support", version.ref = "livedataSupport" }
@@ -161,8 +167,10 @@ material-icons-core = { module = "androidx.compose.material:material-icons-core"
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshiKotlin" }
 moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
 moshi-kotlin-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshiKotlinCodegen" }
-play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
 shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmer" }
+
+play-services-ads = { module = "com.google.android.gms:play-services-ads", version.ref = "playServicesAds" }
+play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
 
 ssp-android = { module = "com.intuit.ssp:ssp-android", version.ref = "sdpAndroid" }
 sdp-android = { module = "com.intuit.sdp:sdp-android", version.ref = "sdpAndroid" }
@@ -171,6 +179,7 @@ androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+play-services-ads-api = { group = "com.google.android.gms", name = "play-services-ads-api", version.ref = "playServicesAdsApi" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
