@@ -1,7 +1,6 @@
 package com.hrudhaykanth116.todo.ui.models.createtodo
 
 import com.hrudhaykanth116.core.common.ui.models.UserMessage
-import com.hrudhaykanth116.todo.domain.model.TASK_CATEGORY_DEFAULT_NAME
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 
 data class CreateOrUpdateTodoUIState(
@@ -13,10 +12,14 @@ data class CreateOrUpdateTodoUIState(
 
     val titleError: String? = null,
 
+    val descriptionError: String? = null,
+
     val isSubmitted: Boolean = false,
 
     val userMessage: UserMessage? = null,
 
     val showTargetTimePicker: Boolean = false,
+
+    val showCategoryDropdown: Boolean = false,
 
 )

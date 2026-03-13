@@ -11,6 +11,8 @@ import com.hrudhaykanth116.core.common.utils.random.UniqueIdGenerator
 import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
 import com.hrudhaykanth116.core.udf.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
+import com.hrudhaykanth116.todo.R
+import com.hrudhaykanth116.todo.domain.model.TaskCategory
 import com.hrudhaykanth116.todo.domain.model.TodoModel
 import com.hrudhaykanth116.todo.domain.use_cases.CreateTodoTaskUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.GetTaskUseCase
@@ -74,7 +76,7 @@ class CreateOrUpdateTodoListViewModel @Inject constructor(
                         id = id,
                         title = TextFieldValue(title),
                         description = TextFieldValue(description),
-                        category = TextFieldValue(category),
+                        category = TextFieldValue(category.key),
                         priority = priority,
                         targetTime = TextFieldValue(dateTime),
                     )
@@ -100,50 +102,75 @@ class CreateOrUpdateTodoListViewModel @Inject constructor(
             CreateTodoEvent.Submit -> {
 
                 viewModelScope.launch {
+                    // Validate only title (description is optional)
+                    if (currentContentState.todoUIModel.title.text.isBlank()) {
+                        setState {
+                            UIState.Idle(
+                                currentContentState.copy(
+                                    titleError = "Title is required"
+                                )
+                            )
+                        }
+                        return@launch
+                    }
+
                     setState {
                         UIState.Loading(contentState)
                     }
 
-                    val todoModel = with(currentContentState) {
-                        TodoModel(
-                            id = noteId ?: uniqueIdGenerator.getUniqueId(), // new id if new note.
-                            title = todoUIModel.title.text,
-                            description = todoUIModel.description.text,
-                            category = todoUIModel.category.text,
-                            priority = todoUIModel.priority,
-                            targetTime = dateTimeUtils.getMillisFromDateTime(todoUIModel.targetTime.text)
+                    try {
+                        val todoModel = with(currentContentState) {
+                            TodoModel(
+                                id = noteId ?: uniqueIdGenerator.getUniqueId(), // new id if new note.
+                                title = todoUIModel.title.text,
+                                description = todoUIModel.description.text,
+                                category = TaskCategory.fromKey(todoUIModel.category.text),
+                                priority = todoUIModel.priority,
+                                targetTime = if (todoUIModel.targetTime.text.isNotBlank()) {
+                                    dateTimeUtils.getMillisFromDateTime(todoUIModel.targetTime.text)
+                                } else {
+                                    null
+                                }
+                            )
+                        }
+
+                        val createTodoResult: RepoResultWrapper<Unit> = createTodoTaskUseCase(
+                            todoModel = todoModel
                         )
-                    }
 
-                    val createTodoResult: RepoResultWrapper<Unit> = createTodoTaskUseCase(
-                        todoModel = todoModel
-                    )
-
-                    when (createTodoResult) {
-                        is RepoResultWrapper.Error -> {
-                            setState {
-                                UIState.Idle(
-                                    currentContentState.copy(
-                                        isSubmitted = true,
-                                    ),
-                                    userMessage = "Something went wrong. Please try again.".toErrorMessage()
-                                )
-                            }
-                        }
-
-                        is RepoResultWrapper.Success -> {
-                            setState {
-                                UIState.Idle(
-                                    currentContentState.copy(
-                                        isSubmitted = true,
-                                    ),
-                                    userMessage = "Todo saved successfully".toSuccessMessage()
-                                )
+                        when (createTodoResult) {
+                            is RepoResultWrapper.Error -> {
+                                setState {
+                                    UIState.Idle(
+                                        currentContentState.copy(
+                                            isSubmitted = true,
+                                        ),
+                                        userMessage = R.string.todo_error_generic.toErrorMessage()
+                                    )
+                                }
                             }
 
+                            is RepoResultWrapper.Success -> {
+                                setState {
+                                    UIState.Idle(
+                                        currentContentState.copy(
+                                            isSubmitted = true,
+                                        ),
+                                        userMessage = R.string.todo_success_saved.toSuccessMessage()
+                                    )
+                                }
+                            }
+                        }
+                    } catch (e: Exception) {
+                        setState {
+                            UIState.Idle(
+                                currentContentState.copy(
+                                    isSubmitted = false,
+                                ),
+                                userMessage = R.string.todo_error_generic.toErrorMessage()
+                            )
                         }
                     }
-
                 }
             }
 
@@ -181,7 +208,8 @@ class CreateOrUpdateTodoListViewModel @Inject constructor(
                 setState {
                     UIState.Idle(
                         currentContentState.copy(
-                            todoUIModel = currentContentState.todoUIModel.copy(title = event.textFieldValue)
+                            todoUIModel = currentContentState.todoUIModel.copy(title = event.textFieldValue),
+                            titleError = null
                         ),
                     )
                 }
@@ -228,6 +256,39 @@ class CreateOrUpdateTodoListViewModel @Inject constructor(
                     UIState.Idle(
                         currentContentState.copy(
                             showTargetTimePicker = false
+                        ),
+                    )
+                }
+            }
+
+            CreateTodoEvent.OnCategoryFieldClicked -> {
+                setState {
+                    UIState.Idle(
+                        currentContentState.copy(
+                            showCategoryDropdown = true
+                        ),
+                    )
+                }
+            }
+
+            CreateTodoEvent.OnCategoryDismissRequest -> {
+                setState {
+                    UIState.Idle(
+                        currentContentState.copy(
+                            showCategoryDropdown = false
+                        ),
+                    )
+                }
+            }
+
+            is CreateTodoEvent.CategorySelected -> {
+                setState {
+                    UIState.Idle(
+                        currentContentState.copy(
+                            todoUIModel = currentContentState.todoUIModel.copy(
+                                category = TextFieldValue(event.category.key)
+                            ),
+                            showCategoryDropdown = false
                         ),
                     )
                 }

@@ -21,7 +21,7 @@ class TodoDomainModelMapper @Inject constructor(
             id = todoModel.id,
             title = TextFieldValue(todoModel.title),
             description = TextFieldValue(todoModel.description),
-            category = TextFieldValue(todoModel.category),
+            category = TextFieldValue(todoModel.category.key),
             priority = todoModel.priority,
             targetTime = TextFieldValue(todoModel.targetTime?.let { dateTimeUtils.getFormattedDateTime(it) } ?: ""),
         )
@@ -34,26 +34,4 @@ class TodoDomainModelMapper @Inject constructor(
 
     fun mapListToUIStates(domainModels: List<TodoModel>): List<ToDoTaskUIState> =
         domainModels.map { mapToUIState(it) }
-}
-
-fun TodoModel?.toUIModel(): TodoUIModel {
-
-    this ?: return TodoUIModel()
-
-    return TodoUIModel(
-        id = id,
-        title = TextFieldValue(title),
-        description = TextFieldValue(description),
-        category = TextFieldValue(category),
-        priority = priority,
-        targetTime = TextFieldValue(DateTimeUtils.DAY_DATE_FORMAT),
-    )
-
-}
-
-// hrudhay_check_list: Wrong. Do something
-fun TodoModel.toState(): ToDoTaskUIState{
-    return ToDoTaskUIState(
-        data = this.toUIModel(),
-    )
 }

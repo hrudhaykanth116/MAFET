@@ -6,26 +6,19 @@ import kotlinx.coroutines.flow.Flow
 
 interface ITodoRepository {
 
-    suspend fun getTodoTask(): List<TodoModel>
-
-    fun getTasks(
+    fun observeTasks(
         search: String?,
         category: String?,
         sort: String
     ): Flow<List<TodoModel>>
 
-    fun getTodoTasksFlow(
-        search: String,
-        filterCategory: String?,
-        sortItem: String,
-    ): Flow<List<TodoModel>>
-
     suspend fun getTodoTask(id: String): RepoResultWrapper<TodoModel>
 
     suspend fun createTodoTask(todoModel: TodoModel): RepoResultWrapper<Unit>
+
     suspend fun updateTodoTask(todoModel: TodoModel): RepoResultWrapper<Unit>
 
-    suspend fun deleteTasks(taskId: List<String>)
+    suspend fun deleteTasks(taskId: List<String>): RepoResultWrapper<Unit>
 
-    suspend fun deleteAllTasks()
+    suspend fun deleteAllTasks(): RepoResultWrapper<Unit>
 }

@@ -61,6 +61,18 @@ fun CreateOrUpdateTodoScreen(
             { viewModel.processEvent(CreateTodoEvent.OnTargetFieldClicked) }
         }
 
+        val onCategoryFieldClicked = remember<() -> Unit> {
+            { viewModel.processEvent(CreateTodoEvent.OnCategoryFieldClicked) }
+        }
+
+        val onCategoryDismissRequest = remember<() -> Unit> {
+            { viewModel.processEvent(CreateTodoEvent.OnCategoryDismissRequest) }
+        }
+
+        val onCategorySelected = remember<(com.hrudhaykanth116.todo.domain.model.TaskCategory) -> Unit> {
+            { viewModel.processEvent(CreateTodoEvent.CategorySelected(it)) }
+        }
+
         if (contentState.isSubmitted) {
             onCreated()
         } else {
@@ -74,7 +86,10 @@ fun CreateOrUpdateTodoScreen(
                 onPriorityChanged = onPriorityChanged,
                 onTargetTimeDateTimePickerCloseRequest = onTargetTimeDateTimePickerCloseRequest,
                 onTargetTimeChanged = onTargetTimeChanged,
-                onTargetFieldClicked = onTargetFieldClicked
+                onTargetFieldClicked = onTargetFieldClicked,
+                onCategoryFieldClicked = onCategoryFieldClicked,
+                onCategoryDismissRequest = onCategoryDismissRequest,
+                onCategorySelected = onCategorySelected
             )
         }
     }

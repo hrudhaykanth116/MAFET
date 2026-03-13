@@ -2,25 +2,83 @@ package com.hrudhaykanth116.todo.data.data_source.local
 
 import com.hrudhaykanth116.todo.data.local.room.tables.TodoTaskDbEntity
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.map
 
 class FakeLocal : ITodoLocalDataSource {
-    val tasks = mutableListOf<TodoTaskDbEntity>()
-    override suspend fun getTodoTasks(): List<TodoTaskDbEntity> = tasks
 
-    override fun getTasks(search: String?, category: String?, sort: String): Flow<List<TodoTaskDbEntity>> =
-        flowOf(filterAndSortTasks(search, category, sort))
+    private val tasksFlow = MutableStateFlow<List<TodoTaskDbEntity>>(emptyList())
+    val tasks: List<TodoTaskDbEntity>
+        get() = tasksFlow.value
 
-    override fun getTodoTasksFlow(search: String, filterCategory: String?, sortItem: String): Flow<List<TodoTaskDbEntity>> =
-        flowOf(filterAndSortTasks(search, filterCategory, sortItem))
+    override fun observeTasks(
+        search: String?,
+        category: String?,
+        sort: String
+    ): Flow<List<TodoTaskDbEntity>> {
+        return tasksFlow.map { filterAndSortTasks(it, search, category, sort) }
+    }
 
-    override suspend fun getTodoTask(id: String): TodoTaskDbEntity? = tasks.find { it.id == id }
-    override suspend fun createTodoTask(todoTaskDbEntity: TodoTaskDbEntity) { tasks.add(todoTaskDbEntity) }
-    override suspend fun deleteTasks(taskId: List<String>) { tasks.removeAll { it.id in taskId } }
-    override suspend fun deleteAllTasks() { tasks.clear() }
+    override suspend fun getTodoTask(id: String): TodoTaskDbEntity? {
+        return tasksFlow.value.find { it.id == id }
+    }
 
-    private fun filterAndSortTasks(search: String?, category: String?, sort: String): List<TodoTaskDbEntity> {
-        var filtered = tasks.toList()
+    override suspend fun createTodoTask(todoTaskDbEntity: TodoTaskDbEntity) {
+        tasksFlow.value += todoTaskDbEntity
+    }
+
+    override suspend fun updateTodoTask(todoTaskDbEntity: TodoTaskDbEntity) {
+        val updated = tasksFlow.value.map {
+            if (it.id == todoTaskDbEntity.id) todoTaskDbEntity else it
+        }
+        tasksFlow.value = updated
+    }
+
+    override suspend fun deleteTasks(taskId: List<String>) {
+        tasksFlow.value = tasksFlow.value.filter { it.id !in taskId }
+    }
+
+    override suspend fun deleteAllTasks() {
+        tasksFlow.value = emptyList()
+    }
+
+    override suspend fun getPendingTasks(): List<TodoTaskDbEntity> {
+        return tasksFlow.value.filter { it.syncStatus != "synced" }
+    }
+
+    override fun observePendingCount(): Flow<Int> {
+        return tasksFlow.map { list -> list.count { it.syncStatus != "synced" } }
+    }
+
+    override suspend fun updateSyncStatus(taskId: String, status: String) {
+        tasksFlow.value = tasksFlow.value.map {
+            if (it.id == taskId) it.copy(syncStatus = status) else it
+        }
+    }
+
+    override suspend fun markForDeletion(taskIds: List<String>) {
+        tasksFlow.value = tasksFlow.value.map {
+            if (it.id in taskIds) it.copy(syncStatus = "pending_delete") else it
+        }
+    }
+
+    override suspend fun deleteSyncedTasks(taskIds: List<String>) {
+        tasksFlow.value = tasksFlow.value.filter {
+            !(it.id in taskIds && it.syncStatus == "synced")
+        }
+    }
+
+    fun addTask(task: TodoTaskDbEntity) {
+        tasksFlow.value = tasksFlow.value + task
+    }
+
+    private fun filterAndSortTasks(
+        tasks: List<TodoTaskDbEntity>,
+        search: String?,
+        category: String?,
+        sort: String
+    ): List<TodoTaskDbEntity> {
+        var filtered = tasks
         if (!search.isNullOrBlank()) {
             filtered = filtered.filter {
                 it.title.contains(search, ignoreCase = true) ||
@@ -30,11 +88,10 @@ class FakeLocal : ITodoLocalDataSource {
         if (!category.isNullOrBlank()) {
             filtered = filtered.filter { it.category == category }
         }
-        filtered = when (sort) {
+        return when (sort) {
             "priority" -> filtered.sortedByDescending { it.priority }
             "timeUpdated" -> filtered.sortedByDescending { it.timeUpdated }
             else -> filtered
         }
-        return filtered
     }
 }

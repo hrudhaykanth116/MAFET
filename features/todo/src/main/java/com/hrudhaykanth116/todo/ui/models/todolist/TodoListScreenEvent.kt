@@ -1,7 +1,7 @@
 package com.hrudhaykanth116.todo.ui.models.todolist
 
 import androidx.compose.ui.text.input.TextFieldValue
-import com.hrudhaykanth116.todo.data.models.TodoListScreenSortItem
+import com.hrudhaykanth116.todo.ui.models.TodoListScreenSortItem
 
 sealed interface TodoListScreenEvent {
 
@@ -20,6 +20,7 @@ sealed interface TodoListScreenEvent {
     object CategoryIconClicked: TodoListScreenEvent
     object CategoryListMenuDismiss: TodoListScreenEvent
     object SearchIconClicked: TodoListScreenEvent
+    object CloseSearch: TodoListScreenEvent
     object MenuIconClicked: TodoListScreenEvent
 
     object SortIconClicked: TodoListScreenEvent

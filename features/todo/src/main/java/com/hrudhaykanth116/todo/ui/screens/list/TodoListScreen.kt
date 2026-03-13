@@ -1,17 +1,11 @@
 package com.hrudhaykanth116.todo.ui.screens.list
 
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenEvent
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListUIState
-
-private const val TAG = "TodoListScreen"
 
 @Composable
 fun TodoListScreen(
@@ -20,7 +14,6 @@ fun TodoListScreen(
     onItemClicked: (TodoUIModel) -> Unit,
     onBackClicked: () -> Unit = {},
 ) {
-    Logger.d(TAG, "TodoListScreen: ")
 
     LaunchedEffect(Unit) {
         todoListViewModel.initializeData()
@@ -68,6 +61,12 @@ fun TodoListScreen(
             },
             onSearchIconClicked = {
                 todoListViewModel.processEvent(TodoListScreenEvent.SearchIconClicked)
+            },
+            onSearchTextChanged = {
+                todoListViewModel.processEvent(TodoListScreenEvent.Search(it))
+            },
+            onCloseSearch = {
+                todoListViewModel.processEvent(TodoListScreenEvent.CloseSearch)
             },
             onMenuItemClicked = {
                 todoListViewModel.processEvent(TodoListScreenEvent.MenuIconClicked)

@@ -8,7 +8,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class CreateTodoTaskUseCase @Inject constructor(
+class UpdateTodoTaskUseCase @Inject constructor(
     private val todoRepository: ITodoRepository,
 ) {
 
@@ -19,6 +19,6 @@ class CreateTodoTaskUseCase @Inject constructor(
         if (todoModel.title.isBlank()) {
             return RepoResultWrapper.Error(ErrorState.Validation)
         }
-        return todoRepository.createTodoTask(todoModel)
+        return todoRepository.updateTodoTask(todoModel)
     }
 }

@@ -1,10 +1,9 @@
 package com.hrudhaykanth116.todo.ui.screens.list
 
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenMenuItem
-import com.hrudhaykanth116.todo.data.models.TodoListScreenSortItem
+import com.hrudhaykanth116.todo.ui.models.TodoListScreenSortItem
 
 data class TodoListAppBarCallbacks(
-    // hrudhay_check_list: Multiple filters
     val onCategorySelected: (String) -> Unit = {},
     val onClearFilterClicked: () -> Unit = {},
     val onMenuItemSelected: (TodoListScreenMenuItem) -> Unit = {},
@@ -13,6 +12,8 @@ data class TodoListAppBarCallbacks(
     val onSortIconClicked: () -> Unit = {},
     val onCategoriesDismissRequest: () -> Unit = {},
     val onSearchIconClicked: () -> Unit = {},
+    val onSearchTextChanged: (String) -> Unit = {},
+    val onCloseSearch: () -> Unit = {},
     val onMenuItemClicked: () -> Unit = {},
     val onBackClicked: () -> Unit = {},
 )
