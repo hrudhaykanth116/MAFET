@@ -136,7 +136,7 @@ class TodoListViewModel @Inject constructor(
 
     private fun onSortIconClicked() {
         setState {
-            UIState.Idle(contentState?.copy(isSortMenuVisible = !contentState.isSortMenuVisible))
+            UIState.Idle(contentState?.let { it.copy(isSortMenuVisible = !it.isSortMenuVisible) })
         }
     }
 
@@ -186,13 +186,13 @@ class TodoListViewModel @Inject constructor(
 
     private fun onMenuIconClicked() {
         setState {
-            UIState.Idle(contentState?.copy(isMenuVisible = !contentState.isMenuVisible))
+            UIState.Idle(contentState?.let { it.copy(isMenuVisible = !it.isMenuVisible) })
         }
     }
 
     private fun onCategoryIconClicked() {
         setState {
-            UIState.Idle(contentState?.copy(isCategoryListMenuVisible = !contentState.isCategoryListMenuVisible))
+            UIState.Idle(contentState?.let { it.copy(isCategoryListMenuVisible = !it.isCategoryListMenuVisible) })
         }
     }
 
