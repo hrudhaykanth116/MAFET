@@ -10,22 +10,23 @@ import com.hrudhaykanth116.core.common.utils.random.UniqueIdGenerator
 import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
 import com.hrudhaykanth116.core.udf.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
+import com.hrudhaykanth116.todo.R
+import com.hrudhaykanth116.todo.domain.model.TaskCategory
 import com.hrudhaykanth116.todo.domain.model.TodoModel
 import com.hrudhaykanth116.todo.domain.use_cases.CreateTodoTaskUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.DeleteTaskUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.ObserveTasksUseCase
 import com.hrudhaykanth116.todo.ui.mappers.TodoDomainModelMapper
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
+import com.hrudhaykanth116.todo.ui.models.TodoListScreenSortItem
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateTodoEffect
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenEvent
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenMenuItem
-import com.hrudhaykanth116.todo.data.models.TodoListScreenSortItem
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toImmutableSet
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -54,9 +55,12 @@ class TodoListViewModel @Inject constructor(
     }
 
     override fun initializeData() {
+        observeTasks()
+        observeCategories()
+    }
 
+    private fun observeTasks() {
         viewModelScope.launch(dispatcher) {
-
             contentStateFlow.distinctUntilChanged().flatMapLatest { state: TodoListUIState ->
                 observeTasksUseCase(
                     state.search,
@@ -64,26 +68,21 @@ class TodoListViewModel @Inject constructor(
                     state.sortItem.key
                 )
             }.collectLatest { todoDomainModelList: List<TodoModel> ->
-
                 val toDoTaskUIStates: List<ToDoTaskUIState> =
                     mapper.mapListToUIStates(todoDomainModelList)
                 setTasksList(toDoTaskUIStates)
             }
-
         }
+    }
 
+    private fun observeCategories() {
         viewModelScope.launch(dispatcher) {
             observeTasksUseCase(
                 null,
                 null,
                 contentStateOrDefault.sortItem.key
             ).collectLatest { todoModelList ->
-
-                // hrudhay_check_list: Get categories list without groupBY. Using domain model ??
-                val categories = todoModelList.groupBy { todoModel ->
-                    todoModel.category
-                }.keys
-
+                val categories = todoModelList.map { it.category.key }.toSet()
                 setState {
                     UIState.Idle(
                         contentState?.copy(
@@ -128,6 +127,7 @@ class TodoListViewModel @Inject constructor(
             TodoListScreenEvent.CategoryListMenuDismiss -> onCategoryMenuDismiss()
             TodoListScreenEvent.MenuIconClicked -> onMenuIconClicked()
             TodoListScreenEvent.SearchIconClicked -> onSearchIconClicked()
+            TodoListScreenEvent.CloseSearch -> onCloseSearch()
             is TodoListScreenEvent.MenuItemSelected -> onMenuItemSelected(event.menuItem)
             TodoListScreenEvent.SortIconClicked -> onSortIconClicked()
             is TodoListScreenEvent.SortOptionSelected -> onSortOptionClicked(event.sortItem)
@@ -136,11 +136,7 @@ class TodoListViewModel @Inject constructor(
 
     private fun onSortIconClicked() {
         setState {
-            UIState.Idle(
-                contentState?.copy(
-                    isSortMenuVisible = contentState?.isSortMenuVisible != true
-                )
-            )
+            UIState.Idle(contentState?.copy(isSortMenuVisible = !contentState.isSortMenuVisible))
         }
     }
 
@@ -158,24 +154,14 @@ class TodoListViewModel @Inject constructor(
 
     private fun onMenuItemSelected(menuItem: TodoListScreenMenuItem) {
         setState {
-            UIState.Idle(
-                contentState?.copy(
-                    isMenuVisible = false
-                )
-            )
+            UIState.Idle(contentState?.copy(isMenuVisible = false))
         }
         when (menuItem) {
-            TodoListScreenMenuItem.SETTINGS -> {
-                // setEffect()
-            }
-
-            TodoListScreenMenuItem.CLEAR_ALL -> {
-                // deleteTasks()
-            }
+            TodoListScreenMenuItem.CLEAR_ALL -> deleteAllTasks()
         }
     }
 
-    private fun deleteTasks() {
+    private fun deleteAllTasks() {
         viewModelScope.launch(dispatcher) {
             deleteTaskUseCase()
         }
@@ -183,44 +169,36 @@ class TodoListViewModel @Inject constructor(
 
     private fun onSearchIconClicked() {
         setState {
+            UIState.Idle(contentState?.copy(isSearchBarVisible = true))
+        }
+    }
+
+    private fun onCloseSearch() {
+        setState {
             UIState.Idle(
                 contentState?.copy(
-                    isSearchBarVisible = true
+                    isSearchBarVisible = false,
+                    search = ""
                 )
             )
         }
     }
 
     private fun onMenuIconClicked() {
-
         setState {
-            UIState.Idle(
-                contentState?.copy(
-                    isMenuVisible = contentState?.isMenuVisible != true
-                )
-            )
+            UIState.Idle(contentState?.copy(isMenuVisible = !contentState.isMenuVisible))
         }
     }
 
-
     private fun onCategoryIconClicked() {
-
         setState {
-            UIState.Idle(
-                contentState?.copy(
-                    isCategoryListMenuVisible = contentState?.isCategoryListMenuVisible != true
-                )
-            )
+            UIState.Idle(contentState?.copy(isCategoryListMenuVisible = !contentState.isCategoryListMenuVisible))
         }
     }
 
     fun onCategoryMenuDismiss() {
         setState {
-            UIState.Idle(
-                contentState?.copy(
-                    isCategoryListMenuVisible = false
-                )
-            )
+            UIState.Idle(contentState?.copy(isCategoryListMenuVisible = false))
         }
     }
 
@@ -230,9 +208,6 @@ class TodoListViewModel @Inject constructor(
                 TodoModel(
                     id = uniqueIdGenerator.getUniqueId(),
                     title = taskTitle,
-                    description = "",
-                    category = "General",
-                    priority = 3,
                 )
             )
             when (result) {
@@ -240,7 +215,7 @@ class TodoListViewModel @Inject constructor(
                     setState {
                         UIState.Idle(
                             contentStateOrDefault,
-                            userMessage = "Something went wrong. Please try again.".toErrorMessage()
+                            userMessage = R.string.todo_error_generic.toErrorMessage()
                         )
                     }
                 }
@@ -249,7 +224,7 @@ class TodoListViewModel @Inject constructor(
                     setState {
                         UIState.Idle(
                             contentStateOrDefault.copy(todoTitle = TextFieldValue()),
-                            userMessage = "Successfully created task".toSuccessMessage()
+                            userMessage = R.string.todo_success_task_created.toSuccessMessage()
                         )
                     }
                 }

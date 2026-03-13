@@ -5,23 +5,29 @@ import kotlinx.coroutines.flow.Flow
 
 interface ITodoLocalDataSource {
 
-    suspend fun getTodoTasks(): List<TodoTaskDbEntity>
-
-    fun getTasks(
-        search: String?, category: String?, sort: String
-    ): Flow<List<TodoTaskDbEntity>>
-
-    fun getTodoTasksFlow(
-        search: String,
-        filterCategory: String?,
-        sortItem: String,
+    fun observeTasks(
+        search: String?,
+        category: String?,
+        sort: String
     ): Flow<List<TodoTaskDbEntity>>
 
     suspend fun getTodoTask(id: String): TodoTaskDbEntity?
 
     suspend fun createTodoTask(todoTaskDbEntity: TodoTaskDbEntity)
 
+    suspend fun updateTodoTask(todoTaskDbEntity: TodoTaskDbEntity)
+
     suspend fun deleteTasks(taskId: List<String>)
 
     suspend fun deleteAllTasks()
+
+    suspend fun getPendingTasks(): List<TodoTaskDbEntity>
+
+    fun observePendingCount(): Flow<Int>
+
+    suspend fun updateSyncStatus(taskId: String, status: String)
+
+    suspend fun markForDeletion(taskIds: List<String>)
+
+    suspend fun deleteSyncedTasks(taskIds: List<String>)
 } 

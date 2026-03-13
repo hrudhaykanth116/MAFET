@@ -11,12 +11,14 @@ import com.hrudhaykanth116.todo.ui.mappers.TodoDomainModelMapper
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenEvent
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.verify
 import org.mockito.kotlin.any
+import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
@@ -41,6 +43,7 @@ class TodoListViewModelTest {
         mapper = mock<TodoDomainModelMapper>()
         uniqueIdGenerator = mock<UniqueIdGenerator>()
 
+        whenever(observeTasksUseCase.invoke(anyOrNull(), anyOrNull(), any())).thenReturn(flowOf(emptyList()))
 
         viewModel = TodoListViewModel(
             observeTasksUseCase,
@@ -79,7 +82,7 @@ class TodoListViewModelTest {
 
     @Test
     fun `sort event updates sort item in state`() = runTest {
-        val sortItem = com.hrudhaykanth116.todo.data.models.TodoListScreenSortItem.PRIORITY
+        val sortItem = com.hrudhaykanth116.todo.ui.models.TodoListScreenSortItem.PRIORITY
         viewModel.processEvent(TodoListScreenEvent.SortOptionSelected(sortItem))
         assertEquals(sortItem, viewModel.contentStateOrDefault.sortItem)
     }

@@ -1,7 +1,7 @@
 package com.hrudhaykanth116.todo.ui.models.todolist
 
 import androidx.compose.ui.text.input.TextFieldValue
-import com.hrudhaykanth116.todo.data.models.TodoListScreenSortItem
+import com.hrudhaykanth116.todo.ui.models.TodoListScreenSortItem
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableSet
@@ -23,5 +23,7 @@ data class TodoListUIState(
     val isMenuVisible: Boolean = false,
 
     val isSortMenuVisible: Boolean = false,
-    val sortItem: TodoListScreenSortItem = TodoListScreenSortItem.PRIORITY
+    val sortItem: TodoListScreenSortItem = TodoListScreenSortItem.PRIORITY,
+
+    val showAd: Boolean = false
 )

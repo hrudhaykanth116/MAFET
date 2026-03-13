@@ -3,51 +3,60 @@ package com.hrudhaykanth116.core.ui.components
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import com.hrudhaykanth116.core.R
 import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 import com.hrudhaykanth116.core.ui.models.toImageHolder
+import ir.kaaveh.sdpcompose.ssp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppToolbar(
     text: String,
     modifier: Modifier = Modifier,
-    // backgroundColor: Color = Color.Red,
-    // contentColor: Color = Color.Unspecified,
     onBackClicked: () -> Unit = {},
     navigationIcon: @Composable () -> Unit = {
         AppClickableIcon(
             resId = R.drawable.ic_back,
-            onClick = onBackClicked
+            onClick = onBackClicked,
+            iconColor = Color.White
         )
     },
     actions: @Composable RowScope.() -> Unit = {},
 ) {
 
     TopAppBar(
-        modifier = Modifier,
-        colors = TopAppBarDefaults.mediumTopAppBarColors(
+        modifier = modifier,
+        colors = TopAppBarDefaults.topAppBarColors(
             containerColor = Color.Transparent,
-            // titleContentColor = contentColor,
+            titleContentColor = Color.White,
+            navigationIconContentColor = Color.White,
+            actionIconContentColor = Color.White
         ),
         title = {
             Text(
                 text = text,
                 maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
+                style = MaterialTheme.typography.titleLarge.copy(
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.ssp,
+                    color = Color.White
+                )
             )
         },
         navigationIcon = navigationIcon,
         actions = actions,
-        windowInsets = WindowInsets(0, 0, 0, 0) // removes system bar insets if needed
+        windowInsets = WindowInsets(0, 0, 0, 0)
     )
 }
 

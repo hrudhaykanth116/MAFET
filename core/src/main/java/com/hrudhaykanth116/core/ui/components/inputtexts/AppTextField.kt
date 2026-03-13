@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.common.ui.preview.AppPreview
 import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.ui.models.TextFieldData
@@ -44,36 +45,33 @@ fun AppTextField(
                 )
             )
         },
-        // visualTransformation = PasswordVisualTransformation(),
-        label = {
+        placeholder = {
             textFieldData.hint?.let {
                 Text(
                     text = it,
                     style = TextStyle(
-                        color = if (enabled) Color(0xFF616161) else Color(0xFF9E9E9E),
-                        fontSize = 14.ssp
+                        color = Color(0xFF9CA3AF),
+                        fontSize = 15.ssp
                     )
                 )
             }
         },
         textStyle = TextStyle(
-            color = if (enabled) Color(0xFF212121) else Color(0xFF757575),
-            fontSize = 16.ssp
+            color = if (enabled) Color(0xFF111827) else Color(0xFF9CA3AF),
+            fontSize = 15.ssp
         ),
         colors = OutlinedTextFieldDefaults.colors(
-            focusedContainerColor = Color(0xFFFAFAFA),
-            unfocusedContainerColor = Color(0xFFFAFAFA),
-            disabledContainerColor = Color(0xFFF5F5F5),
-            errorContainerColor = Color(0xFFFAFAFA),
-            focusedBorderColor = Color(0xFF000000),
-            unfocusedBorderColor = Color(0xFF000000),
-            disabledBorderColor = Color(0xFF9E9E9E),
-            errorBorderColor = Color(0xFFD32F2F),
-            focusedLabelColor = Color(0xFF2962FF),
-            unfocusedLabelColor = Color(0xFF616161),
-            errorLabelColor = Color(0xFFD32F2F),
-            cursorColor = Color(0xFF2962FF),
-            disabledTextColor = Color(0xFF9E9E9E)
+            focusedContainerColor = Color.White,
+            unfocusedContainerColor = Color.White,
+            disabledContainerColor = Color(0xFFF9FAFB),
+            errorContainerColor = Color(0xFFFEF2F2),
+            focusedBorderColor = Color(0xFF3B82F6),
+            unfocusedBorderColor = Color(0xFFE5E7EB),
+            disabledBorderColor = Color(0xFFF3F4F6),
+            errorBorderColor = Color(0xFFEF4444),
+            cursorColor = Color(0xFF3B82F6),
+            disabledTextColor = Color(0xFF9CA3AF),
+            errorCursorColor = Color(0xFFEF4444)
         ),
         maxLines = textFieldData.maxLines ?: Int.MAX_VALUE,
         minLines = textFieldData.minLines ?: 1,
@@ -81,7 +79,7 @@ fun AppTextField(
         visualTransformation = visualTransformation,
         keyboardOptions = keyboardOptions,
         singleLine = singleLine,
-        shape = RoundedCornerShape(30)
+        shape = RoundedCornerShape(12.dp)
     )
 }
 

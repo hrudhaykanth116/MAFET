@@ -9,45 +9,25 @@ import javax.inject.Singleton
 @Singleton
 class TodoLocalDataSource @Inject constructor(
     private val todoTasksDao: TodoTasksDao,
-): ITodoLocalDataSource {
+) : ITodoLocalDataSource {
 
-    override suspend fun getTodoTasks(): List<TodoTaskDbEntity> {
-        // Since room runs on io dispatcher already, no need to switch dispatcher.
-        return todoTasksDao.getTasks()
-    }
-
-    override fun getTasks(
-        search: String?, category: String?, sort: String
-    ) = todoTasksDao.getTasks(
-        search = search,
-        category = category,
-        sort = sort
-    )
-
-    override fun getTodoTasksFlow(
-        search: String,
-        filterCategory: String?,
-        sortItem: String,
+    override fun observeTasks(
+        search: String?,
+        category: String?,
+        sort: String
     ): Flow<List<TodoTaskDbEntity>> {
-        // hrudhay_check_list: Revisit this
-        return if(filterCategory.isNullOrEmpty()){
-            todoTasksDao.getTasksFlow()
-        }else{
-            todoTasksDao.getFilteredTasksFlow(
-                // search,
-                filterCategory,
-                sortItem
-            )
-        }
-
+        return todoTasksDao.getTasks(search, category, sort)
     }
 
     override suspend fun getTodoTask(id: String): TodoTaskDbEntity? {
-        // Since room runs on io dispatcher already, no need to switch dispatcher.
         return todoTasksDao.getTaskById(id)
     }
 
     override suspend fun createTodoTask(todoTaskDbEntity: TodoTaskDbEntity) {
+        todoTasksDao.insertOrUpdate(todoTaskDbEntity)
+    }
+
+    override suspend fun updateTodoTask(todoTaskDbEntity: TodoTaskDbEntity) {
         todoTasksDao.insertOrUpdate(todoTaskDbEntity)
     }
 
@@ -59,4 +39,23 @@ class TodoLocalDataSource @Inject constructor(
         todoTasksDao.deleteTasks()
     }
 
+    override suspend fun getPendingTasks(): List<TodoTaskDbEntity> {
+        return todoTasksDao.getPendingTasks()
+    }
+
+    override fun observePendingCount(): Flow<Int> {
+        return todoTasksDao.observePendingCount()
+    }
+
+    override suspend fun updateSyncStatus(taskId: String, status: String) {
+        todoTasksDao.updateSyncStatus(taskId, status)
+    }
+
+    override suspend fun markForDeletion(taskIds: List<String>) {
+        todoTasksDao.markForDeletion(taskIds)
+    }
+
+    override suspend fun deleteSyncedTasks(taskIds: List<String>) {
+        todoTasksDao.deleteSyncedTasks(taskIds)
+    }
 }
