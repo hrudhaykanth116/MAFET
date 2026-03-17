@@ -39,6 +39,7 @@ import com.hrudhaykanth116.weather.domain.models.TodayWeatherUIState
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenCallbacks
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenEvent
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenUIState
+import com.hrudhaykanth116.weather.ui.widgets.HourlyView
 
 private const val TAG = "WeatherHomeScreen"
 
@@ -107,12 +108,18 @@ fun WeatherHomeScreen(
         },
         onGpsIconClicked = {
             weatherHomeScreenViewModel.processEvent(WeatherHomeScreenEvent.GpsIconClicked)
+        },
+        onSearchIconClicked = {
+            weatherHomeScreenViewModel.processEvent(WeatherHomeScreenEvent.OnSearchIconClicked)
+        },
+        onRefreshIconClicked = {
+            weatherHomeScreenViewModel.processEvent(WeatherHomeScreenEvent.Refresh)
         }
     )
 
     val uiState: UIState<WeatherHomeScreenUIState> by weatherHomeScreenViewModel.uiStateFlow.collectAsStateWithLifecycle()
 
-    Temp(
+    WeatherHomeScreenUI(
         modifier,
         uiState,
         weatherHomeScreenCallbacks,
@@ -125,119 +132,4 @@ fun WeatherHomeScreen(
     )
 
 
-}
-
-@Composable
-@OptIn(ExperimentalMaterial3Api::class)
-private fun Temp(
-    modifier: Modifier,
-    uiState: UIState<WeatherHomeScreenUIState>,
-    weatherHomeScreenCallbacks: WeatherHomeScreenCallbacks,
-    onRetry: () -> Unit,
-    onUserMessageShown: (UIState.Idle<WeatherHomeScreenUIState>) -> Unit,
-) {
-
-    Logger.d(TAG, "Temp: $uiState")
-
-    val context = LocalContext.current
-
-    val state = uiState.contentState ?: WeatherHomeScreenUIState()
-
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .screenBackground()
-    ) {
-        BottomSheetScaffold(
-            modifier = Modifier,
-            containerColor = Color.Transparent,
-            sheetContainerColor = Color.White,
-            sheetContent = {
-                if (uiState is UIState.Idle) {
-
-                    val state = uiState.contentState ?: return@BottomSheetScaffold
-
-                    if (!state.isSearchActive) {
-                        WeatherHomeBottomSheet(
-                            state.weatherForeCastListItemsUIState
-                        )
-                    }
-                } else {
-                    // Box(modifier = Modifier.height(1.dp)) {} // Empty Box to prevent crash
-                }
-            },
-            sheetPeekHeight = if (!state.isSearchActive && state.errorState == null && uiState is UIState.Idle) 100.dp else 0.dp, // Control visibility
-        ) {
-
-            // hrudhay_check_list: Handle this case Loading.
-            val weather = state.todayWeatherUIState ?: TodayWeatherUIState()
-
-            Column(
-                modifier = Modifier
-                    .padding(it)
-                    .fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-
-                WeatherHomeTopBar(
-                    state.searchText ?: "",
-                    state.isSearchActive,
-                    weatherHomeScreenCallbacks,
-                    modifier = Modifier.fillMaxWidth()
-                )
-
-                VerticalSpacer()
-
-                if (state.errorState != null) {
-                    ApiErrorScreen(
-                        onRetry = onRetry,
-                        apiError = state.errorState,
-                        modifier = Modifier
-                            .fillMaxSize(),
-                    )
-                } else if(uiState is UIState.Idle) {
-                    TodayWeatherElements(
-                        state.todayWeatherUIState?.weatherElementUIState,
-                        weather.weatherMain,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                    )
-                    Spacer(
-                        modifier = Modifier
-                            // .weight(1f)
-                            .height(8.dp)
-                    )
-                    HourlyView(
-                        state.todayWeatherUIState?.weatherHourlyList,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
-            }
-        }
-
-        if (uiState is UIState.Loading) {
-            AppProgressBar(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(
-                        color = if (uiState.contentState == null) Color(
-                            0xFF040404
-                        ) else Color.Transparent
-                    )
-            )
-        }
-
-        if (uiState is UIState.Idle) {
-            when (val userMessage = uiState.userMessage) {
-                is UserMessage.Error -> userMessage.message.getText(context)
-                is UserMessage.Success -> userMessage.message.getText(context)
-                is UserMessage.Warning -> userMessage.message.getText(context)
-                else -> null
-            }?.let { message: String ->
-
-                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-                onUserMessageShown(uiState)
-            }
-        }
-    }
 }

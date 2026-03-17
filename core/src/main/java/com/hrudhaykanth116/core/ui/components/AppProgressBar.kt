@@ -19,12 +19,15 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.hrudhaykanth116.core.common.ui.preview.AppPreview
 import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.common.utils.compose.modifier.click.preventBelowTouch
+import com.hrudhaykanth116.core.data.models.UIText
+import com.hrudhaykanth116.core.data.models.toUIText
 import ir.kaaveh.sdpcompose.ssp
 
 
 @Composable
 fun AppProgressBar(
     modifier: Modifier = Modifier,
+    message: UIText? = null,
 ) {
     CenteredColumn(
         modifier = modifier
@@ -47,16 +50,20 @@ fun AppProgressBar(
             modifier = Modifier.size(100.dp)
         )
 
-        VerticalSpacer(height = 20.dp)
-        Text(
-            text = "Please Wait ...",
-            style = TextStyle(
-                fontSize = 14.ssp,
-                fontWeight = FontWeight(500),
-                color = Color(0xFFFFFFFF),
-                textAlign = TextAlign.Center,
+
+        message?.let {
+            VerticalSpacer(height = 20.dp)
+            Text(
+                text = it.getText(),
+                style = TextStyle(
+                    fontSize = 14.ssp,
+                    fontWeight = FontWeight(500),
+                    color = Color(0xFFFFFFFF),
+                    textAlign = TextAlign.Center,
+                )
             )
-        )
+        }
+
 
     }
 }

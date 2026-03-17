@@ -8,4 +8,6 @@ data class WeatherHomeScreenCallbacks(
     val onSearchCancelled: () -> Unit = {},
     val onExpandedChange: (Boolean) -> Unit = {},
     val onGpsIconClicked: () -> Unit = {},
+    val onRefreshIconClicked: () -> Unit = {},
+    val onSearchIconClicked: () -> Unit = {},
 )

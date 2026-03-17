@@ -1,14 +1,12 @@
 package com.hrudhaykanth116.weather.ui.screens.home
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -16,277 +14,160 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import com.hrudhaykanth116.core.ads.BannerAd
-import com.hrudhaykanth116.core.common.resources.Dimens
+import com.hrudhaykanth116.core.common.ui.models.UserMessage
 import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
-import com.hrudhaykanth116.core.common.utils.compose.modifier.largeRadialBackground
 import com.hrudhaykanth116.core.common.utils.compose.modifier.screenBackground
-import com.hrudhaykanth116.core.data.models.toUIText
-import com.hrudhaykanth116.core.theme.grey_00dp
-import com.hrudhaykanth116.core.theme.grey_06dp
+import com.hrudhaykanth116.core.ui.components.ApiErrorScreen
+import com.hrudhaykanth116.core.ui.components.AppProgressBar
 import com.hrudhaykanth116.core.ui.components.VerticalSpacer
-import com.hrudhaykanth116.core.ui.models.ImageHolder
-import com.hrudhaykanth116.core.ui.models.toImageHolder
-import com.hrudhaykanth116.weather.R
-import com.hrudhaykanth116.weather.domain.models.DailyWeatherUIState
-import com.hrudhaykanth116.weather.domain.models.HourlyWeatherUIState
+import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.weather.domain.models.TodayWeatherUIState
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenCallbacks
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenUIState
-import com.hrudhaykanth116.weather.domain.models.WeatherMain
-import com.hrudhaykanth116.weather.domain.usecases.WeatherElement
-import com.hrudhaykanth116.weather.domain.usecases.WeatherElementUIState
-import ir.kaaveh.sdpcompose.sdp
-import kotlinx.collections.immutable.immutableListOf
-import kotlinx.collections.immutable.persistentListOf
+import com.hrudhaykanth116.weather.ui.widgets.HourlyView
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
+@OptIn(ExperimentalMaterial3Api::class)
 fun WeatherHomeScreenUI(
-    uiState: WeatherHomeScreenUIState,
-    modifier: Modifier = Modifier,
-    weatherHomeScreenCallbacks: WeatherHomeScreenCallbacks = WeatherHomeScreenCallbacks(),
+    modifier: Modifier,
+    uiState: UIState<WeatherHomeScreenUIState>,
+    weatherHomeScreenCallbacks: WeatherHomeScreenCallbacks,
+    onRetry: () -> Unit,
+    onUserMessageShown: (UIState.Idle<WeatherHomeScreenUIState>) -> Unit,
 ) {
 
-    BottomSheetScaffold(
-        modifier = modifier.screenBackground(),
-        containerColor = Color.Transparent,
-        sheetContainerColor = Color.White,
-        // topBar = {
-        //     WeatherHomeTopBar(
-        //         uiState.location,
-        //         uiState.isSearchActive,
-        //         weatherHomeScreenCallbacks,
-        //         modifier = Modifier.fillMaxWidth()
-        //     )
-        // },
-        sheetContent = {
-            if (!uiState.isSearchActive) {
-                WeatherHomeBottomSheet(
-                    uiState.weatherForeCastListItemsUIState
-                )
-            } else {
-                // Box(modifier = Modifier.height(1.dp)) {} // Empty Box to prevent crash
-            }
-        },
-        sheetPeekHeight = if (uiState.isSearchActive) 0.dp else 100.dp, // Control visibility
-    ) {
-        ContentContainer(
-            uiState,
-            weatherHomeScreenCallbacks = weatherHomeScreenCallbacks,
-            modifier = Modifier.padding(it),
-        )
-    }
+    val context = LocalContext.current
 
+    val state = uiState.contentState ?: WeatherHomeScreenUIState()
+
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .screenBackground()
+    ) {
+        BottomSheetScaffold(
+            modifier = Modifier,
+            containerColor = Color.Transparent,
+            sheetContainerColor = Color.White,
+            sheetContent = {
+                if (uiState is UIState.Idle) {
+
+                    val state = uiState.contentState ?: return@BottomSheetScaffold
+
+                    if (!state.isSearchActive) {
+                        WeatherHomeBottomSheet(
+                            state.weatherForeCastListItemsUIState
+                        )
+                    }
+                } else {
+                    // Box(modifier = Modifier.height(1.dp)) {} // Empty Box to prevent crash
+                }
+            },
+            sheetPeekHeight = if (!state.isSearchActive && state.errorState == null && uiState is UIState.Idle) 100.dp else 0.dp, // Control visibility
+        ) {
+            Content(state, it, weatherHomeScreenCallbacks, onRetry, uiState)
+        }
+
+        if (uiState is UIState.Loading) {
+            AppProgressBar(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(
+                        color = if (uiState.contentState == null) Color(
+                            0xFF040404
+                        ) else Color.Transparent
+                    ),
+                message = uiState.message
+            )
+        }
+
+        if (uiState is UIState.Idle) {
+            when (val userMessage = uiState.userMessage) {
+                is UserMessage.Error -> userMessage.message.getText(context)
+                is UserMessage.Success -> userMessage.message.getText(context)
+                is UserMessage.Warning -> userMessage.message.getText(context)
+                else -> null
+            }?.let { message: String ->
+
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                onUserMessageShown(uiState)
+            }
+        }
+    }
 }
 
 @Composable
-fun ContentContainer(
+private fun Content(
     state: WeatherHomeScreenUIState,
+    values: PaddingValues,
     weatherHomeScreenCallbacks: WeatherHomeScreenCallbacks,
-    modifier: Modifier = Modifier,
+    onRetry: () -> Unit,
+    uiState: UIState<WeatherHomeScreenUIState>,
 ) {
-
     // hrudhay_check_list: Handle this case Loading.
-    val weather = state.todayWeatherUIState ?: return
+    val weather = state.todayWeatherUIState ?: TodayWeatherUIState()
 
     Column(
-        modifier = modifier
+        modifier = Modifier
+            .padding(values)
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        WeatherHomeTopBar(
-            state.location ?: "",
-            state.isSearchActive,
-            weatherHomeScreenCallbacks,
-            modifier = Modifier.fillMaxWidth()
-        )
-        VerticalSpacer()
-        TodayWeatherElements(
-            state.todayWeatherUIState.weatherElementUIState,
-            weather.weatherMain,
-            modifier = Modifier
-                .fillMaxWidth()
-        )
-        Spacer(
-            modifier = Modifier
-                // .weight(1f)
-                .height(8.dp)
-        )
-        HourlyView(
-            state.todayWeatherUIState.weatherHourlyList,
-            modifier = Modifier.fillMaxWidth()
-        )
+
+        if(uiState !is UIState.Loading){
+            WeatherHomeTopBar(
+                state.searchText ?: "",
+                location = state.location,
+                state.isSearchActive,
+                weatherHomeScreenCallbacks,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+
+        if(!state.isSearchActive){
+            VerticalSpacer()
+
+            if (state.errorState != null) {
+                ApiErrorScreen(
+                    onRetry = onRetry,
+                    apiError = state.errorState,
+                    modifier = Modifier
+                        .fillMaxSize(),
+                )
+            } else if (uiState is UIState.Idle) {
+                TodayWeatherElements(
+                    state.todayWeatherUIState?.weatherElementUIState,
+                    weather.weatherMain,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                )
+                VerticalSpacer()
+                HourlyView(
+                    state.todayWeatherUIState?.weatherHourlyList,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        }
     }
-
-
 }
 
 @MyPreview
 @Composable
 fun WeatherHomeScreenUIPreview(
-
+    @PreviewParameter(WeatherHomeScreenUIStateProvider::class, limit = 1)
+    uiState: UIState<WeatherHomeScreenUIState>
 ) {
-
-    val sampleWeatherElements = persistentListOf(
-        WeatherElementUIState(
-            weatherElement = WeatherElement.WIND_SPEED,
-            value = "15 km/h".toUIText()
-        ),
-        WeatherElementUIState(
-            weatherElement = WeatherElement.HUMIDITY,
-            value = "65%".toUIText()
-        ),
-        WeatherElementUIState(
-            weatherElement = WeatherElement.PRESSURE,
-            value = "1012 hPa".toUIText()
-        ),
-        WeatherElementUIState(
-            weatherElement = WeatherElement.VISIBILITY,
-            value = "10 km".toUIText()
-        ),
-        WeatherElementUIState(
-            weatherElement = WeatherElement.UVI,
-            value = "High".toUIText()
-        ),
-        WeatherElementUIState(
-            weatherElement = WeatherElement.SUNRISE,
-            value = "6:00 AM".toUIText()
-        ),
-        WeatherElementUIState(
-            weatherElement = WeatherElement.PRESSURE,
-            value = "1012 hPa".toUIText()
-        ),
-        WeatherElementUIState(
-            weatherElement = WeatherElement.VISIBILITY,
-            value = "10 km".toUIText()
-        ),
-        WeatherElementUIState(
-            weatherElement = WeatherElement.UVI,
-            value = "High".toUIText()
-        ),
-        WeatherElementUIState(
-            weatherElement = WeatherElement.SUNRISE,
-            value = "6:00 AM".toUIText()
-        ),
-        WeatherElementUIState(
-            weatherElement = WeatherElement.UVI,
-            value = "High".toUIText()
-        ),
-        WeatherElementUIState(
-            weatherElement = WeatherElement.SUNRISE,
-            value = "6:00 AM".toUIText()
-        )
-    )
-
-    val sampleWeatherMain = WeatherMain(
-        title = "Temperature".toUIText(),
-        description = "25°C".toUIText(),
-        icon = WeatherElement.TEMP.displayIcon
-    )
-
-    val hourlyWeather = persistentListOf(
-        HourlyWeatherUIState(
-            weatherMain = WeatherMain(
-                "Cloudy".toUIText(),
-                "Rainy".toUIText(),
-                R.drawable.ic_clouds
-            ), time = "22 09".toUIText()
-        ),
-        HourlyWeatherUIState(
-            weatherMain = WeatherMain(
-                "Cloudy".toUIText(),
-                "Rainy".toUIText(),
-                R.drawable.ic_clouds
-            ), time = "22 09".toUIText()
-        ),
-        HourlyWeatherUIState(
-            weatherMain = WeatherMain(
-                "Cloudy".toUIText(),
-                "Rainy".toUIText(),
-                R.drawable.ic_clouds
-            ), time = "22 09".toUIText()
-        ),
-        HourlyWeatherUIState(
-            weatherMain = WeatherMain(
-                "Cloudy".toUIText(),
-                "Rainy".toUIText(),
-                R.drawable.ic_clouds
-            ), time = "22 09".toUIText()
-        ),
-        HourlyWeatherUIState(
-            weatherMain = WeatherMain(
-                "Cloudy".toUIText(),
-                "Rainy".toUIText(),
-                R.drawable.ic_clouds
-            ), time = "22 09".toUIText()
-        ),
-        HourlyWeatherUIState(
-            weatherMain = WeatherMain(
-                "Cloudy".toUIText(),
-                "Rainy".toUIText(),
-                R.drawable.ic_clouds
-            ), time = "22 09".toUIText()
-        ),
-        HourlyWeatherUIState(
-            weatherMain = WeatherMain(
-                "Cloudy".toUIText(),
-                "Rainy".toUIText(),
-                R.drawable.ic_clouds
-            ), time = "22 09".toUIText()
-        ),
-        HourlyWeatherUIState(
-            weatherMain = WeatherMain(
-                "Cloudy".toUIText(),
-                "Rainy".toUIText(),
-                R.drawable.ic_clouds
-            ), time = "22 09".toUIText()
-        ),
-        HourlyWeatherUIState(
-            weatherMain = WeatherMain(
-                "Cloudy".toUIText(),
-                "Rainy".toUIText(),
-                R.drawable.ic_clouds
-            ), time = "22 09".toUIText()
-        ),
-        HourlyWeatherUIState(
-            weatherMain = WeatherMain(
-                "Cloudy".toUIText(),
-                "Rainy".toUIText(),
-                R.drawable.ic_clouds
-            ), time = "22 09".toUIText()
-        ),
-    )
-
-
     AppPreviewContainer {
         WeatherHomeScreenUI(
             modifier = Modifier.background(color = Color.Gray),
-            uiState = WeatherHomeScreenUIState(
-                location = "Bangalore",
-                isSearchActive = false,
-                todayWeatherUIState = TodayWeatherUIState(
-                    weatherElementUIState = sampleWeatherElements,
-                    weatherMain = sampleWeatherMain,
-                    weatherHourlyList = hourlyWeather
-                ),
-                weatherForeCastListItemsUIState = listOf(
-                    DailyWeatherUIState(
-                        weatherElementsList = listOf(
-                            WeatherElement.TEMP
-                        ),
-                        weatherMain = WeatherMain(
-                            title = "Atmosphere".toUIText(),
-                            description = "sdflksf".toUIText(),
-                            icon = R.drawable.ic_atmosphere
-                        ),
-                        time = "Today".toUIText()
-                    )
-                )
-            )
+            uiState = uiState,
+            weatherHomeScreenCallbacks = WeatherHomeScreenCallbacks(),
+            onRetry = {},
+            onUserMessageShown = {}
         )
     }
-
 }

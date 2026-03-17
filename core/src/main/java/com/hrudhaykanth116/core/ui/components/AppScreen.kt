@@ -1,23 +1,19 @@
 package com.hrudhaykanth116.core.ui.components
 
-import android.R.id.message
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.hrudhaykanth116.core.common.mappers.mapToUIMessage
 import com.hrudhaykanth116.core.common.ui.models.UserMessage
 import com.hrudhaykanth116.core.common.ui.preview.AppPreview
 import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
-import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.domain.models.ErrorState
 import com.hrudhaykanth116.core.udf.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
@@ -72,7 +68,8 @@ fun <T> AppScreenUI(
                 AppProgressBar(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(color = if (state.contentState == null) Color(0xFF040404) else Color.Transparent)
+                        .background(color = if (state.contentState == null) Color(0xFF040404) else Color.Transparent),
+                    state.message,
                 )
             }
 
