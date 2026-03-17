@@ -1,6 +1,5 @@
 package com.hrudhaykanth116.tv.data.repositories.tv
 
-import com.hrudhaykanth116.core.common.di.IoDispatcher
 import com.hrudhaykanth116.core.data.BaseRepository
 import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvCreditsResponse
@@ -13,11 +12,10 @@ import com.hrudhaykanth116.tv.data.datasources.remote.models.genres.GetTvGenresR
 import com.hrudhaykanth116.tv.data.datasources.remote.models.search.TvShowSearchResults
 import com.hrudhaykanth116.tv.data.datasources.remote.sources.tvshows.TvShowsRemoteDataSource
 import kotlinx.coroutines.CoroutineDispatcher
-import javax.inject.Inject
 
-class TvShowsRepository @Inject constructor(
+class TvShowsRepository(
     private val tvShowsRemoteDataSource: TvShowsRemoteDataSource,
-    @IoDispatcher private val dispatcher: CoroutineDispatcher,
+    private val dispatcher: CoroutineDispatcher,
 ) : BaseRepository(dispatcher), ITvShowsRepository {
 
     override suspend fun getTvShowDetails(tvShowId: Int): RepoResultWrapper<TvShowDetails> =

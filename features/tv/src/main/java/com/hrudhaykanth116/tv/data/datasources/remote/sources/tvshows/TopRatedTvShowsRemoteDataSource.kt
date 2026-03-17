@@ -9,10 +9,9 @@ import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDataPagedResp
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
-import javax.inject.Inject
 import kotlin.random.Random
 
-class TopRatedTvShowsRemoteDataSource @Inject constructor(
+class TopRatedTvShowsRemoteDataSource constructor(
     private val retroApis: RetroApis,
 ) : PagingSource<Int, TvShowData>() {
 

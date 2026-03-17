@@ -24,7 +24,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hrudhaykanth116.core.common.ui.models.UserMessage
 import com.hrudhaykanth116.core.common.utils.compose.modifier.screenBackground
@@ -40,6 +39,7 @@ import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenCallbacks
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenEvent
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenUIState
 import com.hrudhaykanth116.weather.ui.widgets.HourlyView
+import org.koin.androidx.compose.koinViewModel
 
 private const val TAG = "WeatherHomeScreen"
 
@@ -47,7 +47,7 @@ private const val TAG = "WeatherHomeScreen"
 @Composable
 fun WeatherHomeScreen(
     modifier: Modifier = Modifier,
-    weatherHomeScreenViewModel: WeatherHomeScreenViewModel = hiltViewModel(),
+    weatherHomeScreenViewModel: WeatherHomeScreenViewModel = koinViewModel(),
 ) {
 
     val context = LocalContext.current

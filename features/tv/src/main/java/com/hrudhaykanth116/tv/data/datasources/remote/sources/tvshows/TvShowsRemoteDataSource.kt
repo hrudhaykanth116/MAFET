@@ -12,9 +12,8 @@ import com.hrudhaykanth116.tv.data.datasources.remote.models.genres.GetTvGenresR
 import com.hrudhaykanth116.tv.data.datasources.remote.models.search.TvShowSearchResults
 import com.hrudhaykanth116.tv.data.datasources.remote.retrofit.RetroApis
 import com.hrudhaykanth116.tv.data.datasources.remote.retrofit.TvApisService
-import javax.inject.Inject
 
-class TvShowsRemoteDataSource @Inject constructor(
+class TvShowsRemoteDataSource(
     private val retroApis: RetroApis,
     private val tvApisService: TvApisService,
 ) : NetworkDataSource() {

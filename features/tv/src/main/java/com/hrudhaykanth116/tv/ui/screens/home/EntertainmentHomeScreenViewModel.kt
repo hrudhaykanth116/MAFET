@@ -14,13 +14,10 @@ import com.hrudhaykanth116.tv.ui.models.home.MyTvUIState
 import com.hrudhaykanth116.tv.ui.models.home.EntertainmentHomeScreenEffect
 import com.hrudhaykanth116.tv.ui.models.home.EntertainmentHomeScreenEvent
 import com.hrudhaykanth116.tv.ui.models.home.EntertainmentHomeScreenUIState
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class EntertainmentHomeScreenViewModel @Inject constructor(
+class EntertainmentHomeScreenViewModel(
     private val getMyTvListUseCase: GetMyTvListUseCase,
     private val dateTimeUtils: DateTimeUtils,
     private val deleteMyTvUseCase: DeleteMyTvUseCase,

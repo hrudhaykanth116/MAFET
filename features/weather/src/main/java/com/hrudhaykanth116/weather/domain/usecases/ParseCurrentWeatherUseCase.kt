@@ -13,11 +13,8 @@ import com.hrudhaykanth116.weather.domain.models.WeatherMain
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class ParseCurrentWeatherUseCase @Inject constructor(
+class ParseCurrentWeatherUseCase(
     private val dateTimeUtils: DateTimeUtils,
     private val temperatureConverter: TemperatureConverter,
     private val getWeatherIconUseCase: GetWeatherIconUseCase,

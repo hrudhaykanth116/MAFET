@@ -3,7 +3,6 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     id("com.android.library")
     alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.compose)
@@ -120,8 +119,11 @@ dependencies {
     // Integration with lifecycle
     api(libs.androidx.lifecycle.runtime.compose)
 
-    // hilt
-    api(libs.androidx.hilt.navigation.compose)
+    // Koin
+    api(libs.koin.android)
+    api(libs.koin.androidx.compose)
+    api(libs.koin.compose)
+    api(libs.koin.compose.viewmodel)
 
     api(libs.androidx.metrics.performance)
 
@@ -192,11 +194,6 @@ dependencies {
     api(libs.moshi)
     api(libs.moshi.kotlin)
     ksp(libs.moshi.kotlin.codegen)
-
-    // Hilt
-    api(libs.hilt.android)
-    ksp(libs.hilt.compiler)
-
 
     // Material design(https://maven.google.com/web/index.html#com.google.android.material:material)
     api(libs.google.android.material)

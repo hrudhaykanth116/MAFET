@@ -8,12 +8,8 @@ import java.io.File
 import java.io.FileOutputStream
 import kotlin.system.exitProcess
 import androidx.core.graphics.createBitmap
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class CrashHandler @Inject constructor(
-) : Thread.UncaughtExceptionHandler {
+class CrashHandler : Thread.UncaughtExceptionHandler {
 
     private lateinit var mafetApplication: MafetApplication
 

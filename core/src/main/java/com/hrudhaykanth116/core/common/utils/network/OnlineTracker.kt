@@ -8,11 +8,8 @@ import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Build
 import android.util.Log
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import javax.inject.Inject
-import javax.inject.Singleton
 
 @Deprecated("Use Network monitor")
 class OnlineTracker {
@@ -23,9 +20,8 @@ class OnlineTracker {
 
 }
 
-@Singleton
-class NetworkMonitor @Inject constructor(
-    @ApplicationContext private val context: Context,
+class NetworkMonitor(
+    private val context: Context,
 ) {
 
     val connectivityManager =

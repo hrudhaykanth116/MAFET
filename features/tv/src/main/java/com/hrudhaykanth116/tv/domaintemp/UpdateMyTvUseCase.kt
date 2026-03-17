@@ -4,11 +4,8 @@ import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
 import com.hrudhaykanth116.tv.data.repositories.tv.MyTvListRepository
 import com.hrudhaykanth116.tv.domaintemp.mappers.toMyTvDataEntity
 import com.hrudhaykanth116.tv.domaintemp.models.MyTvDomainModel
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class UpdateMyTvUseCase @Inject constructor(
+class UpdateMyTvUseCase(
     private val myTvListRepository: MyTvListRepository,
 ) {
 

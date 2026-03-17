@@ -4,11 +4,8 @@ import com.hrudhaykanth116.core.data.models.ApiResultWrapper
 import com.hrudhaykanth116.core.data.remote.NetworkDataSource
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDataPagedResponse
 import com.hrudhaykanth116.tv.data.datasources.remote.retrofit.RetroApis
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class TvRemoteDataSource @Inject constructor(private val retroApis: RetroApis): NetworkDataSource() {
+class TvRemoteDataSource(private val retroApis: RetroApis): NetworkDataSource() {
 
     suspend fun getPopularTvShows(pageId: Int): ApiResultWrapper<TvShowDataPagedResponse> {
         return getResult {

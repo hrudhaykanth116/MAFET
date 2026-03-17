@@ -1,12 +1,6 @@
 package com.hrudhaykanth116.core.common.utils.conversions
 
-import javax.inject.Inject
-import javax.inject.Singleton
-
-@Singleton
-class TemperatureConverter @Inject constructor(
-
-){
+class TemperatureConverter {
 
     fun getCelsiusFromKelvin(temperature: Float?): Float? {
         temperature ?: return null

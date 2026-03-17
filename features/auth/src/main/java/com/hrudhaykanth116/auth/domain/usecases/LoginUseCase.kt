@@ -7,11 +7,8 @@ import com.hrudhaykanth116.auth.domain.models.login.LoginScreenState
 import com.hrudhaykanth116.core.common.mappers.mapToUIText
 import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class LoginUseCase @Inject constructor(
+class LoginUseCase(
     private val authRepository: IAuthRepository,
 ) {
 

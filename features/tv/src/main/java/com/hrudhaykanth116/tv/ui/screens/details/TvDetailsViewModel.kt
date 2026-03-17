@@ -12,12 +12,9 @@ import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDetails
 import com.hrudhaykanth116.tv.domaintemp.AddMyTvUseCase
 import com.hrudhaykanth116.tv.domaintemp.GetTvDetailsUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class TvDetailsViewModel @Inject constructor(
+class TvDetailsViewModel(
     private val savedStateHandle: SavedStateHandle,
     private val getTvDetailsUseCase: GetTvDetailsUseCase,
     private val addMyTvUseCase: AddMyTvUseCase,

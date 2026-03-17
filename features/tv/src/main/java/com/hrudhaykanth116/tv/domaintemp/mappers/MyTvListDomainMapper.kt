@@ -2,11 +2,8 @@ package com.hrudhaykanth116.tv.domaintemp.mappers
 
 import com.hrudhaykanth116.tv.data.datasources.local.models.MyTvEntity
 import com.hrudhaykanth116.tv.domaintemp.models.MyTvDomainModel
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class MyTvListMapper @Inject constructor(
+class MyTvListMapper(
 
 )
 

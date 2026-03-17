@@ -5,7 +5,6 @@ import com.hrudhaykanth116.core.common.ui.models.toErrorMessage
 import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.domain.models.ErrorState
-import javax.inject.Inject
 
 fun ErrorState.mapToUIMessage(): UserMessage.Error {
     return mapToUIText().toErrorMessage()

@@ -1,6 +1,5 @@
 package com.hrudhaykanth116.todo.data.repositories
 
-import com.hrudhaykanth116.core.common.di.IoDispatcher
 import com.hrudhaykanth116.core.common.time.TimeProvider
 import com.hrudhaykanth116.core.common.utils.network.NetworkMonitor
 import com.hrudhaykanth116.core.domain.models.ErrorState
@@ -16,15 +15,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class TodoRepository @Inject constructor(
+class TodoRepository(
     private val todoLocalDataSource: ITodoLocalDataSource,
     private val timeProvider: TimeProvider,
     private val networkMonitor: NetworkMonitor,
-    @IoDispatcher private val dispatcher: CoroutineDispatcher,
+    private val dispatcher: CoroutineDispatcher,
 ) : ITodoRepository {
 
     override fun observeTasks(

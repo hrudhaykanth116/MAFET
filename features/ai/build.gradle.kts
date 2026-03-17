@@ -4,7 +4,6 @@ plugins {
     // id("com.android.library")
     alias(libs.plugins.dynamic.feature)
     alias(libs.plugins.ksp)
-    // alias(libs.plugins.hilt)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.compose)
@@ -60,6 +59,7 @@ android {
 dependencies {
 
     implementation(project(":app"))
+    implementation(project(":core"))
 
     api(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)

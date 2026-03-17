@@ -21,19 +21,15 @@ import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenEvent
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenUIState
 import com.hrudhaykanth116.weather.domain.usecases.GetForeCastFromLatLongUseCase
 import com.hrudhaykanth116.weather.domain.usecases.GetForeCastUseCaseFromLatLongUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.util.Locale
-import javax.inject.Inject
 
-@HiltViewModel
-class WeatherHomeScreenViewModel @Inject constructor(
+class WeatherHomeScreenViewModel(
     private val getForeCastUseCaseFromLatLongUseCase: GetForeCastUseCaseFromLatLongUseCase,
     private val getForeCastFromLatLongUseCase: GetForeCastFromLatLongUseCase,
-    @ApplicationContext private val context: Context,
+    private val context: Context,
     networkMonitor: NetworkMonitor,
 ) : UIStateViewModel<WeatherHomeScreenUIState, WeatherHomeScreenEvent, WeatherHomeScreenEffect>(
     initialState = UIState.Idle(),

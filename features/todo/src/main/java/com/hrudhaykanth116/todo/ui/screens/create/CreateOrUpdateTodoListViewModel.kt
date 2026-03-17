@@ -1,7 +1,6 @@
 package com.hrudhaykanth116.todo.ui.screens.create
 
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.hrudhaykanth116.core.common.ui.models.toErrorMessage
 import com.hrudhaykanth116.core.common.ui.models.toSuccessMessage
@@ -20,33 +19,27 @@ import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateOrUpdateTodoUIState
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateTodoEffect
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateTodoEvent
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class CreateOrUpdateTodoListViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
+class CreateOrUpdateTodoListViewModel(
     private val createTodoTaskUseCase: CreateTodoTaskUseCase,
     private val getTaskUseCase: GetTaskUseCase,
     private val networkMonitor: NetworkMonitor,
     private val dateTimeUtils: DateTimeUtils,
     private val uniqueIdGenerator: UniqueIdGenerator,
-
-    ) : UIStateViewModel<CreateOrUpdateTodoUIState, CreateTodoEvent, CreateTodoEffect>(
+    private val todoId: String?,
+) : UIStateViewModel<CreateOrUpdateTodoUIState, CreateTodoEvent, CreateTodoEffect>(
     initialState = UIState.Loading(CreateOrUpdateTodoUIState()),
     defaultState = CreateOrUpdateTodoUIState(),
     networkMonitor = networkMonitor
 ) {
-
-    private val noteId: String? = savedStateHandle["id"]
 
     init {
         initializeData()
     }
 
     override fun initializeData() {
-        initData(noteId)
+        initData(todoId)
     }
 
     private fun initData(noteId: String?) {
@@ -121,7 +114,7 @@ class CreateOrUpdateTodoListViewModel @Inject constructor(
                     try {
                         val todoModel = with(currentContentState) {
                             TodoModel(
-                                id = noteId ?: uniqueIdGenerator.getUniqueId(), // new id if new note.
+                                id = todoId ?: uniqueIdGenerator.getUniqueId(), // new id if new note.
                                 title = todoUIModel.title.text,
                                 description = todoUIModel.description.text,
                                 category = TaskCategory.fromKey(todoUIModel.category.text),

@@ -1,13 +1,8 @@
 package com.hrudhaykanth116.auth.domain.usecases
 
 import com.hrudhaykanth116.core.data.models.UIText
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class ValidatePasswordUseCase @Inject constructor(
-
-) {
+class ValidatePasswordUseCase {
 
     operator fun invoke(password: String?): UIText? {
 

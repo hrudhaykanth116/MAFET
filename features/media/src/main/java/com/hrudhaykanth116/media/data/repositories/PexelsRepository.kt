@@ -4,11 +4,8 @@ import com.hrudhaykanth116.media.data.models.GetPopularVideosResponse
 import com.hrudhaykanth116.media.data.models.PhotoResponse
 import com.hrudhaykanth116.media.data.models.VideoResponse
 import com.hrudhaykanth116.media.data.network.PexelsRemoteDataSource
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class PexelsRepository @Inject constructor(
+class PexelsRepository(
     private val remote: PexelsRemoteDataSource,
 ) {
     suspend fun getCuratedPhotos(page: Int, perPage: Int): List<PhotoResponse> {

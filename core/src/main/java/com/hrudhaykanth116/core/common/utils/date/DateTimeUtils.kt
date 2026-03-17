@@ -11,13 +11,8 @@ import com.hrudhaykanth116.core.common.utils.log.Logger
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class DateTimeUtils @Inject constructor(
-
-) {
+class DateTimeUtils {
 
     fun getFormattedDateTime(
         timeMillis: Long?,

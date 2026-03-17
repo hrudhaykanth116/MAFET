@@ -4,9 +4,8 @@ import com.hrudhaykanth116.core.data.BaseRepository
 import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDataPagedResponse
 import com.hrudhaykanth116.tv.data.datasources.remote.sources.tvshows.AiringTodayShowsRemoteDataSource
-import javax.inject.Inject
 
-class AiringTodayShowsRepository @Inject constructor(
+class AiringTodayShowsRepository constructor(
     private val airingTodayShowsRemoteDataSource: AiringTodayShowsRemoteDataSource,
 ): BaseRepository(
 

@@ -19,10 +19,9 @@ import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
-import javax.inject.Inject
 
 
-class FirebaseIAuthRemoteDataSource @Inject constructor(
+class FirebaseIAuthRemoteDataSource(
     private val firebaseAuth: FirebaseAuth,
     private val database: DatabaseReference,
     private val firebaseStorage: FirebaseStorage,

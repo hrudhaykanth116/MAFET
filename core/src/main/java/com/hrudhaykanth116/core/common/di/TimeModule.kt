@@ -2,17 +2,8 @@ package com.hrudhaykanth116.core.common.di
 
 import com.hrudhaykanth116.core.common.time.SystemTimeProvider
 import com.hrudhaykanth116.core.common.time.TimeProvider
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-object TimeModule {
-
-    @Provides
-    @Singleton
-    fun provideTimeProvider(): TimeProvider = SystemTimeProvider()
+val timeModule = module {
+    single<TimeProvider> { SystemTimeProvider() }
 } 

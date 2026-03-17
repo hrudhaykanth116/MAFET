@@ -6,9 +6,8 @@ import com.hrudhaykanth116.weather.data.datasources.remote.IGeoCodeRemoteDataSou
 import com.hrudhaykanth116.weather.data.models.GetLocationInfoResponseItem
 import com.hrudhaykanth116.weather.data.models.OWMReverseGeocodingResponseItem
 import kotlinx.coroutines.Dispatchers
-import javax.inject.Inject
 
-class GeoCodeRepositoryImpl @Inject constructor(
+class GeoCodeRepositoryImpl(
     private val geoCodeRemoteDataSource: IGeoCodeRemoteDataSource
 ): IGeoCodeRepository, BaseRepository() {
 

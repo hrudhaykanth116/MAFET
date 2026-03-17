@@ -3,18 +3,19 @@ package com.hrudhaykanth116.todo.ui.screens.create
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.hrudhaykanth116.core.ui.components.AppScreen
 import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateOrUpdateTodoUIState
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateTodoEvent
+import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 private const val TAG = "CreateTodoListScreen"
 
 @Composable
 fun CreateOrUpdateTodoScreen(
-    viewModel: CreateOrUpdateTodoListViewModel = hiltViewModel(),
     noteId: String? = null,
+    viewModel: CreateOrUpdateTodoListViewModel = koinViewModel { parametersOf(noteId) },
     isInEditMode: Boolean = true,
     onCreated: () -> Unit,
     onBackClicked: () -> Unit = {},

@@ -7,21 +7,21 @@ import com.chibatching.kotpref.Kotpref
 import com.chibatching.kotpref.gsonpref.gson
 import com.google.gson.Gson
 import com.hrudhaykanth116.core.ads.AdsInitializer
-import dagger.hilt.android.HiltAndroidApp
+import com.hrudhaykanth116.mafet.di.appModule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 
-@HiltAndroidApp
 class MafetApplication : Application(), Application.ActivityLifecycleCallbacks {
 
-    @Inject
-    lateinit var crashHandler: CrashHandler
-
-    @Inject
-    lateinit var adsInitializer: AdsInitializer
+    private val crashHandler: CrashHandler by inject()
+    private val adsInitializer: AdsInitializer by inject()
 
     var currentActivity: Activity? = null
         private set
@@ -30,6 +30,13 @@ class MafetApplication : Application(), Application.ActivityLifecycleCallbacks {
 
     override fun onCreate() {
         super.onCreate()
+
+        // Initialize Koin
+        startKoin {
+            androidLogger(Level.DEBUG)
+            androidContext(this@MafetApplication)
+            modules(appModule)
+        }
 
         registerActivityLifecycleCallbacks(this)
 

@@ -5,9 +5,8 @@ import com.hrudhaykanth116.weather.data.models.WeatherForeCastResponse
 import com.hrudhaykanth116.weather.data.repository.IWeatherForeCastRepository
 import com.hrudhaykanth116.weather.domain.models.DailyWeatherUIState
 import com.hrudhaykanth116.weather.domain.models.TodayWeatherUIState
-import javax.inject.Inject
 
-class GetForeCastFromLatLongUseCase @Inject constructor(
+class GetForeCastFromLatLongUseCase(
     private val weatherForeCastRepository: IWeatherForeCastRepository,
     private val parseDailyForeCastDtoUseCase: ParseDailyForeCastDtoUseCase,
     private val parseCurrentWeatherUseCase: ParseCurrentWeatherUseCase,

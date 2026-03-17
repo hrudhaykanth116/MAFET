@@ -8,7 +8,6 @@ import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowData
 import com.hrudhaykanth116.tv.data.datasources.remote.models.tv.CategorisedTvShows
 import com.hrudhaykanth116.tv.domaintemp.GetAllTvShowsUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -16,10 +15,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class TvHomeViewModel @Inject constructor(
+class TvHomeViewModel(
     private val networkMonitor: NetworkMonitor,
     private val getAllTvShowsUseCase: GetAllTvShowsUseCase,
 ) : UIStateViewModel<TvHomeScreenUIState, TvHomeScreenEvent, TvHomeScreenEffect>(

@@ -7,14 +7,11 @@ import androidx.paging.cachedIn
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowData
 import com.hrudhaykanth116.tv.data.repositories.tv.PopularTvShowsRepository
 import com.hrudhaykanth116.tv.data.repositories.tv.TvShowsRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class PopularTvViewModel @Inject constructor(
+class PopularTvViewModel(
     private val popularTvShowsRepository: PopularTvShowsRepository,
     private val tvShowsRepository: TvShowsRepository,
 ): ViewModel(){

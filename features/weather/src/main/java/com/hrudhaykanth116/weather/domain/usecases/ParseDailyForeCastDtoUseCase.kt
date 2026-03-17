@@ -11,13 +11,10 @@ import com.hrudhaykanth116.weather.domain.models.DailyWeatherUIState
 import com.hrudhaykanth116.weather.domain.models.WeatherMain
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
-import javax.inject.Singleton
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
-@Singleton
-class ParseDailyForeCastDtoUseCase @Inject constructor(
+class ParseDailyForeCastDtoUseCase(
     private val dateTimeUtils: DateTimeUtils,
     private val temperatureConverter: TemperatureConverter,
     private val getWeatherIconUseCase: GetWeatherIconUseCase,

@@ -5,12 +5,9 @@ import com.hrudhaykanth116.auth.domain.models.signup.SignUpEffect
 import com.hrudhaykanth116.auth.domain.models.signup.SignUpFormEvent
 import com.hrudhaykanth116.auth.domain.models.signup.SignUpFormState
 import com.hrudhaykanth116.auth.domain.usecases.SignUpUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class SignUpViewModel @Inject constructor(
+class SignUpViewModel(
     private val signupUseCase: SignUpUseCase,
 ) : com.hrudhaykanth116.core.ui.StatefulViewModel<SignUpFormState, SignUpEffect, SignUpFormEvent>(
     SignUpFormState()

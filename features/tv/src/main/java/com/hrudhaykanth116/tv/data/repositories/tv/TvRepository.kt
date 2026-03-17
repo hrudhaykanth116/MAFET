@@ -5,11 +5,8 @@ import com.hrudhaykanth116.core.data.BaseRepository
 import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDataPagedResponse
 import com.hrudhaykanth116.tv.data.datasources.remote.sources.tvshows.TvRemoteDataSource
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class TvRepository @Inject constructor(
+class TvRepository(
     private val remoteDataSource: TvRemoteDataSource,
 ) : BaseRepository() {
 

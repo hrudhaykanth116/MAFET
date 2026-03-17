@@ -8,9 +8,8 @@ import com.hrudhaykanth116.tv.data.datasources.remote.retrofit.RetroApis
 import com.hrudhaykanth116.tv.data.datasources.remote.sources.tvshows.PopularTvShowsRemoteDataSource
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowData
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
 
-class PopularTvShowsRepository @Inject constructor(
+class PopularTvShowsRepository(
     private val retroApis: RetroApis,
 ) {
 

@@ -9,11 +9,9 @@ import com.hrudhaykanth116.tv.data.datasources.remote.sources.tvshows.DiscoverTv
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowData
 import com.hrudhaykanth116.tv.data.datasources.remote.models.genres.Genre
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class DiscoverTvShowsRepository @Inject constructor(
+
+class DiscoverTvShowsRepository constructor(
     private val retroApis: RetroApis,
 ) {
 

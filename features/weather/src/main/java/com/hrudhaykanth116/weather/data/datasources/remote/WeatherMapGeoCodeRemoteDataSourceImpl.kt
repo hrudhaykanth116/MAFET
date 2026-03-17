@@ -4,9 +4,8 @@ import com.hrudhaykanth116.core.data.models.ApiResultWrapper
 import com.hrudhaykanth116.core.data.remote.NetworkDataSource
 import com.hrudhaykanth116.weather.data.datasources.remote.retrofit.OpenWeatherApiService
 import com.hrudhaykanth116.weather.data.models.OWMReverseGeocodingResponseItem
-import javax.inject.Inject
 
-class WeatherMapGeoCodeRemoteDataSourceImpl @Inject constructor(
+class WeatherMapGeoCodeRemoteDataSourceImpl(
     private val openWeatherApiService: OpenWeatherApiService,
 ) : IGeoCodeRemoteDataSource, NetworkDataSource() {
 

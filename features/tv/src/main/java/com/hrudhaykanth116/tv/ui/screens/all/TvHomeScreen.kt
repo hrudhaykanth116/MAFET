@@ -3,13 +3,13 @@ package com.hrudhaykanth116.tv.ui.screens.all
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hrudhaykanth116.core.ui.components.AppScreen
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun TvHomeScreen(
-    viewModel: TvHomeViewModel = hiltViewModel(),
+    viewModel: TvHomeViewModel = koinViewModel(),
     onNavigateToSearchScreen: () -> Unit,
     onItemClick: (Int) -> Unit,
     onBackClicked: () -> Unit,

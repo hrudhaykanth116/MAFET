@@ -1,13 +1,13 @@
 package com.hrudhaykanth116.ai.ui.screens.query
 
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.hrudhaykanth116.ai.ui.screens.models.QueryScreenEvent
 import com.hrudhaykanth116.ai.ui.screens.models.QueryScreenUIState
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun QueryScreen(
-    viewmodel: QueryScreenViewModel = hiltViewModel(),
+    viewmodel: QueryScreenViewModel = koinViewModel(),
 ) {
 
     val state = viewmodel.collectAsState()
