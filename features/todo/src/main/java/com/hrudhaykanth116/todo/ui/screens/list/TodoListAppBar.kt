@@ -44,6 +44,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.ui.components.AppClickableIcon
 import com.hrudhaykanth116.core.ui.components.AppIcon
+import com.hrudhaykanth116.core.ui.components.AppSearchBar
 import com.hrudhaykanth116.core.ui.components.AppToolbar
 import com.hrudhaykanth116.todo.R
 import com.hrudhaykanth116.todo.ui.TodoUIDimens
@@ -77,6 +78,13 @@ fun TodoListAppBar(
                 searchText = searchText,
                 onSearchTextChanged = todoListAppBarCallbacks.onSearchTextChanged,
                 onCloseSearch = todoListAppBarCallbacks.onCloseSearch
+            )
+            AppSearchBar(
+                text = searchText,
+                placeHolderText = stringResource(R.string.todo_search_hint),
+                onTextChange = todoListAppBarCallbacks.onSearchTextChanged,
+                onCancelled = todoListAppBarCallbacks.onCloseSearch,
+                onSearch = {}
             )
         } else {
             AppToolbar(

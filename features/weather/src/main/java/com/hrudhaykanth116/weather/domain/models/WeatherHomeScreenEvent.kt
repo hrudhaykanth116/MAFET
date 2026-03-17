@@ -5,6 +5,7 @@ import com.hrudhaykanth116.core.data.models.UIText
 sealed interface WeatherHomeScreenEvent{
     data object Refresh: WeatherHomeScreenEvent
     data object Search: WeatherHomeScreenEvent
+    data object OnSearchIconClicked: WeatherHomeScreenEvent
     data object OnSearchCancelled: WeatherHomeScreenEvent
     data object GpsIconClicked : WeatherHomeScreenEvent
 

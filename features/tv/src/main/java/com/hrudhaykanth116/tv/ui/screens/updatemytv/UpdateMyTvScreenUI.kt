@@ -168,7 +168,7 @@ fun UpdateMyTvScreenUIContent(
         if (state.isLoading) {
             // hrudhay_check_list: Prevent touch
             AppProgressBar(
-                modifier = Modifier.align(Alignment.Center)
+                modifier = Modifier.align(Alignment.Center),
             )
         }
 

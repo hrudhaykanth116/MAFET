@@ -1,61 +1,78 @@
 package com.hrudhaykanth116.weather.ui.screens.home
 
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.height
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import com.hrudhaykanth116.core.common.resources.Dimens
 import com.hrudhaykanth116.core.common.ui.preview.AppPreview
 import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.ui.components.AppClickableIcon
 import com.hrudhaykanth116.core.ui.components.AppSearchBar
+import com.hrudhaykanth116.core.ui.components.AppToolBarIcon
+import com.hrudhaykanth116.core.ui.components.AppToolbar
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenCallbacks
 import ir.kaaveh.sdpcompose.sdp
+import com.hrudhaykanth116.core.R as CoreR
 
 @Composable
 fun WeatherHomeTopBar(
-    location: String,
+    searchText: String,
+    location: String?,
     isSearchActive: Boolean,
     weatherHomeScreenCallbacks: WeatherHomeScreenCallbacks,
     modifier: Modifier = Modifier,
 ) {
 
-    // AppToolbar(
-    //     text = location,
-    //     navigationIcon = {},
-    // ) {
-    //     AppClickableIcon(
-    //         imageHolder = CoreR.drawable.ic_menu_vertical.toImageHolder(),
-    //         onClick = {
-    //
-    //         }
-    //     )
-    // }
+    AnimatedContent(
+        targetState = isSearchActive,
+        transitionSpec = {
+            (fadeIn() + slideInHorizontally { it / 2 }) togetherWith
+                    (fadeOut() + slideOutHorizontally { -it / 2 })
+        },
+        label = "search_bar_transition"
+    ) { showSearch ->
+        if (showSearch) {
+            AppSearchBar(
+                text = searchText,
+                placeHolderText = "Enter location name...",
+                onTextChange = weatherHomeScreenCallbacks.onLocationTextChanged,
+                onCancelled = weatherHomeScreenCallbacks.onSearchCancelled,
+                onSearch = weatherHomeScreenCallbacks.search,
+                modifier = modifier
+            )
+        } else {
+            AppToolbar(
+                text = location ?: "Unknown Location",
+                navigationIcon = {},
+                modifier = modifier,
+                actions = {
+                    AppToolBarIcon(
+                        iconResId = CoreR.drawable.ic_refresh,
+                        onClick = weatherHomeScreenCallbacks.onRefreshIconClicked,
+                    )
 
-    Row(
-        modifier = modifier,
-        verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
-    ) {
-        AppSearchBar(
-            text = location,
-            modifier = Modifier,
-            onTextChange = weatherHomeScreenCallbacks.onLocationTextChanged,
-            onSearch = weatherHomeScreenCallbacks.search,
-            onCancelled = weatherHomeScreenCallbacks.onSearchCancelled,
-            expanded = isSearchActive,
-            onExpandedChange = weatherHomeScreenCallbacks.onExpandedChange,
-            placeHolderText = "Enter city name"
-        )
-        if(!isSearchActive){
-            AppClickableIcon(
-                resId = com.hrudhaykanth116.core.R.drawable.ic_gps,
-                onClick = weatherHomeScreenCallbacks.onGpsIconClicked
+                    AppToolBarIcon(
+                        iconResId = CoreR.drawable.ic_gps,
+                        onClick = weatherHomeScreenCallbacks.onGpsIconClicked,
+                    )
+
+                    AppToolBarIcon(
+                        iconResId = CoreR.drawable.ic_search,
+                        onClick = weatherHomeScreenCallbacks.onSearchIconClicked,
+                    )
+                }
             )
         }
     }
-
 }
 
 @AppPreview
@@ -64,6 +81,7 @@ private fun WeatherHomeTopBarPreview() {
     AppPreviewContainer {
         CenteredColumn {
             WeatherHomeTopBar(
+                searchText = "Bengaluru",
                 location = "Bengaluru",
                 isSearchActive = false,
                 weatherHomeScreenCallbacks = WeatherHomeScreenCallbacks(),

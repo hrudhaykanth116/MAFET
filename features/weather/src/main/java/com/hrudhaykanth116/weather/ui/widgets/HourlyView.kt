@@ -1,4 +1,4 @@
-package com.hrudhaykanth116.weather.ui.screens.home
+package com.hrudhaykanth116.weather.ui.widgets
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -21,7 +21,6 @@ import com.hrudhaykanth116.core.ui.components.AppIcon
 import com.hrudhaykanth116.core.ui.components.AppText
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
 import com.hrudhaykanth116.core.ui.components.VerticalSpacer
-import com.hrudhaykanth116.core.ui.models.toImageHolder
 import com.hrudhaykanth116.weather.R
 import com.hrudhaykanth116.weather.domain.models.HourlyWeatherUIState
 import com.hrudhaykanth116.weather.domain.models.WeatherMain

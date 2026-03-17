@@ -1,6 +1,7 @@
 package com.hrudhaykanth116.core.ui.models
 
 import com.hrudhaykanth116.core.common.ui.models.UserMessage
+import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.core.domain.models.ErrorState
 
 /**
@@ -13,6 +14,7 @@ sealed class UIState<T>(
 
     data class Loading<T>(
         override val contentState: T? = null,
+        val message: UIText? = null,
     ) : UIState<T>(contentState)
 
     data class Error<T>(

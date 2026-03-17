@@ -9,7 +9,7 @@ import com.hrudhaykanth116.weather.domain.models.DailyWeatherUIState
 import com.hrudhaykanth116.weather.domain.models.TodayWeatherUIState
 import javax.inject.Inject
 
-class GetForeCastUseCase @Inject constructor(
+class GetForeCastUseCaseFromLatLongUseCase @Inject constructor(
     private val geoCodeRepository: IGeoCodeRepository,
     private val weatherForeCastRepository: IWeatherForeCastRepository,
     private val parseDailyForeCastDtoUseCase: ParseDailyForeCastDtoUseCase,

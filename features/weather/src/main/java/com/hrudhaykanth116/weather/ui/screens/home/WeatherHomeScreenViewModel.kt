@@ -20,7 +20,7 @@ import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenEffect
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenEvent
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenUIState
 import com.hrudhaykanth116.weather.domain.usecases.GetForeCastFromLatLongUseCase
-import com.hrudhaykanth116.weather.domain.usecases.GetForeCastUseCase
+import com.hrudhaykanth116.weather.domain.usecases.GetForeCastUseCaseFromLatLongUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Job
@@ -31,17 +31,17 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WeatherHomeScreenViewModel @Inject constructor(
-    private val getForeCastUseCase: GetForeCastUseCase,
+    private val getForeCastUseCaseFromLatLongUseCase: GetForeCastUseCaseFromLatLongUseCase,
     private val getForeCastFromLatLongUseCase: GetForeCastFromLatLongUseCase,
     @ApplicationContext private val context: Context,
-    private val networkMonitor: NetworkMonitor,
+    networkMonitor: NetworkMonitor,
 ) : UIStateViewModel<WeatherHomeScreenUIState, WeatherHomeScreenEvent, WeatherHomeScreenEffect>(
     initialState = UIState.Idle(),
     defaultState = WeatherHomeScreenUIState(),
     networkMonitor = networkMonitor,
 ) {
 
-    private var job: Job? = null
+    private var getForeCastJob: Job? = null
 
     private val fusedLocationClient by lazy {
         LocationServices.getFusedLocationProviderClient(context)
@@ -56,7 +56,10 @@ class WeatherHomeScreenViewModel @Inject constructor(
         viewModelScope.launch {
 
             setState {
-                UIState.Loading(currentContentState?.copy(errorState = null))
+                UIState.Loading(
+                    currentContentState?.copy(errorState = null),
+                    message = "Fetching location...".toUIText()
+                )
             }
 
             val location: Location? = getCurrentLocation(fusedLocationClient)
@@ -64,41 +67,40 @@ class WeatherHomeScreenViewModel @Inject constructor(
             Logger.d(TAG, "fetchLocationAndAddress: $location")
             if (location != null) {
 
-                job?.cancel()
+                getForeCastJob?.cancel()
 
-                job = viewModelScope.launch {
+                val addressName: String? = getAddressFromLocation(location)
 
-                    val addressName: String? = getAddressFromLocation(location)
+                setLoadingState(
+                    currentContentState?.copy(errorState = null),
+                    "Fetching forecast for $addressName".toUIText()
+                )
+                val foreCastDataResult = getForeCastFromLatLongUseCase(
+                    location.latitude, location.longitude
+                )
 
-                    val foreCastDataResult = getForeCastFromLatLongUseCase(
-                        location.latitude, location.longitude
-                    )
-
-                    when (foreCastDataResult) {
-                        is RepoResultWrapper.Error -> {
-                            setState {
-                                UIState.Idle(
-                                    // When there is error, we have to preserve only address name entered. Reset should reset
-                                    contentState = defaultState.copy(
-                                        errorState = foreCastDataResult.errorState,
-                                        location = addressName,
-                                        searchText = addressName,
-                                    )
+                when (foreCastDataResult) {
+                    is RepoResultWrapper.Error -> {
+                        setState {
+                            UIState.Idle(
+                                // When there is error, we have to preserve only address name entered. Reset should reset
+                                contentState = defaultState.copy(
+                                    errorState = foreCastDataResult.errorState,
+                                    location = addressName,
                                 )
-                            }
+                            )
                         }
+                    }
 
-                        is RepoResultWrapper.Success -> {
-                            setState {
-                                UIState.Idle(
-                                    contentStateOrDefault.copy(
-                                        todayWeatherUIState = foreCastDataResult.data.first,
-                                        weatherForeCastListItemsUIState = foreCastDataResult.data.second,
-                                        location = addressName,
-                                        searchText = addressName
-                                    )
+                    is RepoResultWrapper.Success -> {
+                        setState {
+                            UIState.Idle(
+                                contentStateOrDefault.copy(
+                                    todayWeatherUIState = foreCastDataResult.data.first,
+                                    weatherForeCastListItemsUIState = foreCastDataResult.data.second,
+                                    location = addressName,
                                 )
-                            }
+                            )
                         }
                     }
                 }
@@ -117,7 +119,7 @@ class WeatherHomeScreenViewModel @Inject constructor(
 
     private fun fetchData(location: String?) {
         Logger.d(TAG, "fetchData: location: $location")
-        job?.cancel()
+        getForeCastJob?.cancel()
 
         if (location.isNullOrBlank()) {
             setState {
@@ -129,18 +131,15 @@ class WeatherHomeScreenViewModel @Inject constructor(
             return
         }
 
-        job = viewModelScope.launch {
+        getForeCastJob = viewModelScope.launch {
 
-            setState {
-                UIState.Loading(
-                    contentStateOrDefault.copy(
-                        isSearchActive = false,
-                        errorState = null
-                    )
-                )
-            }
+            setLoadingState(
+                currentContentState?.copy(isSearchActive = false, errorState = null),
+                "Fetching forecast for $location".toUIText()
+            )
 
-            val foreCastDataResult = getForeCastUseCase(
+
+            val foreCastDataResult = getForeCastUseCaseFromLatLongUseCase(
                 location,
             )
 
@@ -153,7 +152,6 @@ class WeatherHomeScreenViewModel @Inject constructor(
                             contentState = defaultState.copy(
                                 errorState = foreCastDataResult.errorState,
                                 location = location,
-                                searchText = location
                             ),
                         )
                     }
@@ -166,7 +164,6 @@ class WeatherHomeScreenViewModel @Inject constructor(
                         UIState.Idle(
                             contentStateOrDefault.copy(
                                 location = location,
-                                searchText = location,
                                 todayWeatherUIState = foreCastDataResult.data.first,
                                 weatherForeCastListItemsUIState = foreCastDataResult.data.second,
                             )
@@ -181,7 +178,7 @@ class WeatherHomeScreenViewModel @Inject constructor(
 
 
     fun handleLocationOrGpsUnAvailableCases() {
-
+        // TODO: weather implement last known location.
         val lastKnownLocation = "Hyderabad"
         fetchData(lastKnownLocation)
 
@@ -236,7 +233,8 @@ class WeatherHomeScreenViewModel @Inject constructor(
     }
 
     override fun initializeData() {
-        fetchData(contentStateOrDefault.location)
+        // fetch data need to be called only after gps and location permissions checks.
+        // fetchData(contentStateOrDefault.location)
     }
 
     override fun processEvent(event: WeatherHomeScreenEvent) {
@@ -278,15 +276,21 @@ class WeatherHomeScreenViewModel @Inject constructor(
                 fetchData(searchLocation)
             }
 
+            WeatherHomeScreenEvent.OnSearchIconClicked -> {
+                setState {
+                    UIState.Idle(
+                        contentStateOrDefault.copy(
+                            isSearchActive = true,
+                        )
+                    )
+                }
+            }
+
             is WeatherHomeScreenEvent.OnExpandedChange -> {
-
-                val searchLocation: String? = contentStateOrDefault.location
-
                 setState {
                     UIState.Idle(
                         contentStateOrDefault.copy(
                             isSearchActive = event.isExpanded,
-                            searchText = searchLocation
                         )
                     )
                 }
@@ -300,7 +304,6 @@ class WeatherHomeScreenViewModel @Inject constructor(
                     UIState.Idle(
                         contentStateOrDefault.copy(
                             isSearchActive = false,
-                            searchText = searchLocation
                         )
                     )
                 }

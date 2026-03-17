@@ -3,6 +3,7 @@ package com.hrudhaykanth116.core.udf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hrudhaykanth116.core.common.utils.network.NetworkMonitor
+import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.core.ui.models.UIState
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -66,9 +67,9 @@ abstract class UIStateViewModel<STATE, EVENT, EFFECT>(
     //     }
     // }
 
-    protected fun setLoadingState(contentSTATE: STATE? = null) {
+    protected fun setLoadingState(contentSTATE: STATE? = null, message: UIText? = null) {
         setState {
-            UIState.Loading(contentSTATE)
+            UIState.Loading(contentSTATE, message)
         }
     }
 
