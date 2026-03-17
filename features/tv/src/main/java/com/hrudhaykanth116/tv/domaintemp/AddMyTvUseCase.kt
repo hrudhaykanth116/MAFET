@@ -7,11 +7,8 @@ import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDetails
 import com.hrudhaykanth116.tv.data.repositories.tv.MyTvListRepository
 import com.hrudhaykanth116.tv.data.repositories.tv.TvShowsRepository
 import com.hrudhaykanth116.tv.domaintemp.models.constants.BaseUrlConstants
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class AddMyTvUseCase @Inject constructor(
+class AddMyTvUseCase(
     private val myTvListRepository: MyTvListRepository,
     private val tvShowsRepository: TvShowsRepository,
 

@@ -11,12 +11,9 @@ import com.hrudhaykanth116.tv.domaintemp.models.MyTvDomainModel
 import com.hrudhaykanth116.tv.ui.models.updatemytv.UpdateMyTvScreenEffect
 import com.hrudhaykanth116.tv.ui.models.updatemytv.UpdateMyTvScreenEvent
 import com.hrudhaykanth116.tv.ui.models.updatemytv.UpdateMyTvUIStateActual
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class UpdateMyTvViewModel @Inject constructor(
+class UpdateMyTvViewModel(
     // updateTvData: UpdateMyTvUIStateActual.UpdateTvData,
     private val updateMyTvUseCase: UpdateMyTvUseCase,
     private val dateTimeUtils: DateTimeUtils,

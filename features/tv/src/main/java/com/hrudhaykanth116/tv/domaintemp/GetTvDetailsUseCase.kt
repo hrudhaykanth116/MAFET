@@ -9,11 +9,8 @@ import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class GetTvDetailsUseCase @Inject constructor(
+class GetTvDetailsUseCase(
     private val tvShowsRemoteDataSource: TvShowsRemoteDataSource,
     private val tvShowsRepository: TvShowsRepository,
 ) {

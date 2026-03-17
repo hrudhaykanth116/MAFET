@@ -7,11 +7,8 @@ import com.hrudhaykanth116.tv.data.datasources.local.models.MyTvEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class MyTvListRepository @Inject constructor(
+class MyTvListRepository(
     private val localDataSource: MyTvListLocalDataSource,
 ): BaseRepository() {
 

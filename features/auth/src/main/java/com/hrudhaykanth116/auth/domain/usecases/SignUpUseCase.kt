@@ -6,9 +6,8 @@ import com.hrudhaykanth116.auth.data.repository.IAuthRepository
 import com.hrudhaykanth116.auth.domain.models.signup.SignUpFormState
 import com.hrudhaykanth116.core.common.mappers.mapToUIText
 import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
-import javax.inject.Inject
 
-class SignUpUseCase @Inject constructor(
+class SignUpUseCase(
     private val validateEmailUseCase: ValidateEmailUseCase,
     private val validatePasswordUseCase: ValidatePasswordUseCase,
     private val authRepository: IAuthRepository,

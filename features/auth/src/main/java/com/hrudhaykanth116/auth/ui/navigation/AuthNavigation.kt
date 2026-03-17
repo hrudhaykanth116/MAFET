@@ -1,7 +1,6 @@
 package com.hrudhaykanth116.auth.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -12,6 +11,7 @@ import com.hrudhaykanth116.auth.ui.data_models.AuthRoutes
 import com.hrudhaykanth116.auth.ui.screens.login.LoginScreen
 import com.hrudhaykanth116.auth.ui.screens.signup.SignUpScreen
 import com.hrudhaykanth116.auth.ui.screens.signup.SignUpViewModel
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun AuthNavigation(
@@ -37,7 +37,7 @@ fun AuthNavigation(
         }
 
         composable(route = AuthRoutes.SignUpRoute.route) {
-            val viewModel = hiltViewModel<SignUpViewModel>()
+            val viewModel = koinViewModel<SignUpViewModel>()
             SignUpScreen(
                 viewModel = viewModel
             )

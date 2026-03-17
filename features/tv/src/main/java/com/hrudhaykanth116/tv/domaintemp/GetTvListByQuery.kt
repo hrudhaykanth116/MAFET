@@ -10,11 +10,8 @@ import com.hrudhaykanth116.tv.domaintemp.models.constants.BaseUrlConstants
 import com.hrudhaykanth116.tv.ui.models.search.SearchScreenItemUIState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class GetTvListByQuery @Inject constructor(
+class GetTvListByQuery(
     private val tvShowsRepository: TvShowsRepository,
     private val myTvListRepository: MyTvListRepository,
 ) {

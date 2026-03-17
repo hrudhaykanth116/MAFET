@@ -51,8 +51,8 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.hrudhaykanth116.core.common.resources.Dimens
+import org.koin.androidx.compose.koinViewModel
 import com.hrudhaykanth116.core.common.utils.compose.modifier.screenBackground
 import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.core.data.models.toUIText
@@ -166,7 +166,7 @@ fun EntertainmentHomeScreenUI(
                             onCancelled = {
                                 entertainmentHomeScreenCallbacks.onUpdateTvCloseRequest()
                             },
-                            updateMyTvViewModel = hiltViewModel<UpdateMyTvViewModel>().apply {
+                            updateMyTvViewModel = koinViewModel<UpdateMyTvViewModel>().apply {
                                 setData(data)
                             },
                         )

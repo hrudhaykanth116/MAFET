@@ -4,7 +4,6 @@ plugins {
     id("com.android.library")
     alias(libs.plugins.safeArgs)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.compose)
@@ -58,9 +57,6 @@ dependencies {
 
     implementation(project(":core"))
 
-    // Hilt
-    api(libs.hilt.android)
-    ksp(libs.hilt.compiler)
 
     api(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)

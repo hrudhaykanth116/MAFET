@@ -11,7 +11,6 @@ import com.hrudhaykanth116.tv.ui.models.search.SearchScreenEffect
 import com.hrudhaykanth116.tv.ui.models.search.SearchScreenEvent
 import com.hrudhaykanth116.tv.ui.models.search.SearchScreenItemUIState
 import com.hrudhaykanth116.tv.ui.models.search.SearchScreenState
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
@@ -20,11 +19,9 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @OptIn(ExperimentalCoroutinesApi::class)
-@HiltViewModel
-class SearchTvScreenViewModel @Inject constructor(
+class SearchTvScreenViewModel(
     private val getTvListByQuery: GetTvListByQuery,
     private val addMyTvUseCase: AddMyTvUseCase,
     private val myTvListRepository: MyTvListRepository,

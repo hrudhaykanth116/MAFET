@@ -8,11 +8,9 @@ import com.hrudhaykanth116.tv.data.datasources.remote.retrofit.TvApisService
 import com.hrudhaykanth116.tv.data.datasources.remote.sources.tvshows.TvShowReviewsRemoteDataSource
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvReviewsResponse
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class TvShowReviewsRepository @Inject constructor(
+
+class TvShowReviewsRepository constructor(
     private val tvApisService: TvApisService
 ) {
 

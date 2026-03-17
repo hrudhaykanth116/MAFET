@@ -3,15 +3,15 @@ package com.hrudhaykanth116.auth.ui.screens.login
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hrudhaykanth116.auth.domain.models.login.LoginScreenCallBacks
 import com.hrudhaykanth116.auth.domain.models.login.LoginScreenEvent
 import com.hrudhaykanth116.core.theme.screenBackgroundModifier
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun LoginScreen(
-    viewModel: LoginViewModel = hiltViewModel(),
+    viewModel: LoginViewModel = koinViewModel(),
     onLoggedIn: () -> Unit,
     navigateToSignUpScreen: () -> Unit,
 ) {

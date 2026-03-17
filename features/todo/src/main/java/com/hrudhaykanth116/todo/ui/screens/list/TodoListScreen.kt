@@ -2,14 +2,14 @@ package com.hrudhaykanth116.todo.ui.screens.list
 
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenEvent
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListUIState
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun TodoListScreen(
-    todoListViewModel: TodoListViewModel = hiltViewModel(),
+    todoListViewModel: TodoListViewModel = koinViewModel(),
     navigateToCreateScreen: () -> Unit,
     onItemClicked: (TodoUIModel) -> Unit,
     onBackClicked: () -> Unit = {},

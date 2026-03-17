@@ -6,11 +6,8 @@ import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.ui.models.ImageHolder
 import com.hrudhaykanth116.core.ui.models.toImageHolder
 import com.hrudhaykanth116.weather.R
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class GetWeatherElementIconUseCase @Inject constructor(
+class GetWeatherElementIconUseCase(
 
 ) {
     operator fun invoke(element: WeatherElement): Int {

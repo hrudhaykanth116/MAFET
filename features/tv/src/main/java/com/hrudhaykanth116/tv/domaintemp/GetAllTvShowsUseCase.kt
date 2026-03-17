@@ -8,11 +8,8 @@ import com.hrudhaykanth116.tv.data.datasources.remote.models.tv.CategorisedTvSho
 import com.hrudhaykanth116.tv.data.repositories.tv.TvRepository
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class GetAllTvShowsUseCase @Inject constructor(private val repository: TvRepository) {
+class GetAllTvShowsUseCase(private val repository: TvRepository) {
 
     suspend operator fun invoke(): RepoResultWrapper<CategorisedTvShows> = coroutineScope {
         val popularDeferred = async { repository.getPopularTvShows(1) }

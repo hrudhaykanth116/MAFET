@@ -6,9 +6,8 @@ import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.RequestConfiguration
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
-class AdsInitializer @Inject constructor() {
+class AdsInitializer {
 
     suspend fun initialize(context: Context) = withContext(Dispatchers.Default) {
         MobileAds.initialize(context)

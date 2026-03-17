@@ -1,11 +1,8 @@
 package com.hrudhaykanth116.weather.domain.usecases
 
 import com.hrudhaykanth116.weather.R
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class GetWeatherIconUseCase @Inject constructor(
+class GetWeatherIconUseCase(
 
 ) {
 

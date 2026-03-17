@@ -3,11 +3,8 @@ package com.hrudhaykanth116.todo.data.data_source.local
 import com.hrudhaykanth116.todo.data.local.room.dao.TodoTasksDao
 import com.hrudhaykanth116.todo.data.local.room.tables.TodoTaskDbEntity
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class TodoLocalDataSource @Inject constructor(
+class TodoLocalDataSource(
     private val todoTasksDao: TodoTasksDao,
 ) : ITodoLocalDataSource {
 

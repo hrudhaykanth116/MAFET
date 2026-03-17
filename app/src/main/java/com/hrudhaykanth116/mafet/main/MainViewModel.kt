@@ -3,16 +3,13 @@ package com.hrudhaykanth116.mafet.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hrudhaykanth116.auth.data.repository.IAuthRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class MainViewModel @Inject constructor(
+class MainViewModel(
     private val authRepository: IAuthRepository,
 ) : ViewModel() {
 
@@ -45,7 +42,7 @@ class MainViewModel @Inject constructor(
     }
 
     companion object {
-        const val TRAINING_MODE = true
+        const val TRAINING_MODE = false
     }
 
 }

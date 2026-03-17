@@ -1,21 +1,16 @@
 package com.hrudhaykanth116.media.ui.screens
 
-import android.R.attr.apiKey
 import android.util.Log
 import androidx.lifecycle.viewModelScope
-import androidx.room.util.copy
 import com.hrudhaykanth116.core.common.utils.network.NetworkMonitor
 import com.hrudhaykanth116.core.udf.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.media.data.models.PhotoResponse
 import com.hrudhaykanth116.media.data.repositories.PexelsRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 import kotlin.random.Random
 
-@HiltViewModel
-class MediaViewModel @Inject constructor(
+class MediaViewModel(
     private val pexelsRepository: PexelsRepository,
     private val networkMonitor: NetworkMonitor,
 ) : UIStateViewModel<MediaScreenUIState, MediaScreenEvent, MediaScreenEffect>(

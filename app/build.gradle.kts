@@ -3,7 +3,6 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.compose)
@@ -78,10 +77,11 @@ dependencies {
     implementation(project(":features:games"))
     implementation(project(":training"))
 
-    // Hilt
-    api(libs.hilt.android)
+    // Koin
+    implementation(libs.koin.android)
+    implementation(libs.koin.compose)
+    implementation(libs.koin.compose.viewmodel)
     implementation(libs.play.services.ads.api)
-    ksp(libs.hilt.compiler)
 
 
     implementation(libs.androidx.core.splashscreen)

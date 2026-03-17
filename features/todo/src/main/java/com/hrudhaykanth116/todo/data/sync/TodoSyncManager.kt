@@ -1,6 +1,5 @@
 package com.hrudhaykanth116.todo.data.sync
 
-import com.hrudhaykanth116.core.common.di.IoDispatcher
 import com.hrudhaykanth116.core.common.utils.network.NetworkMonitor
 import com.hrudhaykanth116.todo.data.data_source.local.ITodoLocalDataSource
 import com.hrudhaykanth116.todo.data.mappers.toDomain
@@ -12,14 +11,11 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class TodoSyncManager @Inject constructor(
+class TodoSyncManager(
     private val localDataSource: ITodoLocalDataSource,
     private val networkMonitor: NetworkMonitor,
-    @IoDispatcher private val dispatcher: CoroutineDispatcher,
+    private val dispatcher: CoroutineDispatcher,
 ) : ITodoSyncManager {
 
     override fun observePendingCount(): Flow<Int> {

@@ -5,14 +5,10 @@ import com.hrudhaykanth116.media.data.models.GetPopularVideosResponse
 import com.hrudhaykanth116.media.data.models.PhotoResponse
 import com.hrudhaykanth116.media.data.models.PhotoSearchResponse
 import com.hrudhaykanth116.media.data.models.VideoResponse
-import javax.inject.Inject
-import javax.inject.Named
-import javax.inject.Singleton
 
-@Singleton
-class PexelsRemoteDataSource @Inject constructor(
+class PexelsRemoteDataSource(
     private val api: PexelsApisService,
-    @param:Named("pexels_api_key") private val apiKey: String
+    private val apiKey: String
 ) {
 
     suspend fun searchPhotos(query: String, page: Int, perPage: Int): PhotoSearchResponse =

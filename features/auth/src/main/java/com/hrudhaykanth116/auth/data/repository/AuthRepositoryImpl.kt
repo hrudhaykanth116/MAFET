@@ -8,9 +8,8 @@ import com.hrudhaykanth116.auth.data.models.SignUpResult
 import com.hrudhaykanth116.core.data.BaseRepository
 import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
-import javax.inject.Inject
 
-class AuthRepositoryImpl @Inject constructor(
+class AuthRepositoryImpl(
     private val authRemoteDataSource: IAuthRemoteDataSource,
 ) : IAuthRepository, BaseRepository() {
 

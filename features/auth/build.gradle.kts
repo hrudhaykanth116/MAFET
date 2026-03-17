@@ -3,7 +3,6 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     id("com.android.library")
     alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.compose)
@@ -65,10 +64,10 @@ dependencies {
 
     implementation(project(":core"))
 
-    // Hilt
-    api(libs.hilt.android)
-    ksp(libs.hilt.compiler)
-
+    // Koin
+    implementation(libs.koin.android)
+    implementation(libs.koin.compose)
+    implementation(libs.koin.compose.viewmodel)
 
     api(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)

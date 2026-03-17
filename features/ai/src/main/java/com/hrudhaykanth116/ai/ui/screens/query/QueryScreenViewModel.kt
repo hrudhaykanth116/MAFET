@@ -8,14 +8,9 @@ import com.hrudhaykanth116.ai.ui.screens.models.QueryScreenEffect
 import com.hrudhaykanth116.ai.ui.screens.models.QueryScreenEvent
 import com.hrudhaykanth116.ai.ui.screens.models.QueryScreenUIState
 import com.hrudhaykanth116.core.udf.UDFViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class QueryScreenViewModel @Inject constructor(
-
-): UDFViewModel<QueryScreenUIState, QueryScreenEvent, QueryScreenEffect>(QueryScreenUIState()) {
+class QueryScreenViewModel: UDFViewModel<QueryScreenUIState, QueryScreenEvent, QueryScreenEffect>(QueryScreenUIState()) {
 
     private val generativeModel: GenerativeModel = Firebase.vertexAI.generativeModel("gemini-2.0-flash")
 

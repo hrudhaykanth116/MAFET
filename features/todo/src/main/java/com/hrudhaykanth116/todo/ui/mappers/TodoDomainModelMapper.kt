@@ -5,13 +5,10 @@ import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
 import com.hrudhaykanth116.todo.domain.model.TodoModel
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class TodoDomainModelMapper @Inject constructor(
+class TodoDomainModelMapper(
     private val dateTimeUtils: DateTimeUtils,
-){
+) {
 
     fun mapToUIModel(todoModel: TodoModel?): TodoUIModel {
 
