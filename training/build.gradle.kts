@@ -61,6 +61,7 @@ android {
 dependencies {
 
     implementation(project(":core"))
+    implementation(project(":shared"))
 
     // Hilt
     api(libs.hilt.android)
