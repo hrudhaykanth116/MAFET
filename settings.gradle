@@ -23,6 +23,7 @@ dependencyResolutionManagement {
 include ':app'
 rootProject.name = "MAFET"
 include ':core'
+include ':shared'
 include ':features'
 include ':features:todo'
 include ':features:ai'

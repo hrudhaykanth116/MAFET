@@ -68,6 +68,7 @@ dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
 
     api(project(":core"))
+    implementation(project(":shared"))
     implementation(project(":features:todo"))
     implementation(project(":features:weather"))
     implementation(project(":features:tv"))
