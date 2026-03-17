@@ -1,0 +1,9 @@
+package com.hrudhaykanth116.core.data.models
+
+import com.hrudhaykanth116.shared.models.AppFeatureDataClass as SharedAppFeatureDataClass
+import com.hrudhaykanth116.shared.models.ErrorConstants as SharedErrorConstants
+import com.hrudhaykanth116.shared.models.FeatureIdsConstants as SharedFeatureIdsConstants
+
+typealias AppFeatureDataClass = SharedAppFeatureDataClass
+typealias ErrorConstants = SharedErrorConstants
+typealias FeatureIdsConstants = SharedFeatureIdsConstants
