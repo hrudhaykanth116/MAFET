@@ -1,4 +1,4 @@
-package com.hrudhaykanth116.core.data.models
+package com.hrudhaykanth116.shared.models
 
 object ErrorConstants {
 

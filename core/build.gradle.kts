@@ -64,6 +64,8 @@ android {
 dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
 
+    api(project(":shared"))
+
     /************************** Android basic ******************************/
 
     api(libs.androidx.appcompat)
