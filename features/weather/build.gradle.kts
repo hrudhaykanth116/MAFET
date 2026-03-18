@@ -74,6 +74,7 @@ dependencies {
     // TODO: May be data dependency is good enough
     implementation(project(":core-network"))
     implementation(project(":core-data"))
+    implementation(project(":core-ui"))
 
     // Koin - explicitly added for koinViewModel
     implementation(libs.koin.compose)
