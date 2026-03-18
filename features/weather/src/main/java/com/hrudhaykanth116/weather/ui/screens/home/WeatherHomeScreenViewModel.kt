@@ -81,7 +81,7 @@ class WeatherHomeScreenViewModel(
                             UIState.Idle(
                                 // When there is error, we have to preserve only address name entered. Reset should reset
                                 contentState = defaultState.copy(
-                                    // errorState = foreCastDataResult.errorState
+                                    errorState = foreCastDataResult.errorState,
                                     location = addressName,
                                 )
                             )
@@ -146,7 +146,7 @@ class WeatherHomeScreenViewModel(
                         UIState.Idle(
                             // When there is error, we have to preserve only address name entered. Reset should reset
                             contentState = defaultState.copy(
-                                // errorState = foreCastDataResult.errorState,
+                                errorState = foreCastDataResult.errorState,
                                 location = location,
                             ),
                         )
