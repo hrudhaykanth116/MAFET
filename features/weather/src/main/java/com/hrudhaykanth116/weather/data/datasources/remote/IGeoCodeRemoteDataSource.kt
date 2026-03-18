@@ -1,6 +1,6 @@
 package com.hrudhaykanth116.weather.data.datasources.remote
 
-import com.hrudhaykanth116.core.data.models.ApiResultWrapper
+import com.hrudhaykanth116.core.network.models.ApiResultWrapper
 import com.hrudhaykanth116.weather.data.models.GetLocationInfoResponseItem
 import com.hrudhaykanth116.weather.data.models.OWMReverseGeocodingResponseItem
 

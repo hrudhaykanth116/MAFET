@@ -1,7 +1,7 @@
 package com.hrudhaykanth116.weather.domain.usecases
 
-import com.hrudhaykanth116.core.domain.models.ErrorState
-import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
+import com.hrudhaykanth116.core.data.ErrorState
+import com.hrudhaykanth116.core.data.RepoResultWrapper
 import com.hrudhaykanth116.weather.data.models.WeatherForeCastResponse
 import com.hrudhaykanth116.weather.data.repository.IGeoCodeRepository
 import com.hrudhaykanth116.weather.data.repository.IWeatherForeCastRepository

@@ -1,41 +1,33 @@
 package com.hrudhaykanth116.weather.di
 
-import android.content.Context
 import com.hrudhaykanth116.weather.data.datasources.local.WeatherForeCastLocalDataSource
 import com.hrudhaykanth116.weather.data.datasources.remote.IGeoCodeRemoteDataSource
 import com.hrudhaykanth116.weather.data.datasources.remote.WeatherForeCastRemoteDataSource
 import com.hrudhaykanth116.weather.data.datasources.remote.WeatherMapGeoCodeRemoteDataSourceImpl
-import com.hrudhaykanth116.weather.data.datasources.remote.retrofit.OpenWeatherApiService
+import com.hrudhaykanth116.weather.data.datasources.remote.ktor.OpenWeatherApiServiceKtor
 import com.hrudhaykanth116.weather.data.repository.GeoCodeRepositoryImpl
 import com.hrudhaykanth116.weather.data.repository.IGeoCodeRepository
 import com.hrudhaykanth116.weather.data.repository.IWeatherForeCastRepository
 import com.hrudhaykanth116.weather.data.repository.WeatherForeCastRepositoryImpl
 import com.hrudhaykanth116.weather.domain.usecases.GetForeCastFromLatLongUseCase
 import com.hrudhaykanth116.weather.domain.usecases.GetForeCastUseCaseFromLatLongUseCase
-import com.hrudhaykanth116.weather.domain.usecases.GetReverseGeoCodingUseCase
 import com.hrudhaykanth116.weather.domain.usecases.GetWeatherElementIconUseCase
 import com.hrudhaykanth116.weather.domain.usecases.GetWeatherIconUseCase
 import com.hrudhaykanth116.weather.domain.usecases.ParseCurrentWeatherUseCase
 import com.hrudhaykanth116.weather.domain.usecases.ParseDailyForeCastDtoUseCase
 import com.hrudhaykanth116.weather.ui.screens.home.WeatherHomeScreenViewModel
+import io.ktor.client.HttpClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
-import retrofit2.Retrofit
 
 val weatherModule = module {
-    // Network - Retrofit & API Service
-    single(named("weather_baseurl")) { "https://api.openweathermap.org/" }
-
-    single(named("weather_retrofit")) {
-        get<Retrofit.Builder>()
-            .baseUrl(get<String>(named("weather_baseurl")))
-            .build()
-    }
-
-    single<OpenWeatherApiService> {
-        get<Retrofit>(named("weather_retrofit")).create(OpenWeatherApiService::class.java)
+    // Network - Ktor API Service (uses HttpClient from core-network)
+    single<OpenWeatherApiServiceKtor> {
+        OpenWeatherApiServiceKtor(
+            httpClient = get<HttpClient>()
+        )
     }
 
     // Data Sources
@@ -63,8 +55,6 @@ val weatherModule = module {
     single { GetWeatherIconUseCase() }
 
     single { GetWeatherElementIconUseCase() }
-
-    single { GetReverseGeoCodingUseCase(get()) }
 
     single {
         ParseCurrentWeatherUseCase(

@@ -1,7 +1,7 @@
 package com.hrudhaykanth116.weather.data.repository
 
-import com.hrudhaykanth116.core.data.BaseRepository
-import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
+import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.data.repository.BaseRepository
 import com.hrudhaykanth116.weather.data.datasources.remote.IGeoCodeRemoteDataSource
 import com.hrudhaykanth116.weather.data.models.GetLocationInfoResponseItem
 import com.hrudhaykanth116.weather.data.models.OWMReverseGeocodingResponseItem

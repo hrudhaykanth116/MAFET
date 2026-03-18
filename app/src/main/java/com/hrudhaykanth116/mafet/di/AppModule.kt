@@ -2,6 +2,7 @@ package com.hrudhaykanth116.mafet.di
 
 import com.hrudhaykanth116.auth.di.authModule
 import com.hrudhaykanth116.core.common.di.coreModule
+import com.hrudhaykanth116.core.network.di.networkModule
 import com.hrudhaykanth116.journal.di.journalModule
 import com.hrudhaykanth116.media.di.mediaModule
 import com.hrudhaykanth116.mafet.CrashHandler
@@ -15,6 +16,7 @@ import org.koin.dsl.module
 val appModule = module {
     includes(
         coreModule,
+        networkModule,
         todoModule,
         weatherModule,
         authModule,
