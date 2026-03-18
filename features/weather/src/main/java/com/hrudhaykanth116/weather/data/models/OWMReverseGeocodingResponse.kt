@@ -3,18 +3,23 @@ package com.hrudhaykanth116.weather.data.models
 import com.squareup.moshi.JsonClass
 
 import com.squareup.moshi.Json
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 
 @JsonClass(generateAdapter = true)
+@Serializable
 data class OWMReverseGeocodingResponseItem(
     val country: String? = null,
     val lat: Double? = null,
     @Json(name = "local_names")
+    @SerialName("local_names")
     val localNames: LocalNames? = null,
     val lon: Double? = null,
     val name: String? = null,
 ) {
     @JsonClass(generateAdapter = true)
+    @Serializable
     data class LocalNames(
         val af: String? = null,
         val ar: String? = null,
@@ -29,6 +34,7 @@ data class OWMReverseGeocodingResponseItem(
         val eu: String? = null,
         val fa: String? = null,
         @Json(name = "feature_name")
+        @SerialName("feature_name")
         val featureName: String? = null,
         val fi: String? = null,
         val fr: String? = null,

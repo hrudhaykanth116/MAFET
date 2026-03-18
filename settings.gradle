@@ -24,6 +24,8 @@ include ':app'
 rootProject.name = "MAFET"
 include ':core'
 include ':shared'
+include ':core-network'
+include ':core-data'
 include ':features'
 include ':features:todo'
 include ':features:ai'

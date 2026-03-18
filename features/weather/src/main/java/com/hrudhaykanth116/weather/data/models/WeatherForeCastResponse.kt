@@ -3,7 +3,10 @@ package com.hrudhaykanth116.weather.data.models
 
 import com.squareup.moshi.Json
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class WeatherForeCastResponse(
     val current: Current? = null,
     val daily: List<Daily?>? = null,
@@ -13,14 +16,18 @@ data class WeatherForeCastResponse(
     val minutely: List<Minutely?>? = null,
     val timezone: String? = null,
     @Json(name = "timezone_offset")
+    @SerialName("timezone_offset")
     val timezoneOffset: Int? = null
 ) {
+    @Serializable
     data class Current(
         val clouds: Float? = null,
         @Json(name = "dew_point")
+        @SerialName("dew_point")
         val dewPoint: Float? = null,
         val dt: Int? = null,
         @Json(name = "feels_like")
+        @SerialName("feels_like")
         val feelsLike: Float? = null,
         val humidity: Float? = null,
         val pressure: Float? = null,
@@ -31,10 +38,13 @@ data class WeatherForeCastResponse(
         val visibility: Float? = null,
         val weather: List<Weather?>? = null,
         @Json(name = "wind_deg")
+        @SerialName("wind_deg")
         val windDeg: Float? = null,
         @Json(name = "wind_speed")
+        @SerialName("wind_speed")
         val windSpeed: Float? = null
     ) {
+        @Serializable
         data class Weather(
             val description: String? = null,
             val icon: String? = null,
@@ -43,15 +53,19 @@ data class WeatherForeCastResponse(
         )
     }
 
+    @Serializable
     data class Daily(
         val clouds: Float? = null,
         @Json(name = "dew_point")
+        @SerialName("dew_point")
         val dewPoint: Float? = null,
         val dt: Int? = null,
         @Json(name = "feels_like")
+        @SerialName("feels_like")
         val feelsLike: FeelsLike? = null,
         val humidity: Float? = null,
         @Json(name = "moon_phase")
+        @SerialName("moon_phase")
         val moonPhase: Float? = null,
         val moonrise: Int? = null,
         val moonset: Int? = null,
@@ -65,12 +79,16 @@ data class WeatherForeCastResponse(
         val uvi: Float? = null,
         val weather: List<Weather?>? = null,
         @Json(name = "wind_deg")
+        @SerialName("wind_deg")
         val windDeg: Float? = null,
         @Json(name = "wind_gust")
+        @SerialName("wind_gust")
         val windGust: Float? = null,
         @Json(name = "wind_speed")
+        @SerialName("wind_speed")
         val windSpeed: Float? = null
     ) {
+        @Serializable
         data class FeelsLike(
             val day: Float? = null,
             val eve: Float? = null,
@@ -78,6 +96,7 @@ data class WeatherForeCastResponse(
             val night: Float? = null
         )
 
+        @Serializable
         data class Temp(
             val day: Float? = null,
             val eve: Float? = null,
@@ -87,6 +106,7 @@ data class WeatherForeCastResponse(
             val night: Float? = null
         )
 
+        @Serializable
         data class Weather(
             val description: String? = null,
             val icon: String? = null,
@@ -95,12 +115,15 @@ data class WeatherForeCastResponse(
         )
     }
 
+    @Serializable
     data class Hourly(
         val clouds: Float? = null,
         @Json(name = "dew_point")
+        @SerialName("dew_point")
         val dewPoint: Float? = null,
         val dt: Int? = null,
         @Json(name = "feels_like")
+        @SerialName("feels_like")
         val feelsLike: Float? = null,
         val humidity: Float? = null,
         val pop: Float? = null,
@@ -111,17 +134,23 @@ data class WeatherForeCastResponse(
         val visibility: Float? = null,
         val weather: List<Weather?>? = null,
         @Json(name = "wind_deg")
+        @SerialName("wind_deg")
         val windDeg: Float? = null,
         @Json(name = "wind_gust")
+        @SerialName("wind_gust")
         val windGust: Float? = null,
         @Json(name = "wind_speed")
+        @SerialName("wind_speed")
         val windSpeed: Float? = null
     ) {
+        @Serializable
         data class Rain(
             @Json(name = "1h")
+            @SerialName("1h")
             val h: Float? = null
         )
 
+        @Serializable
         data class Weather(
             val description: String? = null,
             val icon: String? = null,
@@ -130,6 +159,7 @@ data class WeatherForeCastResponse(
         )
     }
 
+    @Serializable
     data class Minutely(
         val dt: Int? = null,
         val precipitation: Float? = null

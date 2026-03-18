@@ -12,8 +12,8 @@ import com.google.android.gms.location.Priority
 import com.hrudhaykanth116.core.common.ui.models.UserMessage
 import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.core.common.utils.network.NetworkMonitor
+import com.hrudhaykanth116.core.data.RepoResultWrapper
 import com.hrudhaykanth116.core.data.models.toUIText
-import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
 import com.hrudhaykanth116.core.udf.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenEffect
@@ -81,7 +81,7 @@ class WeatherHomeScreenViewModel(
                             UIState.Idle(
                                 // When there is error, we have to preserve only address name entered. Reset should reset
                                 contentState = defaultState.copy(
-                                    errorState = foreCastDataResult.errorState,
+                                    // errorState = foreCastDataResult.errorState
                                     location = addressName,
                                 )
                             )
@@ -146,7 +146,7 @@ class WeatherHomeScreenViewModel(
                         UIState.Idle(
                             // When there is error, we have to preserve only address name entered. Reset should reset
                             contentState = defaultState.copy(
-                                errorState = foreCastDataResult.errorState,
+                                // errorState = foreCastDataResult.errorState,
                                 location = location,
                             ),
                         )
