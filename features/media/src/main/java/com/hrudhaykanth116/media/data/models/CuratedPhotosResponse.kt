@@ -1,11 +1,18 @@
 package com.hrudhaykanth116.media.data.models
 
-import com.squareup.moshi.Json
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class CuratedPhotosResponse(
+    @SerialName("page")
     val page: Int,
-    @param:Json(name = "per_page") val perPage: Int,
-    @param:Json(name = "total_results") val totalResults: Int,
+    @SerialName("per_page")
+    val perPage: Int,
+    @SerialName("total_results")
+    val totalResults: Int,
+    @SerialName("photos")
     val photos: List<PhotoResponse>,
-    @param:Json(name = "next_page") val nextPage: String?
+    @SerialName("next_page")
+    val nextPage: String? = null
 )
