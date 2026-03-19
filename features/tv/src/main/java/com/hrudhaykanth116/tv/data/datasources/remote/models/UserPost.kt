@@ -2,16 +2,16 @@ package com.hrudhaykanth116.tv.data.datasources.remote.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-@JsonClass(generateAdapter = true)
+@Serializable
 @Entity(tableName = "user_post")
 data class UserPost(
     @PrimaryKey(autoGenerate = true)
     val dbId: Int,
     var caption: Caption?,
-    @Json(name = "created_time")
+    @SerialName("created_time")
     var createdTime: String?,
     var filter: String?,
     var id: String?,
@@ -19,27 +19,27 @@ data class UserPost(
     var link: String?,
     var type: String?,
     var user: User?,
-    @Json(name = "user_has_liked")
+    @SerialName("user_has_liked")
     var userHasLiked: Boolean?
 ) {
-    @JsonClass(generateAdapter = true)
+    @Serializable
     data class Caption(
-        @Json(name = "created_time")
+        @SerialName("created_time")
         var createdTime: String?,
         var from: User?,
         var id: String?,
         var text: String?
     )
 
-    @JsonClass(generateAdapter = true)
+    @Serializable
     data class Images(
-        @Json(name = "low_resolution")
+        @SerialName("low_resolution")
         var lowResolution: ImageDetails?,
-        @Json(name = "standard_resolution")
+        @SerialName("standard_resolution")
         var standardResolution: ImageDetails?,
         var thumbnail: ImageDetails?
     ) {
-        @JsonClass(generateAdapter = true)
+        @Serializable
         data class ImageDetails(
             var height: Int?,
             var url: String?,
@@ -47,12 +47,12 @@ data class UserPost(
         )
     }
 
-    @JsonClass(generateAdapter = true)
+    @Serializable
     data class User(
-        @Json(name = "full_name")
+        @SerialName("full_name")
         var fullName: String?,
         var id: String?,
-        @Json(name = "profile_picture")
+        @SerialName("profile_picture")
         var profilePictureUrl: String?,
         var username: String?
     )

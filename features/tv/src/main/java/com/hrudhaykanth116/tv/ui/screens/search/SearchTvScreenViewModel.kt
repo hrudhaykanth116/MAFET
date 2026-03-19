@@ -1,7 +1,7 @@
 package com.hrudhaykanth116.tv.ui.screens.search
 
 import androidx.lifecycle.viewModelScope
-import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
+import com.hrudhaykanth116.core.data.RepoResultWrapper
 import com.hrudhaykanth116.core.udf.UDFViewModel
 import com.hrudhaykanth116.core.ui.mappers.mapToUIMessage
 import com.hrudhaykanth116.tv.data.repositories.tv.MyTvListRepository

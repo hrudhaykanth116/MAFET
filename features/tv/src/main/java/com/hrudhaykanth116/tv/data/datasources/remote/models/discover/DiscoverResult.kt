@@ -1,36 +1,36 @@
 package com.hrudhaykanth116.tv.data.datasources.remote.models.discover
 
 import androidx.recyclerview.widget.DiffUtil
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class DiscoverResult(
-    @Json(name = "backdrop_path")
+    @SerialName("backdrop_path")
     val backdropPath: String? = null,
-    @Json(name = "first_air_date")
+    @SerialName("first_air_date")
     val firstAirDate: String? = null,
-    @Json(name = "genre_ids")
+    @SerialName("genre_ids")
     val genreIds: List<Int?>? = null,
-    @Json(name = "id")
+    @SerialName("id")
     val id: Int? = null,
-    @Json(name = "name")
+    @SerialName("name")
     val name: String? = null,
-    @Json(name = "origin_country")
+    @SerialName("origin_country")
     val originCountry: List<String?>? = null,
-    @Json(name = "original_language")
+    @SerialName("original_language")
     val originalLanguage: String? = null,
-    @Json(name = "original_name")
+    @SerialName("original_name")
     val originalName: String? = null,
-    @Json(name = "overview")
+    @SerialName("overview")
     val overview: String? = null,
-    @Json(name = "popularity")
+    @SerialName("popularity")
     val popularity: Double? = null,
-    @Json(name = "poster_path")
+    @SerialName("poster_path")
     val posterPath: String? = null,
-    @Json(name = "vote_average")
+    @SerialName("vote_average")
     val voteAverage: Double? = null,
-    @Json(name = "vote_count")
+    @SerialName("vote_count")
     val voteCount: Int? = null
 ){
 

@@ -1,7 +1,7 @@
 package com.hrudhaykanth116.tv.domaintemp
 
-import com.hrudhaykanth116.core.domain.models.ErrorState
-import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
+import com.hrudhaykanth116.core.data.ErrorState
+import com.hrudhaykanth116.core.data.RepoResultWrapper
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowData
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDataPagedResponse
 import com.hrudhaykanth116.tv.data.datasources.remote.models.tv.CategorisedTvShows

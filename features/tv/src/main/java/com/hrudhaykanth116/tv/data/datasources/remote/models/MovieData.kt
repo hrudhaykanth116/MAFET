@@ -4,36 +4,36 @@ import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import kotlinx.parcelize.Parcelize
 
-@JsonClass(generateAdapter = true)
+@Serializable
 @Parcelize
 @Entity
 data class MovieData(
     @PrimaryKey
     var id: Int?,
     var adult: Boolean?,
-    @Json(name = "backdrop_path")
+    @SerialName("backdrop_path")
     var backdropPath: String?,
-    @Json(name = "genre_ids")
+    @SerialName("genre_ids")
     var genreIds: List<Int>,
-    @Json(name = "original_language")
+    @SerialName("original_language")
     var originalLanguage: String?,
-    @Json(name = "original_title")
+    @SerialName("original_title")
     var originalTitle: String?,
     var overview: String?,
     var popularity: Double,
-    @Json(name = "poster_path")
+    @SerialName("poster_path")
     var posterPath: String?,
-    @Json(name = "release_date")
+    @SerialName("release_date")
     var releaseDate: String?,
     var title: String?,
     var video: Boolean?,
-    @Json(name = "vote_average")
+    @SerialName("vote_average")
     var voteAverage: Double?,
-    @Json(name = "vote_count")
+    @SerialName("vote_count")
     var voteCount: Int?
 ) : Parcelable {
 

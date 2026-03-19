@@ -1,15 +1,15 @@
 package com.hrudhaykanth116.tv.data.datasources.remote.models
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class PopularMoviesResponse(
     var page: Int,
-    @Json(name = "total_results")
+    @SerialName("total_results")
     var totalResults: Int,
-    @Json(name = "total_pages")
+    @SerialName("total_pages")
     var totalPages: Int,
-    @Json(name = "results")
+    @SerialName("results")
     var movieData: List<MovieData>
 )

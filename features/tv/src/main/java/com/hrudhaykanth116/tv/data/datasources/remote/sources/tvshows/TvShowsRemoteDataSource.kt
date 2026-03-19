@@ -1,7 +1,8 @@
 package com.hrudhaykanth116.tv.data.datasources.remote.sources.tvshows
 
-import com.hrudhaykanth116.core.data.models.ApiResultWrapper
-import com.hrudhaykanth116.core.data.remote.NetworkDataSource
+import com.hrudhaykanth116.core.network.NetworkDataSource
+import com.hrudhaykanth116.core.network.models.ApiResultWrapper
+import com.hrudhaykanth116.tv.data.datasources.remote.ktor.TmdbApiServiceKtor
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvCreditsResponse
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvImagesResponse
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvReviewsResponse
@@ -10,63 +11,52 @@ import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDataPagedResp
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDetails
 import com.hrudhaykanth116.tv.data.datasources.remote.models.genres.GetTvGenresResponse
 import com.hrudhaykanth116.tv.data.datasources.remote.models.search.TvShowSearchResults
-import com.hrudhaykanth116.tv.data.datasources.remote.retrofit.RetroApis
-import com.hrudhaykanth116.tv.data.datasources.remote.retrofit.TvApisService
 
 class TvShowsRemoteDataSource(
-    private val retroApis: RetroApis,
-    private val tvApisService: TvApisService,
+    private val tmdbApiService: TmdbApiServiceKtor
 ) : NetworkDataSource() {
 
-    suspend fun fetchTvShowDetails(tvShowId: Int): ApiResultWrapper<TvShowDetails> {
-        return getResult {
-            retroApis.getTvShowDetails(tvShowId)
+    suspend fun fetchTvShowDetails(tvShowId: Int): ApiResultWrapper<TvShowDetails> =
+        getResult {
+            tmdbApiService.getTvShowDetails(tvShowId)
         }
-    }
 
-    suspend fun searchTvShow(query: String): ApiResultWrapper<TvShowSearchResults> {
-        return getResult {
-            retroApis.searchTv(query)
+    suspend fun searchTvShow(query: String): ApiResultWrapper<TvShowSearchResults> =
+        getResult {
+            tmdbApiService.searchTv(query)
         }
-    }
 
-    suspend fun getTvGenres(): ApiResultWrapper<GetTvGenresResponse> {
-        return getResult {
-            retroApis.getTvGenres()
+    suspend fun getTvGenres(): ApiResultWrapper<GetTvGenresResponse> =
+        getResult {
+            tmdbApiService.getTvGenres()
         }
-    }
 
-    suspend fun getTvImages(tvId: Int): ApiResultWrapper<GetTvImagesResponse> {
-        return getResult {
-            tvApisService.getTvShowImages(tvId)
+    suspend fun getTvImages(tvId: Int): ApiResultWrapper<GetTvImagesResponse> =
+        getResult {
+            tmdbApiService.getTvShowImages(tvId)
         }
-    }
 
-    suspend fun getTvShowVideos(tvId: Int): ApiResultWrapper<GetTvVideosResponse> {
-        return getResult {
-            tvApisService.getTvShowVideos(tvId)
+    suspend fun getTvShowVideos(tvId: Int): ApiResultWrapper<GetTvVideosResponse> =
+        getResult {
+            tmdbApiService.getTvShowVideos(tvId)
         }
-    }
 
     suspend fun getTvShowsSimilar(
         tvId: Int,
         pageId: Int,
-    ): ApiResultWrapper<TvShowDataPagedResponse> {
-        return getResult {
-            tvApisService.getTvShowsSimilar(tvId, pageId)
+    ): ApiResultWrapper<TvShowDataPagedResponse> =
+        getResult {
+            tmdbApiService.getTvShowsSimilar(tvId, pageId)
         }
-    }
 
-    suspend fun getTvReviews(tvId: Int, pageId: Int): ApiResultWrapper<GetTvReviewsResponse> {
-        return getResult {
-            tvApisService.getTvReviews(tvId, pageId)
+    suspend fun getTvReviews(tvId: Int, pageId: Int): ApiResultWrapper<GetTvReviewsResponse> =
+        getResult {
+            tmdbApiService.getTvReviews(tvId, pageId)
         }
-    }
 
-    suspend fun getTvCredits(tvId: Int): ApiResultWrapper<GetTvCreditsResponse> {
-        return getResult {
-            tvApisService.getTvCredits(tvId)
+    suspend fun getTvCredits(tvId: Int): ApiResultWrapper<GetTvCreditsResponse> =
+        getResult {
+            tmdbApiService.getTvCredits(tvId)
         }
-    }
 
 }

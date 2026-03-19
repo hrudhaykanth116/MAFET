@@ -1,33 +1,31 @@
 package com.hrudhaykanth116.tv.data.datasources.remote.sources.tvshows
 
-import com.hrudhaykanth116.core.data.models.ApiResultWrapper
-import com.hrudhaykanth116.core.data.remote.NetworkDataSource
+import com.hrudhaykanth116.core.network.NetworkDataSource
+import com.hrudhaykanth116.core.network.models.ApiResultWrapper
+import com.hrudhaykanth116.tv.data.datasources.remote.ktor.TmdbApiServiceKtor
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDataPagedResponse
-import com.hrudhaykanth116.tv.data.datasources.remote.retrofit.RetroApis
 
-class TvRemoteDataSource(private val retroApis: RetroApis): NetworkDataSource() {
+class TvRemoteDataSource(
+    private val tmdbApiService: TmdbApiServiceKtor
+) : NetworkDataSource() {
 
-    suspend fun getPopularTvShows(pageId: Int): ApiResultWrapper<TvShowDataPagedResponse> {
-        return getResult {
-            retroApis.getPopularTvShows(pageId)
+    suspend fun getPopularTvShows(pageId: Int): ApiResultWrapper<TvShowDataPagedResponse> =
+        getResult {
+            tmdbApiService.getPopularTvShows(pageId)
         }
-    }
 
-    suspend fun getTopRatedTvShows(pageId: Int): ApiResultWrapper<TvShowDataPagedResponse> {
-        return getResult {
-            retroApis.getTopRatedTvShows(pageId)
+    suspend fun getTopRatedTvShows(pageId: Int): ApiResultWrapper<TvShowDataPagedResponse> =
+        getResult {
+            tmdbApiService.getTopRatedTvShows(pageId)
         }
-    }
 
-    suspend fun getAiringTodayShows(pageId: Int): ApiResultWrapper<TvShowDataPagedResponse> {
-        return getResult {
-            retroApis.getAiringTodayShows(pageId)
+    suspend fun getAiringTodayShows(pageId: Int): ApiResultWrapper<TvShowDataPagedResponse> =
+        getResult {
+            tmdbApiService.getAiringTodayShows(pageId)
         }
-    }
 
-    suspend fun getTrendingTv(timeWindow: String): ApiResultWrapper<TvShowDataPagedResponse> {
-        return getResult {
-            retroApis.trendingTv(timeWindow)
+    suspend fun getTrendingTv(timeWindow: String): ApiResultWrapper<TvShowDataPagedResponse> =
+        getResult {
+            tmdbApiService.getTrendingTv(timeWindow)
         }
-    }
 }

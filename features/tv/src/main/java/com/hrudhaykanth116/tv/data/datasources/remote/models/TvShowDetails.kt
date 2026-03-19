@@ -3,156 +3,156 @@ package com.hrudhaykanth116.tv.data.datasources.remote.models
 
 import android.os.Parcelable
 import com.hrudhaykanth116.tv.data.datasources.remote.models.genres.Genre
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import kotlinx.parcelize.Parcelize
 
-@JsonClass(generateAdapter = true)
+@Serializable
 @Parcelize
 data class TvShowDetails(
-    @Json(name = "backdrop_path")
+    @SerialName("backdrop_path")
     val backdropPath: String? = "",
-    @Json(name = "created_by")
+    @SerialName("created_by")
     val createdBy: List<CreatedBy?>? = listOf(),
-    @Json(name = "episode_run_time")
+    @SerialName("episode_run_time")
     val episodeRunTime: List<Int?>? = listOf(),
-    @Json(name = "first_air_date")
+    @SerialName("first_air_date")
     val firstAirDate: String? = "",
-    @Json(name = "genres")
+    @SerialName("genres")
     val genres: List<Genre?>? = listOf(),
-    @Json(name = "homepage")
+    @SerialName("homepage")
     val homepage: String? = "",
-    @Json(name = "id")
+    @SerialName("id")
     val id: Int = 0,
-    @Json(name = "in_production")
+    @SerialName("in_production")
     val inProduction: Boolean? = false,
-    @Json(name = "languages")
+    @SerialName("languages")
     val languages: List<String?>? = listOf(),
-    @Json(name = "last_air_date")
+    @SerialName("last_air_date")
     val lastAirDate: String? = "",
-    @Json(name = "last_episode_to_air")
+    @SerialName("last_episode_to_air")
     val lastEpisodeToAir: LastEpisodeToAir? = LastEpisodeToAir(),
-    @Json(name = "name")
+    @SerialName("name")
     val name: String? = "",
-    @Json(name = "networks")
+    @SerialName("networks")
     val networks: List<Network>? = listOf(),
     // this json object yet to be analysed.
-    // @Json(name = "next_episode_to_air")
+    // @SerialName("next_episode_to_air")
     // val nextEpisodeToAir: Any? = Any(),
-    @Json(name = "number_of_episodes")
+    @SerialName("number_of_episodes")
     val numberOfEpisodes: Int? = 0,
-    @Json(name = "number_of_seasons")
+    @SerialName("number_of_seasons")
     val numberOfSeasons: Int? = 0,
-    @Json(name = "origin_country")
+    @SerialName("origin_country")
     val originCountry: List<String?>? = listOf(),
-    @Json(name = "original_language")
+    @SerialName("original_language")
     val originalLanguage: String? = "",
-    @Json(name = "original_name")
+    @SerialName("original_name")
     val originalName: String? = "",
-    @Json(name = "overview")
+    @SerialName("overview")
     val overview: String? = "",
-    @Json(name = "popularity")
+    @SerialName("popularity")
     val popularity: Double? = 0.0,
-    @Json(name = "poster_path")
+    @SerialName("poster_path")
     val posterPath: String? = "",
-    @Json(name = "production_companies")
+    @SerialName("production_companies")
     val productionCompanies: List<ProductionCompany?>? = listOf(),
-    @Json(name = "seasons")
+    @SerialName("seasons")
     val seasons: List<Season?>? = listOf(),
-    @Json(name = "status")
+    @SerialName("status")
     val status: String? = "",
-    @Json(name = "type")
+    @SerialName("type")
     val type: String? = "",
-    @Json(name = "vote_average")
+    @SerialName("vote_average")
     val voteAverage: Double? = 0.0,
-    @Json(name = "vote_count")
+    @SerialName("vote_count")
     val voteCount: Int? = 0
 ): Parcelable {
 
-    @JsonClass(generateAdapter = true)
+    @Serializable
     @Parcelize
     data class CreatedBy(
-        @Json(name = "credit_id")
+        @SerialName("credit_id")
         val creditId: String? = "",
-        @Json(name = "gender")
+        @SerialName("gender")
         val gender: Int? = 0,
-        @Json(name = "id")
+        @SerialName("id")
         val id: Int? = 0,
-        @Json(name = "name")
+        @SerialName("name")
         val name: String? = "",
-        @Json(name = "profile_path")
+        @SerialName("profile_path")
         val profilePath: String? = ""
     ): Parcelable
 
-    @JsonClass(generateAdapter = true)
+    @Serializable
     @Parcelize
     data class LastEpisodeToAir(
-        @Json(name = "air_date")
+        @SerialName("air_date")
         val airDate: String? = "",
-        @Json(name = "episode_number")
+        @SerialName("episode_number")
         val episodeNumber: Int? = 0,
-        @Json(name = "id")
+        @SerialName("id")
         val id: Int? = 0,
-        @Json(name = "name")
+        @SerialName("name")
         val name: String? = "",
-        @Json(name = "overview")
+        @SerialName("overview")
         val overview: String? = "",
-        @Json(name = "production_code")
+        @SerialName("production_code")
         val productionCode: String? = "",
-        @Json(name = "season_number")
+        @SerialName("season_number")
         val seasonNumber: Int? = 0,
-        @Json(name = "show_id")
+        @SerialName("show_id")
         val showId: Int? = 0,
-        @Json(name = "still_path")
+        @SerialName("still_path")
         val stillPath: String? = "",
-        @Json(name = "vote_average")
+        @SerialName("vote_average")
         val voteAverage: Double? = 0.0,
-        @Json(name = "vote_count")
+        @SerialName("vote_count")
         val voteCount: Int? = 0
     ): Parcelable
 
-    @JsonClass(generateAdapter = true)
+    @Serializable
     @Parcelize
     data class Network(
-        @Json(name = "id")
+        @SerialName("id")
         val id: Int? = 0,
-        @Json(name = "logo_path")
+        @SerialName("logo_path")
         val logoPath: String? = "",
-        @Json(name = "name")
+        @SerialName("name")
         val name: String? = "",
-        @Json(name = "origin_country")
+        @SerialName("origin_country")
         val originCountry: String? = ""
     ): Parcelable
 
-    @JsonClass(generateAdapter = true)
+    @Serializable
     @Parcelize
     data class ProductionCompany(
-        @Json(name = "id")
+        @SerialName("id")
         val id: Int? = 0,
-        @Json(name = "logo_path")
+        @SerialName("logo_path")
         val logoPath: String? = "",
-        @Json(name = "name")
+        @SerialName("name")
         val name: String? = "",
-        @Json(name = "origin_country")
+        @SerialName("origin_country")
         val originCountry: String? = ""
     ): Parcelable
 
-    @JsonClass(generateAdapter = true)
+    @Serializable
     @Parcelize
     data class Season(
-        @Json(name = "air_date")
+        @SerialName("air_date")
         val airDate: String? = "",
-        @Json(name = "episode_count")
+        @SerialName("episode_count")
         val episodeCount: Int? = 0,
-        @Json(name = "id")
+        @SerialName("id")
         val id: Int? = 0,
-        @Json(name = "name")
+        @SerialName("name")
         val name: String? = "",
-        @Json(name = "overview")
+        @SerialName("overview")
         val overview: String? = "",
-        @Json(name = "poster_path")
+        @SerialName("poster_path")
         val posterPath: String? = "",
-        @Json(name = "season_number")
+        @SerialName("season_number")
         val seasonNumber: Int? = 0
     ): Parcelable
 }

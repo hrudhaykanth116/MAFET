@@ -3,9 +3,9 @@ package com.hrudhaykanth116.tv.data.datasources.remote.models
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.Serializable
 
-@JsonClass(generateAdapter = true)
+@Serializable
 @Entity
 data class User(
     @PrimaryKey val uid: Int,

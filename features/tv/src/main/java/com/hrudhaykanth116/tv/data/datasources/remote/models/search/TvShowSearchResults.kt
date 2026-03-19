@@ -1,16 +1,16 @@
 package com.hrudhaykanth116.tv.data.datasources.remote.models.search
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowData
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-// @JsonClass(generateAdapter = true)
+// @Serializable
 data class TvShowSearchResults(
-    @Json(name = "page")
+    @SerialName("page")
     val page: Int? = null,
-    @Json(name = "results")
+    @SerialName("results")
     val tvShowDataList: List<TvShowData?>? = null,
-    @Json(name = "total_pages")
+    @SerialName("total_pages")
     val totalPages: Int? = null,
-    @Json(name = "total_results")
+    @SerialName("total_results")
     val totalResults: Int? = null
 )

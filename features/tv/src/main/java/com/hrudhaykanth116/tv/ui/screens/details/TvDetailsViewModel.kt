@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.hrudhaykanth116.core.ui.models.UserMessage
 import com.hrudhaykanth116.core.common.utils.network.NetworkMonitor
 import com.hrudhaykanth116.core.ui.models.toUIText
-import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
+import com.hrudhaykanth116.core.data.RepoResultWrapper
 import com.hrudhaykanth116.core.udf.UIStateViewModel
 import com.hrudhaykanth116.core.ui.mappers.mapToUIMessage
 import com.hrudhaykanth116.core.ui.models.UIState

@@ -1,7 +1,7 @@
 package com.hrudhaykanth116.tv.data.repositories.tv
 
-import com.hrudhaykanth116.core.data.BaseRepository
-import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
+import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.data.repository.BaseRepository
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvCreditsResponse
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvImagesResponse
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvReviewsResponse
@@ -15,7 +15,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 
 class TvShowsRepository(
     private val tvShowsRemoteDataSource: TvShowsRemoteDataSource,
-    private val dispatcher: CoroutineDispatcher,
+    dispatcher: CoroutineDispatcher,
 ) : BaseRepository(dispatcher), ITvShowsRepository {
 
     override suspend fun getTvShowDetails(tvShowId: Int): RepoResultWrapper<TvShowDetails> =

@@ -1,34 +1,34 @@
 package com.hrudhaykanth116.tv.data.datasources.remote.models
 
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class MovieVideosResponse(
-    @Json(name = "id")
+    @SerialName("id")
     val id: Int? = 0,
-    @Json(name = "results")
+    @SerialName("results")
     val results: List<MovieVideo?>? = listOf()
 ){
 
-    @JsonClass(generateAdapter = true)
+    @Serializable
     data class MovieVideo(
-        @Json(name = "id")
+        @SerialName("id")
         val id: String? = "",
-        @Json(name = "iso_3166_1")
+        @SerialName("iso_3166_1")
         val iso31661: String? = "",
-        @Json(name = "iso_639_1")
+        @SerialName("iso_639_1")
         val iso6391: String? = "",
-        @Json(name = "key")
+        @SerialName("key")
         val key: String? = "",
-        @Json(name = "name")
+        @SerialName("name")
         val name: String? = "",
-        @Json(name = "site")
+        @SerialName("site")
         val site: String? = "",
-        @Json(name = "size")
+        @SerialName("size")
         val size: Int? = 0,
-        @Json(name = "type")
+        @SerialName("type")
         val type: String? = ""
     )
 

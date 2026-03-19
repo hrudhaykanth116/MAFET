@@ -1,19 +1,19 @@
 package com.hrudhaykanth116.tv.data.datasources.remote.models
 
 import androidx.recyclerview.widget.DiffUtil
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class GetTvReviewsResponse(
     val id: Int? = null,
     val page: Int? = null,
-    @Json(name = "results")
+    @SerialName("results")
     val reviewDetails: List<ReviewDetails> = listOf(),
     val total_pages: Int? = null,
     val total_results: Int? = null
 ) {
-    @JsonClass(generateAdapter = true)
+    @Serializable
     data class ReviewDetails(
         val author: String? = null,
         val author_details: AuthorDetails? = null,
@@ -23,7 +23,7 @@ data class GetTvReviewsResponse(
         val updated_at: String? = null,
         val url: String? = null
     ) {
-        @JsonClass(generateAdapter = true)
+        @Serializable
         data class AuthorDetails(
             val avatar_path: String? = null,
             val name: String? = null,

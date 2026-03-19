@@ -3,16 +3,14 @@ package com.hrudhaykanth116.tv.data.datasources.remote.sources.tvshows
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.hrudhaykanth116.tv.data.datasources.remote.retrofit.TvApisService
+import com.hrudhaykanth116.tv.data.datasources.remote.ktor.TmdbApiServiceKtor
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvReviewsResponse
-import retrofit2.HttpException
-import retrofit2.Response
 import java.io.IOException
 import kotlin.random.Random
 
 class TvShowReviewsRemoteDataSource constructor(
     private val tvShowId: Int,
-    private val tvApisService: TvApisService,
+    private val tmdbApiService: TmdbApiServiceKtor,
 ) : PagingSource<Int, GetTvReviewsResponse.ReviewDetails>() {
 
     private var initialPageId = 1
@@ -23,30 +21,24 @@ class TvShowReviewsRemoteDataSource constructor(
         Log.d(TAG, "load: currentKey: $currentKey")
 
         return try {
-            val discoverTvShowsResponse: Response<GetTvReviewsResponse> =
-                tvApisService.getTvReviews(tvShowId, currentKey)
+            val result = tmdbApiService.getTvReviews(tvShowId, currentKey)
 
-            val tvShowsList: List<GetTvReviewsResponse.ReviewDetails>? =
-                discoverTvShowsResponse.body()?.reviewDetails
+            if (result.isSuccess) {
+                val reviewDetails = result.getOrNull()?.reviewDetails ?: emptyList()
 
-            // hrudhay_check_list: 29/05/21 Check if the response is successful
-
-            if (tvShowsList.isNullOrEmpty()) {
-                Log.e(TAG, "load: Error: ${discoverTvShowsResponse.message()}")
-                LoadResult.Error(
-                    Exception("Error: ${discoverTvShowsResponse.message()}")
-                )
-            } else {
                 LoadResult.Page(
-                    data = tvShowsList,
+                    data = reviewDetails,
                     prevKey = if (currentKey == initialPageId) null else currentKey - 1,
                     nextKey = currentKey + 1
                 )
+            } else {
+                LoadResult.Error(result.exceptionOrNull() ?: Exception("Unknown error"))
             }
+
         } catch (exception: IOException) {
             Log.e(TAG, "load: ", exception)
             LoadResult.Error(exception)
-        } catch (exception: HttpException) {
+        } catch (exception: Exception) {
             Log.e(TAG, "load: ", exception)
             LoadResult.Error(exception)
         }

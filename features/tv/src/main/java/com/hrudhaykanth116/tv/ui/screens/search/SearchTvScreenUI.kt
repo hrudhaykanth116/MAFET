@@ -47,8 +47,12 @@ internal fun SearchTvScreenUI(
 
     LaunchedEffect(Unit) {
         delay(300)
-        focusRequester.requestFocus()
-        keyboard?.show()
+        try {
+            focusRequester.requestFocus()
+            keyboard?.show()
+        } catch (e: IllegalStateException) {
+            Logger.e("SearchTvScreenUI", "Failed to request focus: ${e.message}")
+        }
     }
 
     Box(

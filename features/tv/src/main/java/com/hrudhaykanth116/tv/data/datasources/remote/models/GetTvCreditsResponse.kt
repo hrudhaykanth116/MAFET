@@ -1,8 +1,8 @@
 package com.hrudhaykanth116.tv.data.datasources.remote.models
 
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.Serializable
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class GetTvCreditsResponse(
     val cast: List<Cast?>? = null,
     val crew: List<Crew?>? = null,
@@ -24,7 +24,7 @@ data class GetTvCreditsResponse(
       "order": 0
     }
      */
-    @JsonClass(generateAdapter = true)
+    @Serializable
     data class Cast(
         val adult: Boolean? = null,
         val character: String? = null,
@@ -54,7 +54,7 @@ data class GetTvCreditsResponse(
         "job": "Executive Producer"
     }
     */
-    @JsonClass(generateAdapter = true)
+    @Serializable
     data class Crew(
         val adult: Boolean? = null,
         val credit_id: String? = null,

@@ -1,6 +1,6 @@
 package com.hrudhaykanth116.core.ui.models
 
-import com.hrudhaykanth116.core.domain.models.ErrorState
+import com.hrudhaykanth116.core.data.ErrorState
 
 /**
  * During loading/error states, this content state may or may not have some data state.

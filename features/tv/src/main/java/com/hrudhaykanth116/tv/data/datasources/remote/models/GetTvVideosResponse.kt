@@ -1,13 +1,13 @@
 package com.hrudhaykanth116.tv.data.datasources.remote.models
 
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.Serializable
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class GetTvVideosResponse(
     val id: Int? = null,
     val results: List<Result?>? = null
 ) {
-    @JsonClass(generateAdapter = true)
+    @Serializable
     data class Result(
         val id: String? = null,
         val iso_3166_1: String? = null,

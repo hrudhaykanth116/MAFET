@@ -24,7 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.hrudhaykanth116.core.R
 import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
-import com.hrudhaykanth116.core.domain.models.ErrorState
+import com.hrudhaykanth116.core.data.ErrorState
 import com.hrudhaykanth116.core.ui.models.ImageHolder
 import com.hrudhaykanth116.core.ui.models.UIText
 import com.hrudhaykanth116.core.ui.models.toUIText

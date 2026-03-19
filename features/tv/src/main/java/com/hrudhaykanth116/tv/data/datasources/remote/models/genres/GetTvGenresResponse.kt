@@ -1,11 +1,11 @@
 package com.hrudhaykanth116.tv.data.datasources.remote.models.genres
 import com.hrudhaykanth116.tv.data.datasources.remote.models.genres.Genre
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class GetTvGenresResponse(
-    @Json(name = "genres")
+    @SerialName("genres")
     val genres: List<Genre>? = null
 )
