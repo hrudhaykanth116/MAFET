@@ -1,10 +1,9 @@
-package com.hrudhaykanth116.core.data.models
+package com.hrudhaykanth116.core.ui.models
 
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
-import com.hrudhaykanth116.core.common.utils.locale.LocaleHelper
-import com.hrudhaykanth116.core.common.utils.string.replaceIfBlank
+import androidx.compose.ui.platform.LocalContext
 
 /**
  * Wrapper class for raw text or string resource. This helps in having single data type when displaying text on UI.
@@ -20,7 +19,7 @@ sealed class UIText {
     fun getText(): String{
         return when(this){
             is StringRes -> {
-                LocaleHelper.getString(stringRes, formatArgs)
+                LocalContext.current.getString(stringRes, formatArgs)
             }
             is Text -> {
                 rawString
@@ -31,7 +30,7 @@ sealed class UIText {
     fun getText(context: Context): String{
         return when(this){
             is StringRes -> {
-                LocaleHelper.getString(context, stringRes, formatArgs)
+                context.getString( stringRes, formatArgs)
             }
             is Text -> {
                 rawString
@@ -47,6 +46,6 @@ fun String.toUIText(): UIText.Text {
 fun Any?.toUIText(ifNullString: String): UIText{
     this ?: return UIText.Text(ifNullString)
 
-    return toString().replaceIfBlank(ifNullString).toUIText()
+    return toString().toUIText()
 
 }

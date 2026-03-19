@@ -63,6 +63,9 @@ android {
 dependencies {
 
     implementation(project(":core"))
+    implementation(project(":core-network"))
+    implementation(project(":core-data"))
+    implementation(project(":core-ui"))
 
     // Koin
     implementation(libs.koin.android)

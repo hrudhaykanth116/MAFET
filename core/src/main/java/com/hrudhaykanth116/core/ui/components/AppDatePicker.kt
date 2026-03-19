@@ -6,7 +6,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
-import com.hrudhaykanth116.core.data.models.toUIText
+import com.hrudhaykanth116.core.ui.models.toUIText
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

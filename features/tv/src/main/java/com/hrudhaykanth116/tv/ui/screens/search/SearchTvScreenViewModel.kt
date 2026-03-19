@@ -1,9 +1,9 @@
 package com.hrudhaykanth116.tv.ui.screens.search
 
 import androidx.lifecycle.viewModelScope
-import com.hrudhaykanth116.core.common.mappers.mapToUIMessage
 import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
 import com.hrudhaykanth116.core.udf.UDFViewModel
+import com.hrudhaykanth116.core.ui.mappers.mapToUIMessage
 import com.hrudhaykanth116.tv.data.repositories.tv.MyTvListRepository
 import com.hrudhaykanth116.tv.domaintemp.AddMyTvUseCase
 import com.hrudhaykanth116.tv.domaintemp.GetTvListByQuery
@@ -95,12 +95,13 @@ class SearchTvScreenViewModel(
 
             when (result) {
                 is RepoResultWrapper.Error -> {
-                    setState {
-                        copy(
-                            userMessage = result.errorState.mapToUIMessage(),
-                            isLoading = false,
-                        )
-                    }
+                    // TODO: kmp set this
+                    // setState {
+                    //     copy(
+                    //         userMessage = result.errorState.mapToUIMessage(),
+                    //         isLoading = false,
+                    //     )
+                    // }
                 }
                 is RepoResultWrapper.Success -> {
                     setState {
@@ -138,11 +139,12 @@ class SearchTvScreenViewModel(
 
             when (result) {
                 is RepoResultWrapper.Error -> {
-                    setState {
-                        copy(
-                            userMessage = result.errorState.mapToUIMessage(),
-                        )
-                    }
+                    // TODO: kmp do this
+                    // setState {
+                    //     copy(
+                    //         userMessage = result.errorState.mapToUIMessage(),
+                    //     )
+                    // }
                 }
 
                 is RepoResultWrapper.Success -> {

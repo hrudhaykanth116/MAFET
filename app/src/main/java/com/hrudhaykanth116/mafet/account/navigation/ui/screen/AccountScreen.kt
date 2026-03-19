@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.hrudhaykanth116.core.ads.BannerAd
 import com.hrudhaykanth116.core.ads.MyAdUnitIds
-import com.hrudhaykanth116.core.data.models.toUIText
+import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.core.ui.components.AppFormButton
 import com.hrudhaykanth116.core.ui.components.AppText
 import com.hrudhaykanth116.core.ui.components.CenteredColumn

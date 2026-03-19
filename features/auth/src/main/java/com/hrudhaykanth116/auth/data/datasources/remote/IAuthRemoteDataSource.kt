@@ -4,8 +4,8 @@ import com.hrudhaykanth116.auth.data.models.LoginRequest
 import com.hrudhaykanth116.auth.data.models.LoginResult
 import com.hrudhaykanth116.auth.data.models.SignUpRequest
 import com.hrudhaykanth116.auth.data.models.SignUpResult
-import com.hrudhaykanth116.core.data.models.ApiResultWrapper
-import com.hrudhaykanth116.core.data.models.UIText
+import com.hrudhaykanth116.core.network.models.ApiResultWrapper
+import com.hrudhaykanth116.core.ui.models.UIText
 
 interface IAuthRemoteDataSource {
 

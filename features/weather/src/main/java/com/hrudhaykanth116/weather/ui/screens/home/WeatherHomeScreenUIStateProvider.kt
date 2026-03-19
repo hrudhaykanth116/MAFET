@@ -1,7 +1,7 @@
 package com.hrudhaykanth116.weather.ui.screens.home
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.hrudhaykanth116.core.data.models.toUIText
+import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.weather.R
 import com.hrudhaykanth116.weather.domain.models.DailyWeatherUIState

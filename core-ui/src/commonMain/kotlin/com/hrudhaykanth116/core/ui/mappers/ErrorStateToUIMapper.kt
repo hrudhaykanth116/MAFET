@@ -1,10 +1,11 @@
-package com.hrudhaykanth116.core.common.mappers
+package com.hrudhaykanth116.core.ui.mappers
 
-import com.hrudhaykanth116.core.common.ui.models.UserMessage
-import com.hrudhaykanth116.core.common.ui.models.toErrorMessage
-import com.hrudhaykanth116.core.data.models.UIText
-import com.hrudhaykanth116.core.data.models.toUIText
-import com.hrudhaykanth116.core.domain.models.ErrorState
+import com.hrudhaykanth116.core.data.ErrorState
+import com.hrudhaykanth116.core.ui.models.UIText
+import com.hrudhaykanth116.core.ui.models.UserMessage
+import com.hrudhaykanth116.core.ui.models.toErrorMessage
+import com.hrudhaykanth116.core.ui.models.toUIText
+
 
 fun ErrorState.mapToUIMessage(): UserMessage.Error {
     return mapToUIText().toErrorMessage()

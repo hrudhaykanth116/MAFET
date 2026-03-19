@@ -1,11 +1,12 @@
-package com.hrudhaykanth116.core.common.utils
+package com.hrudhaykanth116.auth.data
 
 import com.google.android.gms.tasks.Task
-import com.hrudhaykanth116.core.domain.models.ErrorState
-import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
+import com.hrudhaykanth116.core.data.ErrorState
+import com.hrudhaykanth116.core.data.RepoResultWrapper
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
+// TODO: Move this to common place if needed in other modules
 suspend fun <T> Task<T>.await(): RepoResultWrapper<T> {
     return suspendCancellableCoroutine { cont ->
 
@@ -16,7 +17,7 @@ suspend fun <T> Task<T>.await(): RepoResultWrapper<T> {
                         errorState = ErrorState.SomethingWentWrong
                     )
                 )
-            } ?: kotlin.run {
+            } ?: run {
                 cont.resume(RepoResultWrapper.Success(task.result))
             }
         }

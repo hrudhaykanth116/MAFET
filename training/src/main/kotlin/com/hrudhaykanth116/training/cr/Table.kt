@@ -34,14 +34,13 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.hrudhaykanth116.core.R
-import com.hrudhaykanth116.core.data.models.UIText
-import com.hrudhaykanth116.core.data.models.toUIText
+import com.hrudhaykanth116.core.ui.models.UIText
 import com.hrudhaykanth116.core.ui.components.AppFormButton
 import com.hrudhaykanth116.core.ui.components.AppIcon
 import com.hrudhaykanth116.core.ui.components.AppText
 import com.hrudhaykanth116.core.ui.components.HorizontalSpacer
 import com.hrudhaykanth116.core.ui.components.VerticalSpacer
-import com.hrudhaykanth116.core.ui.models.toImageHolder
+import com.hrudhaykanth116.core.ui.models.toUIText
 import kotlin.math.roundToInt
 
 val offset = 250.dp

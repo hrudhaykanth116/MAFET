@@ -1,10 +1,8 @@
 package com.hrudhaykanth116.weather.domain.usecases
 
 import androidx.annotation.DrawableRes
-import com.hrudhaykanth116.core.data.models.UIText
-import com.hrudhaykanth116.core.data.models.toUIText
-import com.hrudhaykanth116.core.ui.models.ImageHolder
-import com.hrudhaykanth116.core.ui.models.toImageHolder
+import com.hrudhaykanth116.core.ui.models.UIText
+import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.weather.R
 
 class GetWeatherElementIconUseCase(

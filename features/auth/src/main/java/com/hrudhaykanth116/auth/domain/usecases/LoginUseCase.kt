@@ -4,9 +4,8 @@ import com.hrudhaykanth116.auth.data.models.LoginRequest
 import com.hrudhaykanth116.auth.data.models.LoginResult
 import com.hrudhaykanth116.auth.data.repository.IAuthRepository
 import com.hrudhaykanth116.auth.domain.models.login.LoginScreenState
-import com.hrudhaykanth116.core.common.mappers.mapToUIText
-import com.hrudhaykanth116.core.data.models.UIText
-import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
+import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.ui.models.UIText
 
 class LoginUseCase(
     private val authRepository: IAuthRepository,
@@ -34,7 +33,8 @@ class LoginUseCase(
         return when (loginResult) {
             is RepoResultWrapper.Error -> {
                 loginUIState.copy(
-                    loginError = loginResult.errorState.mapToUIText()
+                    // TODO: error handling
+                    // loginError = loginResult.errorState.mapToUIText()
                 )
             }
 

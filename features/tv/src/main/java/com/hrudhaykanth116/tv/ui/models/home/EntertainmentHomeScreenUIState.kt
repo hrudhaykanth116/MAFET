@@ -1,6 +1,6 @@
 package com.hrudhaykanth116.tv.ui.models.home
 
-import com.hrudhaykanth116.core.common.ui.models.UserMessage
+import com.hrudhaykanth116.core.ui.models.UserMessage
 
 data class EntertainmentHomeScreenUIState(
     // hrudhay_check_list: Create proper fields with non nullable data

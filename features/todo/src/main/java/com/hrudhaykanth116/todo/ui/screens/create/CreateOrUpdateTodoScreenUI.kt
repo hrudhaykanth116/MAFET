@@ -43,11 +43,11 @@ import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.common.utils.compose.MyPreview
 import com.hrudhaykanth116.core.common.utils.compose.modifier.screenBackground
-import com.hrudhaykanth116.core.data.models.toUIText
 import com.hrudhaykanth116.core.ui.components.AppFormButton
 import com.hrudhaykanth116.core.ui.components.AppInputText
 import com.hrudhaykanth116.core.ui.components.AppToolbar
 import com.hrudhaykanth116.core.ui.models.TextFieldData
+import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.todo.R
 import com.hrudhaykanth116.todo.ui.TodoColors
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateOrUpdateTodoUIState
