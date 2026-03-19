@@ -1,7 +1,7 @@
 package com.hrudhaykanth116.tv.data.repositories.tv
 
-import com.hrudhaykanth116.core.data.BaseRepository
-import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
+import com.hrudhaykanth116.core.data.repository.BaseRepository
+import com.hrudhaykanth116.core.data.RepoResultWrapper
 import com.hrudhaykanth116.tv.data.datasources.local.MyTvListLocalDataSource
 import com.hrudhaykanth116.tv.data.datasources.local.models.MyTvEntity
 import kotlinx.coroutines.Dispatchers

@@ -1,15 +1,15 @@
 package com.hrudhaykanth116.tv.data.datasources.remote.models.genres
 
 import android.os.Parcelable
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import kotlinx.parcelize.Parcelize
 
-@JsonClass(generateAdapter = true)
+@Serializable
 @Parcelize
 data class Genre(
-    @Json(name = "id")
+    @SerialName("id")
     val id: Int? = null,
-    @Json(name = "name")
+    @SerialName("name")
     val name: String? = null
 ): Parcelable

@@ -4,8 +4,7 @@ import androidx.room.Room
 import com.hrudhaykanth116.tv.data.datasources.local.MyTvListLocalDataSource
 import com.hrudhaykanth116.tv.data.datasources.local.room.TvDb
 import com.hrudhaykanth116.tv.data.datasources.local.room.dao.MyTvListDao
-import com.hrudhaykanth116.tv.data.datasources.remote.retrofit.RetroApis
-import com.hrudhaykanth116.tv.data.datasources.remote.retrofit.TvApisService
+import com.hrudhaykanth116.tv.data.datasources.remote.ktor.TmdbApiServiceKtor
 import com.hrudhaykanth116.tv.data.datasources.remote.sources.tvshows.TvRemoteDataSource
 import com.hrudhaykanth116.tv.data.datasources.remote.sources.tvshows.TvShowsRemoteDataSource
 import com.hrudhaykanth116.tv.data.repositories.tv.MyTvListRepository
@@ -25,32 +24,19 @@ import com.hrudhaykanth116.tv.ui.screens.details.TvDetailsViewModel
 import com.hrudhaykanth116.tv.ui.screens.home.EntertainmentHomeScreenViewModel
 import com.hrudhaykanth116.tv.ui.screens.home.UpdateMyTvViewModel
 import com.hrudhaykanth116.tv.ui.screens.search.SearchTvScreenViewModel
-import com.squareup.moshi.Moshi
+import io.ktor.client.HttpClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
-import retrofit2.Retrofit
 
 val tvModule = module {
 
-    // Network - Base URL
-    single(named("tv_baseurl")) { "https://api.themoviedb.org/3/" }
-
-    // Network - Retrofit
-    single(named("tv_retrofit")) {
-        get<Retrofit.Builder>()
-            .baseUrl(get<String>(named("tv_baseurl")))
-            .build()
-    }
-
-    // Network - API Services
-    single<RetroApis> {
-        get<Retrofit>(named("tv_retrofit")).create(RetroApis::class.java)
-    }
-
-    single<TvApisService> {
-        get<Retrofit>(named("tv_retrofit")).create(TvApisService::class.java)
+    // Network - Ktor API Service (uses HttpClient from core-network)
+    single<TmdbApiServiceKtor> {
+        TmdbApiServiceKtor(
+            httpClient = get<HttpClient>()
+        )
     }
 
     // Database
@@ -78,7 +64,7 @@ val tvModule = module {
     }
 
     single<TvShowsRemoteDataSource> {
-        TvShowsRemoteDataSource(get(), get())
+        TvShowsRemoteDataSource(get())
     }
 
     // Repositories
@@ -87,7 +73,7 @@ val tvModule = module {
     }
 
     single<TvRepository> {
-        TvRepository(get())
+        TvRepository(get(), get(named("IoDispatcher")))
     }
 
     single<TvShowsRepository> {

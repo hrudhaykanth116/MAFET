@@ -1,7 +1,7 @@
 package com.hrudhaykanth116.tv.domaintemp
 
 import com.hrudhaykanth116.core.common.utils.string.replaceIfBlank
-import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
+import com.hrudhaykanth116.core.data.RepoResultWrapper
 import com.hrudhaykanth116.tv.data.datasources.local.models.MyTvEntity
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDetails
 import com.hrudhaykanth116.tv.data.repositories.tv.MyTvListRepository

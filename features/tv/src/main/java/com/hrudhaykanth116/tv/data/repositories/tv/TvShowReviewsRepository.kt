@@ -4,14 +4,14 @@ import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.hrudhaykanth116.tv.data.datasources.remote.retrofit.TvApisService
+import com.hrudhaykanth116.tv.data.datasources.remote.ktor.TmdbApiServiceKtor
 import com.hrudhaykanth116.tv.data.datasources.remote.sources.tvshows.TvShowReviewsRemoteDataSource
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvReviewsResponse
 import kotlinx.coroutines.flow.Flow
 
 
 class TvShowReviewsRepository constructor(
-    private val tvApisService: TvApisService
+    private val tmdbApiService: TmdbApiServiceKtor
 ) {
 
     fun getTvShowsPagingData(tvShowId: Int): Flow<PagingData<GetTvReviewsResponse.ReviewDetails>> {
@@ -25,7 +25,7 @@ class TvShowReviewsRepository constructor(
         return Pager(
             config = pagingConfig,
             pagingSourceFactory = {
-                TvShowReviewsRemoteDataSource(tvShowId, tvApisService)
+                TvShowReviewsRemoteDataSource(tvShowId, tmdbApiService)
             }
         ).flow
     }

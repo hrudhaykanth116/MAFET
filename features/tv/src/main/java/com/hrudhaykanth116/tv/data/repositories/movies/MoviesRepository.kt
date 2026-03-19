@@ -1,6 +1,6 @@
 package com.hrudhaykanth116.tv.data.repositories.movies
 
-import com.hrudhaykanth116.core.data.models.ApiResultWrapper
+import com.hrudhaykanth116.core.network.models.ApiResultWrapper
 import com.hrudhaykanth116.tv.data.datasources.remote.models.PopularMoviesResponse
 import com.hrudhaykanth116.tv.data.datasources.remote.sources.movies.MoviesRemoteDataSource
 

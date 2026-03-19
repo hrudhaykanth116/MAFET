@@ -3,16 +3,16 @@ package com.hrudhaykanth116.tv.data.datasources.remote.sources.tvshows
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.hrudhaykanth116.tv.data.datasources.remote.retrofit.RetroApis
+import com.hrudhaykanth116.tv.data.datasources.remote.ktor.TmdbApiServiceKtor
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowData
-import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDataPagedResponse
-import retrofit2.HttpException
-import retrofit2.Response
+
+
+
 import java.io.IOException
 import kotlin.random.Random
 
 class TopRatedTvShowsRemoteDataSource constructor(
-    private val retroApis: RetroApis,
+    private val tmdbApiService: TmdbApiServiceKtor,
 ) : PagingSource<Int, TvShowData>() {
 
     private var initialPageId = Random.nextInt(1, 20)
@@ -23,22 +23,24 @@ class TopRatedTvShowsRemoteDataSource constructor(
         Log.d(TAG, "load: currentKey: $currentKey")
 
         return try {
-            val topRatedTvShowsResponse: Response<TvShowDataPagedResponse> =
-                retroApis.getTopRatedTvShows(currentKey)
-            val tvShowsList = topRatedTvShowsResponse.body()?.tvShowsList ?: listOf()
+            val result = tmdbApiService.getTopRatedTvShows(currentKey)
 
-            // hrudhay_check_list: 29/05/21 Check if the response is successful
+            if (result.isSuccess) {
+                val tvShowsList = result.getOrNull()?.tvShowsList ?: emptyList()
 
-            LoadResult.Page(
-                data = tvShowsList,
-                prevKey = if (currentKey == initialPageId) null else currentKey - 1,
-                nextKey = currentKey + 1
-            )
+                LoadResult.Page(
+                    data = tvShowsList,
+                    prevKey = if (currentKey == initialPageId) null else currentKey - 1,
+                    nextKey = currentKey + 1
+                )
+            } else {
+                LoadResult.Error(result.exceptionOrNull() ?: Exception("Unknown error"))
+            }
 
         } catch (exception: IOException) {
             Log.e(TAG, "load: ", exception)
             LoadResult.Error(exception)
-        } catch (exception: HttpException) {
+        } catch (exception: Exception) {
             Log.e(TAG, "load: ", exception)
             LoadResult.Error(exception)
         }

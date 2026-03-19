@@ -1,6 +1,6 @@
 package com.hrudhaykanth116.tv.domaintemp
 
-import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
+import com.hrudhaykanth116.core.data.RepoResultWrapper
 import com.hrudhaykanth116.tv.data.repositories.tv.MyTvListRepository
 
 class DeleteMyTvUseCase(

@@ -1,15 +1,15 @@
 package com.hrudhaykanth116.tv.data.datasources.remote.models
 
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.Serializable
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class GetTvImagesResponse(
     val backdrops: List<ImageObj?> = listOf(),
     val id: Int? = null,
     val posters: List<ImageObj?> = listOf()
 ) {
 
-    @JsonClass(generateAdapter = true)
+    @Serializable
     data class ImageObj(
         val aspect_ratio: Double? = null,
         val file_path: String? = null,

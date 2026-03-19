@@ -4,15 +4,14 @@ import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.hrudhaykanth116.tv.data.datasources.remote.retrofit.RetroApis
-import com.hrudhaykanth116.tv.data.datasources.remote.sources.tvshows.DiscoverTvShowsRemoteDataSource
+import com.hrudhaykanth116.tv.data.datasources.remote.ktor.TmdbApiServiceKtor
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowData
 import com.hrudhaykanth116.tv.data.datasources.remote.models.genres.Genre
+import com.hrudhaykanth116.tv.data.datasources.remote.sources.tvshows.DiscoverTvShowsRemoteDataSource
 import kotlinx.coroutines.flow.Flow
 
-
-class DiscoverTvShowsRepository constructor(
-    private val retroApis: RetroApis,
+class DiscoverTvShowsRepository(
+    private val tmdbApiService: TmdbApiServiceKtor,
 ) {
 
     fun getTvShowsPagingData(genres: List<Genre>?): Flow<PagingData<TvShowData>> {
@@ -26,7 +25,7 @@ class DiscoverTvShowsRepository constructor(
         return Pager(
             config = pagingConfig,
             pagingSourceFactory = {
-                DiscoverTvShowsRemoteDataSource(retroApis, genres)
+                DiscoverTvShowsRemoteDataSource(tmdbApiService, genres)
             }
         ).flow
     }

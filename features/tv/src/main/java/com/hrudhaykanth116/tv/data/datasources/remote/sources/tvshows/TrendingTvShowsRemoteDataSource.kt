@@ -1,8 +1,8 @@
 package com.hrudhaykanth116.tv.data.datasources.remote.sources.tvshows
 
-import com.hrudhaykanth116.tv.data.datasources.remote.retrofit.RetroApis
+import com.hrudhaykanth116.tv.data.datasources.remote.ktor.TmdbApiServiceKtor
 
 
 class TrendingTvShowsRemoteDataSource constructor(
-    private val retroApis: RetroApis
+    private val tmdbApiService: TmdbApiServiceKtor
 )
