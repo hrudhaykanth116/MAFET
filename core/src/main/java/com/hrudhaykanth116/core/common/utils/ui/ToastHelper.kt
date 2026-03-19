@@ -4,25 +4,23 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.annotation.DrawableRes
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
 import com.hrudhaykanth116.core.R
-import com.hrudhaykanth116.core.common.ui.models.UserMessage
-import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.core.databinding.LayoutCustomToastBinding
+import com.hrudhaykanth116.core.ui.models.UIText
+import com.hrudhaykanth116.core.ui.models.UserMessage
 
 object ToastHelper {
 
     // Can be used to cancel existing toast before showing new toast.
-    fun show(context: Context, msg: com.hrudhaykanth116.core.data.models.UIText) {
+    fun show(context: Context, msg: UIText) {
         val toast = Toast.makeText(context, msg.getText(context), Toast.LENGTH_SHORT)
         toast.show()
     }
 
     fun showWarningToast(
         context: Context,
-        msg: com.hrudhaykanth116.core.data.models.UIText? = null,
+        msg: UIText? = null,
     ) {
         msg ?: return
         val customToast = getCustomToast(
@@ -36,7 +34,7 @@ object ToastHelper {
 
     fun showSuccessToast(
         context: Context,
-        msg: com.hrudhaykanth116.core.data.models.UIText? = null,
+        msg: UIText? = null,
     ) {
         msg ?: return
         val customToast = getCustomToast(
@@ -50,7 +48,7 @@ object ToastHelper {
 
     fun showErrorToast(
         context: Context,
-        msg: com.hrudhaykanth116.core.data.models.UIText? = null
+        msg: UIText? = null
     ) {
         msg ?: return
         showErrorToast(context, msg.getText(context))

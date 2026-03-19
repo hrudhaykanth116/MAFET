@@ -4,7 +4,7 @@ import android.graphics.Bitmap
 import androidx.compose.ui.text.input.TextFieldValue
 import com.hrudhaykanth116.auth.domain.usecases.ValidateEmailUseCase
 import com.hrudhaykanth116.auth.domain.usecases.ValidatePasswordUseCase
-import com.hrudhaykanth116.core.data.models.UIText
+import com.hrudhaykanth116.core.ui.models.UIText
 
 data class SignUpFormState(
     val imgBitmap: Bitmap? = null,

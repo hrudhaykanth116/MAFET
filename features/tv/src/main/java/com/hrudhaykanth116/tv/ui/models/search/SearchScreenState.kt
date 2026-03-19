@@ -1,7 +1,6 @@
 package com.hrudhaykanth116.tv.ui.models.search
 
-import com.hrudhaykanth116.core.common.ui.models.UserMessage
-import com.hrudhaykanth116.core.data.models.UIText
+import com.hrudhaykanth116.core.ui.models.UserMessage
 
 data class SearchScreenState(
     val query: String,

@@ -4,8 +4,8 @@ import com.hrudhaykanth116.auth.data.models.SignUpRequest
 import com.hrudhaykanth116.auth.data.models.SignUpResult
 import com.hrudhaykanth116.auth.data.repository.IAuthRepository
 import com.hrudhaykanth116.auth.domain.models.signup.SignUpFormState
-import com.hrudhaykanth116.core.common.mappers.mapToUIText
-import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
+import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.ui.mappers.mapToUIText
 
 class SignUpUseCase(
     private val validateEmailUseCase: ValidateEmailUseCase,

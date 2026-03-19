@@ -1,6 +1,6 @@
 package com.hrudhaykanth116.weather.domain.models
 
-import com.hrudhaykanth116.core.data.models.UIText
+import com.hrudhaykanth116.core.ui.models.UIText
 
 sealed interface WeatherHomeScreenEvent{
     data object Refresh: WeatherHomeScreenEvent

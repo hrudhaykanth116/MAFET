@@ -1,7 +1,7 @@
 package com.hrudhaykanth116.auth.domain.models.signup
 
 import androidx.compose.ui.text.input.TextFieldValue
-import com.hrudhaykanth116.core.data.models.UIText
+import com.hrudhaykanth116.core.ui.models.UIText
 
 data class SignUpScreenCallbacks(
     val onProfileClicked: () -> Unit = {},

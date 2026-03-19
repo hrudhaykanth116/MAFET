@@ -4,14 +4,12 @@ import com.hrudhaykanth116.core.common.utils.conversions.TemperatureConverter
 import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
 import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils.Companion.DAY_DATE_FORMAT
 import com.hrudhaykanth116.core.common.utils.string.replaceIfBlank
-import com.hrudhaykanth116.core.data.models.toUIText
-import com.hrudhaykanth116.core.ui.models.toImageHolder
+import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.weather.data.models.WeatherForeCastResponse
 import com.hrudhaykanth116.weather.domain.models.DailyWeatherUIState
 import com.hrudhaykanth116.weather.domain.models.WeatherMain
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
 class ParseDailyForeCastDtoUseCase(

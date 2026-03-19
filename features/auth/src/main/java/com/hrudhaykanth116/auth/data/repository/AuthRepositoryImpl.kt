@@ -5,9 +5,9 @@ import com.hrudhaykanth116.auth.data.models.LoginRequest
 import com.hrudhaykanth116.auth.data.models.LoginResult
 import com.hrudhaykanth116.auth.data.models.SignUpRequest
 import com.hrudhaykanth116.auth.data.models.SignUpResult
-import com.hrudhaykanth116.core.data.BaseRepository
-import com.hrudhaykanth116.core.data.models.UIText
-import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
+import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.data.repository.BaseRepository
+import com.hrudhaykanth116.core.ui.models.UIText
 
 class AuthRepositoryImpl(
     private val authRemoteDataSource: IAuthRemoteDataSource,
@@ -27,7 +27,7 @@ class AuthRepositoryImpl(
             authRemoteDataSource.signUp(signUpRequest)
         }
 
-    override suspend fun logout(): RepoResultWrapper<UIText> = getResult {
+    override suspend fun logout() = getResult {
         authRemoteDataSource.logout()
     }
 

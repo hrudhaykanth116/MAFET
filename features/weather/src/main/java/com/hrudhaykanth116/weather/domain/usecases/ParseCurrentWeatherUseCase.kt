@@ -5,7 +5,7 @@ import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
 import com.hrudhaykanth116.core.common.utils.date.toMillis
 import com.hrudhaykanth116.core.common.utils.number.truncateToDecimals
 import com.hrudhaykanth116.core.common.utils.string.replaceIfBlank
-import com.hrudhaykanth116.core.data.models.toUIText
+import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.weather.data.models.WeatherForeCastResponse
 import com.hrudhaykanth116.weather.domain.models.HourlyWeatherUIState
 import com.hrudhaykanth116.weather.domain.models.TodayWeatherUIState

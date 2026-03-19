@@ -64,6 +64,9 @@ dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
 
     api(project(":shared"))
+    api(project(":core-network"))
+    api(project(":core-data"))
+    api(project(":core-ui"))
 
     /************************** Android basic ******************************/
 

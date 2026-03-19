@@ -19,8 +19,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.hrudhaykanth116.core.common.ui.preview.AppPreview
 import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.common.utils.compose.modifier.click.preventBelowTouch
-import com.hrudhaykanth116.core.data.models.UIText
-import com.hrudhaykanth116.core.data.models.toUIText
+import com.hrudhaykanth116.core.ui.models.UIText
 import ir.kaaveh.sdpcompose.ssp
 
 

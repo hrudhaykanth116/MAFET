@@ -1,7 +1,5 @@
 package com.hrudhaykanth116.core.ui.models
 
-import com.hrudhaykanth116.core.common.ui.models.UserMessage
-import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.core.domain.models.ErrorState
 
 /**

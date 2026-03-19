@@ -1,20 +1,15 @@
 package com.hrudhaykanth116.ai.di
 
 import com.hrudhaykanth116.ai.data.datasources.remote.QueryRemoteDataSource
-import com.hrudhaykanth116.ai.data.datasources.remote.retrofit.ChatApiService
 import com.hrudhaykanth116.ai.data.repository.AIQueryRepository
 import com.hrudhaykanth116.ai.domain.usecases.GetQueryResultUseCase
 import com.hrudhaykanth116.ai.ui.screens.query.QueryScreenViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
-import retrofit2.Retrofit
 
 val aiModule = module {
-    single<ChatApiService> {
-        get<Retrofit>().create(ChatApiService::class.java)
-    }
 
-    single { QueryRemoteDataSource(get()) }
+    single { QueryRemoteDataSource() }
 
     single { AIQueryRepository(get()) }
 

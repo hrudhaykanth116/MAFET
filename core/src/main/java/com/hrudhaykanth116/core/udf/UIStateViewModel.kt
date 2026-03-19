@@ -3,8 +3,8 @@ package com.hrudhaykanth116.core.udf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hrudhaykanth116.core.common.utils.network.NetworkMonitor
-import com.hrudhaykanth116.core.data.models.UIText
 import com.hrudhaykanth116.core.ui.models.UIState
+import com.hrudhaykanth116.core.ui.models.UIText
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 

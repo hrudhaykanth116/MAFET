@@ -6,10 +6,9 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.hrudhaykanth116.core.data.models.toUIText
+import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.core.ui.components.AppIcon
 import com.hrudhaykanth116.core.ui.components.AppText
-import com.hrudhaykanth116.core.ui.models.toImageHolder
 import com.hrudhaykanth116.mafet.home.models.HomeBottomNavigationItem
 
 @Composable

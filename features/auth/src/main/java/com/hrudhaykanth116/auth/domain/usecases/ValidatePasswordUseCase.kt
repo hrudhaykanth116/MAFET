@@ -1,6 +1,6 @@
 package com.hrudhaykanth116.auth.domain.usecases
 
-import com.hrudhaykanth116.core.data.models.UIText
+import com.hrudhaykanth116.core.ui.models.UIText
 
 class ValidatePasswordUseCase {
 

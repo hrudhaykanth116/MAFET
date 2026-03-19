@@ -1,8 +1,7 @@
 package com.hrudhaykanth116.weather.domain.models
 
-import com.hrudhaykanth116.core.common.ui.models.UserMessage
 import com.hrudhaykanth116.core.data.ErrorState
-import com.hrudhaykanth116.core.data.models.UIText
+import com.hrudhaykanth116.core.ui.models.UIText
 import com.hrudhaykanth116.weather.domain.usecases.WeatherElement
 import com.hrudhaykanth116.weather.domain.usecases.WeatherElementUIState
 import kotlinx.collections.immutable.ImmutableList

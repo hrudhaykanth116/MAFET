@@ -9,11 +9,11 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
-import com.hrudhaykanth116.core.common.ui.models.UserMessage
+import com.hrudhaykanth116.core.ui.models.UserMessage
 import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.core.common.utils.network.NetworkMonitor
 import com.hrudhaykanth116.core.data.RepoResultWrapper
-import com.hrudhaykanth116.core.data.models.toUIText
+import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.core.udf.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenEffect

@@ -1,7 +1,7 @@
 package com.hrudhaykanth116.auth.domain.models.login
 
 import androidx.compose.ui.text.input.TextFieldValue
-import com.hrudhaykanth116.core.data.models.UIText
+import com.hrudhaykanth116.core.ui.models.UIText
 
 data class LoginScreenState(
     val loginEmail: TextFieldValue = TextFieldValue(),
