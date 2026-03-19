@@ -7,7 +7,7 @@ data class HomeBottomNavigationUIState(
         NavigationItemUIState(HomeBottomNavigationItem.TODO),
         // NavigationItemUIState(HomeBottomNavigationItem.JOURNAL),
         NavigationItemUIState(HomeBottomNavigationItem.WEATHER),
-        // NavigationItemUIState(HomeBottomNavigationItem.MEDIA),
+        NavigationItemUIState(HomeBottomNavigationItem.MEDIA),
         NavigationItemUIState(HomeBottomNavigationItem.ENTERTAINMENT),
         NavigationItemUIState(HomeBottomNavigationItem.ACCOUNT),
     ),

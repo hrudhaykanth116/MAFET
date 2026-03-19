@@ -1,64 +1,88 @@
 package com.hrudhaykanth116.media.data.models
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonElement
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
-
-@JsonClass(generateAdapter = true)
+@Serializable
 data class GetPopularVideosResponse(
+    @SerialName("page")
     val page: Int? = null,
-    @Json(name = "per_page")
+    @SerialName("per_page")
     val perPage: Int? = null,
+    @SerialName("videos")
     val videos: List<Video?>? = null,
-    @Json(name = "total_results")
+    @SerialName("total_results")
     val totalResults: Int? = null,
-    @Json(name = "next_page")
+    @SerialName("next_page")
     val nextPage: String? = null,
+    @SerialName("url")
     val url: String? = null
 ) {
-    @JsonClass(generateAdapter = true)
+    @Serializable
     data class Video(
+        @SerialName("id")
         val id: Int? = null,
+        @SerialName("width")
         val width: Int? = null,
+        @SerialName("height")
         val height: Int? = null,
+        @SerialName("duration")
         val duration: Int? = null,
-        @Json(name = "full_res")
-        val fullRes: Any? = null,
-        val tags: List<Any?>? = null,
+        @SerialName("full_res")
+        val fullRes: JsonElement? = null,
+        @SerialName("tags")
+        val tags: List<JsonElement?>? = null,
+        @SerialName("url")
         val url: String? = null,
+        @SerialName("image")
         val image: String? = null,
-        @Json(name = "avg_color")
-        val avgColor: Any? = null,
+        @SerialName("avg_color")
+        val avgColor: JsonElement? = null,
+        @SerialName("user")
         val user: User? = null,
-        @Json(name = "video_files")
+        @SerialName("video_files")
         val videoFiles: List<VideoFile?>? = null,
-        @Json(name = "video_pictures")
+        @SerialName("video_pictures")
         val videoPictures: List<VideoPicture?>? = null
     ) {
-        @JsonClass(generateAdapter = true)
+        @Serializable
         data class User(
+            @SerialName("id")
             val id: Int? = null,
+            @SerialName("name")
             val name: String? = null,
+            @SerialName("url")
             val url: String? = null
         )
 
-        @JsonClass(generateAdapter = true)
+        @Serializable
         data class VideoFile(
+            @SerialName("id")
             val id: Int? = null,
+            @SerialName("quality")
             val quality: String? = null,
-            @Json(name = "file_type")
+            @SerialName("file_type")
             val fileType: String? = null,
+            @SerialName("width")
             val width: Int? = null,
+            @SerialName("height")
             val height: Int? = null,
+            @SerialName("fps")
             val fps: Double? = null,
+            @SerialName("link")
             val link: String? = null,
+            @SerialName("size")
             val size: Int? = null
         )
 
-        @JsonClass(generateAdapter = true)
+        @Serializable
         data class VideoPicture(
+            @SerialName("id")
             val id: Int? = null,
+            @SerialName("nr")
             val nr: Int? = null,
+            @SerialName("picture")
             val picture: String? = null
         )
     }
