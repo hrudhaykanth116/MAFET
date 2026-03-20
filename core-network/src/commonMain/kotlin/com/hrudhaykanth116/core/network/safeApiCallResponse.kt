@@ -6,7 +6,6 @@ import com.hrudhaykanth116.core.network.models.ApiResultWrapper
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.HttpException
 import kotlin.coroutines.cancellation.CancellationException
 
 suspend inline fun <T> safeApiCallResponse(

@@ -37,7 +37,6 @@ Built with modern Android development tools and libraries, prioritizing, project
 - **[Room](https://developer.android.com/jetpack/androidx/releases/room)** - Local database
 
 **Networking & Images:**
-- **[Retrofit](https://square.github.io/retrofit/)** - Network api calls
 - **[Coil](https://github.com/coil-kt/coil)** - Image loader
 
 **Dependency Injection:**

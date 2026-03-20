@@ -36,14 +36,6 @@ kotlin {
 
             // Ktor Android engine
             implementation(libs.ktor.client.okhttp)
-
-            // Retrofit for Android-specific APIs
-            implementation(libs.retrofit)
-            implementation(libs.converter.moshi)
-            implementation(libs.okhttp)
-            implementation(libs.logging.interceptor)
-            implementation(libs.moshi)
-            implementation(libs.moshi.kotlin)
         }
     }
 }
