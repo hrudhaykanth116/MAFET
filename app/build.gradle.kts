@@ -84,6 +84,8 @@ dependencies {
     implementation(libs.koin.compose.viewmodel)
     implementation(libs.play.services.ads.api)
 
+    // Gson for Kotpref
+    implementation("com.google.code.gson:gson:2.10.1")
 
     implementation(libs.androidx.core.splashscreen)
 

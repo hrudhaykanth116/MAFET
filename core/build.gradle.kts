@@ -190,10 +190,7 @@ dependencies {
     // Network
     api(libs.okhttp)
     api(libs.logging.interceptor)
-    api(libs.retrofit)
-    api(libs.converter.gson)
     // Moshi
-    api(libs.converter.moshi)
     api(libs.moshi)
     api(libs.moshi.kotlin)
     ksp(libs.moshi.kotlin.codegen)
