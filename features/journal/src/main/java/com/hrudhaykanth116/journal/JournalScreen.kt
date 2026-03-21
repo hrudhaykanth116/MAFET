@@ -36,7 +36,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
-import com.hrudhaykanth116.core.common.compose.rememberTextToSpeech
 import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
 import com.hrudhaykanth116.journal.ui.theme.MAFETTheme

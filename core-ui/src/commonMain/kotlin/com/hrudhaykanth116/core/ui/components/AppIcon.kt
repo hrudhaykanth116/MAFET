@@ -1,0 +1,128 @@
+package com.hrudhaykanth116.core.ui.components
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.hrudhaykanth116.core.ui.preview.MyPreview
+import com.hrudhaykanth116.core.ui.models.UIText
+import com.hrudhaykanth116.core.ui.models.toUIText
+import mafet.core_ui.generated.resources.Res
+import mafet.core_ui.generated.resources.profile_icon
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.painterResource
+
+@Composable
+fun AppIcon(
+    resource: DrawableResource,
+    modifier: Modifier = Modifier,
+    iconModifier: Modifier = Modifier,
+    space: Dp = 2.dp,
+    uiText: UIText? = null,
+    isTextFirst: Boolean = false,
+    fontSize: TextUnit = TextUnit.Unspecified,
+    contentDescriptionUIText: UIText? = null,
+    tint: Color = LocalContentColor.current,
+) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+
+        if (isTextFirst) {
+            AppIconText(uiText, fontSize)
+        }
+
+        VerticalSpacer(space)
+
+        Icon(
+            painter = painterResource(resource),
+            contentDescription = contentDescriptionUIText?.getText(),
+            tint = tint,
+            modifier = iconModifier
+        )
+
+        if (!isTextFirst) {
+            AppIconText(uiText, fontSize)
+        }
+    }
+}
+
+// Legacy Android-only overload for backward compatibility
+@Deprecated("Use DrawableResource parameter instead", ReplaceWith("AppIcon(resource, modifier, iconModifier, space, uiText, isTextFirst, fontSize, contentDescriptionUIText, tint)"))
+@Composable
+fun AppIcon(
+    resId: Int,
+    modifier: Modifier = Modifier,
+    iconModifier: Modifier = Modifier,
+    space: Dp = 2.dp,
+    uiText: UIText? = null,
+    isTextFirst: Boolean = false,
+    fontSize: TextUnit = TextUnit.Unspecified,
+    contentDescriptionUIText: UIText? = null,
+    tint: Color = LocalContentColor.current,
+) {
+    // This is kept for backward compatibility with existing Android code
+    // Convert Int to painter - note: this will only work on Android
+    val painter: Painter = androidx.compose.ui.res.painterResource(resId)
+
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        if (isTextFirst) {
+            AppIconText(uiText, fontSize)
+        }
+
+        VerticalSpacer(space)
+
+        Icon(
+            painter = painter,
+            contentDescription = contentDescriptionUIText?.getText(),
+            tint = tint,
+            modifier = iconModifier
+        )
+
+        if (!isTextFirst) {
+            AppIconText(uiText, fontSize)
+        }
+    }
+}
+
+@Composable
+private fun AppIconText(
+    uiText: UIText?,
+    fontSize: TextUnit,
+) {
+    uiText?.let {
+        VerticalSpacer(height = 2.dp)
+        AppText(uiText = uiText, fontSize = fontSize)
+    }
+}
+
+@MyPreview
+@Composable
+fun AppIconPreview() {
+    AppIcon(
+        resource = Res.drawable.profile_icon,
+        uiText = "Profile image".toUIText(),
+        modifier = Modifier
+            .size(200.dp)
+            .background(Color.Green),
+        iconModifier = Modifier.size(100.dp),
+        fontSize = 30.sp
+    )
+}

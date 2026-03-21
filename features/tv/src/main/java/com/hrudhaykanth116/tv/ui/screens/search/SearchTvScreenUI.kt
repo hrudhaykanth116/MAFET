@@ -23,15 +23,17 @@ import com.hrudhaykanth116.tv.ui.models.search.SearchScreenState
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
-import com.hrudhaykanth116.core.common.resources.Dimens
-import com.hrudhaykanth116.core.common.ui.preview.AppPreview
-import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
-import com.hrudhaykanth116.core.common.utils.compose.modifier.screenBackground
+import com.hrudhaykanth116.core.ui.constants.Dimens
+import com.hrudhaykanth116.core.ui.preview.AppPreview
+import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
+import com.hrudhaykanth116.core.ui.modifier.screenBackground
 import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.core.ui.components.AppClickableIcon
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
 import com.hrudhaykanth116.core.ui.components.HorizontalSpacer
 import ir.kaaveh.sdpcompose.ssp
+import mafet.core_ui.generated.resources.Res
+import mafet.core_ui.generated.resources.ic_back
 import kotlinx.coroutines.delay
 
 @Composable
@@ -72,7 +74,7 @@ internal fun SearchTvScreenUI(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 AppClickableIcon(
-                    resId = com.hrudhaykanth116.core.R.drawable.ic_back,
+                    resource = Res.drawable.ic_back,
                     iconColor = Color.White,
                     modifier = Modifier,
                     onClick = {

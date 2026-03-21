@@ -14,11 +14,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.PagerDefaults
 import androidx.compose.foundation.pager.PagerSnapDistance
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.ui.util.lerp
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -29,19 +27,15 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.common.utils.log.Logger
-import com.hrudhaykanth116.core.common.utils.compose.MyPreview
+import com.hrudhaykanth116.core.ui.preview.MyPreview
 import com.hrudhaykanth116.core.common.utils.log.COMPOSE_TAG
 import com.hrudhaykanth116.core.ui.components.AppImage
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
-import com.hrudhaykanth116.core.ui.models.ImageParams
 import com.hrudhaykanth116.core.ui.models.toUrlImageHolder
-import com.hrudhaykanth116.training.data.SAMPLE_IMAGE_URL
 import com.hrudhaykanth116.training.data.getRandomImage
 import kotlinx.coroutines.launch
-import kotlin.math.absoluteValue
 import kotlin.random.Random
 
 private const val PAGES_SIZE = 20

@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.PathParser
-import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
+import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
 
 // https://www.youtube.com/watch?v=7hxd7eOp54U
 

@@ -70,12 +70,6 @@ fun GameCharacterMovement() {
     val iconSize = 50.dp
     val iconSizePx = with(density) { iconSize.toPx() } // Assuming your Icon is 50.dp
 
-    val screenWidthPx = LocalWindowInfo.current.containerSize.width
-    val screenHeightPx = LocalWindowInfo.current.containerSize.height
-
-    // val screenWidthPx = with(density) { config.screenWidthDp.dp.toPx() }
-    // val screenHeightPx = with(density) { config.screenHeightDp.dp.toPx() }
-
     BoxWithConstraints(
         modifier = Modifier
             .fillMaxSize()
@@ -83,6 +77,8 @@ fun GameCharacterMovement() {
     ) {
 
         val boxWithConstraintsScope = this
+        val screenWidthPx = with(density) { maxWidth.toPx() }
+        val screenHeightPx = with(density) { maxHeight.toPx() }
 
         Icon(
             Icons.Filled.Face,

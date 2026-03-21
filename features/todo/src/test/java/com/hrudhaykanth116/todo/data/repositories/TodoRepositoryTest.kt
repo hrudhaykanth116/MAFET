@@ -1,8 +1,8 @@
 package com.hrudhaykanth116.todo.data.repositories
 
 import com.hrudhaykanth116.core.common.time.TimeProvider
-import com.hrudhaykanth116.core.common.utils.network.NetworkMonitor
-import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
+import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.ui.NetworkMonitor
 import com.hrudhaykanth116.todo.data.data_source.local.FakeLocal
 import com.hrudhaykanth116.todo.data.local.room.tables.TodoTaskDbEntity
 import com.hrudhaykanth116.todo.domain.model.TaskCategory

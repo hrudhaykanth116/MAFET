@@ -3,11 +3,10 @@ package com.hrudhaykanth116.tv.ui.screens.details
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.hrudhaykanth116.core.ui.models.UserMessage
-import com.hrudhaykanth116.core.common.utils.network.NetworkMonitor
+import com.hrudhaykanth116.core.ui.NetworkMonitor
 import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.core.data.RepoResultWrapper
-import com.hrudhaykanth116.core.udf.UIStateViewModel
-import com.hrudhaykanth116.core.ui.mappers.mapToUIMessage
+import com.hrudhaykanth116.core.ui.viewmodels.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDetails
 import com.hrudhaykanth116.tv.domaintemp.AddMyTvUseCase

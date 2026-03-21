@@ -1,6 +1,6 @@
 package com.hrudhaykanth116.mafet.home
 
-import com.hrudhaykanth116.core.ui.StatefulViewModel
+import com.hrudhaykanth116.core.ui.viewmodels.StatefulViewModel
 import com.hrudhaykanth116.mafet.home.models.HomeScreenEffect
 import com.hrudhaykanth116.mafet.home.models.HomeScreenEvent
 import com.hrudhaykanth116.mafet.home.models.HomeScreenState

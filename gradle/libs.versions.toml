@@ -1,6 +1,7 @@
 [versions]
 compileSdk = "36"
 coreSplashscreen = "1.0.1"
+jetbrainsCompose = "1.7.3"  # Stable and tested version
 kotlinxCoroutinesTest = "1.10.2"
 kotlinxDatetime = "0.7.1"
 media3 = "1.7.1"
@@ -22,7 +23,7 @@ koinCompose = "4.0.0"
 activityCompose = "1.10.1"
 androidGradlePlugin = "8.11.0"
 androidx-appcompat = "1.7.1"
-androidx-compose-bom = "2025.06.01"
+androidx-compose-bom = "2024.12.01"  # Using stable BOM instead of future 2025.06.01
 androidx-corektx = "1.16.0"
 androidx-lifecycle = "2.9.1"
 androidx-navigation = "2.9.0"
@@ -204,6 +205,7 @@ android-library = { id = "com.android.library", version.ref = "androidGradlePlug
 dynamic-feature = { id = "com.android.dynamic-feature", version.ref = "androidGradlePlugin" }
 android-test = { id = "com.android.test", version.ref = "androidGradlePlugin" }
 compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "jetbrainsCompose" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }

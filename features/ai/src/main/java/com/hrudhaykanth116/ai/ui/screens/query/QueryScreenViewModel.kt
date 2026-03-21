@@ -7,7 +7,7 @@ import com.google.firebase.vertexai.vertexAI
 import com.hrudhaykanth116.ai.ui.screens.models.QueryScreenEffect
 import com.hrudhaykanth116.ai.ui.screens.models.QueryScreenEvent
 import com.hrudhaykanth116.ai.ui.screens.models.QueryScreenUIState
-import com.hrudhaykanth116.core.udf.UDFViewModel
+import com.hrudhaykanth116.core.ui.viewmodels.UDFViewModel
 import kotlinx.coroutines.launch
 
 class QueryScreenViewModel: UDFViewModel<QueryScreenUIState, QueryScreenEvent, QueryScreenEffect>(QueryScreenUIState()) {

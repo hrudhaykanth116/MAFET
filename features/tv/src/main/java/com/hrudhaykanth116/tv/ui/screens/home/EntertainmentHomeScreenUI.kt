@@ -50,7 +50,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.koin.androidx.compose.koinViewModel
-import com.hrudhaykanth116.core.common.utils.compose.modifier.screenBackground
+import com.hrudhaykanth116.core.ui.modifier.screenBackground
 import com.hrudhaykanth116.core.ui.models.UIText
 import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.core.ui.components.AppToolbar

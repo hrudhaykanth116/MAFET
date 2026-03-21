@@ -3,7 +3,7 @@ package com.hrudhaykanth116.tv.ui.mappers
 import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
 import com.hrudhaykanth116.core.ui.models.UIText
 import com.hrudhaykanth116.core.ui.models.toUIText
-import com.hrudhaykanth116.core.ui.models.constants.UIDefaultValues
+import com.hrudhaykanth116.core.ui.constants.UIDefaultValues
 import com.hrudhaykanth116.core.ui.models.toUrlImageHolder
 import com.hrudhaykanth116.tv.domaintemp.models.MyTvDomainModel
 import com.hrudhaykanth116.tv.ui.models.home.MyTvUIState

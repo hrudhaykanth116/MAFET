@@ -17,11 +17,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import com.hrudhaykanth116.core.ui.components.ApiErrorScreen
 import com.hrudhaykanth116.core.ui.models.UserMessage
-import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
-import com.hrudhaykanth116.core.common.utils.compose.MyPreview
-import com.hrudhaykanth116.core.common.utils.compose.modifier.screenBackground
-import com.hrudhaykanth116.core.ui.components.ApiErrorScreenNew
+import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
+import com.hrudhaykanth116.core.ui.preview.MyPreview
+import com.hrudhaykanth116.core.ui.modifier.screenBackground
 import com.hrudhaykanth116.core.ui.components.AppProgressBar
 import com.hrudhaykanth116.core.ui.components.VerticalSpacer
 import com.hrudhaykanth116.core.ui.models.UIState
@@ -132,7 +132,7 @@ private fun Content(
             VerticalSpacer()
 
             if (state.errorState != null) {
-                ApiErrorScreenNew(
+                ApiErrorScreen(
                     onRetry = onRetry,
                     apiError = state.errorState,
                     modifier = Modifier

@@ -52,9 +52,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.hrudhaykanth116.core.ui.models.ImageHolder
 import com.hrudhaykanth116.core.ui.models.toUIText
-import com.hrudhaykanth116.core.R as CoreR
 import com.hrudhaykanth116.core.ui.models.toImageHolder
+import mafet.core_ui.generated.resources.Res
+import mafet.core_ui.generated.resources.ic_tv
 import com.hrudhaykanth116.tv.ui.TvUIDimens
 import com.hrudhaykanth116.tv.ui.models.home.MyTvUIState
 
@@ -114,7 +116,7 @@ fun MyTvListItemUI(
                         color = MaterialTheme.colorScheme.surfaceVariant
                     ) {
                         when (val imageHolder = state.imgSource) {
-                            is com.hrudhaykanth116.core.ui.models.ImageHolder.Url -> {
+                            is ImageHolder.Url -> {
                                 AsyncImage(
                                     model = imageHolder.url,
                                     contentDescription = state.name.getText(),
@@ -122,9 +124,9 @@ fun MyTvListItemUI(
                                     modifier = Modifier.fillMaxSize()
                                 )
                             }
-                            is com.hrudhaykanth116.core.ui.models.ImageHolder.LocalDrawableResource -> {
+                            is ImageHolder.LocalDrawableResource -> {
                                 Icon(
-                                    painter = androidx.compose.ui.res.painterResource(imageHolder.resId),
+                                    painter = org.jetbrains.compose.resources.painterResource(imageHolder.res),
                                     contentDescription = state.name.getText(),
                                     modifier = Modifier
                                         .fillMaxSize()
@@ -322,7 +324,7 @@ fun MyTvListItemUIPreview() {
             name = "Suits".toUIText(),
             lastWatchedSeasonEpisode = "S09E04".toUIText(),
             lastWatchedTime = 10000145,
-            imgSource = CoreR.drawable.ic_tv.toImageHolder(),
+            imgSource = Res.drawable.ic_tv.toImageHolder(),
             lastWatchedSeason = 5,
             lastWatchedEpisode = 6,
             lastWatchedTimeUIText = "10/Oct".toUIText(),

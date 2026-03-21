@@ -21,7 +21,7 @@ import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
+import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.ui.components.VerticalSpacer
 
 // https://medium.com/@kappdev/inner-shadow-in-jetpack-compose-d80dcd56f6cf

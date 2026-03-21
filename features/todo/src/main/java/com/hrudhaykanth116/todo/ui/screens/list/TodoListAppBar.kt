@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -20,7 +19,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -50,7 +48,12 @@ import com.hrudhaykanth116.todo.R
 import com.hrudhaykanth116.todo.ui.TodoUIDimens
 import com.hrudhaykanth116.todo.ui.models.TodoListScreenSortItem
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenMenuItem
-import com.hrudhaykanth116.core.R as CoreR
+import mafet.core_ui.generated.resources.Res
+import mafet.core_ui.generated.resources.ic_check
+import mafet.core_ui.generated.resources.ic_filter
+import mafet.core_ui.generated.resources.ic_menu_vertical
+import mafet.core_ui.generated.resources.ic_search
+import mafet.core_ui.generated.resources.ic_sort_vertical
 
 @Composable
 fun TodoListAppBar(
@@ -94,7 +97,7 @@ fun TodoListAppBar(
                 actions = {
                     // Search icon
                     AppClickableIcon(
-                        resId = CoreR.drawable.ic_search,
+                        resource = Res.drawable.ic_search,
                         onClick = todoListAppBarCallbacks.onSearchIconClicked,
                         iconColor = iconColor
                     )
@@ -102,7 +105,7 @@ fun TodoListAppBar(
                     // Filter by category
                     Box(modifier = Modifier) {
                         AppClickableIcon(
-                            resId = CoreR.drawable.ic_filter,
+                            resource = Res.drawable.ic_filter,
                             onClick = todoListAppBarCallbacks.onCategoriesIconClicked,
                             iconColor = iconColor
                         )
@@ -123,7 +126,7 @@ fun TodoListAppBar(
                                     trailingIcon = {
                                         if (it == selectedFilter) {
                                             AppIcon(
-                                                resId = CoreR.drawable.ic_check,
+                                                resource = Res.drawable.ic_check,
                                                 tint = Color(0xFF10B981)
                                             )
                                         }
@@ -147,7 +150,7 @@ fun TodoListAppBar(
                     // Sort
                     Box(modifier = Modifier) {
                         AppClickableIcon(
-                            resId = CoreR.drawable.ic_sort_vertical,
+                            resource = Res.drawable.ic_sort_vertical,
                             onClick = todoListAppBarCallbacks.onSortIconClicked,
                             iconColor = iconColor
                         )
@@ -176,7 +179,7 @@ fun TodoListAppBar(
                     // Menu
                     Box(modifier = Modifier) {
                         AppClickableIcon(
-                            resId = CoreR.drawable.ic_menu_vertical,
+                            resource = Res.drawable.ic_menu_vertical,
                             onClick = todoListAppBarCallbacks.onMenuItemClicked,
                             iconColor = iconColor
                         )

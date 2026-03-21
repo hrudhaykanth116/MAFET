@@ -3,9 +3,8 @@ package com.hrudhaykanth116.tv.ui.screens.home
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
-import com.hrudhaykanth116.core.common.utils.network.NetworkMonitor
-import com.hrudhaykanth116.core.udf.UDFViewModel
-import com.hrudhaykanth116.core.udf.UIStateViewModel
+import com.hrudhaykanth116.core.ui.NetworkMonitor
+import com.hrudhaykanth116.core.ui.viewmodels.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.tv.domaintemp.DeleteMyTvUseCase
 import com.hrudhaykanth116.tv.domaintemp.GetMyTvListUseCase

@@ -22,7 +22,6 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarColors
@@ -41,15 +40,17 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import org.jetbrains.compose.resources.painterResource
+import mafet.core_ui.generated.resources.Res
+import mafet.core_ui.generated.resources.img_newyork
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
-import com.hrudhaykanth116.core.common.ui.preview.AppPreview
+import com.hrudhaykanth116.core.ui.preview.AppPreview
 import com.hrudhaykanth116.training.R
 
 private val headerHeight = 250.dp
@@ -117,7 +118,7 @@ private fun Header(
             }
     ) {
         Image(
-            painter = painterResource(id = com.hrudhaykanth116.core.R.drawable.img_newyork),
+            painter = painterResource(Res.drawable.img_newyork),
             contentDescription = "",
             contentScale = ContentScale.FillBounds,
             modifier = Modifier

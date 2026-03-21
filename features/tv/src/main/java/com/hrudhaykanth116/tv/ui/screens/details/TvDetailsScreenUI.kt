@@ -1,17 +1,12 @@
 package com.hrudhaykanth116.tv.ui.screens.details
 
-import android.R.attr.contentDescription
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,16 +14,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.intl.Locale
-import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.hrudhaykanth116.core.R
-import com.hrudhaykanth116.core.common.ui.preview.AppPreview
-import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
-import com.hrudhaykanth116.core.common.utils.compose.modifier.gradientBackground
-import com.hrudhaykanth116.core.ui.components.AppIcon
+import com.hrudhaykanth116.core.ui.preview.AppPreview
+import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
+import com.hrudhaykanth116.core.ui.modifier.gradientBackground
 import com.hrudhaykanth116.core.ui.components.AppRoundedIcon
 import com.hrudhaykanth116.core.ui.components.FancyChipsFlow
 import com.hrudhaykanth116.core.ui.components.HorizontalSpacer
@@ -37,6 +27,9 @@ import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDetails
 import com.hrudhaykanth116.tv.data.datasources.remote.models.genres.Genre
 import ir.kaaveh.sdpcompose.sdp
 import ir.kaaveh.sdpcompose.ssp
+import mafet.core_ui.generated.resources.Res
+import mafet.core_ui.generated.resources.ic_back
+import mafet.core_ui.generated.resources.ic_bookmark
 
 @Composable
 fun TvDetailsScreenUI(
@@ -200,7 +193,7 @@ fun TvDetailsScreenUI(
         }
 
         AppRoundedIcon(
-            icon = R.drawable.ic_back,
+            icon = Res.drawable.ic_back,
             tint = Color.White,
             iconSize = 30.sdp,
             modifier = Modifier
@@ -212,7 +205,7 @@ fun TvDetailsScreenUI(
         )
 
         AppRoundedIcon(
-            icon = R.drawable.ic_bookmark,
+            icon = Res.drawable.ic_bookmark,
             tint = Color.White,
             iconSize = 30.sdp,
             modifier = Modifier

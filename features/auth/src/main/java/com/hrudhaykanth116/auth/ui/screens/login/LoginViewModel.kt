@@ -5,7 +5,7 @@ import com.hrudhaykanth116.auth.domain.models.login.LoginScreenEffect
 import com.hrudhaykanth116.auth.domain.models.login.LoginScreenEvent
 import com.hrudhaykanth116.auth.domain.models.login.LoginScreenState
 import com.hrudhaykanth116.auth.domain.usecases.LoginUseCase
-import com.hrudhaykanth116.core.udf.UDFViewModel
+import com.hrudhaykanth116.core.ui.viewmodels.UDFViewModel
 import kotlinx.coroutines.launch
 
 class LoginViewModel(

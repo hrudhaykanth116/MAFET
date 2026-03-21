@@ -18,8 +18,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.hrudhaykanth116.core.common.resources.Dimens
-import com.hrudhaykanth116.core.common.utils.compose.MyPreview
+import com.hrudhaykanth116.core.ui.constants.Dimens
+import com.hrudhaykanth116.core.ui.preview.MyPreview
 import com.hrudhaykanth116.core.ui.models.UIText
 import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.core.ui.components.AppIcon

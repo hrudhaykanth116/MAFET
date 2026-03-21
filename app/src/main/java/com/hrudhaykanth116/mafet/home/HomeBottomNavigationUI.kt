@@ -34,7 +34,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.hrudhaykanth116.core.common.resources.Dimens
+import com.hrudhaykanth116.core.ui.constants.Dimens
 import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.core.ui.components.AppIcon
 import com.hrudhaykanth116.core.ui.components.AppText
@@ -173,7 +173,7 @@ private fun AppBottomBarItem(
                 }
         ) {
             AppIcon(
-                resId = navigationItem.homeBottomNavigationItem.iconDrawable,
+                resource = navigationItem.homeBottomNavigationItem.iconDrawable,
                 modifier = Modifier.size(iconSize),
                 tint = iconTint
             )

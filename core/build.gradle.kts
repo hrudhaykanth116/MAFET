@@ -63,7 +63,7 @@ android {
 dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
 
-    api(project(":shared"))
+    api(project(":core-common"))
     api(project(":core-network"))
     api(project(":core-data"))
     api(project(":core-ui"))
@@ -98,7 +98,7 @@ dependencies {
     api(libs.androidx.ui.tooling.preview)
     debugImplementation(libs.androidx.ui.tooling)
     api(libs.androidx.ui.util)
-    api(libs.androidx.foundation)
+    api(libs.androidx.foundation)  // Android Compose Foundation (core is Android-only module)
 
     // api("androidx.compose.compiler:compiler:2.1.10")
 

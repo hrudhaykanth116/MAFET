@@ -1,17 +1,24 @@
 package com.hrudhaykanth116.mafet.home.models
 
-import com.hrudhaykanth116.core.R as CoreR
+import org.jetbrains.compose.resources.DrawableResource
+import mafet.core_ui.generated.resources.Res
+import mafet.core_ui.generated.resources.ic_clipboard
+import mafet.core_ui.generated.resources.ic_diary
+import mafet.core_ui.generated.resources.ic_weather
+import mafet.core_ui.generated.resources.ic_tv
+import mafet.core_ui.generated.resources.ic_pictures
+import mafet.core_ui.generated.resources.ic_account
 
 
-enum class HomeBottomNavigationItem(val displayName: String,val iconDrawable: Int, val route: String) {
+enum class HomeBottomNavigationItem(val displayName: String,val iconDrawable: DrawableResource, val route: String) {
 
     // Create/update pending tasks with priority, target time
-    TODO("Todo", CoreR.drawable.ic_clipboard, HomeRoute.Todo.route),
+    TODO("Todo", Res.drawable.ic_clipboard, HomeRoute.Todo.route),
 
-    JOURNAL("Journal", CoreR.drawable.ic_diary, HomeRoute.Journal.route),
+    JOURNAL("Journal", Res.drawable.ic_diary, HomeRoute.Journal.route),
 
     // Shows today's weather for a search field and 7 days forecast.
-    WEATHER("Weather", CoreR.drawable.ic_weather, HomeRoute.Weather.route),
+    WEATHER("Weather", Res.drawable.ic_weather, HomeRoute.Weather.route),
 
     // Contains subscriptions and coupons for anything
     // SUBSCRIPTIONS("Subscriptions", CoreR.drawable.ic_weather, HomeRoute.Weather.route),
@@ -23,12 +30,12 @@ enum class HomeBottomNavigationItem(val displayName: String,val iconDrawable: In
     // Dictionary("Dictionary", CoreR.drawable.ic_dictionary, HomeRoute.Dictionary.route),
 
     // Track tv shows, episodes, fav scene/dialog
-    ENTERTAINMENT("Tv", CoreR.drawable.ic_tv, HomeRoute.Entertainment.route),
+    ENTERTAINMENT("Tv", Res.drawable.ic_tv, HomeRoute.Entertainment.route),
 
     // Images and Videos
-    MEDIA("Media", CoreR.drawable.ic_pictures, HomeRoute.Media.route),
+    MEDIA("Media", Res.drawable.ic_pictures, HomeRoute.Media.route),
 
     // Logout, App github link, Credits
-    ACCOUNT("Account", CoreR.drawable.ic_account, HomeRoute.Account.route),
+    ACCOUNT("Account", Res.drawable.ic_account, HomeRoute.Account.route),
 
 }

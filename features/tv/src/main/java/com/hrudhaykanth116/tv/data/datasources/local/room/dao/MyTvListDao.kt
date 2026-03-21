@@ -2,7 +2,7 @@ package com.hrudhaykanth116.tv.data.datasources.local.room.dao
 
 import androidx.room.Dao
 import androidx.room.Query
-import com.hrudhaykanth116.core.data.local.db.BaseDao
+import com.hrudhaykanth116.core.data.local.room.BaseDao
 import com.hrudhaykanth116.tv.data.datasources.local.models.MyTvEntity
 import kotlinx.coroutines.flow.Flow
 

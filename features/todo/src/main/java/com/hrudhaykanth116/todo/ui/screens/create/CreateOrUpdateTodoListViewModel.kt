@@ -3,10 +3,10 @@ package com.hrudhaykanth116.todo.ui.screens.create
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.viewModelScope
 import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
-import com.hrudhaykanth116.core.common.utils.network.NetworkMonitor
+import com.hrudhaykanth116.core.ui.NetworkMonitor
 import com.hrudhaykanth116.core.common.utils.random.UniqueIdGenerator
-import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
-import com.hrudhaykanth116.core.udf.UIStateViewModel
+import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.ui.viewmodels.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.core.ui.models.toErrorMessage
 import com.hrudhaykanth116.core.ui.models.toSuccessMessage
