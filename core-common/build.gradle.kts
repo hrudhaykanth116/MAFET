@@ -35,6 +35,9 @@ kotlin {
 
             // Koin for DI
             implementation(libs.koin.core)
+
+            // Kermit Logger
+            implementation(libs.kermit)
         }
 
         androidMain.dependencies {

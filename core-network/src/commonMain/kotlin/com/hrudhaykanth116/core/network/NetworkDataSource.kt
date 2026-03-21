@@ -1,6 +1,6 @@
 package com.hrudhaykanth116.core.network
 
-import android.util.Log
+import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.core.network.models.ApiError
 import com.hrudhaykanth116.core.network.models.ApiResultWrapper
 import kotlinx.coroutines.CoroutineDispatcher
@@ -16,7 +16,7 @@ abstract class NetworkDataSource constructor(
         if (true) {
             return safeApiCallResponse(dispatcher = dispatcher, apiCall = call)
         } else {
-            Log.e(TAG, "getResult: No internet")
+            Logger.e(TAG, "getResult: No internet")
             return ApiResultWrapper.Error(apiError = ApiError.NoInternetError)
         }
     }
