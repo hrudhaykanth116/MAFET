@@ -13,6 +13,12 @@ kotlin {
         }
     }
 
+    jvm("desktop") {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+        }
+    }
+
     sourceSets {
         commonMain.dependencies {
             implementation(libs.kotlinx.coroutines.android)
@@ -36,6 +42,13 @@ kotlin {
 
             // Ktor Android engine
             implementation(libs.ktor.client.okhttp)
+        }
+
+        val desktopMain by getting {
+            dependencies {
+                // Ktor Desktop engine (JVM)
+                implementation(libs.ktor.client.okhttp)
+            }
         }
     }
 }

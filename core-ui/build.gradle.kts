@@ -20,6 +20,12 @@ kotlin {
         }
     }
 
+    jvm("desktop") {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+        }
+    }
+
     sourceSets.configureEach {
         languageSettings.optIn("org.jetbrains.compose.resources.ExperimentalResourceApi")
     }
@@ -98,6 +104,14 @@ kotlin {
 
             // Material Design Components (for legacy views if needed)
             implementation(libs.google.android.material)
+        }
+
+        val desktopMain by getting {
+            dependencies {
+                // Desktop Compose
+                implementation(compose.desktop.currentOs)
+                implementation(compose.material3)
+            }
         }
     }
 }
