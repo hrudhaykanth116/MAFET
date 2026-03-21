@@ -21,6 +21,9 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            // Core modules
+            implementation(project(":core-common"))
+
             implementation(libs.kotlinx.coroutines.android)
             implementation(libs.kotlinx.serialization.json)
 

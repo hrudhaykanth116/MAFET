@@ -30,7 +30,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.core.ui.preview.MyPreview
-import com.hrudhaykanth116.core.common.utils.log.COMPOSE_TAG
 import com.hrudhaykanth116.core.ui.components.AppImage
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
 import com.hrudhaykanth116.core.ui.models.toUrlImageHolder
@@ -43,6 +42,7 @@ private const val PRE_LOAD_SIZE = 20
 private const val FLING_SIZE = 3
 val randomImageIdOffset = Random.nextInt(200, 250)
 
+private const val TAG = "Pager Basic"
 
 @OptIn(ExperimentalFoundationApi::class)
 @MyPreview
@@ -68,19 +68,19 @@ fun MyPagerContainer() {
 
     LaunchedEffect(pagerState) {
         snapshotFlow { pagerState.currentPage }.collect { page ->
-            Logger.d(COMPOSE_TAG, "MyPagerContainer: currentPage: $page")
+            Logger.d(TAG, "MyPagerContainer: currentPage: $page")
         }
     }
 
     LaunchedEffect(pagerState) {
         snapshotFlow { pagerState.settledPage }.collect { page ->
-            Logger.d(COMPOSE_TAG, "MyPagerContainer: settledPage: $page")
+            Logger.d(TAG, "MyPagerContainer: settledPage: $page")
         }
     }
 
     LaunchedEffect(pagerState) {
         snapshotFlow { pagerState.targetPage }.collect { page ->
-            Logger.d(COMPOSE_TAG, "MyPagerContainer: targetPage: $page")
+            Logger.d(TAG, "MyPagerContainer: targetPage: $page")
         }
     }
 

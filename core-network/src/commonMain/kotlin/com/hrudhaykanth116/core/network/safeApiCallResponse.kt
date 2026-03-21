@@ -1,6 +1,6 @@
 package com.hrudhaykanth116.core.network
 
-import android.util.Log
+import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.core.network.models.ApiError
 import com.hrudhaykanth116.core.network.models.ApiResultWrapper
 import kotlinx.coroutines.CoroutineDispatcher
@@ -17,7 +17,7 @@ suspend inline fun <T> safeApiCallResponse(
         if (response.isSuccess) {
             val body = response.getOrThrow()
             if (body != null) return@withContext ApiResultWrapper.Success(body)
-            Log.e("safeApiCallResponse", "Response body is null")
+            Logger.e("safeApiCallResponse", "Response body is null")
             // val raw = response.errorBody()
             // return@withContext ApiResultWrapper.Error(
             //     ApiError.NullResponseError(
@@ -27,13 +27,13 @@ suspend inline fun <T> safeApiCallResponse(
             // )
         } else {
             val exception = response.exceptionOrNull()
-            Log.e("safeApiCallResponse", "API call failed", exception)
+            Logger.e("safeApiCallResponse", "API call failed", exception)
             return@withContext ApiResultWrapper.Error(apiError = ApiError.ExceptionError(exception as? Exception ?: Exception("Unknown error")))
             // ApiResultWrapper.Error(ApiError.ResponseError(response.errorBody(), response.code()))
         }
     } catch (e: Throwable) {
         if (e is CancellationException) throw e
-        Log.e("safeApiCallResponse", "Exception during API call", e)
+        Logger.e("safeApiCallResponse", "Exception during API call", e)
         return@withContext when (e) {
             // is HttpException -> {
             //     ApiResultWrapper.Error(ApiError.ResponseError(e.response()?.errorBody(), e.code()))

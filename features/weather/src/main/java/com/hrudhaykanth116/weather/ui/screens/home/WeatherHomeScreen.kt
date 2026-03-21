@@ -12,12 +12,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.hrudhaykanth116.core.common.utils.gps.GpsUtils.isGpsEnabled
-import com.hrudhaykanth116.core.common.utils.gps.GpsUtils.requestEnableGps
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenCallbacks
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenEvent
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenUIState
+import com.hrudhaykanth116.weather.utils.isGpsEnabled
+import com.hrudhaykanth116.weather.utils.requestEnableGps
 import org.koin.androidx.compose.koinViewModel
 
 private const val TAG = "WeatherHomeScreen"
