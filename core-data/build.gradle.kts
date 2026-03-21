@@ -25,21 +25,24 @@ kotlin {
             implementation(libs.kotlinx.coroutines.android)
             implementation(libs.koin.core)
 
-            // Room
+            // Room - runtime only in common (KMP compatible)
             implementation(libs.androidx.room.runtime)
-            implementation(libs.androidx.room.ktx)
         }
 
         androidMain.dependencies {
             implementation(libs.androidx.core.ktx)
             implementation(libs.koin.android)
+
+            // Room KTX is Android-only
+            implementation(libs.androidx.room.ktx)
         }
     }
 }
 
 dependencies {
-    // Room KSP
+    // Room KSP for all platforms
     add("kspAndroid", libs.androidx.room.compiler)
+    add("kspDesktop", libs.androidx.room.compiler)
     add("kspCommonMainMetadata", libs.androidx.room.compiler)
 }
 
