@@ -71,6 +71,10 @@ dependencies {
     implementation(project(":core-data"))
     implementation(project(":core-ui"))
 
+    // Compose Multiplatform Resources - needed to use Res from core-ui
+    implementation(libs.androidx.compose.bom)
+    implementation("org.jetbrains.compose.components:components-resources:1.7.3")
+
     // Koin
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)

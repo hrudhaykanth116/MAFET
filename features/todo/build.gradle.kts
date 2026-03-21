@@ -57,6 +57,11 @@ android {
 dependencies {
 
     implementation(project(":core"))
+    implementation(project(":core-ui"))
+
+    // Compose Multiplatform Resources - needed to use Res from core-ui
+    implementation(libs.androidx.compose.bom)
+    implementation("org.jetbrains.compose.components:components-resources:1.7.3")
 
     api(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)

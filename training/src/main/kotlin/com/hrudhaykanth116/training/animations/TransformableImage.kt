@@ -18,14 +18,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.hrudhaykanth116.core.R
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.painterResource
+import mafet.core_ui.generated.resources.Res
+import mafet.core_ui.generated.resources.ic_genie
 
 
 @Composable
-fun TransformableImage(imageId: Int = R.drawable.ic_genie) {
+fun TransformableImage(imageId: DrawableResource = Res.drawable.ic_genie) {
     var scale by remember { mutableStateOf(1f) }
     var rotation by remember { mutableStateOf(0f) }
     var offset by remember { mutableStateOf(Offset.Zero) }
@@ -34,7 +36,7 @@ fun TransformableImage(imageId: Int = R.drawable.ic_genie) {
         .fillMaxSize()
         .background(Color.DarkGray), contentAlignment = Alignment.Center) {
         Image(
-            painter = painterResource(id = imageId),
+            painter = painterResource(imageId),
             contentDescription = "Transformable image",
             contentScale = ContentScale.Crop,
             modifier = Modifier

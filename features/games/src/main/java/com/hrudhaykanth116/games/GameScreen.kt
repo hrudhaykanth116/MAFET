@@ -21,8 +21,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntOffset
-import com.hrudhaykanth116.core.common.ui.preview.AppPreview
-import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
+import com.hrudhaykanth116.core.ui.preview.AppPreview
+import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
 import com.hrudhaykanth116.games.domain.Game

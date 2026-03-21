@@ -19,9 +19,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import com.hrudhaykanth116.core.common.resources.Dimens
-import com.hrudhaykanth116.core.common.ui.preview.AppPreview
-import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
+import com.hrudhaykanth116.core.ui.constants.Dimens
+import com.hrudhaykanth116.core.ui.preview.AppPreview
+import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.core.ui.components.AppCircularImage
 import com.hrudhaykanth116.core.ui.components.AppClickableIcon
@@ -37,7 +37,8 @@ import com.hrudhaykanth116.core.ui.models.TextFieldData
 import com.hrudhaykanth116.core.ui.models.toImageHolder
 import com.hrudhaykanth116.tv.ui.models.updatemytv.UpdateMyTvScreenCallbacks
 import com.hrudhaykanth116.tv.ui.models.updatemytv.UpdateMyTvUIStateActual
-import com.hrudhaykanth116.core.R as CoreR
+import mafet.core_ui.generated.resources.Res
+import mafet.core_ui.generated.resources.ic_calendar
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -138,7 +139,7 @@ fun UpdateMyTvScreenUIContent(
                     readOnly = true,
                     trailingIcon = {
                         AppClickableIcon(
-                            resId = CoreR.drawable.ic_calendar,
+                            resource = Res.drawable.ic_calendar,
                             onClick = {
                                 updateMyTvScreenCallbacks.onLastWatchedDatePickerOpenRequest()
                             }
@@ -189,7 +190,7 @@ private fun UpdateMyTvScreenUIContentPreview() {
                     lastWatchedEpisode = TextFieldValue("22"),
                     lastWatchedTime = null,
                     lastWatchedTimeUIText = TextFieldValue("12/5/2021"),
-                    imgSource = CoreR.drawable.ic_calendar.toImageHolder()
+                    imgSource = Res.drawable.ic_calendar.toImageHolder()
                 )
             ),
             updateMyTvScreenCallbacks = UpdateMyTvScreenCallbacks({}, {}, {}, {}),

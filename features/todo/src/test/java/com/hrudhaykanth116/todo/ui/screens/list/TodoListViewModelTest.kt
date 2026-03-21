@@ -1,9 +1,9 @@
 package com.hrudhaykanth116.todo.ui.screens.list
 
 import androidx.compose.ui.text.input.TextFieldValue
-import com.hrudhaykanth116.core.common.utils.network.NetworkMonitor
+import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.ui.NetworkMonitor
 import com.hrudhaykanth116.core.common.utils.random.UniqueIdGenerator
-import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
 import com.hrudhaykanth116.todo.domain.use_cases.CreateTodoTaskUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.DeleteTaskUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.ObserveTasksUseCase

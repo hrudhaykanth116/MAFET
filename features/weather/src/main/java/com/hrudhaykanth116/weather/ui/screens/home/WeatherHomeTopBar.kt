@@ -7,21 +7,20 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import com.hrudhaykanth116.core.common.resources.Dimens
-import com.hrudhaykanth116.core.common.ui.preview.AppPreview
-import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
-import com.hrudhaykanth116.core.ui.components.AppClickableIcon
+import com.hrudhaykanth116.core.ui.constants.Dimens
+import com.hrudhaykanth116.core.ui.preview.AppPreview
+import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.ui.components.AppSearchBar
 import com.hrudhaykanth116.core.ui.components.AppToolBarIcon
 import com.hrudhaykanth116.core.ui.components.AppToolbar
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenCallbacks
-import ir.kaaveh.sdpcompose.sdp
-import com.hrudhaykanth116.core.R as CoreR
+import mafet.core_ui.generated.resources.Res
+import mafet.core_ui.generated.resources.ic_gps
+import mafet.core_ui.generated.resources.ic_refresh
+import mafet.core_ui.generated.resources.ic_search
 
 @Composable
 fun WeatherHomeTopBar(
@@ -56,17 +55,17 @@ fun WeatherHomeTopBar(
                 modifier = modifier,
                 actions = {
                     AppToolBarIcon(
-                        iconResId = CoreR.drawable.ic_refresh,
+                        iconResId = Res.drawable.ic_refresh,
                         onClick = weatherHomeScreenCallbacks.onRefreshIconClicked,
                     )
 
                     AppToolBarIcon(
-                        iconResId = CoreR.drawable.ic_gps,
+                        iconResId = Res.drawable.ic_gps,
                         onClick = weatherHomeScreenCallbacks.onGpsIconClicked,
                     )
 
                     AppToolBarIcon(
-                        iconResId = CoreR.drawable.ic_search,
+                        iconResId = Res.drawable.ic_search,
                         onClick = weatherHomeScreenCallbacks.onSearchIconClicked,
                     )
                 }

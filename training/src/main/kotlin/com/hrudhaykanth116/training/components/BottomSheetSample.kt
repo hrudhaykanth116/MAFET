@@ -17,11 +17,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.hrudhaykanth116.core.R
 import com.hrudhaykanth116.core.ui.components.AppIcon
 import com.hrudhaykanth116.core.ui.components.VerticalSpacer
-import com.hrudhaykanth116.core.ui.models.toImageHolder
 import com.hrudhaykanth116.training.data.getDummyStringList
+import mafet.core_ui.generated.resources.Res
+import mafet.core_ui.generated.resources.ic_expand_arrow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -90,7 +90,7 @@ private fun ModalBottomSheetSample(
             // )
 
             AppIcon(
-                resId = R.drawable.ic_expand_arrow,
+                resource = Res.drawable.ic_expand_arrow,
                 modifier = Modifier.size(100.dp)
             )
 

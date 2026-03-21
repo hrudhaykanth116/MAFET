@@ -1,6 +1,6 @@
 package com.hrudhaykanth116.todo.domain.repository
 
-import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
+import com.hrudhaykanth116.core.data.RepoResultWrapper
 import com.hrudhaykanth116.todo.domain.model.TodoModel
 import kotlinx.coroutines.flow.Flow
 

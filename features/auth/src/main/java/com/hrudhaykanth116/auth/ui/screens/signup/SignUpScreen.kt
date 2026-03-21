@@ -10,8 +10,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hrudhaykanth116.auth.domain.models.signup.SignUpEffect
 import com.hrudhaykanth116.auth.domain.models.signup.SignUpFormEvent
 import com.hrudhaykanth116.auth.domain.models.signup.SignUpScreenCallbacks
-import com.hrudhaykanth116.core.common.utils.extensions.HandleEffect
-import com.hrudhaykanth116.core.theme.screenBackgroundModifier
+import com.hrudhaykanth116.core.ui.utils.extensions.HandleEffect
+import com.hrudhaykanth116.core.ui.theme.screenBackgroundModifier
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable

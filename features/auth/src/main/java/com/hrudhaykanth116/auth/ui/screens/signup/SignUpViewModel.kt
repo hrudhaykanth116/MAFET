@@ -5,11 +5,12 @@ import com.hrudhaykanth116.auth.domain.models.signup.SignUpEffect
 import com.hrudhaykanth116.auth.domain.models.signup.SignUpFormEvent
 import com.hrudhaykanth116.auth.domain.models.signup.SignUpFormState
 import com.hrudhaykanth116.auth.domain.usecases.SignUpUseCase
+import com.hrudhaykanth116.core.ui.viewmodels.StatefulViewModel
 import kotlinx.coroutines.launch
 
 class SignUpViewModel(
     private val signupUseCase: SignUpUseCase,
-) : com.hrudhaykanth116.core.ui.StatefulViewModel<SignUpFormState, SignUpEffect, SignUpFormEvent>(
+) : StatefulViewModel<SignUpFormState, SignUpEffect, SignUpFormEvent>(
     SignUpFormState()
 ) {
 

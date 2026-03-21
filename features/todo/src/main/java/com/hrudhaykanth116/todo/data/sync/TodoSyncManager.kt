@@ -1,6 +1,6 @@
 package com.hrudhaykanth116.todo.data.sync
 
-import com.hrudhaykanth116.core.common.utils.network.NetworkMonitor
+import com.hrudhaykanth116.core.ui.NetworkMonitor
 import com.hrudhaykanth116.todo.data.data_source.local.ITodoLocalDataSource
 import com.hrudhaykanth116.todo.data.mappers.toDomain
 import com.hrudhaykanth116.todo.domain.model.SyncStatus

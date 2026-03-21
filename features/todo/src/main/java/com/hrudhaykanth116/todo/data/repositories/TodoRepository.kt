@@ -1,9 +1,9 @@
 package com.hrudhaykanth116.todo.data.repositories
 
 import com.hrudhaykanth116.core.common.time.TimeProvider
-import com.hrudhaykanth116.core.common.utils.network.NetworkMonitor
-import com.hrudhaykanth116.core.domain.models.ErrorState
-import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
+import com.hrudhaykanth116.core.ui.NetworkMonitor
+import com.hrudhaykanth116.core.data.ErrorState
+import com.hrudhaykanth116.core.data.RepoResultWrapper
 import com.hrudhaykanth116.todo.data.data_source.local.ITodoLocalDataSource
 import com.hrudhaykanth116.todo.data.mappers.toDomain
 import com.hrudhaykanth116.todo.data.mappers.toLocal

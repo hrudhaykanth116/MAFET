@@ -6,7 +6,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hrudhaykanth116.auth.domain.models.login.LoginScreenCallBacks
 import com.hrudhaykanth116.auth.domain.models.login.LoginScreenEvent
-import com.hrudhaykanth116.core.theme.screenBackgroundModifier
+import com.hrudhaykanth116.core.ui.theme.screenBackgroundModifier
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable

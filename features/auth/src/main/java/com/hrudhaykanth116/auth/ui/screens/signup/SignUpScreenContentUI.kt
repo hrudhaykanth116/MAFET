@@ -22,7 +22,7 @@ import com.hrudhaykanth116.auth.ui.components.EmailTextField
 import com.hrudhaykanth116.auth.ui.components.PasswordTextField
 import com.hrudhaykanth116.auth.ui.components.ReEnterPasswordTextField
 import com.hrudhaykanth116.auth.ui.components.UserNameTextField
-import com.hrudhaykanth116.core.common.utils.compose.MyPreview
+import com.hrudhaykanth116.core.ui.preview.MyPreview
 import com.hrudhaykanth116.core.ui.components.AppFormButton
 import com.hrudhaykanth116.core.ui.components.AppCircularImage
 import com.hrudhaykanth116.core.ui.models.ImageHolder

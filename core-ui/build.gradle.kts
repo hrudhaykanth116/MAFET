@@ -3,7 +3,14 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.library)
+    alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose)
+}
+
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "mafet.core_ui.generated.resources"
+    generateResClass = always
 }
 
 kotlin {
@@ -13,9 +20,26 @@ kotlin {
         }
     }
 
+    sourceSets.configureEach {
+        languageSettings.optIn("org.jetbrains.compose.resources.ExperimentalResourceApi")
+    }
+
     sourceSets {
+        val commonMain by getting {
+            kotlin.srcDir("build/generated/compose/resourceGenerator/kotlin/commonMainResourceAccessors")
+            kotlin.srcDir("build/generated/compose/resourceGenerator/kotlin/commonResClass")
+        }
+
         commonMain.dependencies {
             implementation(project(":core-data"))
+
+            // Compose Multiplatform Resources
+            implementation(compose.components.resources)
+
+            // Compose Multiplatform UI Tooling for Previews
+            implementation(compose.ui)
+            implementation(compose.uiTooling)
+            implementation(compose.preview)
 
             // Kotlin
             implementation(libs.kotlinx.coroutines.android)
@@ -41,7 +65,7 @@ kotlin {
             implementation(libs.androidx.ui.tooling.preview)
             implementation(libs.androidx.ui.tooling)
             implementation(libs.androidx.ui.util)
-            implementation(libs.androidx.foundation)
+            implementation(compose.foundation)  // JetBrains Compose Foundation for KMP consistency
 
             // Material Icons
             implementation(libs.material.icons.core)

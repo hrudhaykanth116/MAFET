@@ -9,7 +9,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.hrudhaykanth116.core.common.utils.compose.modifier.aspectRatio
+import com.hrudhaykanth116.core.ui.modifier.aspectRatio
 
 @Composable
 fun MoviePoster(imageUrl: String?, modifier: Modifier = Modifier) {

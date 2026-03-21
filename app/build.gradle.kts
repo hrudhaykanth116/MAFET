@@ -68,7 +68,11 @@ dependencies {
 
     api(project(":core"))
     implementation(project(":core-network"))
-    implementation(project(":shared"))
+    implementation(project(":core-ui"))
+
+    // Compose Multiplatform Resources - needed to use Res from core-ui
+    implementation(libs.androidx.compose.bom)
+    implementation("org.jetbrains.compose.components:components-resources:1.7.3")
     implementation(project(":features:todo"))
     implementation(project(":features:weather"))
     implementation(project(":features:tv"))

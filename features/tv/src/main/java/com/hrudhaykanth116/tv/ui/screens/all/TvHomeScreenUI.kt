@@ -26,16 +26,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.hrudhaykanth116.core.R
-import com.hrudhaykanth116.core.common.ui.preview.AppPreview
-import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
-import com.hrudhaykanth116.core.common.utils.compose.modifier.screenBackground
+import com.hrudhaykanth116.core.ui.preview.AppPreview
+import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
+import com.hrudhaykanth116.core.ui.modifier.screenBackground
 import com.hrudhaykanth116.core.ui.components.AppClickableIcon
 import com.hrudhaykanth116.core.ui.components.AppIcon
-import com.hrudhaykanth116.core.ui.components.AppRoundedIcon
 import com.hrudhaykanth116.core.ui.components.HorizontalSpacer
-import ir.kaaveh.sdpcompose.sdp
 import ir.kaaveh.sdpcompose.ssp
+import mafet.core_ui.generated.resources.Res
+import mafet.core_ui.generated.resources.ic_back
+import mafet.core_ui.generated.resources.ic_search
 
 @Composable
 fun TvHomeScreenUI(
@@ -61,7 +61,7 @@ fun TvHomeScreenUI(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 AppClickableIcon(
-                    resId = R.drawable.ic_back,
+                    resource = Res.drawable.ic_back,
                     onClick = onBackClick,
                     iconColor = Color.White
                 )
@@ -76,7 +76,7 @@ fun TvHomeScreenUI(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
                     AppIcon(
-                        resId = R.drawable.ic_search,
+                        resource = Res.drawable.ic_search,
                         tint = Color.White
                     )
                     HorizontalSpacer()

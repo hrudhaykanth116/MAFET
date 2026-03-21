@@ -1,6 +1,6 @@
 package com.hrudhaykanth116.todo.domain.usecase
 
-import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
+import com.hrudhaykanth116.core.data.RepoResultWrapper
 import com.hrudhaykanth116.todo.data.repositories.FakeTodoRepository
 import com.hrudhaykanth116.todo.domain.model.TaskCategory
 import com.hrudhaykanth116.todo.domain.model.TodoModel

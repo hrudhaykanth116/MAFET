@@ -9,7 +9,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.hrudhaykanth116.core.common.resources.Dimens
+import com.hrudhaykanth116.core.ui.constants.Dimens
 import com.hrudhaykanth116.tv.ui.models.search.SearchScreenItemUIState
 
 @Composable

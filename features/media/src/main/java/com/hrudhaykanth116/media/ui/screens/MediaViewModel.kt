@@ -2,9 +2,9 @@ package com.hrudhaykanth116.media.ui.screens
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.hrudhaykanth116.core.common.utils.network.NetworkMonitor
+import com.hrudhaykanth116.core.ui.NetworkMonitor
 import com.hrudhaykanth116.core.data.RepoResultWrapper
-import com.hrudhaykanth116.core.udf.UIStateViewModel
+import com.hrudhaykanth116.core.ui.viewmodels.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.media.data.models.PhotoResponse
 import com.hrudhaykanth116.media.data.repositories.PexelsRepository

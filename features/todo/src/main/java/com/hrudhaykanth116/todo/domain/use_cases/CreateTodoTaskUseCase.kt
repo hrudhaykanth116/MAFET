@@ -1,7 +1,7 @@
 package com.hrudhaykanth116.todo.domain.use_cases
 
-import com.hrudhaykanth116.core.domain.models.ErrorState
-import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
+import com.hrudhaykanth116.core.data.ErrorState
+import com.hrudhaykanth116.core.data.RepoResultWrapper
 import com.hrudhaykanth116.todo.domain.model.TodoModel
 import com.hrudhaykanth116.todo.domain.repository.ITodoRepository
 

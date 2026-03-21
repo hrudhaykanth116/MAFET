@@ -30,7 +30,7 @@ fun MaterialHomeBottomNavigationUI(
                 },
                 icon = {
                     AppIcon(
-                        resId = navigationItem.iconDrawable,
+                        resource = navigationItem.iconDrawable,
                         modifier = Modifier.size(24.dp),
                         // tint = if(isSelected) Color.Blue else Color.White
                     )
