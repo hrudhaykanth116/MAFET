@@ -32,6 +32,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.outlined.AccessTime
 import androidx.compose.material.icons.outlined.KeyboardArrowDown
+import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -53,14 +54,15 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.ui.preview.MyPreview
-import com.hrudhaykanth116.todo.R
+import com.hrudhaykanth116.todo.resources.Res
+import com.hrudhaykanth116.todo.resources.todo_content_desc_delete
+import org.jetbrains.compose.resources.stringResource
 import com.hrudhaykanth116.todo.ui.TodoColors
 import com.hrudhaykanth116.todo.ui.TodoUIDimens
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
@@ -117,7 +119,7 @@ fun TodoListItemUI(
             ) {
                 Icon(
                     imageVector = Icons.Default.Delete,
-                    contentDescription = stringResource(R.string.todo_content_desc_delete),
+                    contentDescription = stringResource(Res.string.todo_content_desc_delete),
                     tint = Color.White,
                     modifier = Modifier.scale(scale)
                 )

@@ -10,11 +10,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.ui.models.UIText
 import com.hrudhaykanth116.core.ui.models.toUIText
-import ir.kaaveh.sdpcompose.ssp
+import com.hrudhaykanth116.core.ui.platform.ssp
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun AppFormButton(

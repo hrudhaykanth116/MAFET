@@ -211,8 +211,8 @@ dependencies {
     ksp(libs.glide.ksp)
 
     // Coil
-    api(libs.coil)
-    api(libs.coil.kt.compose)
+    api(libs.coil.compose)
+    api(libs.coil.network.ktor)
     api(libs.coil.gif)
 
     // Paging

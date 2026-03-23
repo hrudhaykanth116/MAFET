@@ -1,6 +1,7 @@
 package com.hrudhaykanth116.core.ui.models
 
 import androidx.compose.runtime.Immutable
+import org.jetbrains.compose.resources.StringResource
 
 @Immutable
 sealed interface UserMessage{
@@ -22,6 +23,6 @@ fun String.toSuccessMessage(): UserMessage = UserMessage.Success(UIText.Text(thi
 fun String.toErrorMessage(): UserMessage = UserMessage.Error(UIText.Text(this))
 fun String.toWarningMessage(): UserMessage = UserMessage.Warning(UIText.Text(this))
 
-fun Int.toSuccessMessage(): UserMessage = UserMessage.Success(UIText.StringRes(this))
-fun Int.toErrorMessage(): UserMessage = UserMessage.Error(UIText.StringRes(this))
-fun Int.toWarningMessage(): UserMessage = UserMessage.Warning(UIText.StringRes(this))
+fun StringResource.toSuccessMessage(): UserMessage = UserMessage.Success(UIText.StringRes(this))
+fun StringResource.toErrorMessage(): UserMessage = UserMessage.Error(UIText.StringRes(this))
+fun StringResource.toWarningMessage(): UserMessage = UserMessage.Warning(UIText.StringRes(this))

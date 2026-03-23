@@ -83,7 +83,8 @@ private fun BottomSheetRow(
         HorizontalSpacer()
         AppText(uiText = weatherMain.title, style = MaterialTheme.typography.titleMedium)
         HorizontalSpacer()
-        AppIcon(resId = weatherMain.icon, iconModifier = Modifier.size(30.dp), tint = Color.Unspecified)
+        // TODO: kmp ui
+        // AppIcon(resId = weatherMain.icon, iconModifier = Modifier.size(30.dp), tint = Color.Unspecified)
     }
 }
 
@@ -119,6 +120,9 @@ private fun RowPreview() {
     BottomSheetRow(
         time = "df".toUIText(),
         weatherMain = WeatherMain("Cloudy".toUIText(), "Rainy".toUIText(), R.drawable.ic_clouds),
-        modifier = Modifier.height(100.dp).background(color = Color.Red).padding(20.dp)
+        modifier = Modifier
+            .height(100.dp)
+            .background(color = Color.Red)
+            .padding(20.dp)
         )
 }

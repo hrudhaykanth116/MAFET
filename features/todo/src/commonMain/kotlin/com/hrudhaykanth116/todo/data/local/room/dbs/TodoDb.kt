@@ -8,10 +8,7 @@ import com.hrudhaykanth116.todo.data.local.room.tables.TodoTaskDbEntity
 @Database(
     entities = [TodoTaskDbEntity::class],
     version = 1,
-    exportSchema = false,
-    // autoMigrations = [
-    //     AutoMigration(from = 1, to = 2)
-    // ],
+    exportSchema = true
 )
 abstract class TodoDb: RoomDatabase() {
 

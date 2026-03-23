@@ -19,14 +19,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import com.hrudhaykanth116.core.data.ErrorState
 import com.hrudhaykanth116.core.ui.models.ImageHolder
 import com.hrudhaykanth116.core.ui.models.UIText
 import com.hrudhaykanth116.core.ui.models.toUIText
-import ir.kaaveh.sdpcompose.sdp
-import ir.kaaveh.sdpcompose.ssp
+import com.hrudhaykanth116.core.ui.platform.sdp
+import com.hrudhaykanth116.core.ui.platform.ssp
 import org.jetbrains.compose.resources.DrawableResource
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun ApiErrorScreen(

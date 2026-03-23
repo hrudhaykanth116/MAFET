@@ -1,9 +1,9 @@
 package com.hrudhaykanth116.core.ui.models
 
-import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
-import androidx.compose.ui.platform.LocalContext
+import org.jetbrains.compose.resources.StringResource
+import org.jetbrains.compose.resources.stringResource
 
 /**
  * Wrapper class for raw text or string resource. This helps in having single data type when displaying text on UI.
@@ -12,14 +12,14 @@ import androidx.compose.ui.platform.LocalContext
 @Immutable
 sealed class UIText {
 
-    class StringRes(@androidx.annotation.StringRes val stringRes: Int, vararg val formatArgs: Any) : UIText()
+    class StringRes(val stringRes: StringResource, vararg val formatArgs: Any) : UIText()
     data class Text(val rawString: String): UIText()
 
     @Composable
     fun getText(): String{
         return when(this){
             is StringRes -> {
-                LocalContext.current.getString(stringRes, formatArgs)
+                stringResource(stringRes, formatArgs)
             }
             is Text -> {
                 rawString
@@ -27,20 +27,24 @@ sealed class UIText {
         }
     }
 
-    fun getText(context: Context): String{
-        return when(this){
-            is StringRes -> {
-                context.getString( stringRes, formatArgs)
-            }
-            is Text -> {
-                rawString
-            }
-        }
-    }
+    // fun getText(context: Context): String{
+    //     return when(this){
+    //         is StringRes -> {
+    //             context.getString( stringRes, formatArgs)
+    //         }
+    //         is Text -> {
+    //             rawString
+    //         }
+    //     }
+    // }
 }
 
 fun String.toUIText(): UIText.Text {
     return UIText.Text(this)
+}
+
+fun StringResource.toUIText(vararg formatArgs: Any): UIText.StringRes {
+    return UIText.StringRes(this, *formatArgs)
 }
 
 fun Any?.toUIText(ifNullString: String): UIText{

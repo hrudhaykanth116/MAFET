@@ -1,6 +1,5 @@
 package com.hrudhaykanth116.todo.ui.screens.list
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
@@ -55,24 +54,30 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.hrudhaykanth116.core.ads.BannerAd
-import com.hrudhaykanth116.core.ads.TestAdUnitIds
+import androidx.navigationevent.NavigationEventInfo
+import androidx.navigationevent.compose.NavigationBackHandler
+import androidx.navigationevent.compose.rememberNavigationEventState
 import com.hrudhaykanth116.core.ui.preview.MyPreview
 import com.hrudhaykanth116.core.ui.modifier.screenBackground
 import com.hrudhaykanth116.core.ui.typealiases.TextFieldChangedHandler
 import com.hrudhaykanth116.core.ui.components.VerticalSpacer
-import com.hrudhaykanth116.todo.R
+import com.hrudhaykanth116.core.ui.platform.sdp
+import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
+import com.hrudhaykanth116.todo.resources.Res
+import com.hrudhaykanth116.todo.resources.todo_content_desc_add
+import com.hrudhaykanth116.todo.resources.todo_empty_subtitle
+import com.hrudhaykanth116.todo.resources.todo_empty_title
+import com.hrudhaykanth116.todo.resources.todo_list_input_hint
+import org.jetbrains.compose.resources.stringResource
 import com.hrudhaykanth116.todo.ui.TodoUIDimens
 import com.hrudhaykanth116.todo.ui.components.ListItemsUI
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListUIState
-import ir.kaaveh.sdpcompose.sdp
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.launch
 
@@ -96,9 +101,13 @@ fun TodoListScreenUI(
     }
 
     // Handle back button when search is visible
-    BackHandler(enabled = uiState.isSearchBarVisible) {
-        todoListAppBarCallbacks.onCloseSearch()
-    }
+    NavigationBackHandler(
+        state = rememberNavigationEventState(NavigationEventInfo.None),
+        isBackEnabled = uiState.isSearchBarVisible,
+        onBackCompleted = {
+            todoListAppBarCallbacks.onCloseSearch()
+        }
+    )
 
     Box(
         modifier = modifier
@@ -144,10 +153,11 @@ fun TodoListScreenUI(
                 )
 
                 if (uiState.showAd) {
-                    BannerAd(
-                        adUnitId = TestAdUnitIds.ADAPTIVE_BANNER,
-                        modifier = Modifier.fillMaxWidth()
-                    )
+                    // TODO: ads
+                    // BannerAd(
+                    //     adUnitId = TestAdUnitIds.ADAPTIVE_BANNER,
+                    //     modifier = Modifier.fillMaxWidth()
+                    // )
                     VerticalSpacer(height = TodoUIDimens.SpacerMedium)
                 }
             }
@@ -236,7 +246,7 @@ private fun EmptyStateContent() {
         Spacer(modifier = Modifier.height(32.dp))
 
         Text(
-            text = stringResource(R.string.todo_empty_title),
+            text = stringResource(Res.string.todo_empty_title),
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurface
@@ -245,7 +255,7 @@ private fun EmptyStateContent() {
         Spacer(modifier = Modifier.height(TodoUIDimens.SpacerMedium))
 
         Text(
-            text = stringResource(R.string.todo_empty_subtitle),
+            text = stringResource(Res.string.todo_empty_subtitle),
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center
@@ -264,12 +274,16 @@ private fun BottomInputSection(
     var isFocused by remember { mutableStateOf(false) }
 
     // Handle back press when text field is focused or has text
-    BackHandler(enabled = isFocused || hasText) {
-        if (hasText) {
-            onTodoTitleChanged(TextFieldValue(""))
+    NavigationBackHandler(
+        state = rememberNavigationEventState(NavigationEventInfo.None),
+        isBackEnabled = isFocused || hasText,
+        onBackCompleted = {
+            if (hasText) {
+                onTodoTitleChanged(TextFieldValue(""))
+            }
+            focusManager.clearFocus()
         }
-        focusManager.clearFocus()
-    }
+    )
 
     Card(
         modifier = Modifier
@@ -306,7 +320,7 @@ private fun BottomInputSection(
                     },
                 placeholder = {
                     Text(
-                        text = stringResource(R.string.todo_list_input_hint),
+                        text = stringResource(Res.string.todo_list_input_hint),
                         color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
                     )
                 },
@@ -357,7 +371,7 @@ private fun BottomInputSection(
                     } else {
                         Icon(
                             imageVector = Icons.Default.Add,
-                            contentDescription = stringResource(R.string.todo_content_desc_add),
+                            contentDescription = stringResource(Res.string.todo_content_desc_add),
                             modifier = Modifier.size(24.dp)
                         )
                     }
@@ -403,15 +417,19 @@ fun TodoListScreenUIPreview() {
         )
     )
 
-    TodoListScreenUI(
-        uiState = TodoListUIState(uiList = sampleTasks)
-    )
+    AppPreviewContainer{
+        TodoListScreenUI(
+            uiState = TodoListUIState(uiList = sampleTasks)
+        )
+    }
 }
 
 @MyPreview
 @Composable
 fun TodoListScreenUIEmptyPreview() {
-    TodoListScreenUI(
-        uiState = TodoListUIState()
-    )
+    AppPreviewContainer {
+        TodoListScreenUI(
+            uiState = TodoListUIState()
+        )
+    }
 }

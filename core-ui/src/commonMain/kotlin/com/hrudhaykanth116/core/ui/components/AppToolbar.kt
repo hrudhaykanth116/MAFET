@@ -14,7 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.ui.preview.MyPreview
-import ir.kaaveh.sdpcompose.ssp
+import com.hrudhaykanth116.core.ui.platform.ssp
 import mafet.core_ui.generated.resources.Res
 import mafet.core_ui.generated.resources.ic_back
 

@@ -8,6 +8,12 @@ plugins {
     alias(libs.plugins.compose)
 }
 
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "com.hrudhaykanth116.todo.resources"
+    generateResClass = always
+}
+
 kotlin {
     androidTarget {
         compilerOptions {
@@ -22,6 +28,11 @@ kotlin {
     }
 
     sourceSets {
+        val commonMain by getting {
+            kotlin.srcDir("build/generated/compose/resourceGenerator/kotlin/commonMainResourceAccessors")
+            kotlin.srcDir("build/generated/compose/resourceGenerator/kotlin/commonResClass")
+        }
+
         commonMain.dependencies {
             implementation(project(":core-common"))
             implementation(project(":core-ui"))
@@ -31,18 +42,22 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
+            implementation(compose.materialIconsExtended)
             implementation(compose.ui)
             implementation(compose.components.resources)
+            implementation(compose.preview)
+
+            implementation(libs.androidx.lifecycle.viewModelCompose)
 
             // Room KMP - runtime only in common
             implementation(libs.androidx.room.runtime)
 
             // Kotlin
-            implementation(libs.kotlinx.coroutines.android)
             implementation(libs.kotlinx.collections.immutable)
 
             // Koin
             implementation(libs.koin.core)
+            implementation(libs.koin.compose.viewmodel)
         }
 
         androidMain.dependencies {
@@ -54,18 +69,24 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewModelCompose)
             implementation(libs.androidx.lifecycle.runtime.compose)
 
+            // Android Lifecycle - Android-only
+            implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
+            // Android Coroutines - Android-only
+            implementation(libs.kotlinx.coroutines.android)
+
             // Room KTX is Android-only
             implementation(libs.androidx.room.ktx)
 
             // Koin Android
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
-            implementation(libs.koin.compose.viewmodel)
         }
 
         val desktopMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
+                implementation(libs.kotlinx.coroutines.swing)
             }
         }
 
@@ -81,6 +102,11 @@ kotlin {
 dependencies {
     add("kspAndroid", libs.androidx.room.compiler)
     add("kspDesktop", libs.androidx.room.compiler)
+}
+
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+    arg("room.generateKotlin", "true")
 }
 
 android {

@@ -2,13 +2,9 @@ package com.hrudhaykanth116.core.ui.preview
 
 import androidx.compose.ui.tooling.preview.Preview
 
-
 @Preview(
     showSystemUi = true,
     showBackground = true,
-    backgroundColor = 0xFFFFFF,
-    device = "id:5.1in WVGA"
+    backgroundColor = 0xFFFFFFFF
 )
-annotation class AppPreview(
-    val name: String = "App preview"
-)
+annotation class AppPreview

@@ -51,6 +51,8 @@ kotlin {
             dependencies {
                 // Ktor Desktop engine (JVM)
                 implementation(libs.ktor.client.okhttp)
+                // Kotlin coroutines on Swing UI thread (EDT).
+                implementation(libs.kotlinx.coroutines.swing)
             }
         }
     }

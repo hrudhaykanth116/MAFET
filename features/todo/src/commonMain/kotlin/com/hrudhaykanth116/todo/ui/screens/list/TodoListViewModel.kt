@@ -2,18 +2,21 @@ package com.hrudhaykanth116.todo.ui.screens.list
 
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.viewModelScope
-import com.hrudhaykanth116.core.ui.NetworkMonitor
 import com.hrudhaykanth116.core.common.utils.random.UniqueIdGenerator
 import com.hrudhaykanth116.core.data.RepoResultWrapper
-import com.hrudhaykanth116.core.ui.viewmodels.UIStateViewModel
+import com.hrudhaykanth116.core.ui.NetworkMonitor
 import com.hrudhaykanth116.core.ui.models.UIState
+import com.hrudhaykanth116.core.ui.models.UIText
 import com.hrudhaykanth116.core.ui.models.toErrorMessage
 import com.hrudhaykanth116.core.ui.models.toSuccessMessage
-import com.hrudhaykanth116.todo.R
+import com.hrudhaykanth116.core.ui.viewmodels.UIStateViewModel
 import com.hrudhaykanth116.todo.domain.model.TodoModel
 import com.hrudhaykanth116.todo.domain.use_cases.CreateTodoTaskUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.DeleteTaskUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.ObserveTasksUseCase
+import com.hrudhaykanth116.todo.resources.Res
+import com.hrudhaykanth116.todo.resources.todo_error_generic
+import com.hrudhaykanth116.todo.resources.todo_success_task_created
 import com.hrudhaykanth116.todo.ui.mappers.TodoDomainModelMapper
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 import com.hrudhaykanth116.todo.ui.models.TodoListScreenSortItem
@@ -210,7 +213,7 @@ class TodoListViewModel(
                     setState {
                         UIState.Idle(
                             contentStateOrDefault,
-                            userMessage = R.string.todo_error_generic.toErrorMessage()
+                            userMessage = UIText.StringRes(Res.string.todo_error_generic).toErrorMessage()
                         )
                     }
                 }
@@ -219,7 +222,7 @@ class TodoListViewModel(
                     setState {
                         UIState.Idle(
                             contentStateOrDefault.copy(todoTitle = TextFieldValue()),
-                            userMessage = R.string.todo_success_task_created.toSuccessMessage()
+                            userMessage = UIText.StringRes(Res.string.todo_success_task_created).toSuccessMessage()
                         )
                     }
                 }
