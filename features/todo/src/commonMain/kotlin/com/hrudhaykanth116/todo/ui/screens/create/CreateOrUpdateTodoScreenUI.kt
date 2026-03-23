@@ -17,10 +17,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.outlined.CalendarToday
 import androidx.compose.material.icons.outlined.Category
 import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material.icons.outlined.FlagCircle
+import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Title
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -36,7 +36,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
@@ -48,7 +47,13 @@ import com.hrudhaykanth116.core.ui.components.AppInputText
 import com.hrudhaykanth116.core.ui.components.AppToolbar
 import com.hrudhaykanth116.core.ui.models.TextFieldData
 import com.hrudhaykanth116.core.ui.models.toUIText
-import com.hrudhaykanth116.todo.R
+import com.hrudhaykanth116.todo.resources.Res
+import com.hrudhaykanth116.todo.resources.todo_create_datetime_hint
+import com.hrudhaykanth116.todo.resources.todo_create_description_hint
+import com.hrudhaykanth116.todo.resources.todo_create_submit
+import com.hrudhaykanth116.todo.resources.todo_create_title
+import com.hrudhaykanth116.todo.resources.todo_create_title_hint
+import org.jetbrains.compose.resources.stringResource
 import com.hrudhaykanth116.todo.ui.TodoColors
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateOrUpdateTodoUIState
 
@@ -77,7 +82,7 @@ fun CreateOrUpdateTodoScreenUI(
     ) {
 
         AppToolbar(
-            text = stringResource(R.string.todo_create_title),
+            text = stringResource(Res.string.todo_create_title),
             onBackClicked = onBackClicked
         )
 
@@ -96,7 +101,7 @@ fun CreateOrUpdateTodoScreenUI(
             ) {
                 AppInputText(
                     textFieldData = TextFieldData(
-                        hint = stringResource(R.string.todo_create_title_hint),
+                        hint = stringResource(Res.string.todo_create_title_hint),
                         inputValue = state.todoUIModel.title,
                         error = state.titleError
                     ),
@@ -111,7 +116,7 @@ fun CreateOrUpdateTodoScreenUI(
             ) {
                 AppInputText(
                     textFieldData = TextFieldData(
-                        hint = stringResource(R.string.todo_create_description_hint),
+                        hint = stringResource(Res.string.todo_create_description_hint),
                         inputValue = state.todoUIModel.description,
                         error = state.descriptionError
                     ),
@@ -121,11 +126,11 @@ fun CreateOrUpdateTodoScreenUI(
 
             FormSection(
                 title = "Schedule",
-                icon = Icons.Outlined.CalendarToday
+                icon = Icons.Outlined.Lock
             ) {
                 TargetTimeCard(
                     value = state.todoUIModel.targetTime,
-                    placeholder = stringResource(R.string.todo_create_datetime_hint),
+                    placeholder = stringResource(Res.string.todo_create_datetime_hint),
                     onClick = onTargetFieldClicked
                 )
             }
@@ -164,7 +169,7 @@ fun CreateOrUpdateTodoScreenUI(
         }
 
         AppFormButton(
-            btnText = stringResource(R.string.todo_create_submit).toUIText(),
+            btnText = stringResource(Res.string.todo_create_submit).toUIText(),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)

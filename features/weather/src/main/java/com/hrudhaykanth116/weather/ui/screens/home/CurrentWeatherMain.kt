@@ -29,11 +29,12 @@ fun CurrentWeatherMain(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
-        AppIcon(
-            resId = weatherMain.icon,
-            iconModifier = Modifier.size(60.dp),
-            tint = Color.Unspecified
-        )
+        // TODO: kmp ui
+        // AppIcon(
+        //     resId = weatherMain.icon,
+        //     iconModifier = Modifier.size(60.dp),
+        //     tint = Color.Unspecified
+        // )
         HorizontalSpacer()
         Column {
             AppText(

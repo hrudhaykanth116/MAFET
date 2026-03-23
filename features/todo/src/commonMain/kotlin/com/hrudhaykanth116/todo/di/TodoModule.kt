@@ -1,10 +1,11 @@
 package com.hrudhaykanth116.todo.di
 
+import com.hrudhaykanth116.core.common.di.DispatchersEnum
 import com.hrudhaykanth116.todo.data.data_source.local.ITodoLocalDataSource
 import com.hrudhaykanth116.todo.data.data_source.local.TodoLocalDataSource
 import com.hrudhaykanth116.todo.data.local.room.dao.TodoTasksDao
 import com.hrudhaykanth116.todo.data.local.room.dbs.TodoDb
-import com.hrudhaykanth116.todo.data.local.room.dbs.TodoDatabaseBuilder
+import com.hrudhaykanth116.todo.data.local.room.dbs.getDatabaseBuilder
 import com.hrudhaykanth116.todo.data.repositories.TodoRepository
 import com.hrudhaykanth116.todo.data.sync.TodoSyncManager
 import com.hrudhaykanth116.todo.domain.repository.ITodoRepository
@@ -16,12 +17,13 @@ import com.hrudhaykanth116.todo.domain.use_cases.ObserveTasksUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.UpdateTodoTaskUseCase
 import com.hrudhaykanth116.todo.ui.screens.create.CreateOrUpdateTodoListViewModel
 import com.hrudhaykanth116.todo.ui.screens.list.TodoListViewModel
+import org.koin.core.module.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val todoModule = module {
     single<TodoDb> {
-        TodoDatabaseBuilder.build()
+        getDatabaseBuilder().build()
     }
 
     single<TodoTasksDao> { get<TodoDb>().todoTasksDao() }
@@ -33,7 +35,7 @@ val todoModule = module {
             get(),
             get(),
             get(),
-            get(named("IoDispatcher"))
+            dispatcher = get(named(DispatchersEnum.IoDispatcher))
         )
     }
 
@@ -41,7 +43,7 @@ val todoModule = module {
         TodoSyncManager(
             get(),
             get(),
-            get(named("IoDispatcher"))
+            dispatcher = get(named(DispatchersEnum.IoDispatcher))
         )
     }
 
@@ -53,6 +55,26 @@ val todoModule = module {
 
     factory { com.hrudhaykanth116.todo.ui.mappers.TodoDomainModelMapper(get()) }
 
-    // ViewModels are declared in platform-specific modules
-    // See todoViewModelModule in androidMain for Android ViewModel declarations
+    viewModel {
+        TodoListViewModel(
+            observeTasksUseCase = get(),
+            createTodoTaskUseCase = get(),
+            deleteTaskUseCase = get(),
+            networkMonitor = get(),
+            mapper = get(),
+            uniqueIdGenerator = get(),
+            dispatcher = get(named(DispatchersEnum.MainDispatcher))
+        )
+    }
+
+    viewModel { (todoId: String?) ->
+        CreateOrUpdateTodoListViewModel(
+            createTodoTaskUseCase = get(),
+            getTaskUseCase = get(),
+            networkMonitor = get(),
+            dateTimeUtils = get(),
+            uniqueIdGenerator = get(),
+            todoId = todoId
+        )
+    }
 }

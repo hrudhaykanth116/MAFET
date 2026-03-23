@@ -44,7 +44,7 @@ fun SignUpScreenContentUI(
 
         state.userMessage?.let {
             val context = LocalContext.current
-            Toast.makeText(context, it.getText(context), Toast.LENGTH_LONG).show()
+            Toast.makeText(context, it.getText(), Toast.LENGTH_LONG).show()
             signUpScreenCallbacks.onUserMessageShown(it)
         }
 
@@ -54,13 +54,13 @@ fun SignUpScreenContentUI(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            AppCircularImage(
-                modifier = Modifier.size(100.dp),
-                image = ImageHolder.BitmapSource(state.imgBitmap)
-                // ?: R.drawable.profile_icon,
-            ) {
-                signUpScreenCallbacks.onProfileClicked()
-            }
+            // AppCircularImage(
+            //     modifier = Modifier.size(100.dp),
+            //     image = ImageHolder.BitmapSource(state.imgBitmap)
+            //     // ?: R.drawable.profile_icon,
+            // ) {
+            //     signUpScreenCallbacks.onProfileClicked()
+            // }
             Text(text = "Set display picture")
         }
 

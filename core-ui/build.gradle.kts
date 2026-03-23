@@ -37,22 +37,27 @@ kotlin {
         }
 
         commonMain.dependencies {
+            implementation(project(":core-common"))
             implementation(project(":core-data"))
 
-            // Compose Multiplatform Resources
-            implementation(compose.components.resources)
+            api(compose.components.resources)
+            api(compose.ui)
+            api(compose.foundation)
+            api(compose.material3)
+            api(compose.materialIconsExtended)
+            api(compose.preview)
 
-            // Compose Multiplatform UI Tooling for Previews
-            implementation(compose.ui)
-            implementation(compose.uiTooling)
-            implementation(compose.preview)
+            api(libs.androidx.lifecycle.viewModelCompose)
 
-            // Kotlin
-            implementation(libs.kotlinx.coroutines.android)
-            implementation(libs.kotlinx.collections.immutable)
+            api(libs.compose.navigationevent)
 
             // Koin
-            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+
+            // Coil 3.x - KMP Image Loading
+            api(libs.coil.compose)
+            api(libs.coil.network.ktor)
         }
 
         androidMain.dependencies {
@@ -60,57 +65,18 @@ kotlin {
             implementation(libs.androidx.core.ktx)
             implementation(libs.androidx.appcompat)
 
-            // Koin
+            // Koin Android
             implementation(libs.koin.android)
-            implementation(libs.koin.androidx.compose)
-            implementation(libs.koin.compose)
-            implementation(libs.koin.compose.viewmodel)
 
-            // Jetpack Compose
-            implementation(libs.androidx.material3)
-            implementation(libs.androidx.ui.tooling.preview)
-            implementation(libs.androidx.ui.tooling)
-            implementation(libs.androidx.ui.util)
-            implementation(compose.foundation)  // JetBrains Compose Foundation for KMP consistency
-
-            // Material Icons
-            implementation(libs.material.icons.core)
-            implementation(libs.androidx.material.icons.extended)
-
-            // Activity & Lifecycle Compose
-            implementation(libs.androidx.activity.compose.v1101)
-            implementation(libs.androidx.lifecycle.viewModelCompose)
-            implementation(libs.androidx.lifecycle.runtime.compose)
-
-            // Navigation Compose
-            implementation(libs.androidx.navigation.compose)
-
-            // ConstraintLayout Compose
-            implementation(libs.androidx.constraintlayout.compose.v111)
-
-            // Paging Compose
-            implementation(libs.androidx.paging.compose)
-
-            // Image Loading - Coil
-            implementation(libs.coil)
-            implementation(libs.coil.kt.compose)
-            implementation(libs.coil.gif)
-
-            // Lottie Animations
-            implementation(libs.lottie.compose)
-
-            // Scalable DP/SP
-            implementation(libs.sdp.compose)
-
-            // Material Design Components (for legacy views if needed)
-            implementation(libs.google.android.material)
+            // Coil GIF - Android only (AAR format)
+            api(libs.coil.gif)
         }
 
         val desktopMain by getting {
             dependencies {
                 // Desktop Compose
                 implementation(compose.desktop.currentOs)
-                implementation(compose.material3)
+                implementation(libs.kotlinx.coroutines.swing)
             }
         }
     }

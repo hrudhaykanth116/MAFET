@@ -8,13 +8,16 @@ import com.hrudhaykanth116.core.common.utils.random.UniqueIdGenerator
 import com.hrudhaykanth116.core.data.RepoResultWrapper
 import com.hrudhaykanth116.core.ui.viewmodels.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
+import com.hrudhaykanth116.core.ui.models.UIText
 import com.hrudhaykanth116.core.ui.models.toErrorMessage
 import com.hrudhaykanth116.core.ui.models.toSuccessMessage
-import com.hrudhaykanth116.todo.R
+import com.hrudhaykanth116.todo.resources.Res
 import com.hrudhaykanth116.todo.domain.model.TaskCategory
 import com.hrudhaykanth116.todo.domain.model.TodoModel
 import com.hrudhaykanth116.todo.domain.use_cases.CreateTodoTaskUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.GetTaskUseCase
+import com.hrudhaykanth116.todo.resources.todo_error_generic
+import com.hrudhaykanth116.todo.resources.todo_success_saved
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateOrUpdateTodoUIState
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateTodoEffect
@@ -138,7 +141,7 @@ class CreateOrUpdateTodoListViewModel(
                                         currentContentState.copy(
                                             isSubmitted = true,
                                         ),
-                                        userMessage = R.string.todo_error_generic.toErrorMessage()
+                                        userMessage = UIText.StringRes(Res.string.todo_error_generic).toErrorMessage()
                                     )
                                 }
                             }
@@ -149,7 +152,7 @@ class CreateOrUpdateTodoListViewModel(
                                         currentContentState.copy(
                                             isSubmitted = true,
                                         ),
-                                        userMessage = R.string.todo_success_saved.toSuccessMessage()
+                                        userMessage = UIText.StringRes(Res.string.todo_success_saved).toSuccessMessage()
                                     )
                                 }
                             }
@@ -160,7 +163,7 @@ class CreateOrUpdateTodoListViewModel(
                                 currentContentState.copy(
                                     isSubmitted = false,
                                 ),
-                                userMessage = R.string.todo_error_generic.toErrorMessage()
+                                userMessage = UIText.StringRes(Res.string.todo_error_generic).toErrorMessage()
                             )
                         }
                     }

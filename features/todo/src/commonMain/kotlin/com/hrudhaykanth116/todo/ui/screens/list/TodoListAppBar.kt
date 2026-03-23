@@ -37,23 +37,27 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.ui.components.AppClickableIcon
 import com.hrudhaykanth116.core.ui.components.AppIcon
 import com.hrudhaykanth116.core.ui.components.AppSearchBar
 import com.hrudhaykanth116.core.ui.components.AppToolbar
-import com.hrudhaykanth116.todo.R
+import com.hrudhaykanth116.todo.resources.Res
+import com.hrudhaykanth116.todo.resources.todo_create_title
+import com.hrudhaykanth116.todo.resources.todo_list_clear_filter
+import com.hrudhaykanth116.todo.resources.todo_list_title
+import com.hrudhaykanth116.todo.resources.todo_search_hint
 import com.hrudhaykanth116.todo.ui.TodoUIDimens
 import com.hrudhaykanth116.todo.ui.models.TodoListScreenSortItem
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenMenuItem
-import mafet.core_ui.generated.resources.Res
 import mafet.core_ui.generated.resources.ic_check
 import mafet.core_ui.generated.resources.ic_filter
 import mafet.core_ui.generated.resources.ic_menu_vertical
 import mafet.core_ui.generated.resources.ic_search
 import mafet.core_ui.generated.resources.ic_sort_vertical
+import org.jetbrains.compose.resources.stringResource
+import mafet.core_ui.generated.resources.Res as CoreUIRes
 
 @Composable
 fun TodoListAppBar(
@@ -84,20 +88,20 @@ fun TodoListAppBar(
             )
             AppSearchBar(
                 text = searchText,
-                placeHolderText = stringResource(R.string.todo_search_hint),
+                placeHolderText = stringResource(Res.string.todo_search_hint),
                 onTextChange = todoListAppBarCallbacks.onSearchTextChanged,
                 onCancelled = todoListAppBarCallbacks.onCloseSearch,
                 onSearch = {}
             )
         } else {
             AppToolbar(
-                text = stringResource(R.string.todo_list_title),
+                text = stringResource(Res.string.todo_list_title),
                 onBackClicked = todoListAppBarCallbacks.onBackClicked,
                 navigationIcon = {},
                 actions = {
                     // Search icon
                     AppClickableIcon(
-                        resource = Res.drawable.ic_search,
+                        resource = CoreUIRes.drawable.ic_search,
                         onClick = todoListAppBarCallbacks.onSearchIconClicked,
                         iconColor = iconColor
                     )
@@ -105,7 +109,7 @@ fun TodoListAppBar(
                     // Filter by category
                     Box(modifier = Modifier) {
                         AppClickableIcon(
-                            resource = Res.drawable.ic_filter,
+                            resource = CoreUIRes.drawable.ic_filter,
                             onClick = todoListAppBarCallbacks.onCategoriesIconClicked,
                             iconColor = iconColor
                         )
@@ -126,7 +130,7 @@ fun TodoListAppBar(
                                     trailingIcon = {
                                         if (it == selectedFilter) {
                                             AppIcon(
-                                                resource = Res.drawable.ic_check,
+                                                resource = CoreUIRes.drawable.ic_check,
                                                 tint = Color(0xFF10B981)
                                             )
                                         }
@@ -137,7 +141,7 @@ fun TodoListAppBar(
                             DropdownMenuItem(
                                 text = {
                                     Text(
-                                        text = stringResource(R.string.todo_list_clear_filter),
+                                        text = stringResource(Res.string.todo_list_clear_filter),
                                         style = MaterialTheme.typography.bodyMedium,
                                         color = Color(0xFFEF4444)
                                     )
@@ -150,7 +154,7 @@ fun TodoListAppBar(
                     // Sort
                     Box(modifier = Modifier) {
                         AppClickableIcon(
-                            resource = Res.drawable.ic_sort_vertical,
+                            resource = CoreUIRes.drawable.ic_sort_vertical,
                             onClick = todoListAppBarCallbacks.onSortIconClicked,
                             iconColor = iconColor
                         )
@@ -179,7 +183,7 @@ fun TodoListAppBar(
                     // Menu
                     Box(modifier = Modifier) {
                         AppClickableIcon(
-                            resource = Res.drawable.ic_menu_vertical,
+                            resource = CoreUIRes.drawable.ic_menu_vertical,
                             onClick = todoListAppBarCallbacks.onMenuItemClicked,
                             iconColor = iconColor
                         )
@@ -211,7 +215,7 @@ fun TodoListAppBar(
 private fun SearchBar(
     searchText: String,
     onSearchTextChanged: (String) -> Unit,
-    onCloseSearch: () -> Unit
+    onCloseSearch: () -> Unit,
 ) {
     val focusRequester = remember { FocusRequester() }
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -253,7 +257,7 @@ private fun SearchBar(
                     .focusRequester(focusRequester),
                 placeholder = {
                     Text(
-                        text = stringResource(R.string.todo_search_hint),
+                        text = stringResource(Res.string.todo_search_hint),
                         color = Color(0xFF9CA3AF),
                         style = MaterialTheme.typography.bodyMedium
                     )

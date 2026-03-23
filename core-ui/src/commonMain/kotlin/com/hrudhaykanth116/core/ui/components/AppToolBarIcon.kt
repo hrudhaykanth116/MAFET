@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import ir.kaaveh.sdpcompose.sdp
+import com.hrudhaykanth116.core.ui.platform.sdp
 import org.jetbrains.compose.resources.DrawableResource
 
 @Composable

@@ -9,10 +9,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
+import coil3.compose.AsyncImage
+import coil3.compose.LocalPlatformContext
+import coil3.request.ImageRequest
+import coil3.request.crossfade
 import com.hrudhaykanth116.core.ui.models.ImageHolder
 import com.hrudhaykanth116.core.ui.preview.MyPreview
 import mafet.core_ui.generated.resources.Res
@@ -45,8 +46,10 @@ fun AppCircularImage(
     onClicked: () -> Unit = {},
 ) {
 
+    val context = LocalPlatformContext.current
+
     AsyncImage(
-        model = ImageRequest.Builder(LocalContext.current)
+        model = ImageRequest.Builder(context)
             .data(image?.data)
             .crossfade(true)
             .build(),
@@ -57,8 +60,6 @@ fun AppCircularImage(
         modifier = modifier
             .aspectRatio(1f)
             .clip(CircleShape)
-            // .height(40.dp)
-            // .width(40.dp)
             .border(2.dp, Color.Gray, CircleShape)
             .clickable {
                 onClicked()

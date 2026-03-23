@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="todo_error_generic">Something went wrong. Please try again.</string>
+    <string name="todo_success_saved">Todo saved successfully</string>
+    <string name="todo_success_task_created">Successfully created task</string>
+
+    <string name="todo_list_title">Pending tasks</string>
+    <string name="todo_list_empty_message">No tasks are pending. \nStart adding by clicking on the + button at the bottom.</string>
+    <string name="todo_list_input_hint">Start typing title to quick save or click add button</string>
+    <string name="todo_list_clear_filter">Clear filter</string>
+
+    <string name="todo_create_title">Create Todo task</string>
+    <string name="todo_create_title_hint">Enter title for the task.</string>
+    <string name="todo_create_description_hint">Enter description for the task.</string>
+    <string name="todo_create_category_hint">Enter Category for the task.</string>
+    <string name="todo_create_datetime_hint">Click to select Date Time</string>
+    <string name="todo_create_submit">Submit</string>
+
+    <string name="todo_content_desc_add">Add icon</string>
+    <string name="todo_content_desc_expand">Expand</string>
+    <string name="todo_content_desc_delete">Delete</string>
+
+    <string name="todo_empty_title">All caught up!</string>
+    <string name="todo_empty_subtitle">Tap + to add your first task</string>
+    <string name="todo_priority_label">Priority %1$d</string>
+
+    <string name="todo_search_hint">Search tasks…</string>
+    <string name="todo_search_no_results">No tasks found</string>
+</resources>

@@ -21,20 +21,15 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            // Kotlin Coroutines
+            // Kotlin
             implementation(libs.kotlinx.coroutines.android)
-
-            // Kotlinx Serialization
+            implementation(libs.kotlinx.collections.immutable)
             implementation(libs.kotlinx.serialization.json)
-
-            // Kotlinx DateTime
             implementation(libs.kotlinx.datetime)
 
-            // Kotlinx Collections Immutable
-            implementation(libs.kotlinx.collections.immutable)
 
             // Koin for DI
-            implementation(libs.koin.core)
+            api(libs.koin.core)
 
             // Kermit Logger
             implementation(libs.kermit)

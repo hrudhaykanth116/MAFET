@@ -4,14 +4,18 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigationevent.NavigationEventDispatcher
+import androidx.navigationevent.compose.LocalNavigationEventDispatcherOwner
 import com.hrudhaykanth116.core.common.utils.log.Logger
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
@@ -54,12 +58,20 @@ class MainActivity : AppCompatActivity() {
         // WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
-            MainActivityScreen(
-                uiState = uiState,
-                onLoggedIn = {
-                    viewModel.onLoggedIn()
+            val navigationEventDispatcher = remember { NavigationEventDispatcher() }
+
+            CompositionLocalProvider(
+                LocalNavigationEventDispatcherOwner provides object : androidx.navigationevent.NavigationEventDispatcherOwner {
+                    override val navigationEventDispatcher = navigationEventDispatcher
                 }
-            )
+            ) {
+                MainActivityScreen(
+                    uiState = uiState,
+                    onLoggedIn = {
+                        viewModel.onLoggedIn()
+                    }
+                )
+            }
         }
     }
 

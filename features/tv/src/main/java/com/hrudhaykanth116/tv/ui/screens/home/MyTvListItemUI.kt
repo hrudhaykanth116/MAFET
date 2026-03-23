@@ -51,14 +51,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
+import coil3.compose.AsyncImage
 import com.hrudhaykanth116.core.ui.models.ImageHolder
-import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.core.ui.models.toImageHolder
-import mafet.core_ui.generated.resources.Res
-import mafet.core_ui.generated.resources.ic_tv
+import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.tv.ui.TvUIDimens
 import com.hrudhaykanth116.tv.ui.models.home.MyTvUIState
+import mafet.core_ui.generated.resources.Res
+import mafet.core_ui.generated.resources.ic_tv
 
 @Composable
 fun MyTvListItemUI(

@@ -17,7 +17,7 @@ import com.hrudhaykanth116.core.ui.preview.AppPreview
 import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
 import com.hrudhaykanth116.core.ui.models.TextFieldData
-import ir.kaaveh.sdpcompose.ssp
+import com.hrudhaykanth116.core.ui.platform.ssp
 
 // P4 Add max chars provision and max length accordingly.
 @OptIn(ExperimentalMaterial3Api::class)

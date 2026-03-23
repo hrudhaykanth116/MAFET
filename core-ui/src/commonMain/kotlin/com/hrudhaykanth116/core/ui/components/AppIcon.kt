@@ -60,48 +60,6 @@ fun AppIcon(
     }
 }
 
-// Legacy Android-only overload for backward compatibility
-@Deprecated("Use DrawableResource parameter instead", ReplaceWith("AppIcon(resource, modifier, iconModifier, space, uiText, isTextFirst, fontSize, contentDescriptionUIText, tint)"))
-@Composable
-fun AppIcon(
-    resId: Int,
-    modifier: Modifier = Modifier,
-    iconModifier: Modifier = Modifier,
-    space: Dp = 2.dp,
-    uiText: UIText? = null,
-    isTextFirst: Boolean = false,
-    fontSize: TextUnit = TextUnit.Unspecified,
-    contentDescriptionUIText: UIText? = null,
-    tint: Color = LocalContentColor.current,
-) {
-    // This is kept for backward compatibility with existing Android code
-    // Convert Int to painter - note: this will only work on Android
-    val painter: Painter = androidx.compose.ui.res.painterResource(resId)
-
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        if (isTextFirst) {
-            AppIconText(uiText, fontSize)
-        }
-
-        VerticalSpacer(space)
-
-        Icon(
-            painter = painter,
-            contentDescription = contentDescriptionUIText?.getText(),
-            tint = tint,
-            modifier = iconModifier
-        )
-
-        if (!isTextFirst) {
-            AppIconText(uiText, fontSize)
-        }
-    }
-}
-
 @Composable
 private fun AppIconText(
     uiText: UIText?,

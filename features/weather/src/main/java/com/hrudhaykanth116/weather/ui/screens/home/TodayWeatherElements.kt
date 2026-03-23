@@ -83,14 +83,15 @@ fun TodayWeatherElements(
                     // .border(BorderStroke(1.dp, Color.LightGray), RoundedCornerShape(25))
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                AppIcon(
-                    resId = it.weatherElement.displayIcon,
-                    uiText = it.weatherElement.displayName,
-                    isTextFirst = true,
-                    modifier = Modifier,
-                    iconModifier = Modifier.size(24.dp),
-                    tint = Color.Unspecified
-                )
+                // TODO: kmp ui
+                // AppIcon(
+                //     resId = it.weatherElement.displayIcon,
+                //     uiText = it.weatherElement.displayName,
+                //     isTextFirst = true,
+                //     modifier = Modifier,
+                //     iconModifier = Modifier.size(24.dp),
+                //     tint = Color.Unspecified
+                // )
                 VerticalSpacer(8.sdp)
                 AppText(uiText = it.value, style = MaterialTheme.typography.bodyMedium)
             }

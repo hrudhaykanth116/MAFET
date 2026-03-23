@@ -77,14 +77,15 @@ private fun HourlyViewRow(
                     // .border(BorderStroke(1.dp, Color.LightGray), RoundedCornerShape(25))
                     .padding(Dimens.DEFAULT_PADDING)
             ) {
-                AppIcon(
-                    resId = weatherMain.icon,
-                    uiText = hourlyWeatherUIState.time,
-                    isTextFirst = true,
-                    modifier = Modifier,
-                    iconModifier = Modifier.size(24.dp),
-                    tint = Color.Unspecified
-                )
+                // TODO: kmp ui
+                // AppIcon(
+                //     resId = weatherMain.icon,
+                //     uiText = hourlyWeatherUIState.time,
+                //     isTextFirst = true,
+                //     modifier = Modifier,
+                //     iconModifier = Modifier.size(24.dp),
+                //     tint = Color.Unspecified
+                // )
                 VerticalSpacer(height = 4.sdp)
                 AppText(
                     uiText = weatherMain.title,

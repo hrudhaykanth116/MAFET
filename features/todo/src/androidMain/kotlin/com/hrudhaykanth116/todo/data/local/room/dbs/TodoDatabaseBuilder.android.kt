@@ -1,29 +1,19 @@
 package com.hrudhaykanth116.todo.data.local.room.dbs
 
-import android.content.Context
 import androidx.room.Room
+import androidx.room.RoomDatabase
+import org.koin.mp.KoinPlatform.getKoin
 
 /**
  * Android implementation for creating TodoDb.
- * Requires Android Context to be set before use.
+ * Gets Context from Koin.
  */
-actual object TodoDatabaseBuilder {
-    private var context: Context? = null
+actual fun getDatabaseBuilder(): RoomDatabase.Builder<TodoDb> {
+    val context = getKoin().get<android.content.Context>()
 
-    fun initialize(context: Context) {
-        this.context = context
-    }
-
-    actual fun build(): TodoDb {
-        val appContext = context?.applicationContext
-            ?: throw IllegalStateException("TodoDatabaseBuilder must be initialized with Context first")
-
-        return Room.databaseBuilder(
-            appContext,
-            TodoDb::class.java,
-            TodoDb.TABLE_NAME
-        )
-            .fallbackToDestructiveMigration()
-            .build()
-    }
+    return Room.databaseBuilder(
+        context.applicationContext,
+        TodoDb::class.java,
+        TodoDb.TABLE_NAME
+    ).fallbackToDestructiveMigration(dropAllTables = true)
 }

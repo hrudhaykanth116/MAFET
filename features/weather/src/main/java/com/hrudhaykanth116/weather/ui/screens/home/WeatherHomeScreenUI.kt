@@ -87,9 +87,9 @@ fun WeatherHomeScreenUI(
 
         if (uiState is UIState.Idle) {
             when (val userMessage = uiState.userMessage) {
-                is UserMessage.Error -> userMessage.message.getText(context)
-                is UserMessage.Success -> userMessage.message.getText(context)
-                is UserMessage.Warning -> userMessage.message.getText(context)
+                is UserMessage.Error -> userMessage.message.getText()
+                is UserMessage.Success -> userMessage.message.getText()
+                is UserMessage.Warning -> userMessage.message.getText()
                 else -> null
             }?.let { message: String ->
 

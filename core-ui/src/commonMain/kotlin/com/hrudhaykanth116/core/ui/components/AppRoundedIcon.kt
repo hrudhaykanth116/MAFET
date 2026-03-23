@@ -15,12 +15,12 @@ import androidx.compose.ui.graphics.BlurEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.tooling.preview.Preview
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import ir.kaaveh.sdpcompose.sdp
+import com.hrudhaykanth116.core.ui.platform.sdp
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun AppRoundedIcon(

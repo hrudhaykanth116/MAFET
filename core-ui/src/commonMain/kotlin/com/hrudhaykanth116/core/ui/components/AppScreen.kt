@@ -1,6 +1,5 @@
 package com.hrudhaykanth116.core.ui.components
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,15 +8,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.runtime.collectAsState
 import com.hrudhaykanth116.core.ui.preview.AppPreview
 import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.data.ErrorState
 import com.hrudhaykanth116.core.ui.viewmodels.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.core.ui.models.UserMessage
-import ir.kaaveh.sdpcompose.ssp
+import com.hrudhaykanth116.core.ui.platform.ssp
 
 @Composable
 fun <T> AppScreen(
@@ -25,7 +23,8 @@ fun <T> AppScreen(
     content: @Composable ((T) -> Unit),
 ) {
 
-    val uIState: UIState<T> by viewModel.uiStateFlow.collectAsStateWithLifecycle()
+    // TODO: kmp make this lifecycle aware like collectAsStateWithLifecycle
+    val uIState: UIState<T> by viewModel.uiStateFlow.collectAsState()
 
     // During Navigation, ViewModel is preserved but Composable is recreated. So, initializeData will be called everytime composable is created.
     // LaunchedEffect(viewModel) {
@@ -54,8 +53,6 @@ fun <T> AppScreenUI(
     onUserMessageShown: (UIState.Idle<T>) -> Unit,
     onRetry: () -> Unit,
 ) {
-
-    val context = LocalContext.current
 
     Box(Modifier.fillMaxSize()) {
 
@@ -86,13 +83,14 @@ fun <T> AppScreenUI(
             is UIState.Idle -> {
 
                 when (val userMessage = state.userMessage) {
-                    is UserMessage.Error -> userMessage.message.getText(context)
-                    is UserMessage.Success -> userMessage.message.getText(context)
-                    is UserMessage.Warning -> userMessage.message.getText(context)
+                    is UserMessage.Error -> userMessage.message.getText()
+                    is UserMessage.Success -> userMessage.message.getText()
+                    is UserMessage.Warning -> userMessage.message.getText()
                     else -> null
                 }?.let { message: String ->
 
-                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                    // TODO: kmp use kmp way of showing toast or snackbar.
+                    // ToastManager.showToast(message, ToastDuration.SHORT)
                     onUserMessageShown(state)
 
                 }

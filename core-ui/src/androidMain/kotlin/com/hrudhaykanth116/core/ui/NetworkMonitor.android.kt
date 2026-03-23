@@ -11,8 +11,10 @@ import android.util.Log
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-// TODO: kmp use expect actual pattern and move this to common module.
-class NetworkMonitor(
+/**
+ * Android implementation of NetworkMonitor using ConnectivityManager.
+ */
+actual class NetworkMonitor(
     private val context: Context,
 ) {
 
@@ -24,10 +26,10 @@ class NetworkMonitor(
         isNetworkAvailable()
     )
 
-    val internetAvailabilityStateFlow
+    actual val internetAvailabilityStateFlow
         get() = _internetAvailabilityStateFlow.asStateFlow()
 
-    fun registerNetworkCallback() {
+    actual fun registerNetworkCallback() {
         Log.d(TAG, "registerNetworkCallback: ")
 
 
@@ -103,7 +105,7 @@ class NetworkMonitor(
         _internetAvailabilityStateFlow.value = true
     }
 
-    fun isNetworkAvailable(): Boolean {
+    actual fun isNetworkAvailable(): Boolean {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         var isNetworkAvailable = false
 
@@ -127,7 +129,7 @@ class NetworkMonitor(
         return isNetworkAvailable
     }
 
-    fun triggerNetworkCheck() {
+    actual fun triggerNetworkCheck() {
         Log.d(TAG, "triggerNetworkCheck: ")
         if (isNetworkAvailable()) {
             onInternetAvailable()

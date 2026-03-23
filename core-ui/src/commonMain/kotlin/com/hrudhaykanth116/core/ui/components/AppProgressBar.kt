@@ -1,26 +1,20 @@
 package com.hrudhaykanth116.core.ui.components
 
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieCancellationBehavior
-import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.LottieConstants
-import com.airbnb.lottie.compose.animateLottieCompositionAsState
-import com.airbnb.lottie.compose.rememberLottieComposition
+import androidx.compose.ui.unit.sp
 import com.hrudhaykanth116.core.ui.preview.AppPreview
 import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.ui.models.UIText
 import com.hrudhaykanth116.core.ui.modifier.click.preventBelowTouch
-import ir.kaaveh.sdpcompose.ssp
 
 
 @Composable
@@ -33,21 +27,27 @@ fun AppProgressBar(
             .preventBelowTouch(),
     ) {
 
-        val composition by rememberLottieComposition(LottieCompositionSpec.Asset("hour_glass_loading_big.json"))
-
-        val progress by animateLottieCompositionAsState(
-            composition,
-            iterations = LottieConstants.IterateForever,
-            isPlaying = true,
-            restartOnPlay = true,
-            cancellationBehavior = LottieCancellationBehavior.Immediately
+        CircularProgressIndicator(
+            modifier = Modifier.size(64.dp),
+            color = Color(0xFFFFFFFF),
+            strokeWidth = 4.dp
         )
 
-        LottieAnimation(
-            composition = composition,
-            progress = { progress },
-            modifier = Modifier.size(100.dp)
-        )
+        // val composition by rememberLottieComposition(LottieCompositionSpec.Asset("hour_glass_loading_big.json"))
+        //
+        // val progress by animateLottieCompositionAsState(
+        //     composition,
+        //     iterations = LottieConstants.IterateForever,
+        //     isPlaying = true,
+        //     restartOnPlay = true,
+        //     cancellationBehavior = LottieCancellationBehavior.Immediately
+        // )
+        //
+        // LottieAnimation(
+        //     composition = composition,
+        //     progress = { progress },
+        //     modifier = Modifier.size(100.dp)
+        // )
 
 
         message?.let {
@@ -55,7 +55,7 @@ fun AppProgressBar(
             Text(
                 text = it.getText(),
                 style = TextStyle(
-                    fontSize = 14.ssp,
+                    fontSize = 14.sp,
                     fontWeight = FontWeight(500),
                     color = Color(0xFFFFFFFF),
                     textAlign = TextAlign.Center,
