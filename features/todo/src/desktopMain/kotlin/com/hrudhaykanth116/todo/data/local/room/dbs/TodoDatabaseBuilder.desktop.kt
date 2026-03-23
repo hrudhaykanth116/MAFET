@@ -2,6 +2,7 @@ package com.hrudhaykanth116.todo.data.local.room.dbs
 
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import java.io.File
 
 /**
@@ -13,5 +14,7 @@ actual fun getDatabaseBuilder(): RoomDatabase.Builder<TodoDb> {
 
     return Room.databaseBuilder<TodoDb>(
         name = dbFile.absolutePath,
-    ).fallbackToDestructiveMigration(dropAllTables = true)
+    )
+        .setDriver(BundledSQLiteDriver())
+        .fallbackToDestructiveMigration(dropAllTables = true)
 }

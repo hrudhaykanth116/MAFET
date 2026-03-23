@@ -22,7 +22,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(project(":core-network"))
-            implementation(libs.kotlinx.coroutines.android)
+            implementation(libs.kotlinx.coroutines.core)
             implementation(libs.koin.core)
 
             // Room - runtime only in common (KMP compatible)
@@ -31,10 +31,17 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.androidx.core.ktx)
+            implementation(libs.kotlinx.coroutines.android)
             implementation(libs.koin.android)
 
             // Room KTX is Android-only
             implementation(libs.androidx.room.ktx)
+        }
+
+        val desktopMain by getting {
+            dependencies {
+                implementation(libs.kotlinx.coroutines.swing)
+            }
         }
     }
 }

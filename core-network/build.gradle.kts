@@ -24,7 +24,7 @@ kotlin {
             // Core modules
             implementation(project(":core-common"))
 
-            implementation(libs.kotlinx.coroutines.android)
+            implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization.json)
 
             // Ktor for KMP networking
@@ -39,6 +39,7 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.androidx.core.ktx)
+            implementation(libs.kotlinx.coroutines.android)
 
             // Koin Android
             implementation(libs.koin.android)

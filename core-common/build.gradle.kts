@@ -22,11 +22,10 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             // Kotlin
-            implementation(libs.kotlinx.coroutines.android)
             implementation(libs.kotlinx.collections.immutable)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlinx.datetime)
-
+            implementation(libs.kotlinx.coroutines.core)
 
             // Koin for DI
             api(libs.koin.core)
@@ -37,6 +36,13 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.androidx.core.ktx)
+            implementation(libs.kotlinx.coroutines.android)
+        }
+
+        val desktopMain by getting {
+            dependencies {
+                implementation(libs.kotlinx.coroutines.swing)
+            }
         }
     }
 }
