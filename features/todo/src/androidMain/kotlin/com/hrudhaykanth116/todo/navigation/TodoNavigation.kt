@@ -4,13 +4,8 @@ import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.scaleIn
-import androidx.compose.animation.scaleOut
 import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.animation.slideOutVertically
-import androidx.compose.animation.togetherWith
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -66,7 +61,6 @@ fun TodoNavigation(
     ) {
 
 
-        // hrudhay_check_list: Use optional params and use utils function
         composable(route = TodoNavScreen.TodoListScreen.route) {
             TodoListScreen(
                 navigateToCreateScreen = {
@@ -99,7 +93,6 @@ fun TodoNavigation(
                 isInEditMode = true,
                 noteId = noteId,
                 onCreated = {
-                    // hrudhay_check_list: ISSUES jst popBackStack()
                     navController.popBackStack(
                         route = TodoNavScreen.TodoListScreen.route,
                         inclusive = false

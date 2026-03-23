@@ -48,10 +48,6 @@ class TodoListViewModel(
     networkMonitor = networkMonitor,
 ) {
 
-    init {
-        initializeData()
-    }
-
     override fun initializeData() {
         observeTasks()
         observeCategories()

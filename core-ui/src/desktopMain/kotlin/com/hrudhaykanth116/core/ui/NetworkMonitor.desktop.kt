@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.asStateFlow
  * Currently assumes network is always available.
  * TODO: Implement actual network monitoring for desktop using java.net or ktor.
  */
+// TODO: Network monitor should be in common module.
 actual class NetworkMonitor {
 
     private val _internetAvailabilityStateFlow = MutableStateFlow(true)

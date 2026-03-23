@@ -54,6 +54,7 @@ kotlin {
 
             // Kotlin
             implementation(libs.kotlinx.collections.immutable)
+            implementation(libs.kotlinx.coroutines.core)
 
             // Koin
             implementation(libs.koin.core)
@@ -78,6 +79,9 @@ kotlin {
             // Room KTX is Android-only
             implementation(libs.androidx.room.ktx)
 
+            // Navigation - Android-only
+            implementation(libs.androidx.navigation.compose)
+
             // Koin Android
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
@@ -87,6 +91,7 @@ kotlin {
             dependencies {
                 implementation(compose.desktop.currentOs)
                 implementation(libs.kotlinx.coroutines.swing)
+                implementation(libs.androidx.sqlite.bundled)
             }
         }
 

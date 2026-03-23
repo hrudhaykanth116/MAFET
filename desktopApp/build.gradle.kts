@@ -17,8 +17,14 @@ kotlin {
     sourceSets {
         val jvmMain by getting {
             dependencies {
-                // Core modules - only core-common for minimal test
+                // Core modules
                 implementation(project(":core-common"))
+                implementation(project(":core-ui"))
+                implementation(project(":core-data"))
+                implementation(project(":core-network"))
+
+                // Feature modules
+                implementation(project(":features:todo"))
 
                 // Compose Desktop
                 implementation(compose.desktop.currentOs)
@@ -26,6 +32,8 @@ kotlin {
 
                 // Koin
                 implementation(libs.koin.core)
+                implementation(libs.koin.compose)
+                implementation(libs.koin.compose.viewmodel)
             }
         }
     }
