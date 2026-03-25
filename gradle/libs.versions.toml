@@ -12,6 +12,7 @@ mockitoInline = "5.2.0"
 mockitoKotlin = "6.0.0"
 mockitoCore = "5.19.0"
 
+navigationCompose = "2.9.2"
 targetSdk = "36"
 kotlinCompilerExtensionVersion = "1.5.15"
 
@@ -115,6 +116,7 @@ androidx-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview
 androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 androidx-ui-util = { module = "androidx.compose.ui:ui-util" }
 
+navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 compose-navigationevent = { module = "org.jetbrains.androidx.navigationevent:navigationevent-compose", version.ref = "composeNavigationEvent" }
 
 androidx-media3-common = { module = "androidx.media3:media3-common", version.ref = "media3" }

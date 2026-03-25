@@ -49,6 +49,7 @@ kotlin {
 
             api(libs.androidx.lifecycle.viewModelCompose)
 
+            api(libs.navigation.compose)
             api(libs.compose.navigationevent)
 
             // Koin
