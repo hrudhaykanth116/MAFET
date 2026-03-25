@@ -13,6 +13,7 @@ import com.hrudhaykanth116.core.common.di.coreCommonModule
 import com.hrudhaykanth116.core.network.di.networkModule
 import com.hrudhaykanth116.core.ui.di.coreUIModule
 import com.hrudhaykanth116.todo.di.todoModule
+import com.hrudhaykanth116.todo.navigation.TodoNavigation
 import org.koin.core.context.startKoin
 
 fun main() {
@@ -48,7 +49,7 @@ fun DesktopApp(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
-        com.hrudhaykanth116.todo.navigation.TodoNavigation(
+        TodoNavigation(
             onBackClicked = onBackClicked
         )
     }
