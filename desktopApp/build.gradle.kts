@@ -17,6 +17,9 @@ kotlin {
     sourceSets {
         val jvmMain by getting {
             dependencies {
+                // ComposeApp
+                implementation(project(":composeApp"))
+
                 // Core modules
                 implementation(project(":core-common"))
                 implementation(project(":core-ui"))
