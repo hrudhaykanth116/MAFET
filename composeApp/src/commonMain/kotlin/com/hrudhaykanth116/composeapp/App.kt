@@ -43,7 +43,7 @@ fun App() {
                 )
 
                 Button(onClick = { count++ }) {
-                    Text("Click Me")
+                    Text("Click Me to update count")
                 }
             }
         }
