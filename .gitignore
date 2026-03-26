@@ -102,3 +102,74 @@ lint/tmp/
 
 # app release
 /app/release/output-metadata.json
+
+# ===================================
+# Kotlin Multiplatform
+# ===================================
+
+# Kotlin/Native
+*.kexe
+*.klib
+.konan/
+kotlin-native/
+
+# iOS/Xcode
+**/iosApp/build/
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+*.xcworkspace/*
+!*.xcworkspace/contents.xcworkspacedata
+!*.xcworkspace/xcshareddata/
+xcuserdata/
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+DerivedData/
+.DS_Store
+Pods/
+*.swiftpm
+.build/
+*.framework
+*.xcframework
+
+# Desktop/JVM
+**/desktopApp/build/
+*.exe
+*.dmg
+*.pkg
+*.msi
+
+# JS/Web
+**/jsApp/build/
+node_modules/
+*.js.map
+webpack.config.d/
+
+# Compose Multiplatform
+**/compose-resources/
+**/generated/
+**/.compose-cache/
+
+# KSP Generated
+**/build/generated/ksp/
+
+# Gradle wrapper jar (uncomment if you want to commit it)
+# !gradle-wrapper.jar
+
+# Configuration cache
+.gradle/configuration-cache/
+
+# Build outputs for all platforms
+**/build/bin/
+**/build/classes/
+**/build/kotlin/
+**/build/tmp/
+**/build/reports/
+**/build/test-results/
+
+# Platform-specific caches
+.kotlin/
+kotlin-js-store/
