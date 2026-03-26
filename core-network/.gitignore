@@ -1,1 +1,56 @@
+# Build outputs
 /build
+/out
+
+# Gradle
+.gradle
+*.iml
+
+# IDE
+.idea/
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+
+# Kotlin/Native
+*.kexe
+*.klib
+.konan/
+
+# iOS
+*.framework
+*.xcframework
+DerivedData/
+
+# Android
+*.apk
+*.aab
+*.dex
+local.properties
+captures/
+.externalNativeBuild
+.cxx/
+
+# Desktop/JVM
+*.class
+*.jar
+
+# Compose Multiplatform
+/compose-resources/
+/generated/
+/.compose-cache/
+
+# KSP
+/build/generated/ksp/
+
+# Kotlin
+.kotlin/
+kotlin-js-store/
+
+# Test results
+/test-results/
+/test-output/
+*.log
