@@ -1,0 +1,13 @@
+# initial
+
+# common
+* had trouble with resources. USed Claude to move resources and update code.
+
+# migrating to ios
+
+* xcode project was deleted by claude and unable to create. was added to gitignore. Eventually delted iosApp and recreated and note that this is not a module but a framework. Opened the xcode project once in xcode and setup properly using some run script.
+* Unsure of the database differentiation for ios since new way and old way were conflicting. Planning to use @Constructor in future instead of DataBaseBuilder.
+* koin injection was happening frequently. So, moved out startKoin outside the ios composable.
+* kept getting this issue: Undefined symbol: _kfun:androidx.lifecycle.viewmodel.compose#androidx_lifecycle_viewmodel_compose_LocalViewModelStoreOwner$stableprop_getter$artificial(){}kotlin.Int in kmp project running on ios. desktop and android working fine
+was removing viewmodel compose directly and implicitly from other libraries, eventually added api for some dependencies, some config in gradle.properties(Undefined symbol: _kfun:androidx.lifecycle.viewmodel.compose#androidx_lifecycle_viewmodel_compose_LocalViewModelStoreOwner$stableprop_getter$artificial(){}kotlin.Int in kmp project running on ios. desktop and android working fine)
+* Unsure yet whether ios dispatcher works or use default as claude suggested. need to recheck in future.

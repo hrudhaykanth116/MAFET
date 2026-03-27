@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -34,6 +35,11 @@ fun ApiErrorScreen(
     onRetry: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+
+    CenteredColumn {
+        Text("Unable to load weather data. Api failed to get data. This screen should not be seen.", style = MaterialTheme.typography.bodyMedium)
+    }
+
     // when (apiError) {
     //     is ErrorState.NoNetwork -> {
     //         // No internet ui

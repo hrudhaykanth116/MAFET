@@ -36,6 +36,7 @@ enum class DispatchersEnum {
     DefaultDispatcher
 }
 
+// TODO: kmp not sure on this.  doesn't support Dispatchers.IO in common module, need to provide platform-specific implementations
 expect fun getIODispatcher(): CoroutineDispatcher
 
 val dispatchersModule = module {
