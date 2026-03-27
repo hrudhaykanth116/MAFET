@@ -13,12 +13,14 @@ import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenEvent
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenUIState
 import com.hrudhaykanth116.weather.domain.usecases.GetForeCastFromLatLongUseCase
 import com.hrudhaykanth116.weather.domain.usecases.GetForeCastUseCaseFromLatLongUseCase
+import com.hrudhaykanth116.weather.location.LocationService
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class WeatherHomeScreenViewModel(
     private val getForeCastUseCaseFromLatLongUseCase: GetForeCastUseCaseFromLatLongUseCase,
     private val getForeCastFromLatLongUseCase: GetForeCastFromLatLongUseCase,
+    private val locationService: LocationService,
     networkMonitor: NetworkMonitor,
 ) : UIStateViewModel<WeatherHomeScreenUIState, WeatherHomeScreenEvent, WeatherHomeScreenEffect>(
     initialState = UIState.Idle(),
@@ -32,7 +34,7 @@ class WeatherHomeScreenViewModel(
         initializeData()
     }
 
-    fun fetchLocationAndWeather(latitude: Double, longitude: Double, addressName: String?) {
+    fun fetchLocationAndWeather() {
         viewModelScope.launch {
             setState {
                 UIState.Loading(
@@ -41,40 +43,61 @@ class WeatherHomeScreenViewModel(
                 )
             }
 
-            Logger.d(TAG, "fetchLocationAndWeather: lat=$latitude, lon=$longitude")
+            val locationResult = locationService.getCurrentLocation()
 
-            getForeCastJob?.cancel()
+            if (locationResult != null) {
+                Logger.d(TAG, "fetchLocationAndWeather: lat=${locationResult.latitude}, lon=${locationResult.longitude}")
 
-            setLoadingState(
-                currentContentState?.copy(errorState = null),
-                "Fetching forecast for $addressName".toUIText()
-            )
+                getForeCastJob?.cancel()
 
-            val foreCastDataResult = getForeCastFromLatLongUseCase(latitude, longitude)
+                val addressName = locationService.getAddressFromCoordinates(
+                    locationResult.latitude,
+                    locationResult.longitude
+                ) ?: "Unknown"
 
-            when (foreCastDataResult) {
-                is RepoResultWrapper.Error -> {
-                    setState {
-                        UIState.Idle(
-                            contentState = defaultState.copy(
-                                errorState = foreCastDataResult.errorState,
-                                location = addressName,
+                setLoadingState(
+                    currentContentState?.copy(errorState = null),
+                    "Fetching forecast for $addressName".toUIText()
+                )
+
+                val foreCastDataResult = getForeCastFromLatLongUseCase(
+                    locationResult.latitude,
+                    locationResult.longitude
+                )
+
+                when (foreCastDataResult) {
+                    is RepoResultWrapper.Error -> {
+                        setState {
+                            UIState.Idle(
+                                contentState = defaultState.copy(
+                                    errorState = foreCastDataResult.errorState,
+                                    location = addressName,
+                                )
                             )
-                        )
+                        }
+                    }
+
+                    is RepoResultWrapper.Success -> {
+                        setState {
+                            UIState.Idle(
+                                contentStateOrDefault.copy(
+                                    todayWeatherUIState = foreCastDataResult.data.first,
+                                    weatherForeCastListItemsUIState = foreCastDataResult.data.second,
+                                    location = addressName,
+                                )
+                            )
+                        }
                     }
                 }
-
-                is RepoResultWrapper.Success -> {
-                    setState {
-                        UIState.Idle(
-                            contentStateOrDefault.copy(
-                                todayWeatherUIState = foreCastDataResult.data.first,
-                                weatherForeCastListItemsUIState = foreCastDataResult.data.second,
-                                location = addressName,
-                            )
+            } else {
+                setState {
+                    UIState.Idle(
+                        contentStateOrDefault.copy(
+                            locationError = "Unable to fetch location".toUIText()
                         )
-                    }
+                    )
                 }
+                handleLocationOrGpsUnAvailableCases()
             }
         }
     }
@@ -84,7 +107,12 @@ class WeatherHomeScreenViewModel(
         getForeCastJob?.cancel()
 
         if (location.isNullOrBlank()) {
-            handleLocationOrGpsUnAvailableCases()
+            setState {
+                UIState.Idle(
+                    contentStateOrDefault,
+                    userMessage = UserMessage.Error("Please enter a valid location".toUIText())
+                )
+            }
             return
         }
 
@@ -203,7 +231,7 @@ class WeatherHomeScreenViewModel(
             }
 
             WeatherHomeScreenEvent.GpsIconClicked -> {
-                fetchData(contentStateOrDefault.location)
+                fetchLocationAndWeather()
             }
         }
     }

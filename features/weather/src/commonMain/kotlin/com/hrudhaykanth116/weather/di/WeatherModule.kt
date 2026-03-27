@@ -22,7 +22,11 @@ import org.koin.core.module.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
+expect val platformWeatherModule: org.koin.core.module.Module
+
 val weatherModule = module {
+    includes(platformWeatherModule)
+
     single<OpenWeatherApiServiceKtor> {
         OpenWeatherApiServiceKtor(
             httpClient = get<HttpClient>()
@@ -91,6 +95,7 @@ val weatherModule = module {
 
     viewModel {
         WeatherHomeScreenViewModel(
+            get(),
             get(),
             get(),
             get()
