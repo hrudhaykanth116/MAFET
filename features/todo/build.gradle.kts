@@ -28,6 +28,10 @@ kotlin {
         }
     }
 
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
     sourceSets {
         val commonMain by getting {
             kotlin.srcDir("build/generated/compose/resourceGenerator/kotlin/commonMainResourceAccessors")
@@ -48,7 +52,8 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.preview)
 
-            implementation(libs.androidx.lifecycle.viewModelCompose)
+            api(libs.jetbrains.lifecycle.viewmodel)
+            api(libs.jetbrains.lifecycle.runtime.compose)
 
             // Room KMP - runtime only in common
             implementation(libs.androidx.room.runtime)
@@ -58,8 +63,9 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
 
             // Koin
-            implementation(libs.koin.core)
-            implementation(libs.koin.compose.viewmodel)
+            api(libs.koin.core)
+            api(libs.koin.compose)
+            api(libs.koin.compose.viewmodel)
         }
 
         androidMain.dependencies {
@@ -68,11 +74,6 @@ kotlin {
             // Android Compose
             implementation(libs.androidx.compose.bom)
             implementation(libs.androidx.material3)
-            implementation(libs.androidx.lifecycle.viewModelCompose)
-            implementation(libs.androidx.lifecycle.runtime.compose)
-
-            // Android Lifecycle - Android-only
-            implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
             // Android Coroutines - Android-only
             implementation(libs.kotlinx.coroutines.android)
@@ -85,7 +86,6 @@ kotlin {
 
             // Koin Android
             implementation(libs.koin.android)
-            implementation(libs.koin.androidx.compose)
         }
 
         val desktopMain by getting {
@@ -96,11 +96,27 @@ kotlin {
             }
         }
 
+        iosMain.dependencies {
+            implementation(libs.androidx.sqlite.bundled)
+        }
+
         commonTest.dependencies {
             implementation(kotlin("test"))
-            implementation(libs.junit)
             implementation(libs.kotlinx.coroutines.test)
-            implementation(libs.mockk)
+        }
+
+        val androidUnitTest by getting {
+            dependencies {
+                implementation(libs.junit)
+                implementation(libs.mockk)
+            }
+        }
+
+        val desktopTest by getting {
+            dependencies {
+                implementation(libs.junit)
+                implementation(libs.mockk)
+            }
         }
     }
 }
@@ -109,6 +125,9 @@ kotlin {
 dependencies {
     add("kspAndroid", libs.androidx.room.compiler)
     add("kspDesktop", libs.androidx.room.compiler)
+    add("kspIosX64", libs.androidx.room.compiler)
+    add("kspIosArm64", libs.androidx.room.compiler)
+    add("kspIosSimulatorArm64", libs.androidx.room.compiler)
 }
 
 ksp {

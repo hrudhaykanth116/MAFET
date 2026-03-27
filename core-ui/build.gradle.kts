@@ -26,6 +26,10 @@ kotlin {
         }
     }
 
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
     sourceSets.configureEach {
         languageSettings.optIn("org.jetbrains.compose.resources.ExperimentalResourceApi")
     }
@@ -47,14 +51,15 @@ kotlin {
             api(compose.materialIconsExtended)
             api(compose.preview)
 
-            api(libs.androidx.lifecycle.viewModelCompose)
+            api(libs.jetbrains.lifecycle.viewmodel)
+            api(libs.jetbrains.lifecycle.runtime.compose)
 
             api(libs.navigation.compose)
             api(libs.compose.navigationevent)
 
             // Koin
-            implementation(libs.koin.compose)
-            implementation(libs.koin.compose.viewmodel)
+            api(libs.koin.compose)
+            api(libs.koin.compose.viewmodel)
 
             // Coil 3.x - KMP Image Loading
             api(libs.coil.compose)

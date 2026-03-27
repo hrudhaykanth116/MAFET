@@ -1,15 +1,15 @@
 package com.hrudhaykanth116.core.data.repository
 
+import com.hrudhaykanth116.core.common.di.getIODispatcher
 import com.hrudhaykanth116.core.data.ErrorState
 import com.hrudhaykanth116.core.data.RepoResultWrapper
 import com.hrudhaykanth116.core.network.models.ApiError
 import com.hrudhaykanth116.core.network.models.ApiResultWrapper
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 open class BaseRepository(
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    private val dispatcher: CoroutineDispatcher = getIODispatcher(),
 ) {
 
     suspend fun <T> getResult(

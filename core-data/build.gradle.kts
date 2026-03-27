@@ -19,11 +19,16 @@ kotlin {
         }
     }
 
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
     sourceSets {
         commonMain.dependencies {
+            implementation(project(":core-common"))
             implementation(project(":core-network"))
             implementation(libs.kotlinx.coroutines.core)
-            implementation(libs.koin.core)
+            api(libs.koin.core)
 
             // Room - runtime only in common (KMP compatible)
             implementation(libs.androidx.room.runtime)
@@ -43,6 +48,10 @@ kotlin {
                 implementation(libs.kotlinx.coroutines.swing)
             }
         }
+
+        iosMain.dependencies {
+            implementation(libs.androidx.sqlite.bundled)
+        }
     }
 }
 
@@ -50,6 +59,9 @@ dependencies {
     // Room KSP for all platforms
     add("kspAndroid", libs.androidx.room.compiler)
     add("kspDesktop", libs.androidx.room.compiler)
+    add("kspIosX64", libs.androidx.room.compiler)
+    add("kspIosArm64", libs.androidx.room.compiler)
+    add("kspIosSimulatorArm64", libs.androidx.room.compiler)
     add("kspCommonMainMetadata", libs.androidx.room.compiler)
 }
 

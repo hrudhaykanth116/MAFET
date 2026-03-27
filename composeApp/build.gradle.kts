@@ -28,15 +28,36 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
+            linkerOpts.add(
+                "-lsqlite3" // Link SQLite C library while building framework
+            )
         }
     }
 
     sourceSets {
         commonMain.dependencies {
+            // Feature modules
+            api(project(":features:todo"))
+
+            // Core modules
+            api(project(":core-common"))
+            api(project(":core-ui"))
+            api(project(":core-data"))
+
+            // Compose
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.ui)
+
+            // Koin for dependency injection
+            api(libs.koin.core)
+            api(libs.koin.compose)
+            api(libs.koin.compose.viewmodel)
+
+            // Lifecycle
+            api(libs.jetbrains.lifecycle.viewmodel)
+            api(libs.jetbrains.lifecycle.runtime.compose)
         }
 
         androidMain.dependencies {

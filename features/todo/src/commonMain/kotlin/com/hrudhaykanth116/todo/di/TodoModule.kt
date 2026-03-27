@@ -17,7 +17,6 @@ import com.hrudhaykanth116.todo.domain.use_cases.ObserveTasksUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.UpdateTodoTaskUseCase
 import com.hrudhaykanth116.todo.ui.screens.create.CreateOrUpdateTodoListViewModel
 import com.hrudhaykanth116.todo.ui.screens.list.TodoListViewModel
-import org.koin.core.module.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
@@ -55,7 +54,7 @@ val todoModule = module {
 
     factory { com.hrudhaykanth116.todo.ui.mappers.TodoDomainModelMapper(get()) }
 
-    viewModel {
+    factory {
         TodoListViewModel(
             observeTasksUseCase = get(),
             createTodoTaskUseCase = get(),
@@ -67,7 +66,7 @@ val todoModule = module {
         )
     }
 
-    viewModel { (todoId: String?) ->
+    factory { (todoId: String?) ->
         CreateOrUpdateTodoListViewModel(
             createTodoTaskUseCase = get(),
             getTaskUseCase = get(),
