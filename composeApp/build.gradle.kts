@@ -38,9 +38,11 @@ kotlin {
         commonMain.dependencies {
             // Feature modules
             api(project(":features:todo"))
+            api(project(":features:weather"))
 
             // Core modules
             api(project(":core-common"))
+            api(project(":core-network"))
             api(project(":core-ui"))
             api(project(":core-data"))
 

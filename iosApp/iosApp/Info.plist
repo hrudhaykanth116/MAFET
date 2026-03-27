@@ -29,6 +29,11 @@
 	<true/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+    <!-- Change the api key    -->
+	<key>OPEN_WEATHER_FORECAST_API_KEY</key>
+	<string>a57af9914210a23a96843166f085ec83</string>
+	<key>OPEN_WEATHER_GEO_CODING_API_KEY</key>
+	<string>a57af9914210a23a96843166f085ec83</string>
 	<key>UILaunchScreen</key>
 	<dict/>
 	<key>UIRequiredDeviceCapabilities</key>
