@@ -69,6 +69,7 @@
 				2152FAFC2600F2CF00CF470E /* Sources */,
 				2152FAFD2600F2CF00CF470E /* Frameworks */,
 				2152FAFE2600F2CF00CF470E /* Resources */,
+				6B50CE782F7666AA000EBB5C /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -124,6 +125,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		6B50CE782F7666AA000EBB5C /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\ncd \"$SRCROOT/..\"\n./gradlew :composeApp:embedAndSignAppleFrameworkForXcode\n";
+		};
 		7555FFB5242A642300829871 /* Build Shared Framework */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

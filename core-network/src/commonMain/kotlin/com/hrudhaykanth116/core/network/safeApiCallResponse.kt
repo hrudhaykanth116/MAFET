@@ -4,12 +4,11 @@ import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.core.network.models.ApiError
 import com.hrudhaykanth116.core.network.models.ApiResultWrapper
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.cancellation.CancellationException
 
 suspend inline fun <T> safeApiCallResponse(
-    dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    dispatcher: CoroutineDispatcher,
     crossinline apiCall: suspend () -> Result<T>,
 ): ApiResultWrapper<T> = withContext(dispatcher) {
     try {
@@ -28,7 +27,7 @@ suspend inline fun <T> safeApiCallResponse(
         } else {
             val exception = response.exceptionOrNull()
             Logger.e("safeApiCallResponse", "API call failed", exception)
-            return@withContext ApiResultWrapper.Error(apiError = ApiError.ExceptionError(exception as? Exception ?: Exception("Unknown error")))
+            return@withContext ApiResultWrapper.Error(apiError = ApiError.ExceptionError(exception ?: Throwable("Unknown error")))
             // ApiResultWrapper.Error(ApiError.ResponseError(response.errorBody(), response.code()))
         }
     } catch (e: Throwable) {
@@ -39,7 +38,7 @@ suspend inline fun <T> safeApiCallResponse(
             //     ApiResultWrapper.Error(ApiError.ResponseError(e.response()?.errorBody(), e.code()))
             // }
 
-            else -> ApiResultWrapper.Error(apiError = ApiError.ExceptionError(e as Exception))
+            else -> ApiResultWrapper.Error(apiError = ApiError.ExceptionError(e))
         }
     }
     return@withContext ApiResultWrapper.Error(ApiError.SomethingWentWrong)

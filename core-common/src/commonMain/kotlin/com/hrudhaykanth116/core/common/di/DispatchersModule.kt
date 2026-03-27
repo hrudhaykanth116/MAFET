@@ -36,9 +36,11 @@ enum class DispatchersEnum {
     DefaultDispatcher
 }
 
+expect fun getIODispatcher(): CoroutineDispatcher
+
 val dispatchersModule = module {
     single(named(DispatchersEnum.IoDispatcher)) {
-        Dispatchers.IO as CoroutineDispatcher
+        getIODispatcher()
     }
     single(named(DispatchersEnum.MainDispatcher)) {
         Dispatchers.Main as CoroutineDispatcher

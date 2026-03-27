@@ -1,13 +1,13 @@
 package com.hrudhaykanth116.core.network
 
+import com.hrudhaykanth116.core.common.di.getIODispatcher
 import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.core.network.models.ApiError
 import com.hrudhaykanth116.core.network.models.ApiResultWrapper
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 
 abstract class NetworkDataSource constructor(
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    private val dispatcher: CoroutineDispatcher = getIODispatcher(),
 ) {
 
     protected suspend fun <T> getResult(call: suspend () -> Result<T>): ApiResultWrapper<T> {

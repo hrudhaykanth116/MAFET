@@ -19,6 +19,10 @@ kotlin {
         }
     }
 
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
     sourceSets {
         commonMain.dependencies {
             // Core modules
@@ -55,6 +59,11 @@ kotlin {
                 // Kotlin coroutines on Swing UI thread (EDT).
                 implementation(libs.kotlinx.coroutines.swing)
             }
+        }
+
+        iosMain.dependencies {
+            // Ktor iOS engine (Darwin)
+            implementation(libs.ktor.client.darwin)
         }
     }
 }
