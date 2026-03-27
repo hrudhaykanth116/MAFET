@@ -10,6 +10,7 @@ import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenCallbacks
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenEvent
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenUIState
+import com.hrudhaykanth116.weather.location.rememberLocationPermissionState
 import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -18,8 +19,26 @@ fun WeatherHomeScreen(
     modifier: Modifier = Modifier,
     weatherHomeScreenViewModel: WeatherHomeScreenViewModel = koinViewModel(),
 ) {
+    val permissionState = rememberLocationPermissionState { granted ->
+        if (granted) {
+            weatherHomeScreenViewModel.fetchLocationAndWeather()
+        } else {
+            weatherHomeScreenViewModel.handleLocationOrGpsUnAvailableCases()
+        }
+    }
+
     LaunchedEffect(Unit) {
-        weatherHomeScreenViewModel.fetchData(null)
+        when {
+            permissionState.hasPermission && permissionState.isLocationEnabled -> {
+                weatherHomeScreenViewModel.fetchLocationAndWeather()
+            }
+            permissionState.hasPermission && !permissionState.isLocationEnabled -> {
+                weatherHomeScreenViewModel.handleLocationOrGpsUnAvailableCases()
+            }
+            else -> {
+                permissionState.requestPermission()
+            }
+        }
     }
 
     val weatherHomeScreenCallbacks = WeatherHomeScreenCallbacks(
@@ -38,7 +57,15 @@ fun WeatherHomeScreen(
             )
         },
         onGpsIconClicked = {
-            weatherHomeScreenViewModel.processEvent(WeatherHomeScreenEvent.GpsIconClicked)
+            if (permissionState.hasPermission) {
+                if (permissionState.isLocationEnabled) {
+                    weatherHomeScreenViewModel.fetchLocationAndWeather()
+                } else {
+                    permissionState.openLocationSettings()
+                }
+            } else {
+                permissionState.requestPermission()
+            }
         },
         onSearchIconClicked = {
             weatherHomeScreenViewModel.processEvent(WeatherHomeScreenEvent.OnSearchIconClicked)
