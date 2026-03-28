@@ -1,0 +1,63 @@
+package com.hrudhaykanth116.tv.data.datasources.remote.sources.tvshows
+
+import androidx.paging.PagingSource
+import androidx.paging.PagingState
+import com.hrudhaykanth116.core.common.utils.log.Logger
+import com.hrudhaykanth116.tv.data.datasources.remote.ktor.TmdbApiServiceKtor
+import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowData
+import kotlin.random.Random
+
+class TopRatedTvShowsRemoteDataSource constructor(
+    private val tmdbApiService: TmdbApiServiceKtor,
+) : PagingSource<Int, TvShowData>() {
+
+    private var initialPageId = Random.nextInt(1, 20)
+
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, TvShowData> {
+        val currentKey = params.key ?: initialPageId
+
+        Logger.d(TAG, "load: currentKey: $currentKey")
+
+        return try {
+            val result = tmdbApiService.getTopRatedTvShows(currentKey)
+
+            if (result.isSuccess) {
+                val tvShowsList = result.getOrNull()?.tvShowsList ?: emptyList()
+
+                LoadResult.Page(
+                    data = tvShowsList,
+                    prevKey = if (currentKey == initialPageId) null else currentKey - 1,
+                    nextKey = currentKey + 1
+                )
+            } else {
+                LoadResult.Error(result.exceptionOrNull() ?: Exception("Unknown error"))
+            }
+
+        } catch (exception: Exception) {
+            Logger.e(TAG, "load: ", exception)
+            LoadResult.Error(exception)
+        }
+    }
+
+    // The refresh key is used for the initial load of the next PagingSource, after invalidation
+    override fun getRefreshKey(state: PagingState<Int, TvShowData>): Int? {
+        // We need to get the previous key (or next key if previous is null) of the page
+        // that was closest to the most recently accessed index.
+        // Anchor position is the most recently accessed index
+        /*val refreshKey = state.anchorPosition?.let { anchorPosition ->
+            state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
+                ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
+        }
+        Logger.d(TAG, "getRefreshKey: refreshKey: $refreshKey")
+        return refreshKey*/
+        val refreshKey = Random.nextInt(1, 10)
+        Logger.d(TAG, "getRefreshKey: refreshKey: $refreshKey")
+        initialPageId = refreshKey
+        return refreshKey
+    }
+
+    companion object {
+        private const val TAG = "TopRatedTvShowsRemoteDataSource"
+    }
+
+}

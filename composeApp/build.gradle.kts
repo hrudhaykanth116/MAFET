@@ -39,6 +39,7 @@ kotlin {
             // Feature modules
             api(project(":features:todo"))
             api(project(":features:weather"))
+            api(project(":features:tv"))
 
             // Core modules
             api(project(":core-common"))

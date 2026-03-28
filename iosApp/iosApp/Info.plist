@@ -30,6 +30,8 @@
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
     <!-- Change the api key    -->
+	<key>TMDB_API_KEY</key>
+	<string>TMDB_KEY_REMOVED</string>
 	<key>OPEN_WEATHER_FORECAST_API_KEY</key>
 	<string>OPENWEATHER_KEY_REMOVED</string>
 	<key>OPEN_WEATHER_GEO_CODING_API_KEY</key>

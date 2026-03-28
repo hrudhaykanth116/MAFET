@@ -1,0 +1,57 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "1f099914b24aacf8ec625f2fa08e6a67",
+    "entities": [
+      {
+        "tableName": "MyTvEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `last_watched_season` INTEGER, `last_watched_episode` INTEGER, `last_watched_time` INTEGER, `image_source` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastWatchedSeason",
+            "columnName": "last_watched_season",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "lastWatchedEpisode",
+            "columnName": "last_watched_episode",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "lastWatchedTime",
+            "columnName": "last_watched_time",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "imgSource",
+            "columnName": "image_source",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1f099914b24aacf8ec625f2fa08e6a67')"
+    ]
+  }
+}
