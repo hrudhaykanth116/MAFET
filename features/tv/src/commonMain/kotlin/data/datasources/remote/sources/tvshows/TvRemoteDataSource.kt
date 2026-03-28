@@ -24,8 +24,8 @@ class TvRemoteDataSource(
             tmdbApiService.getAiringTodayShows(pageId)
         }
 
-    suspend fun getTrendingTv(timeWindow: String): ApiResultWrapper<TvShowDataPagedResponse> =
+    suspend fun getTrendingTv(timeWindow: String, pageId: Int = 1): ApiResultWrapper<TvShowDataPagedResponse> =
         getResult {
-            tmdbApiService.getTrendingTv(timeWindow)
+            tmdbApiService.getTrendingTv(timeWindow, pageId)
         }
 }

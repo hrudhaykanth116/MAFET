@@ -73,15 +73,6 @@ internal fun SearchTvScreenUI(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                AppClickableIcon(
-                    resource = Res.drawable.ic_back,
-                    iconColor = Color.White,
-                    modifier = Modifier,
-                    onClick = {
-                        onBackClicked()
-                    }
-                )
-                HorizontalSpacer()
                 AppSearchBar(
                     modifier = Modifier
                         .weight(1f)
@@ -94,8 +85,8 @@ internal fun SearchTvScreenUI(
                         searchScreenCallbacks.onSearchIconClicked()
                     },
                     onCancelled = {
-                        Logger.d("hrudhay_logs", ": SearchTvScreenUI: onCancelled")
-                    }
+                        onBackClicked()
+                    },
                 )
             }
             VerticalSpacer()

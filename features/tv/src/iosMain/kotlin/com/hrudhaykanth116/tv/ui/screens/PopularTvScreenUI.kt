@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.hrudhaykanth116.core.ui.components.AppToolbar
 import com.hrudhaykanth116.core.ui.modifier.aspectRatio
 import com.hrudhaykanth116.core.ui.modifier.screenBackground
 import com.hrudhaykanth116.tv.domaintemp.models.constants.BaseUrlConstants
@@ -29,14 +30,21 @@ import com.hrudhaykanth116.tv.ui.components.MoviePoster
 @Composable
 fun PopularTvScreenUI(
     uiState: PopularTvScreenUIState,
+    categoryName: String,
     onNavigateToSearchScreen: () -> Unit,
     onNavigateToDetailsScreen: (Int) -> Unit,
+    onBackClicked: () -> Unit,
     onRetry: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier.fillMaxSize().screenBackground()
     ) {
+        AppToolbar(
+            text = categoryName,
+            onBackClicked = onBackClicked
+        )
+
         when {
             uiState.isLoading -> {
                 Box(

@@ -11,6 +11,7 @@ fun TvHomeScreen(
     onNavigateToSearchScreen: () -> Unit,
     onItemClick: (Int) -> Unit,
     onBackClicked: () -> Unit,
+    onNavigateToViewAll: (String) -> Unit,
 ) {
 
     val onEvent: (TvHomeScreenEvent) -> Unit = {
@@ -25,6 +26,7 @@ fun TvHomeScreen(
             processEvent = onEvent,
             onNavigateToSearch = onNavigateToSearchScreen,
             onItemClick = onItemClick,
+            onNavigateToViewAll = onNavigateToViewAll,
             modifier = Modifier,
             onBackClick = onBackClicked
         )

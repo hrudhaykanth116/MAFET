@@ -24,9 +24,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import coil3.compose.AsyncImage
 import com.hrudhaykanth116.core.ui.preview.AppPreview
+import com.hrudhaykanth116.core.ui.components.AppImage
 import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.ui.modifier.screenBackground
 import com.hrudhaykanth116.core.ui.components.AppClickableIcon
@@ -44,6 +45,7 @@ fun TvHomeScreenUI(
     onNavigateToSearch: () -> Unit,
     onBackClick: () -> Unit,
     onItemClick: (Int) -> Unit,
+    onNavigateToViewAll: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -92,11 +94,24 @@ fun TvHomeScreenUI(
 
         items(uiState.categories) { category ->
             Column {
-                Text(
-                    text = category.title,
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 8.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = category.title,
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                    Text(
+                        text = "View All",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = Color.Blue,
+                        modifier = Modifier.clickable { onNavigateToViewAll(category.category.routeParam) }
+                    )
+                }
                 LazyRow(
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
@@ -111,9 +126,8 @@ fun TvHomeScreenUI(
                                     onItemClick(show.id)
                                 }
                         ) {
-                            AsyncImage(
-                                model = "https://image.tmdb.org/t/p/w500${show.posterUrl}",
-                                contentDescription = show.name,
+                            AppImage(
+                                imageSource = show.posterImage,
                                 contentScale = ContentScale.Crop,
                                 modifier = Modifier.fillMaxSize()
                             )
@@ -128,17 +142,18 @@ fun TvHomeScreenUI(
 
 @AppPreview
 @Composable
-private fun TvHomeScreenPreview() {
-
+private fun TvHomeScreenPreview(
+    @PreviewParameter(TvHomeScreenPreviewParameterProvider::class) uiState: TvHomeScreenUIState
+) {
     AppPreviewContainer {
         TvHomeScreenUI(
-            uiState = TvHomeScreenUIState(),
+            uiState = uiState,
             processEvent = {},
             onNavigateToSearch = {},
             onItemClick = {},
+            onNavigateToViewAll = {},
             modifier = Modifier,
             onBackClick = {}
         )
     }
-
 }

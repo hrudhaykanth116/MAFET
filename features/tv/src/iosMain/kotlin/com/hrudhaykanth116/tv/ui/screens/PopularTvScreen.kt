@@ -11,14 +11,17 @@ import org.koin.compose.viewmodel.koinViewModel
 actual fun PopularTvScreen(
     onNavigateToSearchScreen: () -> Unit,
     onNavigateToDetailsScreen: (Int) -> Unit,
+    onBackClicked: () -> Unit,
 ) {
     val viewModel: PopularTvViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsState()
 
     PopularTvScreenUI(
         uiState = uiState,
+        categoryName = viewModel.category.displayName,
         onNavigateToSearchScreen = onNavigateToSearchScreen,
         onNavigateToDetailsScreen = onNavigateToDetailsScreen,
+        onBackClicked = onBackClicked,
         onRetry = { viewModel.retry() },
         modifier = Modifier.fillMaxSize()
     )

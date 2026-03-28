@@ -27,8 +27,8 @@ class TvRepository(
             remoteDataSource.getAiringTodayShows(pageId)
         }
 
-    suspend fun getTrendingTv(timeWindow: String): RepoResultWrapper<TvShowDataPagedResponse> =
+    suspend fun getTrendingTv(timeWindow: String, pageId: Int = 1): RepoResultWrapper<TvShowDataPagedResponse> =
         getResult {
-            remoteDataSource.getTrendingTv(timeWindow)
+            remoteDataSource.getTrendingTv(timeWindow, pageId)
         }
 }

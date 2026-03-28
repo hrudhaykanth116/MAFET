@@ -72,6 +72,9 @@ fun EntertainmentNavigation() {
                 },
                 onBackClicked = {
                     navController.popBackStack()
+                },
+                onNavigateToViewAll = { categoryParam ->
+                    navController.navigate("tv_category/$categoryParam")
                 }
             )
         }
@@ -90,7 +93,12 @@ fun EntertainmentNavigation() {
         }
 
         composable(
-            route = "tv_popular",
+            route = "tv_category/{category}",
+            arguments = listOf(
+                navArgument("category") {
+                    type = NavType.StringType
+                }
+            )
         ) { backStackEntry ->
             PopularTvScreen(
                 onNavigateToSearchScreen = {
@@ -98,6 +106,9 @@ fun EntertainmentNavigation() {
                 },
                 onNavigateToDetailsScreen = { id ->
                     navController.navigate("tv_details/$id")
+                },
+                onBackClicked = {
+                    navController.popBackStack()
                 }
             )
         }
