@@ -1,0 +1,320 @@
+package com.hrudhaykanth116.tv.ui.screens.details
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
+import coil3.compose.AsyncImage
+import com.hrudhaykanth116.core.ui.preview.AppPreview
+import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
+import com.hrudhaykanth116.core.ui.modifier.gradientBackground
+import com.hrudhaykanth116.core.ui.components.AppRoundedIcon
+import com.hrudhaykanth116.core.ui.components.FancyChipsFlow
+import com.hrudhaykanth116.core.ui.components.HorizontalSpacer
+import com.hrudhaykanth116.core.ui.components.VerticalSpacer
+import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDetails
+import com.hrudhaykanth116.tv.data.datasources.remote.models.genres.Genre
+import com.hrudhaykanth116.core.ui.platform.sdp
+import com.hrudhaykanth116.core.ui.platform.ssp
+import mafet.core_ui.generated.resources.Res
+import mafet.core_ui.generated.resources.ic_back
+import mafet.core_ui.generated.resources.ic_bookmark
+
+@Composable
+fun TvDetailsScreenUI(
+    state: TvDetailsScreenUIState,
+    modifier: Modifier = Modifier,
+    onBackClicked: () -> Unit = {},
+    onBookMarkClicked: (Int) -> Unit = {},
+) {
+
+    val tvShow = state.tvShowDetails
+
+    Box(
+        modifier = modifier
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+
+            Box {
+                if (!tvShow.posterPath.isNullOrEmpty()) {
+                    AsyncImage(
+                        model = "https://image.tmdb.org/t/p/w500${tvShow.backdropPath}",
+                        contentDescription = "${tvShow.name} poster",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(300.sdp),
+                        contentScale = ContentScale.Crop
+                    )
+                }
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(300.sdp)
+                        .gradientBackground(
+                            listOf(
+                                Color.Transparent,
+                                Color.Transparent,
+                                Color(0xFF000000),
+                            )
+                        )
+                        .padding(horizontal = 8.sdp, vertical = 10.sdp),
+                    verticalArrangement = Arrangement.Bottom
+                ) {
+                    // Title
+                    Text(
+                        text = tvShow.name ?: tvShow.originalName.orEmpty(),
+                        fontSize = 18.ssp,
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold
+                    )
+
+                    Spacer(Modifier.height(8.sdp))
+
+                    // First Air Date & Status
+                    Row() {
+                        Text(
+                            text = "${tvShow.firstAirDate.orEmpty()} - ${tvShow.lastAirDate.orEmpty()}",
+                            fontSize = 10.ssp,
+                            color = Color.White
+                        )
+                        HorizontalSpacer(width = 1.sdp)
+                        Text(
+                            text = " | ",
+                            fontSize = 10.ssp,
+                            color = Color.White
+                        )
+                        HorizontalSpacer(width = 1.sdp)
+                        val voteAvg = tvShow.voteAverage ?: 0.0
+                        val formattedVote = ((voteAvg * 10).toInt() / 10.0).toString()
+                        Text(
+                            text = "$formattedVote / 10",
+                            color = Color.White,
+                            fontSize = 10.ssp,
+                        )
+                    }
+
+                    Spacer(Modifier.height(8.sdp))
+
+                    val genres = tvShow.genres?.mapNotNull { it?.name }
+
+                    if (!genres.isNullOrEmpty()) {
+                        FancyChipsFlow(
+                            items = genres,
+                        )
+                    }
+
+
+                    if (!tvShow.networks.isNullOrEmpty()) {
+                        VerticalSpacer()
+                        LazyRow(
+                            horizontalArrangement = Arrangement.spacedBy(8.sdp),
+                            // contentPadding = PaddingValues(horizontal = 8.sdp)
+                        ) {
+                            items(tvShow.networks) { it: TvShowDetails.Network ->
+                                Column(
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    modifier = Modifier
+                                        .clip(RoundedCornerShape(8.sdp))
+                                        .background(Color(0xFFD9D9D9))
+                                        .padding(horizontal = 8.sdp, vertical = 4.sdp)
+                                ) {
+                                    if (!it.logoPath.isNullOrEmpty()) {
+                                        AsyncImage(
+                                            model = "https://image.tmdb.org/t/p/w500${it.logoPath}",
+                                            contentDescription = it.name,
+                                            modifier = Modifier
+                                                .height(30.sdp)
+                                                .width(60.sdp)
+                                                .clip(RoundedCornerShape(4.sdp)),
+                                            contentScale = ContentScale.Fit
+                                        )
+                                    } else {
+                                        Box(
+                                            modifier = Modifier
+                                                .height(30.sdp)
+                                                .width(60.sdp)
+                                                .clip(RoundedCornerShape(4.sdp))
+                                                .background(Color.Gray),
+                                            contentAlignment = Alignment.Center
+                                        ) {
+                                            Text(
+                                                text = it.name!!,
+                                                fontSize = 8.ssp,
+                                                color = Color.White,
+                                                modifier = Modifier.padding(4.sdp),
+                                                maxLines = 2
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
+
+            Column(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .background(
+                        color = Color(0xFF000000)
+                    )
+            ) {
+                Spacer(Modifier.height(20.sdp))
+
+                Text(
+                    text = tvShow.overview.orEmpty(),
+                    color = Color.White,
+                    fontSize = 12.ssp,
+                    modifier = Modifier.padding(horizontal = 8.sdp)
+                )
+            }
+        }
+
+        AppRoundedIcon(
+            icon = Res.drawable.ic_back,
+            tint = Color.White,
+            iconSize = 30.sdp,
+            modifier = Modifier
+                .align(Alignment.TopStart)
+                .offset(y = 10.sdp, x = 10.sdp)
+                .clickable {
+                    onBackClicked()
+                }
+        )
+
+        AppRoundedIcon(
+            icon = Res.drawable.ic_bookmark,
+            tint = Color.White,
+            iconSize = 30.sdp,
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .offset(y = 10.sdp, x = (-10).sdp)
+                .clickable {
+                    onBookMarkClicked(tvShow.id)
+                }
+        )
+
+    }
+
+}
+
+
+@AppPreview
+@Composable
+private fun TvDetailsScreenPreview() {
+
+    val dummyTvShow = TvShowDetails(
+        backdropPath = "/bzoZjhbpriBT2N5kwgK0weUfVOX.jpg",
+        createdBy = listOf(
+            TvShowDetails.CreatedBy(
+                creditId = "52e682cf9251415f28007e43",
+                gender = 2,
+                id = 66633,
+                name = "Vince Gilligan",
+                profilePath = "/uFh3OrBvkwKSU3N5y0XnXOhqBJz.jpg"
+            )
+        ),
+        episodeRunTime = listOf(47),
+        firstAirDate = "2008-01-20",
+        genres = listOf(
+            Genre(id = 18, name = "Drama"),
+            Genre(id = 80, name = "Crime")
+        ),
+        homepage = "http://www.amc.com/shows/breaking-bad",
+        id = 1396,
+        inProduction = false,
+        languages = listOf("en"),
+        lastAirDate = "2013-09-29",
+        lastEpisodeToAir = TvShowDetails.LastEpisodeToAir(
+            airDate = "2013-09-29",
+            episodeNumber = 16,
+            id = 62161,
+            name = "Felina",
+            overview = "The series finale: Walter White returns to Albuquerque to tie up loose ends.",
+            productionCode = "5AGH16",
+            seasonNumber = 5,
+            showId = 1396,
+            stillPath = "/r3z70vunihrAkjILQKWHX0G2xzO.jpg",
+            voteAverage = 9.7,
+            voteCount = 220
+        ),
+        name = "Breaking Bad",
+        networks = listOf(
+            TvShowDetails.Network(
+                id = 174,
+                logoPath = "/alqLicR1ZMHMaZGP3xRQxn9sq7p.png",
+                name = "AMC",
+                originCountry = "US"
+            )
+        ),
+        numberOfEpisodes = 62,
+        numberOfSeasons = 5,
+        originCountry = listOf("US"),
+        originalLanguage = "en",
+        originalName = "Breaking Bad",
+        overview = "When Walter White, a New Mexico chemistry teacher, is diagnosed with Stage III cancer and given only two years to live, he decides to risk everything by entering the meth business to secure his family's future.",
+        popularity = 200.5,
+        posterPath = "/ggFHVNu6YYI5L9pCfOacjizRGt.jpg",
+        productionCompanies = listOf(
+            TvShowDetails.ProductionCompany(
+                id = 11073,
+                logoPath = "/aCbASRcI1MI7DXjPbSW9Fcv9pvF.png",
+                name = "High Bridge Entertainment",
+                originCountry = "US"
+            )
+        ),
+        seasons = listOf(
+            TvShowDetails.Season(
+                airDate = "2008-01-20",
+                episodeCount = 7,
+                id = 3572,
+                name = "Season 1",
+                overview = "Walter White’s transformation begins.",
+                posterPath = "/1yeVJox3rjo2jBKrrihIMj7uoS9.jpg",
+                seasonNumber = 1
+            ),
+            TvShowDetails.Season(
+                airDate = "2009-03-08",
+                episodeCount = 13,
+                id = 3573,
+                name = "Season 2",
+                overview = "The empire grows as Walt dives deeper.",
+                posterPath = "/e3oGYpoTUhOFK0BJfloru5ZmGV.jpg",
+                seasonNumber = 2
+            )
+        ),
+        status = "Ended",
+        type = "Scripted",
+        voteAverage = 8.9,
+        voteCount = 14000
+    )
+
+
+    AppPreviewContainer {
+        TvDetailsScreenUI(
+            state = TvDetailsScreenUIState(
+                tvShowDetails = dummyTvShow
+            ),
+            modifier = Modifier.fillMaxSize(),
+        )
+    }
+
+}

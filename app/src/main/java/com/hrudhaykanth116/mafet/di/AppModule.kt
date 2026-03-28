@@ -21,7 +21,7 @@ val appModule = module {
         weatherModule,
         authModule,
         mediaModule,
-        tvModule,
+        *tvModule.toTypedArray(),
         journalModule
     )
     single { CrashHandler() }
