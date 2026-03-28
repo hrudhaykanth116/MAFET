@@ -24,6 +24,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.hrudhaykanth116.core.common.ui.components.paging.ErrorState
 import com.hrudhaykanth116.core.common.ui.components.paging.LoadingState
+import com.hrudhaykanth116.core.ui.components.AppToolbar
 import com.hrudhaykanth116.core.ui.modifier.aspectRatio
 import com.hrudhaykanth116.core.ui.modifier.screenBackground
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowData
@@ -33,8 +34,10 @@ import com.hrudhaykanth116.tv.ui.components.MoviePoster
 @Composable
 fun PopularTvScreenUI(
     lazyPagingItems: LazyPagingItems<TvShowData>,
+    categoryName: String,
     onNavigateToSearchScreen: () -> Unit,
     onNavigateToDetailsScreen: (Int) -> Unit,
+    onBackClicked: () -> Unit,
     onRetry: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -42,6 +45,11 @@ fun PopularTvScreenUI(
     Column(
         modifier = modifier.fillMaxSize().screenBackground()
     ) {
+
+        AppToolbar(
+            text = categoryName,
+            onBackClicked = onBackClicked
+        )
 
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),

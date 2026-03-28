@@ -6,4 +6,5 @@ import androidx.compose.runtime.Composable
 expect fun PopularTvScreen(
     onNavigateToSearchScreen: () -> Unit,
     onNavigateToDetailsScreen: (Int) -> Unit,
+    onBackClicked: () -> Unit = {},
 )

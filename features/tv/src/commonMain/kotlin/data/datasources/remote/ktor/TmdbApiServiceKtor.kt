@@ -109,6 +109,7 @@ class TmdbApiServiceKtor(
 
     suspend fun getTrendingTv(
         timeWindow: String,
+        pageId: Int = 1,
         apiKey: String = API_KEY,
         language: String = "en-US"
     ): Result<TvShowDataPagedResponse> {
@@ -116,6 +117,7 @@ class TmdbApiServiceKtor(
             val response = httpClient.get("${BASE_URL}trending/tv/$timeWindow") {
                 parameter("api_key", apiKey)
                 parameter("language", language)
+                parameter("page", pageId)
             }.body<TvShowDataPagedResponse>()
             Result.success(response)
         } catch (e: Exception) {
