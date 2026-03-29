@@ -4,9 +4,7 @@ data class HomeBottomNavigationUIState(
 
     val list: List<NavigationItemUIState> = listOf(
         NavigationItemUIState(HomeBottomNavigationItem.TODO),
-        // NavigationItemUIState(HomeBottomNavigationItem.JOURNAL),
         NavigationItemUIState(HomeBottomNavigationItem.WEATHER),
-        NavigationItemUIState(HomeBottomNavigationItem.MEDIA),
         NavigationItemUIState(HomeBottomNavigationItem.ENTERTAINMENT),
     ),
 )

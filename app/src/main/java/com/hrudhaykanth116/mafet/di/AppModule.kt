@@ -1,5 +1,6 @@
 package com.hrudhaykanth116.mafet.di
 
+import com.hrudhaykanth116.ai.di.aiModule
 import com.hrudhaykanth116.auth.di.authModule
 import com.hrudhaykanth116.core.common.di.coreModule
 import com.hrudhaykanth116.core.network.di.networkModule
@@ -22,7 +23,8 @@ val appModule = module {
         authModule,
         mediaModule,
         *tvModule.toTypedArray(),
-        journalModule
+        journalModule,
+        aiModule
     )
     single { CrashHandler() }
     viewModel { MainViewModel(get()) }

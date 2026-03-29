@@ -211,9 +211,9 @@ fun HomeBottomNavigationUIPreview() {
         HomeBottomNavigationUI(
             uiState = HomeBottomNavigationUIState(
                 list = listOf(
-                    NavigationItemUIState(HomeBottomNavigationItem.TODO, isSelected = false),
+                    NavigationItemUIState(HomeBottomNavigationItem.JOURNAL, isSelected = false),
+                    NavigationItemUIState(HomeBottomNavigationItem.AI, isSelected = false),
                     NavigationItemUIState(HomeBottomNavigationItem.WEATHER, isSelected = true),
-                    NavigationItemUIState(HomeBottomNavigationItem.ENTERTAINMENT, isSelected = false),
                 )
             ),
             onNavItemSelected = {}

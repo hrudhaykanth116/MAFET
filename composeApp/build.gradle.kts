@@ -41,6 +41,8 @@ kotlin {
             api(project(":features:weather"))
             api(project(":features:tv"))
             api(project(":features:media"))
+            api(project(":features:journal"))
+            api(project(":features:ai"))
 
             // Core modules
             api(project(":core-common"))
@@ -68,8 +70,6 @@ kotlin {
             implementation(libs.androidx.core.ktx)
 
             implementation(project(":features:auth"))
-            implementation(project(":features:journal"))
-            implementation(project(":features:media"))
             implementation(project(":features:games"))
         }
 
