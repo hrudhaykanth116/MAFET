@@ -4,9 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 
 @Composable
-expect fun JournalNavigation()
-
-@Composable
 expect fun GamesNavigation()
 
 @Composable

@@ -14,8 +14,6 @@ android {
 
     compileSdk = libs.versions.compileSdk.get().toInt()
 
-    dynamicFeatures += setOf(":features:ai")
-
     defaultConfig {
         applicationId = "com.hrudhaykanth116.mafet"
         minSdk = libs.versions.minSdk.get().toInt()

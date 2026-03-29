@@ -26,6 +26,8 @@ import com.hrudhaykanth116.todo.navigation.TodoNavigation
 import com.hrudhaykanth116.tv.ui.EntertainmentNavigation
 import com.hrudhaykanth116.weather.ui.screens.home.WeatherNavigation
 import com.hrudhaykanth116.media.ui.screens.MediaScreen
+import com.hrudhaykanth116.journal.JournalScreen
+import com.hrudhaykanth116.ai.AIScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -85,7 +87,13 @@ fun HomeScreenUI(
 
                         HomeRoute.Journal -> {
                             composable(HomeRoute.Journal.route) {
-                                JournalNavigation()
+                                JournalScreen()
+                            }
+                        }
+
+                        HomeRoute.AI -> {
+                            composable(HomeRoute.AI.route) {
+                                AIScreen()
                             }
                         }
 

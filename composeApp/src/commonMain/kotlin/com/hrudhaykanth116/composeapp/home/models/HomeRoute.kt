@@ -8,6 +8,7 @@ sealed class HomeRoute(val route: String){
     object Journal: HomeRoute("journal")
     object Dictionary: HomeRoute("dictionary")
     object Entertainment: HomeRoute("entertainment")
+    object AI: HomeRoute("ai")
 
     fun withArgs(vararg args: String): String{
         return buildString {
@@ -28,7 +29,8 @@ sealed class HomeRoute(val route: String){
                 Translate,
                 Journal,
                 Dictionary,
-                Entertainment
+                Entertainment,
+                AI
             )
         }
 

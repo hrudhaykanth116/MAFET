@@ -24,7 +24,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.tooling.preview.Preview
+import com.hrudhaykanth116.core.ui.preview.AppPreview
+import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
 import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -89,12 +90,14 @@ fun EmotionSlider(
 
 }
 
-@Preview
+@AppPreview
 @Composable
 fun EmotionSliderPreview() {
-    EmotionSlider(
-        modifier = Modifier.background(color = Color.Green)
-    )
+    AppPreviewContainer {
+        EmotionSlider(
+            modifier = Modifier.background(color = Color.Green)
+        )
+    }
 }
 
 
