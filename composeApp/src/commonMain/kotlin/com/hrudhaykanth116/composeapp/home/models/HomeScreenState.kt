@@ -1,4 +1,4 @@
-package com.hrudhaykanth116.mafet.home.models
+package com.hrudhaykanth116.composeapp.home.models
 
 data class HomeScreenState(
 

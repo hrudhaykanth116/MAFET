@@ -1,11 +1,11 @@
-package com.hrudhaykanth116.mafet.home
+package com.hrudhaykanth116.composeapp.home
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.hrudhaykanth116.core.ui.preview.AppPreview
 import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
-import com.hrudhaykanth116.mafet.home.models.HomeBottomNavigationItem
-import com.hrudhaykanth116.mafet.home.models.HomeBottomNavigationUIState
+import com.hrudhaykanth116.composeapp.home.models.HomeBottomNavigationItem
+import com.hrudhaykanth116.composeapp.home.models.HomeBottomNavigationUIState
 
 @Composable
 fun HomeBottomNavigation(
@@ -19,7 +19,6 @@ fun HomeBottomNavigation(
         modifier = modifier,
         onNavItemSelected = onNavItemSelected
     )
-    // MaterialHomeBottomNavigationUI(modifier, navItems, selectedIndex, onNavItemSelected)
 
 }
 

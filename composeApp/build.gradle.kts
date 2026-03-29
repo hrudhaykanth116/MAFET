@@ -65,6 +65,11 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.androidx.core.ktx)
+
+            implementation(project(":features:auth"))
+            implementation(project(":features:journal"))
+            implementation(project(":features:media"))
+            implementation(project(":features:games"))
         }
 
         val desktopMain by getting {

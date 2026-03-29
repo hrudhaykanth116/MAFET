@@ -1,4 +1,4 @@
-package com.hrudhaykanth116.mafet.home.models
+package com.hrudhaykanth116.composeapp.home.models
 
 sealed class HomeRoute(val route: String){
     object Todo: HomeRoute("todo")
@@ -8,7 +8,6 @@ sealed class HomeRoute(val route: String){
     object Journal: HomeRoute("journal")
     object Dictionary: HomeRoute("dictionary")
     object Entertainment: HomeRoute("entertainment")
-    object Account: HomeRoute("account")
 
     fun withArgs(vararg args: String): String{
         return buildString {
@@ -29,8 +28,7 @@ sealed class HomeRoute(val route: String){
                 Translate,
                 Journal,
                 Dictionary,
-                Entertainment,
-                Account
+                Entertainment
             )
         }
 
