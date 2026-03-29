@@ -1,4 +1,4 @@
-package com.hrudhaykanth116.mafet.home
+package com.hrudhaykanth116.composeapp.home
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
@@ -32,16 +32,17 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.ui.constants.Dimens
 import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.core.ui.components.AppIcon
 import com.hrudhaykanth116.core.ui.components.AppText
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
-import com.hrudhaykanth116.mafet.home.models.HomeBottomNavigationItem
-import com.hrudhaykanth116.mafet.home.models.HomeBottomNavigationUIState
-import com.hrudhaykanth116.mafet.home.models.NavigationItemUIState
+import com.hrudhaykanth116.core.ui.preview.AppPreview
+import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
+import com.hrudhaykanth116.composeapp.home.models.HomeBottomNavigationItem
+import com.hrudhaykanth116.composeapp.home.models.HomeBottomNavigationUIState
+import com.hrudhaykanth116.composeapp.home.models.NavigationItemUIState
 
 @Composable
 fun HomeBottomNavigationUI(
@@ -54,7 +55,6 @@ fun HomeBottomNavigationUI(
 
     val newModifier = modifier
         .fillMaxWidth()
-        // .padding(horizontal = Dimens.DEFAULT_PADDING.times(2))
 
     Card(
         modifier = newModifier,
@@ -67,8 +67,6 @@ fun HomeBottomNavigationUI(
         colors = CardDefaults.cardColors(
             contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
-            // disabledContentColor = MaterialTheme.colorScheme.surface,
-            // disabledContainerColor = MaterialTheme.colorScheme.onSurface,
         ),
         border = null
     ) {
@@ -99,7 +97,6 @@ private fun AppBottomBarItem(
 
     val isSelected = navigationItem.isSelected
 
-    // Animated values
     val scale by animateFloatAsState(
         targetValue = if (isSelected) 1.15f else 1f,
         animationSpec = spring(
@@ -178,7 +175,6 @@ private fun AppBottomBarItem(
                 tint = iconTint
             )
 
-            // Show label only when selected
             if (isSelected) {
                 AppText(
                     uiText = navigationItem.homeBottomNavigationItem.displayName.toUIText(),
@@ -190,7 +186,6 @@ private fun AppBottomBarItem(
             }
         }
 
-        // Add a subtle glow effect for selected item
         if (isSelected) {
             Box(
                 modifier = Modifier
@@ -209,17 +204,16 @@ private fun AppBottomBarItem(
     }
 }
 
-@Preview
+@AppPreview
 @Composable
 fun HomeBottomNavigationUIPreview() {
-    MaterialTheme {
+    AppPreviewContainer {
         HomeBottomNavigationUI(
             uiState = HomeBottomNavigationUIState(
                 list = listOf(
                     NavigationItemUIState(HomeBottomNavigationItem.TODO, isSelected = false),
                     NavigationItemUIState(HomeBottomNavigationItem.WEATHER, isSelected = true),
                     NavigationItemUIState(HomeBottomNavigationItem.ENTERTAINMENT, isSelected = false),
-                    NavigationItemUIState(HomeBottomNavigationItem.ACCOUNT, isSelected = false),
                 )
             ),
             onNavItemSelected = {}

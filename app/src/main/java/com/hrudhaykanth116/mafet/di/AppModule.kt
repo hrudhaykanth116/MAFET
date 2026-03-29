@@ -26,5 +26,4 @@ val appModule = module {
     )
     single { CrashHandler() }
     viewModel { MainViewModel(get()) }
-    viewModel { com.hrudhaykanth116.mafet.home.HomeViewModel() }
 }

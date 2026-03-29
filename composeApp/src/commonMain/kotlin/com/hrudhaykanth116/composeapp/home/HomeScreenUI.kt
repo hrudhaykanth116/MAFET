@@ -1,6 +1,5 @@
-package com.hrudhaykanth116.mafet.home
+package com.hrudhaykanth116.composeapp.home
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,24 +12,20 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
-import com.hrudhaykanth116.games.GameScreenStevdza
-import com.hrudhaykanth116.journal.JournalScreen
-import com.hrudhaykanth116.mafet.account.navigation.AccountNavigation
-import com.hrudhaykanth116.mafet.home.models.HomeBottomNavigationItem
-import com.hrudhaykanth116.mafet.home.models.HomeBottomNavigationUIState
-import com.hrudhaykanth116.mafet.home.models.HomeRoute
-import com.hrudhaykanth116.media.ui.screens.MediaScreen
+import com.hrudhaykanth116.core.ui.preview.AppPreview
+import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
+import com.hrudhaykanth116.composeapp.home.models.HomeBottomNavigationItem
+import com.hrudhaykanth116.composeapp.home.models.HomeBottomNavigationUIState
+import com.hrudhaykanth116.composeapp.home.models.HomeRoute
 import com.hrudhaykanth116.todo.navigation.TodoNavigation
 import com.hrudhaykanth116.tv.ui.EntertainmentNavigation
 import com.hrudhaykanth116.weather.ui.screens.home.WeatherNavigation
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreenUI(
@@ -69,14 +64,13 @@ fun HomeScreenUI(
 
                         HomeRoute.Weather -> {
                             composable(HomeRoute.Weather.route) {
-                                // If use compose navigation
                                 WeatherNavigation()
                             }
                         }
 
                         HomeRoute.Media -> {
                             composable(homeRoute.route) {
-                                MediaScreen()
+                                MediaNavigation()
                             }
                         }
 
@@ -90,7 +84,7 @@ fun HomeScreenUI(
 
                         HomeRoute.Journal -> {
                             composable(HomeRoute.Journal.route) {
-                                JournalScreen()
+                                JournalNavigation()
                             }
                         }
 
@@ -107,12 +101,6 @@ fun HomeScreenUI(
                                 EntertainmentNavigation()
                             }
                         }
-
-                        HomeRoute.Account -> {
-                            composable(HomeRoute.Account.route) {
-                                AccountNavigation()
-                            }
-                        }
                     }
                 }
             }
@@ -121,18 +109,20 @@ fun HomeScreenUI(
 
 }
 
-@Preview
+@AppPreview
 @Composable
 private fun HomeScreenUIPreview() {
 
     val navController = rememberNavController()
 
-    HomeScreenUI(
-        navController,
-        HomeBottomNavigationUIState(
+    AppPreviewContainer {
+        HomeScreenUI(
+            navController,
+            HomeBottomNavigationUIState(
 
-        ),
-        onNavItemSelected = {}
+            ),
+            onNavItemSelected = {}
 
-    )
+        )
+    }
 }

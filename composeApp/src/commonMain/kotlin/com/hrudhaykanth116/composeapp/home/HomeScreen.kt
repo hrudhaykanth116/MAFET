@@ -1,6 +1,5 @@
-package com.hrudhaykanth116.mafet.home
+package com.hrudhaykanth116.composeapp.home
 
-import android.net.http.SslCertificate
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -12,8 +11,8 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.hrudhaykanth116.mafet.home.models.HomeBottomNavigationItem
-import com.hrudhaykanth116.mafet.home.models.HomeBottomNavigationUIState
+import com.hrudhaykanth116.composeapp.home.models.HomeBottomNavigationItem
+import com.hrudhaykanth116.composeapp.home.models.HomeBottomNavigationUIState
 
 @Composable
 fun HomeScreen(
@@ -43,16 +42,10 @@ fun HomeScreen(
         bottomUIState,
         onNavItemSelected = { selectedItem: HomeBottomNavigationItem ->
             navController.navigate(selectedItem.route) {
-                // Pop up to the start destination of the graph to
-                // avoid building up a large stack of destinations
-                // on the back stack as users select items
                 popUpTo(navController.graph.findStartDestination().id) {
                     saveState = true
                 }
-                // Avoid multiple copies of the same destination when
-                // re selecting the same item
                 launchSingleTop = true
-                // Restore state when re select   ting a previously selected item
                 restoreState = true
             }
         }

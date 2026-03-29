@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.rememberNavController
 import com.hrudhaykanth116.auth.ui.navigation.AuthNavigation
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
-import com.hrudhaykanth116.mafet.home.HomeScreen
+import com.hrudhaykanth116.composeapp.home.HomeScreen
 import com.hrudhaykanth116.training.core.TrainingScreen
 
 @Composable

@@ -69,6 +69,7 @@ dependencies {
     api(project(":core"))
     implementation(project(":core-network"))
     implementation(project(":core-ui"))
+    implementation(project(":composeApp"))
 
     // Compose Multiplatform Resources - needed to use Res from core-ui
     implementation(libs.androidx.compose.bom)
