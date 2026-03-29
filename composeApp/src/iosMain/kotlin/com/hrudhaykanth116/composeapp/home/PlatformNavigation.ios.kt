@@ -8,13 +8,6 @@ import androidx.navigation.NavHostController
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
 
 @Composable
-actual fun MediaNavigation() {
-    CenteredColumn(modifier = Modifier.fillMaxSize()) {
-        Text("Media coming soon to iOS")
-    }
-}
-
-@Composable
 actual fun JournalNavigation() {
     CenteredColumn(modifier = Modifier.fillMaxSize()) {
         Text("Journal coming soon to iOS")

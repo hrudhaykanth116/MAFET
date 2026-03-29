@@ -1,6 +1,6 @@
 package com.hrudhaykanth116.media.di
 
-import com.hrudhaykanth116.media.BuildConfig
+import com.hrudhaykanth116.core.common.di.DispatchersEnum
 import com.hrudhaykanth116.media.data.network.PexelsRemoteDataSource
 import com.hrudhaykanth116.media.data.network.ktor.PexelsApiServiceKtor
 import com.hrudhaykanth116.media.data.repositories.PexelsRepository
@@ -10,9 +10,11 @@ import org.koin.core.module.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
+private const val PEXELS_API_KEY = "JRWFPyxMObCfYwIpDE7ZVJ4iGeo0Rv3sMeucQjjw8l1WD9wSMUnZophQ"
+
 val mediaModule = module {
     // API Key
-    single(named("pexels_api_key")) { BuildConfig.PEXELS_API_KEY }
+    single(named("pexels_api_key")) { PEXELS_API_KEY }
 
     // Network - Ktor API Service (uses HttpClient from core-network)
     single<PexelsApiServiceKtor> {
@@ -33,7 +35,7 @@ val mediaModule = module {
     single<PexelsRepository> {
         PexelsRepository(
             get(),
-            get(named("IoDispatcher"))
+            get(named(DispatchersEnum.IoDispatcher))
         )
     }
 

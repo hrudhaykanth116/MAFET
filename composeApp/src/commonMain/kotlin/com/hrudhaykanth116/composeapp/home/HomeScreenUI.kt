@@ -25,6 +25,7 @@ import com.hrudhaykanth116.composeapp.home.models.HomeRoute
 import com.hrudhaykanth116.todo.navigation.TodoNavigation
 import com.hrudhaykanth116.tv.ui.EntertainmentNavigation
 import com.hrudhaykanth116.weather.ui.screens.home.WeatherNavigation
+import com.hrudhaykanth116.media.ui.screens.MediaScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -70,7 +71,7 @@ fun HomeScreenUI(
 
                         HomeRoute.Media -> {
                             composable(homeRoute.route) {
-                                MediaNavigation()
+                                MediaScreen()
                             }
                         }
 

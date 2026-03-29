@@ -36,6 +36,8 @@
 	<string>a57af9914210a23a96843166f085ec83</string>
 	<key>OPEN_WEATHER_GEO_CODING_API_KEY</key>
 	<string>a57af9914210a23a96843166f085ec83</string>
+	<key>PEXELS_API_KEY</key>
+	<string>JRWFPyxMObCfYwIpDE7ZVJ4iGeo0Rv3sMeucQjjw8l1WD9wSMUnZophQ</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We need your location to show weather for your current area</string>
 	<key>UILaunchScreen</key>

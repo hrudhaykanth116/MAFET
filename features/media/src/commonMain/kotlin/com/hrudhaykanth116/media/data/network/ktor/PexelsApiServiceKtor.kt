@@ -1,6 +1,5 @@
 package com.hrudhaykanth116.media.data.network.ktor
 
-import com.hrudhaykanth116.media.BuildConfig
 import com.hrudhaykanth116.media.data.models.CuratedPhotosResponse
 import com.hrudhaykanth116.media.data.models.GetPopularVideosResponse
 import com.hrudhaykanth116.media.data.models.PhotoResponse
@@ -33,7 +32,7 @@ class PexelsApiServiceKtor(
         query: String,
         page: Int = 1,
         perPage: Int = 15,
-        apiKey: String = BuildConfig.PEXELS_API_KEY
+        apiKey: String
     ): Result<PhotoSearchResponse> {
         return try {
             val response = httpClient.get("${BASE_URL}v1/search") {
@@ -55,7 +54,7 @@ class PexelsApiServiceKtor(
     suspend fun getCuratedPhotos(
         page: Int = 1,
         perPage: Int = 15,
-        apiKey: String = BuildConfig.PEXELS_API_KEY
+        apiKey: String
     ): Result<CuratedPhotosResponse> {
         return try {
             val response = httpClient.get("${BASE_URL}v1/curated") {
@@ -75,7 +74,7 @@ class PexelsApiServiceKtor(
      */
     suspend fun getPhotoById(
         id: Int,
-        apiKey: String = BuildConfig.PEXELS_API_KEY
+        apiKey: String
     ): Result<PhotoResponse> {
         return try {
             val response = httpClient.get("${BASE_URL}v1/photos/$id") {
@@ -93,7 +92,7 @@ class PexelsApiServiceKtor(
      */
     suspend fun getVideoById(
         id: Int,
-        apiKey: String = BuildConfig.PEXELS_API_KEY
+        apiKey: String
     ): Result<VideoResponse> {
         return try {
             val response = httpClient.get("${BASE_URL}videos/videos/$id") {
@@ -111,7 +110,7 @@ class PexelsApiServiceKtor(
      */
     suspend fun getPopularVideos(
         perPage: Int,
-        apiKey: String = BuildConfig.PEXELS_API_KEY
+        apiKey: String
     ): Result<GetPopularVideosResponse> {
         return try {
             val response = httpClient.get("${BASE_URL}videos/popular") {

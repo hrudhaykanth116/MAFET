@@ -4,12 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.hrudhaykanth116.games.GameScreenStevdza
 import com.hrudhaykanth116.journal.JournalScreen
-import com.hrudhaykanth116.media.ui.screens.MediaScreen
-
-@Composable
-actual fun MediaNavigation() {
-    MediaScreen()
-}
 
 @Composable
 actual fun JournalNavigation() {

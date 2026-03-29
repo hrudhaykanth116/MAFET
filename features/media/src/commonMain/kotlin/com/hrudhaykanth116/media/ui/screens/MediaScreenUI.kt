@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.hrudhaykanth116.core.common.ui.components.VideoPlayerScreen
+import com.hrudhaykanth116.core.ui.components.VideoPlayerScreen
 import com.hrudhaykanth116.core.ui.preview.AppPreview
 import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.ui.components.AppProgressBar
