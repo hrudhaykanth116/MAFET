@@ -1,7 +1,7 @@
 package com.hrudhaykanth116.media.ui.screens
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.core.ui.NetworkMonitor
 import com.hrudhaykanth116.core.data.RepoResultWrapper
 import com.hrudhaykanth116.core.ui.viewmodels.UIStateViewModel
@@ -42,29 +42,29 @@ class MediaViewModel(
                         val photoId = curatedPhotos.firstOrNull()?.id ?: 0
                         when (val photoResult = pexelsRepository.getPhotoById(photoId)) {
                             is RepoResultWrapper.Success -> {
-                                Log.d(TAG, "Photo: ${photoResult.data}")
+                                Logger.d(TAG, "Photo: ${photoResult.data}")
                             }
                             is RepoResultWrapper.Error -> {
-                                Log.e(TAG, "Photo error: ${photoResult.errorState}")
+                                Logger.e(TAG, "Photo error: ${photoResult.errorState}")
                             }
                         }
                     }
                     is RepoResultWrapper.Error -> {
-                        Log.e(TAG, "Curated photos error: ${result.errorState}")
+                        Logger.e(TAG, "Curated photos error: ${result.errorState}")
                     }
                 }
 
                 when (val searchResult = pexelsRepository.searchPhotos(query = "nature", page = 1, perPage = 10)) {
                     is RepoResultWrapper.Success -> {
-                        Log.d(TAG, "Search photos: ${searchResult.data}")
+                        Logger.d(TAG, "Search photos: ${searchResult.data}")
                     }
                     is RepoResultWrapper.Error -> {
-                        Log.e(TAG, "Search photos error: ${searchResult.errorState}")
+                        Logger.e(TAG, "Search photos error: ${searchResult.errorState}")
                     }
                 }
 
             } catch (e: Exception) {
-                Log.e(TAG, "API error: ${e.message}", e)
+                Logger.e(TAG, "API error: ${e.message}", e)
             }
         }
 
@@ -73,7 +73,7 @@ class MediaViewModel(
                 when (val result = pexelsRepository.getPopularVideos(perPage = 5)) {
                     is RepoResultWrapper.Success -> {
                         val response = result.data
-                        Log.d(TAG, "Popular Videos: $response")
+                        Logger.d(TAG, "Popular Videos: $response")
 
                         val videoUrl = response.videos
                             ?.firstOrNull()
@@ -81,7 +81,7 @@ class MediaViewModel(
                             ?.firstOrNull { it?.fileType == "video/mp4" }
                             ?.link
 
-                        Log.d(TAG, "Popular Video: $videoUrl")
+                        Logger.d(TAG, "Popular Video: $videoUrl")
 
                         // val videoUrl =  "https://player.vimeo.com/external/342571552.sd.mp4?s=e0df43853c25598dfd0ec4d3f413bce1e002deef&profile_id=164&oauth2_token_id=57447761"
 
@@ -89,16 +89,20 @@ class MediaViewModel(
 
                         // val staticUrl = "https://www.pexels.com/video/a-person-holding-a-eucalyptus-plant-with-soil-6963395/"
 
-                        setState {
-                            UIState.Idle(contentState = contentState?.copy(videoUrl = videoUrl))
+                        if (!videoUrl.isNullOrBlank()) {
+                            setState {
+                                UIState.Idle(contentState = contentState?.copy(videoUrl = videoUrl))
+                            }
+                        } else {
+                            Logger.e(TAG, "No valid video URL found")
                         }
                     }
                     is RepoResultWrapper.Error -> {
-                        Log.e(TAG, "Popular videos error: ${result.errorState}")
+                        Logger.e(TAG, "Popular videos error: ${result.errorState}")
                     }
                 }
             } catch (e: Exception) {
-                Log.e(TAG, "API error: ${e.message}", e)
+                Logger.e(TAG, "API error: ${e.message}", e)
             }
         }
     }

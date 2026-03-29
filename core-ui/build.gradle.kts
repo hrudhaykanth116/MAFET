@@ -76,6 +76,10 @@ kotlin {
 
             // Coil GIF - Android only (AAR format)
             api(libs.coil.gif)
+
+            // Media3 ExoPlayer - Android only
+            implementation(libs.androidx.media3.exoplayer)
+            implementation(libs.androidx.media3.ui)
         }
 
         val desktopMain by getting {

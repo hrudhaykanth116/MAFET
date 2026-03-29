@@ -8,9 +8,22 @@
 
 # IDE
 .idea/
+*.swp
+*.swo
+*~
 
 # macOS
 .DS_Store
+
+# Kotlin/Native
+*.kexe
+*.klib
+.konan/
+
+# iOS
+*.framework
+*.xcframework
+DerivedData/
 
 # Android
 *.apk
@@ -20,6 +33,23 @@ local.properties
 captures/
 .externalNativeBuild
 .cxx/
+
+# Desktop/JVM
+*.class
+*.jar
+
+# Compose Multiplatform
+/compose-resources/
+/generated/
+/.compose-cache/
+
+# KSP
+/build/generated/ksp/
+/schemas/
+
+# Kotlin
+.kotlin/
+kotlin-js-store/
 
 # Test results
 /test-results/
