@@ -22,7 +22,7 @@ The migration is progressing incrementally, with most common code already conver
 - Platform-specific implementations being extracted to appropriate source sets (androidMain, iosMain)
 
 **Android-Only (Pending Migration):**
-- `app` module - primary Android application entry point
+- `androidApp` module - primary Android application entry point
 - `core` module - contains Android-specific utilities and legacy code (including Google Mobile Ads integration)
 - Feature modules not yet migrated: `ai`, `weather`, `tv`, `auth`, `journal`, `media`, `games`
 - `training` module
@@ -83,7 +83,7 @@ Status: Migrated to KMP with Room database integration, being adapted for iOS su
 
 #### Application Modules
 
-**`app`** - Primary Android application
+**`androidApp`** - Primary Android application
 Dependencies: All feature modules, core modules
 Platform: Android
 Entry point: Main Android app with dynamic feature support
@@ -103,7 +103,7 @@ Status: Operational for both Android and iOS
 ### Dependency Flow
 
 ```
-Application Layer (app [Android], composeApp [KMP])
+Application Layer (androidApp [Android], composeApp [KMP])
             ↓
 Feature Modules (todo [KMP], weather, ai, etc.)
             ↓

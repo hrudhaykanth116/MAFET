@@ -20,7 +20,7 @@ dependencyResolutionManagement {
     }
 }
 
-include ':app'
+include ':androidApp'
 rootProject.name = "MAFET"
 include ':core-common'
 include ':core-network'
