@@ -1,4 +1,4 @@
-package com.hrudhaykanth116.core.ads
+package com.hrudhaykanth116.mafet.ads
 
 object MyAdUnitIds {
 

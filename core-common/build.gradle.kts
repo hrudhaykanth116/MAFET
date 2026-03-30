@@ -26,16 +26,16 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             // Kotlin
-            implementation(libs.kotlinx.collections.immutable)
-            implementation(libs.kotlinx.serialization.json)
-            implementation(libs.kotlinx.datetime)
-            implementation(libs.kotlinx.coroutines.core)
+            api(libs.kotlinx.collections.immutable)
+            api(libs.kotlinx.serialization.json)
+            api(libs.kotlinx.datetime)
+            api(libs.kotlinx.coroutines.core)
 
             // Koin for DI
             api(libs.koin.core)
 
             // Kermit Logger
-            implementation(libs.kermit)
+            api(libs.kermit)
         }
 
         androidMain.dependencies {

@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.chibatching.kotpref.Kotpref
 import com.chibatching.kotpref.gsonpref.gson
 import com.google.gson.Gson
-import com.hrudhaykanth116.core.ads.AdsInitializer
+import com.hrudhaykanth116.mafet.ads.AdsInitializer
 import com.hrudhaykanth116.mafet.di.appModule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

@@ -1,10 +1,9 @@
-package com.hrudhaykanth116.core.common.ui.components
+package com.hrudhaykanth116.core.ui.components
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.LocalTextStyle
@@ -59,7 +58,7 @@ fun ExpandableText(
                     } else {
                         val adjustText = text.substring(startIndex = 0, endIndex = lastCharIndex)
                             .dropLast(showMoreText.length)
-                            .dropLastWhile { Character.isWhitespace(it) || it == '.' }
+                            .dropLastWhile { it.isWhitespace() || it == '.' }
                         append(adjustText)
                         withStyle(style = showMoreStyle) { append(showMoreText) }
                     }

@@ -1,4 +1,4 @@
-package com.hrudhaykanth116.core.ads
+package com.hrudhaykanth116.mafet.ads
 
 object TestAdUnitIds {
     const val APP_OPEN = "ca-app-pub-3940256099942544/9257395921"
