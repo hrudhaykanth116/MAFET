@@ -14,7 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.hrudhaykanth116.core.data.ErrorState
 import com.hrudhaykanth116.core.ui.components.ApiErrorScreen
 import com.hrudhaykanth116.core.ui.components.AppProgressBar
 import com.hrudhaykanth116.core.ui.components.VerticalSpacer

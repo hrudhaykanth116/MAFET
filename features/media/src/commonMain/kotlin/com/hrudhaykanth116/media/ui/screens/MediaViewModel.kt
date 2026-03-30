@@ -3,7 +3,7 @@ package com.hrudhaykanth116.media.ui.screens
 import androidx.lifecycle.viewModelScope
 import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.core.ui.NetworkMonitor
-import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.core.ui.viewmodels.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.media.data.models.PhotoResponse
@@ -33,7 +33,7 @@ class MediaViewModel(
             try {
                 // Test: Get curated photos
                 when (val result = pexelsRepository.getCuratedPhotos(page = Random.nextInt(1, 10), perPage = 20)) {
-                    is RepoResultWrapper.Success -> {
+                    is DomainResult.Success -> {
                         val curatedPhotos: List<PhotoResponse> = result.data.photos
                         setState {
                             UIState.Idle(contentState = contentState?.copy(photoList = curatedPhotos))
@@ -41,25 +41,25 @@ class MediaViewModel(
 
                         val photoId = curatedPhotos.firstOrNull()?.id ?: 0
                         when (val photoResult = pexelsRepository.getPhotoById(photoId)) {
-                            is RepoResultWrapper.Success -> {
+                            is DomainResult.Success -> {
                                 Logger.d(TAG, "Photo: ${photoResult.data}")
                             }
-                            is RepoResultWrapper.Error -> {
-                                Logger.e(TAG, "Photo error: ${photoResult.errorState}")
+                            is DomainResult.Error -> {
+                                Logger.e(TAG, "Photo error: ${photoResult.error.toMessage()}")
                             }
                         }
                     }
-                    is RepoResultWrapper.Error -> {
-                        Logger.e(TAG, "Curated photos error: ${result.errorState}")
+                    is DomainResult.Error -> {
+                        Logger.e(TAG, "Curated photos error: ${result.error.toMessage()}")
                     }
                 }
 
                 when (val searchResult = pexelsRepository.searchPhotos(query = "nature", page = 1, perPage = 10)) {
-                    is RepoResultWrapper.Success -> {
+                    is DomainResult.Success -> {
                         Logger.d(TAG, "Search photos: ${searchResult.data}")
                     }
-                    is RepoResultWrapper.Error -> {
-                        Logger.e(TAG, "Search photos error: ${searchResult.errorState}")
+                    is DomainResult.Error -> {
+                        Logger.e(TAG, "Search photos error: ${searchResult.error.toMessage()}")
                     }
                 }
 
@@ -71,7 +71,7 @@ class MediaViewModel(
         viewModelScope.launch {
             try {
                 when (val result = pexelsRepository.getPopularVideos(perPage = 5)) {
-                    is RepoResultWrapper.Success -> {
+                    is DomainResult.Success -> {
                         val response = result.data
                         Logger.d(TAG, "Popular Videos: $response")
 
@@ -97,8 +97,8 @@ class MediaViewModel(
                             Logger.e(TAG, "No valid video URL found")
                         }
                     }
-                    is RepoResultWrapper.Error -> {
-                        Logger.e(TAG, "Popular videos error: ${result.errorState}")
+                    is DomainResult.Error -> {
+                        Logger.e(TAG, "Popular videos error: ${result.error.toMessage()}")
                     }
                 }
             } catch (e: Exception) {

@@ -1,6 +1,5 @@
 package com.hrudhaykanth116.core.ui.models
 
-import com.hrudhaykanth116.core.data.ErrorState
 import com.hrudhaykanth116.core.domain.result.DomainError
 
 /**

@@ -1,6 +1,5 @@
 package com.hrudhaykanth116.tv.data.repositories.tv
 
-import com.hrudhaykanth116.core.data.mappers.toDomainResult
 import com.hrudhaykanth116.core.data.repository.BaseRepository
 import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.tv.data.datasources.remote.sources.tvshows.TvRemoteDataSource
@@ -15,22 +14,22 @@ class TvRepository(
 ) : BaseRepository(dispatcher), ITvRepository {
 
     override suspend fun getPopularTvShows(pageId: Int): DomainResult<TvShowPagedResult> =
-        getResult {
+        fetchResult {
             remoteDataSource.getPopularTvShows(pageId)
-        }.toDomainResult().map { it.toDomain() }
+        }.map { it.toDomain() }
 
     override suspend fun getTopRatedTvShows(pageId: Int): DomainResult<TvShowPagedResult> =
-        getResult {
+        fetchResult {
             remoteDataSource.getTopRatedTvShows(pageId)
-        }.toDomainResult().map { it.toDomain() }
+        }.map { it.toDomain() }
 
     override suspend fun getAiringTodayShows(pageId: Int): DomainResult<TvShowPagedResult> =
-        getResult {
+        fetchResult {
             remoteDataSource.getAiringTodayShows(pageId)
-        }.toDomainResult().map { it.toDomain() }
+        }.map { it.toDomain() }
 
     override suspend fun getTrendingTv(timeWindow: String, pageId: Int): DomainResult<TvShowPagedResult> =
-        getResult {
+        fetchResult {
             remoteDataSource.getTrendingTv(timeWindow, pageId)
-        }.toDomainResult().map { it.toDomain() }
+        }.map { it.toDomain() }
 }

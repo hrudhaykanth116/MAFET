@@ -11,7 +11,7 @@ import com.hrudhaykanth116.auth.data.models.LoginRequest
 import com.hrudhaykanth116.auth.data.models.LoginResult
 import com.hrudhaykanth116.auth.data.models.SignUpRequest
 import com.hrudhaykanth116.auth.data.models.SignUpResult
-import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.core.network.models.ApiError
 import com.hrudhaykanth116.core.network.models.ApiResultWrapper
 import com.hrudhaykanth116.core.ui.models.UIText
@@ -46,17 +46,17 @@ class FirebaseIAuthRemoteDataSource(
 
     override suspend fun login(loginRequest: LoginRequest): ApiResultWrapper<LoginResult> =
         withContext(dispatcher) {
-            val signInResult: RepoResultWrapper<AuthResult> = firebaseAuth.signInWithEmailAndPassword(
+            val signInResult: DomainResult<AuthResult> = firebaseAuth.signInWithEmailAndPassword(
                 loginRequest.email,
                 loginRequest.password
             ).await()
 
             return@withContext when (signInResult) {
-                is RepoResultWrapper.Error -> {
+                is DomainResult.Error -> {
                     ApiResultWrapper.Error(ApiError.SomethingWentWrong)
                 }
 
-                is RepoResultWrapper.Success -> {
+                is DomainResult.Success -> {
                     ApiResultWrapper.Success(
                         LoginResult(
                             signInResult.data.user?.uid!!,
@@ -69,29 +69,26 @@ class FirebaseIAuthRemoteDataSource(
 
     override suspend fun signUp(signUpRequest: SignUpRequest): ApiResultWrapper<SignUpResult> =
         withContext(dispatcher) {
-            val signInResult: RepoResultWrapper<AuthResult> = firebaseAuth.createUserWithEmailAndPassword(
+            val signInResult: DomainResult<AuthResult> = firebaseAuth.createUserWithEmailAndPassword(
                 signUpRequest.email,
                 signUpRequest.password
             ).await()
 
 
             return@withContext when (signInResult) {
-                is RepoResultWrapper.Error -> {
+                is DomainResult.Error -> {
                     ApiResultWrapper.Error(ApiError.SomethingWentWrong)
                 }
 
-                is RepoResultWrapper.Success -> {
+                is DomainResult.Success -> {
 
                     val user = signInResult.data.user
                         ?: return@withContext ApiResultWrapper.Error(ApiError.SomethingWentWrong)
 
                     val userNode = database.child("data").child(user.uid)
 
-                    // hrudhay_check_list: Use async for parallel work.
                     userNode.child("userName").setValue(signUpRequest.userName).await()
                     userNode.child("bio").setValue(signUpRequest.bio).await()
-
-                    // database.push()
 
                     signUpRequest.imgBitmap?.let {
                         val byteArrayOutputStream = ByteArrayOutputStream()
@@ -102,24 +99,18 @@ class FirebaseIAuthRemoteDataSource(
                             firebaseStorage.reference.child("${user.uid}/profileImg.jpg")
                         val result = profileImageRef.putBytes(data).await()
                         when (result) {
-                            is RepoResultWrapper.Error -> {
+                            is DomainResult.Error -> {
 
                             }
 
-                            is RepoResultWrapper.Success -> {
+                            is DomainResult.Success -> {
                                 val url = profileImageRef.downloadUrl.awaitOrNull()?.toString()
                                 userNode.child("profileImgUrl").setValue(url).await()
                             }
                         }
                     }
 
-                    // signInResult.data.user?.updateProfile(
-                    //     UserProfileChangeRequest.Builder().setPhotoUri().build()
-                    // )?.await()
-
                     val firebaseUser = signInResult.data.user
-                    // val displayName =
-                    //     firebaseUser?.updateProfile(UserProfileChangeRequest()) ?: "No display name"
 
                     ApiResultWrapper.Success(
                         SignUpResult(

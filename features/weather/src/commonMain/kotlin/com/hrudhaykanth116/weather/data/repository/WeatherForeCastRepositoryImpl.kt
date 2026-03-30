@@ -1,6 +1,5 @@
 package com.hrudhaykanth116.weather.data.repository
 
-import com.hrudhaykanth116.core.data.mappers.toDomainResult
 import com.hrudhaykanth116.core.data.repository.BaseRepository
 import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.weather.data.datasources.remote.WeatherForeCastRemoteDataSource
@@ -16,10 +15,8 @@ class WeatherForeCastRepositoryImpl(
     override suspend fun getDailyWeatherForeCast(
         latitude: String,
         longitude: String,
-    ): DomainResult<WeatherForeCastResponse> {
-        val repoResult = getResult {
+    ): DomainResult<WeatherForeCastResponse> =
+        fetchResult {
             weatherForeCastRemoteDataSource.getWeatherForeCast(latitude, longitude)
         }
-        return repoResult.toDomainResult()
-    }
 }

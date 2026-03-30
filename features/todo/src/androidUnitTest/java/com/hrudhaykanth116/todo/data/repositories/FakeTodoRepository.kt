@@ -1,7 +1,7 @@
 package com.hrudhaykanth116.todo.data.repositories
 
-import com.hrudhaykanth116.core.data.ErrorState
-import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.domain.result.DomainError
+import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.todo.domain.model.TodoModel
 import com.hrudhaykanth116.todo.domain.model.TodoDefaults
 import com.hrudhaykanth116.todo.domain.repository.ITodoRepository
@@ -37,40 +37,40 @@ class FakeTodoRepository : ITodoRepository {
         }
     }
 
-    override suspend fun getTodoTask(id: String): RepoResultWrapper<TodoModel> {
-        if (shouldReturnError) return RepoResultWrapper.Error(ErrorState.SomethingWentWrong)
+    override suspend fun getTodoTask(id: String): DomainResult<TodoModel> {
+        if (shouldReturnError) return DomainResult.Error(DomainError.Unknown())
         val task = tasksFlow.value.find { it.id == id }
         return if (task != null) {
-            RepoResultWrapper.Success(task)
+            DomainResult.Success(task)
         } else {
-            RepoResultWrapper.Error(ErrorState.NotFound)
+            DomainResult.Error(DomainError.NotFound())
         }
     }
 
-    override suspend fun createTodoTask(todoModel: TodoModel): RepoResultWrapper<Unit> {
-        if (shouldReturnError) return RepoResultWrapper.Error(ErrorState.SomethingWentWrong)
+    override suspend fun createTodoTask(todoModel: TodoModel): DomainResult<Unit> {
+        if (shouldReturnError) return DomainResult.Error(DomainError.Unknown())
         tasksFlow.value += todoModel
-        return RepoResultWrapper.Success(Unit)
+        return DomainResult.Success(Unit)
     }
 
-    override suspend fun updateTodoTask(todoModel: TodoModel): RepoResultWrapper<Unit> {
-        if (shouldReturnError) return RepoResultWrapper.Error(ErrorState.SomethingWentWrong)
+    override suspend fun updateTodoTask(todoModel: TodoModel): DomainResult<Unit> {
+        if (shouldReturnError) return DomainResult.Error(DomainError.Unknown())
         val exists = tasksFlow.value.any { it.id == todoModel.id }
-        if (!exists) return RepoResultWrapper.Error(ErrorState.NotFound)
+        if (!exists) return DomainResult.Error(DomainError.NotFound())
         tasksFlow.value = tasksFlow.value.map { if (it.id == todoModel.id) todoModel else it }
-        return RepoResultWrapper.Success(Unit)
+        return DomainResult.Success(Unit)
     }
 
-    override suspend fun deleteTasks(taskId: List<String>): RepoResultWrapper<Unit> {
-        if (shouldReturnError) return RepoResultWrapper.Error(ErrorState.SomethingWentWrong)
+    override suspend fun deleteTasks(taskId: List<String>): DomainResult<Unit> {
+        if (shouldReturnError) return DomainResult.Error(DomainError.Unknown())
         tasksFlow.value = tasksFlow.value.filter { it.id !in taskId }
-        return RepoResultWrapper.Success(Unit)
+        return DomainResult.Success(Unit)
     }
 
-    override suspend fun deleteAllTasks(): RepoResultWrapper<Unit> {
-        if (shouldReturnError) return RepoResultWrapper.Error(ErrorState.SomethingWentWrong)
+    override suspend fun deleteAllTasks(): DomainResult<Unit> {
+        if (shouldReturnError) return DomainResult.Error(DomainError.Unknown())
         tasksFlow.value = emptyList()
-        return RepoResultWrapper.Success(Unit)
+        return DomainResult.Success(Unit)
     }
 
     fun addTask(task: TodoModel) {

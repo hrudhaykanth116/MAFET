@@ -1,6 +1,6 @@
 package com.hrudhaykanth116.todo.domain.usecase
 
-import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.todo.data.repositories.FakeTodoRepository
 import com.hrudhaykanth116.todo.domain.model.TaskCategory
 import com.hrudhaykanth116.todo.domain.model.TodoModel
@@ -29,7 +29,7 @@ class UpdateTodoTaskUseCaseTest {
         val updated = TodoModel(id = "1", title = "Updated", category = TaskCategory.WORK)
         val result = useCase(updated)
 
-        assertTrue(result is RepoResultWrapper.Success)
+        assertTrue(result is DomainResult.Success)
         assertEquals("Updated", repository.getTasks()[0].title)
         assertEquals(TaskCategory.WORK, repository.getTasks()[0].category)
     }
@@ -40,7 +40,7 @@ class UpdateTodoTaskUseCaseTest {
 
         val result = useCase(task)
 
-        assertTrue(result is RepoResultWrapper.Error)
+        assertTrue(result is DomainResult.Error)
     }
 
     @Test
@@ -50,7 +50,7 @@ class UpdateTodoTaskUseCaseTest {
         val task = TodoModel(id = "1", title = "   ")
         val result = useCase(task)
 
-        assertTrue(result is RepoResultWrapper.Error)
+        assertTrue(result is DomainResult.Error)
         assertEquals("Original", repository.getTasks()[0].title)
     }
 
@@ -60,7 +60,7 @@ class UpdateTodoTaskUseCaseTest {
 
         val result = useCase(task)
 
-        assertTrue(result is RepoResultWrapper.Error)
+        assertTrue(result is DomainResult.Error)
     }
 
     @Test
@@ -71,6 +71,6 @@ class UpdateTodoTaskUseCaseTest {
         val task = TodoModel(id = "1", title = "Updated")
         val result = useCase(task)
 
-        assertTrue(result is RepoResultWrapper.Error)
+        assertTrue(result is DomainResult.Error)
     }
 }

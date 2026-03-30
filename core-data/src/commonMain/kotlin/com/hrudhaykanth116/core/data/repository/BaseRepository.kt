@@ -1,8 +1,8 @@
 package com.hrudhaykanth116.core.data.repository
 
 import com.hrudhaykanth116.core.common.di.getIODispatcher
-import com.hrudhaykanth116.core.data.ErrorState
-import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.domain.result.DomainError
+import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.core.network.models.ApiError
 import com.hrudhaykanth116.core.network.models.ApiResultWrapper
 import kotlinx.coroutines.CoroutineDispatcher
@@ -12,10 +12,10 @@ open class BaseRepository(
     private val dispatcher: CoroutineDispatcher = getIODispatcher(),
 ) {
 
-    suspend fun <T> getResult(
+    suspend fun <T> fetchResult(
         getData: suspend () -> ApiResultWrapper<T>,
-    ): RepoResultWrapper<T> = withContext(dispatcher) {
-        getData().toRepoResult()
+    ): DomainResult<T> = withContext(dispatcher) {
+        getData().toDomainResult()
     }
 
     suspend fun <T> getLocalResult(
@@ -26,23 +26,19 @@ open class BaseRepository(
 
 }
 
-
-fun <T> ApiResultWrapper<T>.toRepoResult(): RepoResultWrapper<T> {
+fun <T> ApiResultWrapper<T>.toDomainResult(): DomainResult<T> {
     return when (this) {
-        is ApiResultWrapper.Success -> RepoResultWrapper.Success(data)
+        is ApiResultWrapper.Success -> DomainResult.Success(data)
+        is ApiResultWrapper.Error -> DomainResult.Error(apiError.toDomainError())
+    }
+}
 
-        is ApiResultWrapper.Error -> RepoResultWrapper.Error(
-            when (val error = apiError) {
-                is ApiError.NoInternetError -> ErrorState.NoNetwork
-
-                is ApiError.TimeOutError -> ErrorState.TimeOut
-
-                is ApiError.ExceptionError -> ErrorState.SomethingWentWrong
-
-                is ApiError.SomethingWentWrong -> ErrorState.SomethingWentWrong
-
-                is ApiError.InvalidUser -> ErrorState.InvalidUser
-            }
-        )
+fun ApiError.toDomainError(): DomainError {
+    return when (this) {
+        is ApiError.NoInternetError -> DomainError.NoNetwork
+        is ApiError.TimeOutError -> DomainError.Timeout
+        is ApiError.ExceptionError -> DomainError.Unknown(throwable = exception)
+        is ApiError.SomethingWentWrong -> DomainError.Unknown(message = "Something went wrong")
+        is ApiError.InvalidUser -> DomainError.Authentication("Invalid user")
     }
 }

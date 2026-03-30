@@ -1,7 +1,7 @@
 package com.hrudhaykanth116.todo.data.repositories
 
 import com.hrudhaykanth116.core.common.time.TimeProvider
-import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.core.ui.NetworkMonitor
 import com.hrudhaykanth116.todo.data.data_source.local.FakeLocal
 import com.hrudhaykanth116.todo.data.local.room.tables.TodoTaskDbEntity
@@ -50,7 +50,7 @@ class TodoRepositoryTest {
 
         val result = repository.createTodoTask(todoModel)
 
-        assertTrue(result is RepoResultWrapper.Success)
+        assertTrue(result is DomainResult.Success)
         assertEquals(1, localDataSource.tasks.size)
         assertEquals("Test Task", localDataSource.tasks[0].title)
     }
@@ -70,8 +70,8 @@ class TodoRepositoryTest {
 
         val result = repository.getTodoTask("1")
 
-        assertTrue(result is RepoResultWrapper.Success)
-        assertEquals("Existing", (result as RepoResultWrapper.Success).data.title)
+        assertTrue(result is DomainResult.Success)
+        assertEquals("Existing", (result as DomainResult.Success).data.title)
     }
 
     @Test
@@ -79,7 +79,7 @@ class TodoRepositoryTest {
         setup()
         val result = repository.getTodoTask("nonexistent")
 
-        assertTrue(result is RepoResultWrapper.Error)
+        assertTrue(result is DomainResult.Error)
     }
 
     @Test
@@ -94,7 +94,7 @@ class TodoRepositoryTest {
 
         val result = repository.deleteTasks(listOf("1"))
 
-        assertTrue(result is RepoResultWrapper.Success)
+        assertTrue(result is DomainResult.Success)
         assertEquals(1, localDataSource.tasks.size)
         assertEquals("2", localDataSource.tasks[0].id)
     }
@@ -125,7 +125,7 @@ class TodoRepositoryTest {
         val updated = TodoModel(id = "1", title = "Updated", priority = 2)
         val result = repository.updateTodoTask(updated)
 
-        assertTrue(result is RepoResultWrapper.Success)
+        assertTrue(result is DomainResult.Success)
         assertEquals("Updated", localDataSource.tasks.find { it.id == "1" }?.title)
     }
 
@@ -135,7 +135,7 @@ class TodoRepositoryTest {
         val nonExistent = TodoModel(id = "999", title = "Does not exist", priority = 1)
         val result = repository.updateTodoTask(nonExistent)
 
-        assertTrue(result is RepoResultWrapper.Error)
+        assertTrue(result is DomainResult.Error)
     }
 
     @Test

@@ -1,6 +1,5 @@
 package com.hrudhaykanth116.tv.data.repositories.tv
 
-import com.hrudhaykanth116.core.data.mappers.toDomainResult
 import com.hrudhaykanth116.core.data.repository.BaseRepository
 import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvCreditsResponse
@@ -22,48 +21,49 @@ class TvShowsRepository(
 ) : BaseRepository(dispatcher), ITvShowsRepository {
 
     override suspend fun getTvShowDetails(tvShowId: Int): DomainResult<TvShowDetail> =
-        getResult {
+        fetchResult {
             tvShowsRemoteDataSource.fetchTvShowDetails(tvShowId)
-        }.toDomainResult().map { it.toDomain() }
+        }.map { it.toDomain() }
 
     override suspend fun searchTvShow(query: String): DomainResult<TvShowSearchResult> =
-        getResult {
+        fetchResult {
             tvShowsRemoteDataSource.searchTvShow(query)
-        }.toDomainResult().map { it.toDomain() }
+        }.map { it.toDomain() }
 
-    override suspend fun getTvGenres(): DomainResult<GetTvGenresResponse> = getResult {
-        tvShowsRemoteDataSource.getTvGenres()
-    }.toDomainResult()
+    override suspend fun getTvGenres(): DomainResult<GetTvGenresResponse> =
+        fetchResult {
+            tvShowsRemoteDataSource.getTvGenres()
+        }
 
     override suspend fun getTvImages(tvId: Int): DomainResult<GetTvImagesResponse> =
-        getResult {
+        fetchResult {
             tvShowsRemoteDataSource.getTvImages(tvId)
-        }.toDomainResult()
+        }
 
     override suspend fun getTvShowVideos(tvId: Int): DomainResult<GetTvVideosResponse> =
-        getResult {
+        fetchResult {
             tvShowsRemoteDataSource.getTvShowVideos(tvId)
-        }.toDomainResult()
+        }
 
     override suspend fun getTvShowsSimilar(
         tvId: Int,
         pageId: Int,
     ): DomainResult<TvShowPagedResult> =
-        getResult {
+        fetchResult {
             tvShowsRemoteDataSource.getTvShowsSimilar(tvId, pageId)
-        }.toDomainResult().map { it.toDomain() }
+        }.map { it.toDomain() }
 
     override suspend fun getTvReviews(
         tvId: Int,
         pageId: Int,
     ): DomainResult<GetTvReviewsResponse> =
-        getResult {
+        fetchResult {
             tvShowsRemoteDataSource.getTvReviews(tvId, pageId)
-        }.toDomainResult()
+        }
 
     override suspend fun getTvCredits(tvId: Int): DomainResult<GetTvCreditsResponse> =
-        getResult {
+        fetchResult {
             tvShowsRemoteDataSource.getTvCredits(tvId)
-        }.toDomainResult()
+        }
 
 }
