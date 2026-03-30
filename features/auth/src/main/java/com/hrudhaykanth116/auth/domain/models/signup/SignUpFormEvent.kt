@@ -2,7 +2,7 @@ package com.hrudhaykanth116.auth.domain.models.signup
 
 import android.graphics.Bitmap
 import androidx.compose.ui.text.input.TextFieldValue
-import com.hrudhaykanth116.core.data.models.UIText
+import com.hrudhaykanth116.core.ui.models.UIText
 
 sealed interface SignUpFormEvent {
     data class ProfileImageChanged(val imgBitmap: Bitmap?): SignUpFormEvent

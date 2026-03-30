@@ -1,14 +1,9 @@
 package com.hrudhaykanth116.auth.domain.usecases
 
 import android.util.Patterns
-import com.hrudhaykanth116.core.data.models.UIText
-import javax.inject.Inject
-import javax.inject.Singleton
+import com.hrudhaykanth116.core.ui.models.UIText
 
-@Singleton
-class ValidateEmailUseCase @Inject constructor(
-
-) {
+class ValidateEmailUseCase {
 
     operator fun invoke(email: String?): UIText? {
 

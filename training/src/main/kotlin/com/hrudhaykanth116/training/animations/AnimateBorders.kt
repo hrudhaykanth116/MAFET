@@ -22,8 +22,8 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.unit.dp
-import com.hrudhaykanth116.core.common.ui.preview.AppPreview
-import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
+import com.hrudhaykanth116.core.ui.preview.AppPreview
+import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
 
 @Composable
 fun AnimatedBorders(modifier: Modifier = Modifier) {

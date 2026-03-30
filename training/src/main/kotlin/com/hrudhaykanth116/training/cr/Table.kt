@@ -33,15 +33,15 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.hrudhaykanth116.core.R
-import com.hrudhaykanth116.core.data.models.UIText
-import com.hrudhaykanth116.core.data.models.toUIText
+import com.hrudhaykanth116.core.ui.models.UIText
+import mafet.core_ui.generated.resources.Res
+import mafet.core_ui.generated.resources.ic_account
 import com.hrudhaykanth116.core.ui.components.AppFormButton
 import com.hrudhaykanth116.core.ui.components.AppIcon
 import com.hrudhaykanth116.core.ui.components.AppText
 import com.hrudhaykanth116.core.ui.components.HorizontalSpacer
 import com.hrudhaykanth116.core.ui.components.VerticalSpacer
-import com.hrudhaykanth116.core.ui.models.toImageHolder
+import com.hrudhaykanth116.core.ui.models.toUIText
 import kotlin.math.roundToInt
 
 val offset = 250.dp
@@ -165,7 +165,7 @@ fun DragableCard(text: UIText, i: Int, moved: Boolean, modifier: Modifier = Modi
 
         AppText(uiText = text, color = Color.White, modifier = Modifier.fillMaxWidth())
         AppIcon(
-            resId = R.drawable.ic_account,
+            resource = Res.drawable.ic_account,
             modifier = Modifier.size(40.dp),
             tint = Color.White,
         )
@@ -194,7 +194,7 @@ fun Card(text: UIText, modifier: Modifier = Modifier) {
 
         AppText(uiText = text, color = Color.White, modifier = Modifier.fillMaxWidth())
         AppIcon(
-            resId = R.drawable.ic_account,
+            resource = Res.drawable.ic_account,
             modifier = Modifier.size(40.dp),
             tint = Color.White,
         )

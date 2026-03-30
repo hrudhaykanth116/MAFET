@@ -1,0 +1,31 @@
+package com.hrudhaykanth116.tv.domain.models
+
+data class TvShowDetail(
+    val id: Int,
+    val name: String,
+    val overview: String,
+    val posterPath: String?,
+    val backdropPath: String?,
+    val voteAverage: Double,
+    val voteCount: Int,
+    val firstAirDate: String?,
+    val lastAirDate: String?,
+    val popularity: Double,
+    val originalLanguage: String,
+    val originalName: String,
+    val originCountry: List<String>,
+    val genres: List<TvGenre>,
+    val createdBy: List<Creator>,
+    val networks: List<Network>,
+    val productionCompanies: List<ProductionCompany>,
+    val seasons: List<Season>,
+    val numberOfEpisodes: Int,
+    val numberOfSeasons: Int,
+    val episodeRunTime: List<Int>,
+    val lastEpisodeToAir: Episode?,
+    val status: String,
+    val type: String,
+    val homepage: String,
+    val inProduction: Boolean,
+    val languages: List<String>
+)

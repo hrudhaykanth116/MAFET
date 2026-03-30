@@ -4,9 +4,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.storage.FirebaseStorage
 import com.hrudhaykanth116.auth.data.models.UserData
-import com.hrudhaykanth116.core.common.utils.awaitOrNull
-import com.hrudhaykanth116.core.data.models.ApiError
-import com.hrudhaykanth116.core.data.models.ApiResultWrapper
+import com.hrudhaykanth116.auth.data.awaitOrNull
+import com.hrudhaykanth116.core.network.models.ApiError
+import com.hrudhaykanth116.core.network.models.ApiResultWrapper
 
 class UserRemoteDataSourceImpl(
     private val firebaseAuth: FirebaseAuth,

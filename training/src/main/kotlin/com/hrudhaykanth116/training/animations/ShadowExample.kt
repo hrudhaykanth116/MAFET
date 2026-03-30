@@ -28,8 +28,8 @@ import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.hrudhaykanth116.core.common.ui.preview.AppPreview
-import com.hrudhaykanth116.core.common.ui.preview.AppPreviewContainer
+import com.hrudhaykanth116.core.ui.preview.AppPreview
+import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
 
 /**
  * https://developer.android.com/develop/ui/compose/graphics/draw/shadows

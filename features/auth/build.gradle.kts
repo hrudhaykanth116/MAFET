@@ -3,7 +3,6 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     id("com.android.library")
     alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.compose)
@@ -63,12 +62,27 @@ android {
 
 dependencies {
 
-    implementation(project(":core"))
+    implementation(project(":core-common"))
+    implementation(project(":core-network"))
+    implementation(project(":core-data"))
+    implementation(project(":core-ui"))
 
-    // Hilt
-    api(libs.hilt.android)
-    ksp(libs.hilt.compiler)
+    // Compose Multiplatform Resources - needed to use Res from core-ui
+    implementation(libs.androidx.compose.bom)
+    implementation("org.jetbrains.compose.components:components-resources:1.7.3")
 
+    // Koin
+    implementation(libs.koin.android)
+    implementation(libs.koin.compose)
+    implementation(libs.koin.compose.viewmodel)
+
+    /*********** Firebase ************/
+    api(platform(libs.firebase.bom))
+    // Firebase authentication
+    api(libs.firebase.auth.ktx)
+    api(libs.firebase.storage.ktx)
+    api(libs.firebase.database.ktx)
+    /*********** Firebase ************/
 
     api(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)

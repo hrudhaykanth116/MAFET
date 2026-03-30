@@ -1,0 +1,34 @@
+package com.hrudhaykanth116.todo.ui.mappers
+
+import androidx.compose.ui.text.input.TextFieldValue
+import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
+import com.hrudhaykanth116.todo.domain.model.TodoModel
+import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
+import com.hrudhaykanth116.todo.ui.models.TodoUIModel
+
+class TodoDomainModelMapper(
+    private val dateTimeUtils: DateTimeUtils,
+) {
+
+    fun mapToUIModel(todoModel: TodoModel?): TodoUIModel {
+
+        todoModel ?: return TodoUIModel()
+
+        return TodoUIModel(
+            id = todoModel.id,
+            title = TextFieldValue(todoModel.title),
+            description = TextFieldValue(todoModel.description),
+            category = TextFieldValue(todoModel.category.key),
+            priority = todoModel.priority,
+            targetTime = TextFieldValue(todoModel.targetTime?.let { dateTimeUtils.getFormattedDateTime(it) } ?: ""),
+        )
+
+    }
+
+    fun mapToUIState(todoModel: TodoModel?): ToDoTaskUIState {
+        return ToDoTaskUIState(data = mapToUIModel(todoModel))
+    }
+
+    fun mapListToUIStates(domainModels: List<TodoModel>): List<ToDoTaskUIState> =
+        domainModels.map { mapToUIState(it) }
+}

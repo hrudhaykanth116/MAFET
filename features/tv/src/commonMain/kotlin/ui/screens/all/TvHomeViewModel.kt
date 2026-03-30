@@ -1,0 +1,122 @@
+package com.hrudhaykanth116.tv.ui.screens.all
+
+import androidx.lifecycle.viewModelScope
+import com.hrudhaykanth116.core.ui.NetworkMonitor
+import com.hrudhaykanth116.core.domain.result.DomainResult
+import com.hrudhaykanth116.core.ui.viewmodels.UIStateViewModel
+import com.hrudhaykanth116.core.ui.models.UIState
+import com.hrudhaykanth116.core.ui.models.ImageHolder
+import com.hrudhaykanth116.tv.domain.models.CategorisedTvShows
+import com.hrudhaykanth116.tv.domain.models.TvCategory
+import com.hrudhaykanth116.tv.domain.models.TvShow
+import com.hrudhaykanth116.tv.domain.usecases.GetAllTvShowsUseCase
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+
+class TvHomeViewModel(
+    private val networkMonitor: NetworkMonitor,
+    private val getAllTvShowsUseCase: GetAllTvShowsUseCase,
+) : UIStateViewModel<TvHomeScreenUIState, TvHomeScreenEvent, TvHomeScreenEffect>(
+    initialState = UIState.Loading(),
+    defaultState = TvHomeScreenUIState(),
+    networkMonitor = networkMonitor
+) {
+
+
+    private val _uiState = MutableStateFlow(TvHomeScreenUIState())
+    val uiStateTemp: StateFlow<TvHomeScreenUIState> = _uiState.asStateFlow()
+
+    private val _error = MutableSharedFlow<String>()
+    val error: SharedFlow<String> = _error.asSharedFlow()
+
+    init {
+        initializeData()
+    }
+
+    override fun initializeData() {
+        loadTvShows()
+    }
+
+    fun loadTvShows() {
+        viewModelScope.launch {
+
+            setState {
+                UIState.Loading(currentContentState)
+            }
+
+            when (val result = getAllTvShowsUseCase()) {
+                is DomainResult.Success -> {
+                    setIdleState {
+                        result.data.toUiState()
+                    }
+                }
+                is DomainResult.Error -> {
+                    setState {
+                        UIState.Idle(
+                            contentState = defaultState.copy(
+                                domainError = result.error
+                            )
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+
+    override fun processEvent(event: TvHomeScreenEvent) {
+        when (event) {
+            TvHomeScreenEvent.Temp -> {
+
+            }
+        }
+    }
+
+    fun CategorisedTvShows.toUiState(): TvHomeScreenUIState {
+        return TvHomeScreenUIState(
+            categories = listOf(
+                TvShowCategoryUi(
+                    category = TvCategory.POPULAR,
+                    title = TvCategory.POPULAR.displayName,
+                    shows = popular.map { it.toUi() }
+                ),
+                TvShowCategoryUi(
+                    category = TvCategory.TOP_RATED,
+                    title = TvCategory.TOP_RATED.displayName,
+                    shows = topRated.map { it.toUi() }
+                ),
+                TvShowCategoryUi(
+                    category = TvCategory.AIRING_TODAY,
+                    title = TvCategory.AIRING_TODAY.displayName,
+                    shows = airingToday.map { it.toUi() }
+                ),
+                TvShowCategoryUi(
+                    category = TvCategory.TRENDING,
+                    title = TvCategory.TRENDING.displayName,
+                    shows = trending.map { it.toUi() }
+                )
+            )
+        )
+    }
+
+    fun TvShow.toUi(): TvShowUi {
+        return TvShowUi(
+            id = id,
+            name = name,
+            posterImage = ImageHolder.Url("https://image.tmdb.org/t/p/w500${posterPath.orEmpty()}"),
+            rating = voteAverage
+        )
+    }
+
+
+
+    companion object {
+        private const val TAG = "TvHomeViewModel"
+    }
+
+}

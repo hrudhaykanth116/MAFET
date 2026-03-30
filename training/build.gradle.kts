@@ -3,7 +3,6 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     id("com.android.library")
     alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.compose)
@@ -60,11 +59,13 @@ android {
 
 dependencies {
 
-    implementation(project(":core"))
+    implementation(project(":core-common"))
+    implementation(project(":core-ui"))
+    implementation(project(":core-data"))
 
-    // Hilt
-    api(libs.hilt.android)
-    ksp(libs.hilt.compiler)
+    // Compose Multiplatform Resources - needed to use Res from core-ui
+    implementation(libs.androidx.compose.bom)
+    implementation("org.jetbrains.compose.components:components-resources:1.7.3")
 
     api(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)

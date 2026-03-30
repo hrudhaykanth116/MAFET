@@ -6,18 +6,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hrudhaykanth116.auth.domain.models.signup.SignUpEffect
 import com.hrudhaykanth116.auth.domain.models.signup.SignUpFormEvent
 import com.hrudhaykanth116.auth.domain.models.signup.SignUpScreenCallbacks
-import com.hrudhaykanth116.core.common.utils.extensions.HandleEffect
-import com.hrudhaykanth116.core.theme.screenBackgroundModifier
+import com.hrudhaykanth116.core.ui.utils.HandleEffect
+import com.hrudhaykanth116.core.ui.theme.screenBackgroundModifier
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun SignUpScreen(
     modifier: Modifier = Modifier,
-    viewModel: SignUpViewModel = hiltViewModel(),
+    viewModel: SignUpViewModel = koinViewModel(),
     onSignedIn: () -> Unit = {},
 ) {
 

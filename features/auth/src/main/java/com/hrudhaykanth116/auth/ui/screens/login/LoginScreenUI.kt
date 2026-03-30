@@ -21,17 +21,17 @@ import com.hrudhaykanth116.auth.domain.models.login.LoginScreenCallBacks
 import com.hrudhaykanth116.auth.domain.models.login.LoginScreenState
 import com.hrudhaykanth116.auth.ui.components.EmailTextField
 import com.hrudhaykanth116.auth.ui.components.PasswordTextField
-import com.hrudhaykanth116.core.common.resources.Dimens.DEFAULT_PADDING
-import com.hrudhaykanth116.core.common.utils.compose.MyPreview
-import com.hrudhaykanth116.core.data.models.toUIText
+import com.hrudhaykanth116.core.ui.constants.Dimens.DEFAULT_PADDING
+import com.hrudhaykanth116.core.ui.preview.MyPreview
 import com.hrudhaykanth116.core.ui.components.AppFormButton
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
 import com.hrudhaykanth116.core.ui.components.HorizontalSpacer
 import com.hrudhaykanth116.core.ui.components.RoundedImage
 import com.hrudhaykanth116.core.ui.components.VerticalSpacer
-import com.hrudhaykanth116.core.ui.models.ImageParams
 import com.hrudhaykanth116.core.ui.models.toImageHolder
-import com.hrudhaykanth116.core.R as CoreR
+import com.hrudhaykanth116.core.ui.models.toUIText
+import mafet.core_ui.generated.resources.Res
+import mafet.core_ui.generated.resources.ic_account
 
 @Composable
 fun LoginScreenUI(
@@ -48,7 +48,7 @@ fun LoginScreenUI(
                 .padding(horizontal = DEFAULT_PADDING)
         ) {
             RoundedImage(
-                imageHolder = CoreR.drawable.ic_account.toImageHolder(),
+                imageHolder = Res.drawable.ic_account.toImageHolder(),
                 modifier = Modifier
                     .size(120.dp)
                     .clip(CircleShape)

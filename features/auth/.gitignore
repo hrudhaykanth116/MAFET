@@ -1,1 +1,27 @@
+# Build outputs
 /build
+/out
+
+# Gradle
+.gradle
+*.iml
+
+# IDE
+.idea/
+
+# macOS
+.DS_Store
+
+# Android
+*.apk
+*.aab
+*.dex
+local.properties
+captures/
+.externalNativeBuild
+.cxx/
+
+# Test results
+/test-results/
+/test-output/
+*.log

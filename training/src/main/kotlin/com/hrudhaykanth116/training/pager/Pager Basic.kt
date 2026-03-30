@@ -14,11 +14,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.PagerDefaults
 import androidx.compose.foundation.pager.PagerSnapDistance
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.ui.util.lerp
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -29,19 +27,14 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.common.utils.log.Logger
-import com.hrudhaykanth116.core.common.utils.compose.MyPreview
-import com.hrudhaykanth116.core.common.utils.log.COMPOSE_TAG
+import com.hrudhaykanth116.core.ui.preview.MyPreview
 import com.hrudhaykanth116.core.ui.components.AppImage
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
-import com.hrudhaykanth116.core.ui.models.ImageParams
 import com.hrudhaykanth116.core.ui.models.toUrlImageHolder
-import com.hrudhaykanth116.training.data.SAMPLE_IMAGE_URL
 import com.hrudhaykanth116.training.data.getRandomImage
 import kotlinx.coroutines.launch
-import kotlin.math.absoluteValue
 import kotlin.random.Random
 
 private const val PAGES_SIZE = 20
@@ -49,6 +42,7 @@ private const val PRE_LOAD_SIZE = 20
 private const val FLING_SIZE = 3
 val randomImageIdOffset = Random.nextInt(200, 250)
 
+private const val TAG = "Pager Basic"
 
 @OptIn(ExperimentalFoundationApi::class)
 @MyPreview
@@ -74,19 +68,19 @@ fun MyPagerContainer() {
 
     LaunchedEffect(pagerState) {
         snapshotFlow { pagerState.currentPage }.collect { page ->
-            Logger.d(COMPOSE_TAG, "MyPagerContainer: currentPage: $page")
+            Logger.d(TAG, "MyPagerContainer: currentPage: $page")
         }
     }
 
     LaunchedEffect(pagerState) {
         snapshotFlow { pagerState.settledPage }.collect { page ->
-            Logger.d(COMPOSE_TAG, "MyPagerContainer: settledPage: $page")
+            Logger.d(TAG, "MyPagerContainer: settledPage: $page")
         }
     }
 
     LaunchedEffect(pagerState) {
         snapshotFlow { pagerState.targetPage }.collect { page ->
-            Logger.d(COMPOSE_TAG, "MyPagerContainer: targetPage: $page")
+            Logger.d(TAG, "MyPagerContainer: targetPage: $page")
         }
     }
 

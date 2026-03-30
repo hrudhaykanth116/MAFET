@@ -20,9 +20,14 @@ dependencyResolutionManagement {
     }
 }
 
-include ':app'
+include ':androidApp'
 rootProject.name = "MAFET"
-include ':core'
+include ':core-common'
+include ':core-domain'
+include ':core-network'
+include ':core-data'
+include ':core-ui'
+include ':desktopApp'
 include ':features'
 include ':features:todo'
 include ':features:ai'
@@ -30,7 +35,7 @@ include ':features:weather'
 include(":training")
 include ':features:auth'
 include ':features:tv'
-include ':home'
 include ':features:journal'
 include ':features:media'
 include ':features:games'
+include ':composeApp'

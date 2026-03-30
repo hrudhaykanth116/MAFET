@@ -1,0 +1,9 @@
+package com.hrudhaykanth116.tv.ui.models.home
+
+data class EntertainmentHomeScreenCallbacks(
+    val onAddNewClicked: () -> Unit,
+    val onUpdateTvCloseRequest: () -> Unit,
+    val onTvListItemClicked: (myTv: MyTvUIState) -> Unit,
+    val onTvListItemEditClicked: (myTv: MyTvUIState) -> Unit,
+    val onTvListItemDismissed: (id: Int) -> Unit,
+)

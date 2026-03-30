@@ -22,11 +22,11 @@ import com.hrudhaykanth116.auth.ui.components.EmailTextField
 import com.hrudhaykanth116.auth.ui.components.PasswordTextField
 import com.hrudhaykanth116.auth.ui.components.ReEnterPasswordTextField
 import com.hrudhaykanth116.auth.ui.components.UserNameTextField
-import com.hrudhaykanth116.core.common.utils.compose.MyPreview
-import com.hrudhaykanth116.core.data.models.toUIText
+import com.hrudhaykanth116.core.ui.preview.MyPreview
 import com.hrudhaykanth116.core.ui.components.AppFormButton
 import com.hrudhaykanth116.core.ui.components.AppCircularImage
 import com.hrudhaykanth116.core.ui.models.ImageHolder
+import com.hrudhaykanth116.core.ui.models.toUIText
 
 @Composable
 fun SignUpScreenContentUI(
@@ -44,7 +44,7 @@ fun SignUpScreenContentUI(
 
         state.userMessage?.let {
             val context = LocalContext.current
-            Toast.makeText(context, it.getText(context), Toast.LENGTH_LONG).show()
+            Toast.makeText(context, it.getText(), Toast.LENGTH_LONG).show()
             signUpScreenCallbacks.onUserMessageShown(it)
         }
 
@@ -54,13 +54,13 @@ fun SignUpScreenContentUI(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            AppCircularImage(
-                modifier = Modifier.size(100.dp),
-                image = ImageHolder.BitmapSource(state.imgBitmap)
-                // ?: R.drawable.profile_icon,
-            ) {
-                signUpScreenCallbacks.onProfileClicked()
-            }
+            // AppCircularImage(
+            //     modifier = Modifier.size(100.dp),
+            //     image = ImageHolder.BitmapSource(state.imgBitmap)
+            //     // ?: R.drawable.profile_icon,
+            // ) {
+            //     signUpScreenCallbacks.onProfileClicked()
+            // }
             Text(text = "Set display picture")
         }
 

@@ -1,1 +1,52 @@
-/build
+# Gradle
+.gradle/
+build/
+!gradle-wrapper.jar
+
+# Android
+*.apk
+*.ap_
+*.aab
+*.dex
+*.class
+bin/
+gen/
+out/
+captures/
+.externalNativeBuild
+.cxx
+local.properties
+
+# Kotlin/Native
+*.framework/
+*.xcframework/
+
+# iOS / CocoaPods
+Pods/
+Podfile.lock
+*.xcworkspace
+*.xcuserstate
+*.moved-aside
+DerivedData/
+*.hmap
+*.ipa
+
+# Compose Multiplatform
+build-cache/
+*.hprof
+
+# IDE
+.idea/
+*.iml
+*.swp
+*.swo
+*~
+.DS_Store
+
+# KSP generated
+build/generated/
+
+# Room schemas (keep in VCS but ignore temp files)
+schemas/*.db
+schemas/*.db-shm
+schemas/*.db-wal

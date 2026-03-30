@@ -4,11 +4,10 @@ import com.hrudhaykanth116.auth.data.models.SignUpRequest
 import com.hrudhaykanth116.auth.data.models.SignUpResult
 import com.hrudhaykanth116.auth.data.repository.IAuthRepository
 import com.hrudhaykanth116.auth.domain.models.signup.SignUpFormState
-import com.hrudhaykanth116.core.common.mappers.mapToUIText
-import com.hrudhaykanth116.core.domain.models.RepoResultWrapper
-import javax.inject.Inject
+import com.hrudhaykanth116.core.domain.result.DomainResult
+import com.hrudhaykanth116.core.ui.models.UIText
 
-class SignUpUseCase @Inject constructor(
+class SignUpUseCase(
     private val validateEmailUseCase: ValidateEmailUseCase,
     private val validatePasswordUseCase: ValidatePasswordUseCase,
     private val authRepository: IAuthRepository,
@@ -23,7 +22,7 @@ class SignUpUseCase @Inject constructor(
         if (newUIState.containsError()) {
             return newUIState
         } else {
-            val signUpResult: RepoResultWrapper<SignUpResult> = authRepository.signUp(
+            val signUpResult: DomainResult<SignUpResult> = authRepository.signUp(
                 SignUpRequest(
                     email = signUpUIState.emailTextFieldValue.text,
                     password = signUpUIState.passwordTextFieldValue.text,
@@ -33,13 +32,13 @@ class SignUpUseCase @Inject constructor(
                 )
             )
             return when (signUpResult) {
-                is RepoResultWrapper.Error -> {
+                is DomainResult.Error -> {
                     newUIState.copy(
-                        userMessage = signUpResult.errorState.mapToUIText()
+                        userMessage = UIText.Text(signUpResult.error.toMessage())
                     )
                 }
 
-                is RepoResultWrapper.Success -> {
+                is DomainResult.Success -> {
                     newUIState.copy(
                         isSignedUp = true
                     )

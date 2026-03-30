@@ -5,13 +5,10 @@ import com.hrudhaykanth116.auth.domain.models.login.LoginScreenEffect
 import com.hrudhaykanth116.auth.domain.models.login.LoginScreenEvent
 import com.hrudhaykanth116.auth.domain.models.login.LoginScreenState
 import com.hrudhaykanth116.auth.domain.usecases.LoginUseCase
-import com.hrudhaykanth116.core.udf.UDFViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.hrudhaykanth116.core.ui.viewmodels.UDFViewModel
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class LoginViewModel @Inject constructor(
+class LoginViewModel(
     private val loginUseCase: LoginUseCase,
 ) : UDFViewModel<LoginScreenState, LoginScreenEvent, LoginScreenEffect>(
     LoginScreenState()
