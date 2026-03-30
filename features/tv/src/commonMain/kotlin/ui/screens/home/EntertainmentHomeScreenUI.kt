@@ -104,7 +104,7 @@ fun EntertainmentHomeScreenUI(
             },
             topBar = {
                 AppToolbar(
-                    text = "My Shows (${list?.size?.takeIf { it > 0 } ?: "0"})",
+                    text = "My Watchlist (${list?.size?.takeIf { it > 0 } ?: "0"})",
                     navigationIcon = {},
                 )
             }
@@ -136,6 +136,9 @@ fun EntertainmentHomeScreenUI(
                                     .clickable {
                                         entertainmentHomeScreenCallbacks.onTvListItemClicked(myTv)
                                     },
+                                onEditClicked = {
+                                    entertainmentHomeScreenCallbacks.onTvListItemEditClicked(myTv)
+                                },
                                 onDeleteClicked = {
                                     entertainmentHomeScreenCallbacks.onTvListItemDismissed(myTv.id)
                                 }
@@ -157,6 +160,9 @@ fun EntertainmentHomeScreenUI(
                                 imgSource = myTvUIState.imgSource,
                                 lastWatchedTime = myTvUIState.lastWatchedTime,
                                 lastWatchedTimeUIText = TextFieldValue(text = myTvUIState.lastWatchedTimeUIText.getText()),
+                                status = myTvUIState.status,
+                                rating = myTvUIState.rating,
+                                notes = TextFieldValue(text = myTvUIState.notes ?: ""),
                             )
 
                         UpdateTvScreen(
@@ -301,7 +307,7 @@ private fun TvHomeScreenUIPreview() {
             )
         ),
         entertainmentHomeScreenCallbacks = EntertainmentHomeScreenCallbacks(
-            {}, {}, {}, {}
+            {}, {}, {}, {}, {}
         )
     )
 }
@@ -312,7 +318,7 @@ private fun TvHomeScreenUIEmptyPreview() {
     EntertainmentHomeScreenUI(
         state = EntertainmentHomeScreenUIState(tvShows = null),
         entertainmentHomeScreenCallbacks = EntertainmentHomeScreenCallbacks(
-            {}, {}, {}, {}
+            {}, {}, {}, {}, {}
         )
     )
 }

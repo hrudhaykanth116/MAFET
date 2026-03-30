@@ -1,6 +1,7 @@
 package com.hrudhaykanth116.tv.data.mappers
 
 import com.hrudhaykanth116.tv.data.datasources.local.models.MyTvEntity
+import com.hrudhaykanth116.tv.data.datasources.local.models.WatchStatus
 import com.hrudhaykanth116.tv.domain.models.MyTv
 
 fun MyTvEntity.toDomain(): MyTv {
@@ -10,7 +11,10 @@ fun MyTvEntity.toDomain(): MyTv {
         lastWatchedSeason = lastWatchedSeason,
         lastWatchedEpisode = lastWatchedEpisode,
         lastWatchedTime = lastWatchedTime,
-        imgSource = imgSource
+        imgSource = imgSource,
+        status = WatchStatus.fromOrdinal(status) ?: WatchStatus.WATCHING,
+        rating = rating,
+        notes = notes,
     )
 }
 
@@ -21,7 +25,10 @@ fun MyTv.toEntity(): MyTvEntity {
         lastWatchedSeason = lastWatchedSeason,
         lastWatchedEpisode = lastWatchedEpisode,
         lastWatchedTime = lastWatchedTime,
-        imgSource = imgSource
+        imgSource = imgSource,
+        status = status.ordinal,
+        rating = rating,
+        notes = notes,
     )
 }
 

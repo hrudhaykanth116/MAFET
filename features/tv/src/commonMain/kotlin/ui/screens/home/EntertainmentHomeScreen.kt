@@ -21,6 +21,9 @@ fun EntertainmentHomeScreen(
         onTvListItemClicked = {
             entertainmentHomeScreenViewModel.processEvent(EntertainmentHomeScreenEvent.MyEntertainmentListItemClicked(it))
         },
+        onTvListItemEditClicked = {
+            entertainmentHomeScreenViewModel.processEvent(EntertainmentHomeScreenEvent.MyEntertainmentListItemClicked(it))
+        },
         onTvListItemDismissed = {
             entertainmentHomeScreenViewModel.processEvent(EntertainmentHomeScreenEvent.Delete(it))
         }

@@ -28,10 +28,13 @@ class UpdateMyTvViewModel(
         when (event) {
             is UpdateMyTvScreenEvent.OnEpisodeChanged -> onEpisodeChanged(event)
             is UpdateMyTvScreenEvent.OnSeasonChanged -> onSeasonChanged(event)
-            UpdateMyTvScreenEvent.OnSubmit -> onSubmit()
+            is UpdateMyTvScreenEvent.OnStatusChanged -> onStatusChanged(event.status)
+            is UpdateMyTvScreenEvent.OnRatingChanged -> onRatingChanged(event.rating)
+            is UpdateMyTvScreenEvent.OnNotesChanged -> onNotesChanged(event.notes)
             is UpdateMyTvScreenEvent.OnLastWatchedDateChanged -> onLastWatchedDateChanged(event.time)
             UpdateMyTvScreenEvent.OnLastWatchedDatePickerCloseRequest -> onLastWatchedDatePickerCloseRequest()
             UpdateMyTvScreenEvent.OnLastWatchedDatePickerOpenRequest -> onLastWatchedDatePickerOpenRequest()
+            UpdateMyTvScreenEvent.OnSubmit -> onSubmit()
         }
     }
 
@@ -94,8 +97,10 @@ class UpdateMyTvViewModel(
                     lastWatchedSeason = data.lastWatchedSeason.text.toIntOrNull(),
                     lastWatchedEpisode = data.lastWatchedEpisode.text.toIntOrNull(),
                     lastWatchedTime = data.lastWatchedTime,
-                    // hrudhay_check_list: Should not update image source
-                    imgSource = data.imgSource?.data as? String
+                    imgSource = data.imgSource?.data as? String,
+                    status = data.status,
+                    rating = data.rating,
+                    notes = data.notes.text.takeIf { it.isNotBlank() },
                 )
             )
             setState {
@@ -125,9 +130,28 @@ class UpdateMyTvViewModel(
         }
     }
 
+    private fun onStatusChanged(status: com.hrudhaykanth116.tv.data.datasources.local.models.WatchStatus) {
+        val currentUpdateTvData = state.updateTvData
+        setState {
+            copy(updateTvData = currentUpdateTvData?.copy(status = status))
+        }
+    }
+
+    private fun onRatingChanged(rating: Int?) {
+        val currentUpdateTvData = state.updateTvData
+        setState {
+            copy(updateTvData = currentUpdateTvData?.copy(rating = rating))
+        }
+    }
+
+    private fun onNotesChanged(notes: androidx.compose.ui.text.input.TextFieldValue) {
+        val currentUpdateTvData = state.updateTvData
+        setState {
+            copy(updateTvData = currentUpdateTvData?.copy(notes = notes))
+        }
+    }
+
     companion object {
         private const val TAG = "UpdateMyTvViewModel"
     }
-
-
 }

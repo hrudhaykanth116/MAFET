@@ -37,42 +37,33 @@ fun UpdateTvScreen(
 
     val updateMyTvScreenCallbacks = UpdateMyTvScreenCallbacks(
         onSeasonChanged = {
-            updateMyTvViewModel.processEvent(
-                UpdateMyTvScreenEvent.OnSeasonChanged(
-                    it
-                )
-            )
+            updateMyTvViewModel.processEvent(UpdateMyTvScreenEvent.OnSeasonChanged(it))
         },
         onEpisodeChanged = {
-            updateMyTvViewModel.processEvent(
-                UpdateMyTvScreenEvent.OnEpisodeChanged(
-                    it
-                )
-            )
+            updateMyTvViewModel.processEvent(UpdateMyTvScreenEvent.OnEpisodeChanged(it))
         },
-        onSubmit = {
-            updateMyTvViewModel.processEvent(
-                UpdateMyTvScreenEvent.OnSubmit
-            )
+        onStatusChanged = {
+            updateMyTvViewModel.processEvent(UpdateMyTvScreenEvent.OnStatusChanged(it))
         },
-
-        onCancelled = onCancelled,
+        onRatingChanged = {
+            updateMyTvViewModel.processEvent(UpdateMyTvScreenEvent.OnRatingChanged(it))
+        },
+        onNotesChanged = {
+            updateMyTvViewModel.processEvent(UpdateMyTvScreenEvent.OnNotesChanged(it))
+        },
         onLastWatchedDateChanged = {
-            updateMyTvViewModel.processEvent(
-                UpdateMyTvScreenEvent.OnLastWatchedDateChanged(it)
-            )
+            updateMyTvViewModel.processEvent(UpdateMyTvScreenEvent.OnLastWatchedDateChanged(it))
         },
         onLastWatchedDatePickerCloseRequest = {
-            updateMyTvViewModel.processEvent(
-                UpdateMyTvScreenEvent.OnLastWatchedDatePickerCloseRequest
-            )
+            updateMyTvViewModel.processEvent(UpdateMyTvScreenEvent.OnLastWatchedDatePickerCloseRequest)
         },
         onLastWatchedDatePickerOpenRequest = {
-            updateMyTvViewModel.processEvent(
-                UpdateMyTvScreenEvent.OnLastWatchedDatePickerOpenRequest
-            )
+            updateMyTvViewModel.processEvent(UpdateMyTvScreenEvent.OnLastWatchedDatePickerOpenRequest)
         },
-
+        onCancelled = onCancelled,
+        onSubmit = {
+            updateMyTvViewModel.processEvent(UpdateMyTvScreenEvent.OnSubmit)
+        },
     )
 
 
