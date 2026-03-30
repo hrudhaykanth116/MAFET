@@ -21,7 +21,10 @@ fun MyTv.toUIState(dateTimeUtils: DateTimeUtils): MyTvUIState {
         lastWatchedSeasonEpisode = lastWatchedSeasonEpisode,
         lastWatchedTimeUIText = dateTimeUtils.getFormattedDateTime(lastWatchedTime, "dd/MM/yyyy")?.toUIText() ?: UIDefaultValues.EMPTY_VALUE.toUIText(),
         lastWatchedTime = lastWatchedTime,
-        imgSource = imgSource?.toUrlImageHolder()
+        imgSource = imgSource?.toUrlImageHolder(),
+        status = status,
+        rating = rating,
+        notes = notes,
     )
 }
 

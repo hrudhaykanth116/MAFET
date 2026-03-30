@@ -6,7 +6,9 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
@@ -18,13 +20,17 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.outlined.KeyboardArrowDown
 import androidx.compose.material.icons.outlined.PlayCircle
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -44,7 +50,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
@@ -58,12 +66,15 @@ import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.tv.ui.TvUIDimens
 import com.hrudhaykanth116.tv.ui.models.home.MyTvUIState
 import mafet.core_ui.generated.resources.Res
+import mafet.core_ui.generated.resources.ic_edit
 import mafet.core_ui.generated.resources.ic_tv
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun MyTvListItemUI(
     state: MyTvUIState,
     modifier: Modifier = Modifier,
+    onEditClicked: () -> Unit = {},
     onDeleteClicked: () -> Unit = {},
 ) {
     var isExpanded by rememberSaveable { mutableStateOf(false) }
@@ -89,9 +100,7 @@ fun MyTvListItemUI(
         modifier = modifier
     ) {
         Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { isExpanded = !isExpanded },
+            modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(TvUIDimens.ListItemCornerRadius),
             elevation = CardDefaults.cardElevation(defaultElevation = TvUIDimens.ListItemElevation),
             colors = CardDefaults.cardColors(
@@ -126,7 +135,7 @@ fun MyTvListItemUI(
                             }
                             is ImageHolder.LocalDrawableResource -> {
                                 Icon(
-                                    painter = org.jetbrains.compose.resources.painterResource(imageHolder.res),
+                                    painter = painterResource(imageHolder.res),
                                     contentDescription = state.name.getText(),
                                     modifier = Modifier
                                         .fillMaxSize()
@@ -168,6 +177,8 @@ fun MyTvListItemUI(
                             horizontalArrangement = Arrangement.spacedBy(TvUIDimens.SpacerMedium),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
+                            StatusChip(status = state.status)
+
                             // Season & Episode chip
                             Surface(
                                 shape = RoundedCornerShape(6.dp),
@@ -181,14 +192,33 @@ fun MyTvListItemUI(
                                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
                                 )
                             }
+                        }
 
-                            // Last watched date
-                            Text(
-                                text = state.lastWatchedTimeUIText.getText(),
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                        state.rating?.let { rating ->
+                            RatingDisplay(rating = rating)
+                        }
+                    }
+
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(4.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        CompactIconButton(
+                            onClick = onEditClicked,
+                            contentDescription = "Edit"
+                        ) {
+                            Icon(
+                                painter = painterResource(Res.drawable.ic_edit),
+                                contentDescription = "Edit",
+                                tint = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.size(20.dp)
                             )
                         }
+
+                        CompactExpandButton(
+                            isExpanded = isExpanded,
+                            onClick = { isExpanded = !isExpanded }
+                        )
                     }
                 }
 
@@ -229,50 +259,71 @@ fun MyTvListItemUI(
                             shape = RoundedCornerShape(8.dp),
                             color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
                         ) {
-                            Row(
+                            Column(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(12.dp),
-                                horizontalArrangement = Arrangement.SpaceBetween
+                                verticalArrangement = Arrangement.spacedBy(TvUIDimens.SpacerMedium)
                             ) {
-                                Column {
-                                    Text(
-                                        text = "Season",
-                                        style = MaterialTheme.typography.labelSmall,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                                    )
-                                    Text(
-                                        text = "${state.lastWatchedSeason ?: "-"}",
-                                        style = MaterialTheme.typography.titleMedium,
-                                        fontWeight = FontWeight.Bold,
-                                        color = MaterialTheme.colorScheme.onSurface
-                                    )
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    Column {
+                                        Text(
+                                            text = "Season",
+                                            style = MaterialTheme.typography.labelSmall,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                                        )
+                                        Text(
+                                            text = "${state.lastWatchedSeason ?: "-"}",
+                                            style = MaterialTheme.typography.titleMedium,
+                                            fontWeight = FontWeight.Bold,
+                                            color = MaterialTheme.colorScheme.onSurface
+                                        )
+                                    }
+                                    Column {
+                                        Text(
+                                            text = "Episode",
+                                            style = MaterialTheme.typography.labelSmall,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                                        )
+                                        Text(
+                                            text = "${state.lastWatchedEpisode ?: "-"}",
+                                            style = MaterialTheme.typography.titleMedium,
+                                            fontWeight = FontWeight.Bold,
+                                            color = MaterialTheme.colorScheme.onSurface
+                                        )
+                                    }
+                                    Column {
+                                        Text(
+                                            text = "Last Watched",
+                                            style = MaterialTheme.typography.labelSmall,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                                        )
+                                        Text(
+                                            text = state.lastWatchedTimeUIText.getText(),
+                                            style = MaterialTheme.typography.titleMedium,
+                                            fontWeight = FontWeight.Bold,
+                                            color = MaterialTheme.colorScheme.onSurface
+                                        )
+                                    }
                                 }
-                                Column {
-                                    Text(
-                                        text = "Episode",
-                                        style = MaterialTheme.typography.labelSmall,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                                    )
-                                    Text(
-                                        text = "${state.lastWatchedEpisode ?: "-"}",
-                                        style = MaterialTheme.typography.titleMedium,
-                                        fontWeight = FontWeight.Bold,
-                                        color = MaterialTheme.colorScheme.onSurface
-                                    )
-                                }
-                                Column {
-                                    Text(
-                                        text = "Last Watched",
-                                        style = MaterialTheme.typography.labelSmall,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                                    )
-                                    Text(
-                                        text = state.lastWatchedTimeUIText.getText(),
-                                        style = MaterialTheme.typography.titleMedium,
-                                        fontWeight = FontWeight.Bold,
-                                        color = MaterialTheme.colorScheme.onSurface
-                                    )
+
+                                // Notes section
+                                if (!state.notes.isNullOrBlank()) {
+                                    Column {
+                                        Text(
+                                            text = "Notes",
+                                            style = MaterialTheme.typography.labelSmall,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                                        )
+                                        Text(
+                                            text = state.notes,
+                                            style = MaterialTheme.typography.bodyMedium,
+                                            color = MaterialTheme.colorScheme.onSurface
+                                        )
+                                    }
                                 }
                             }
                         }
@@ -281,7 +332,133 @@ fun MyTvListItemUI(
             }
         }
     }
+}
 
+@Composable
+private fun StatusChip(
+    status: com.hrudhaykanth116.tv.data.datasources.local.models.WatchStatus,
+    modifier: Modifier = Modifier
+) {
+    val color = Color(status.colorValue)
+
+    Surface(
+        modifier = modifier,
+        shape = RoundedCornerShape(6.dp),
+        color = color.copy(alpha = 0.15f)
+    ) {
+        Text(
+            text = status.displayName,
+            style = MaterialTheme.typography.labelSmall,
+            fontWeight = FontWeight.Medium,
+            color = color,
+            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+        )
+    }
+}
+
+@Composable
+private fun RatingDisplay(
+    rating: Int,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(4.dp)
+    ) {
+        repeat(10) { index ->
+            Box(
+                modifier = Modifier
+                    .size(6.dp)
+                    .clip(CircleShape)
+                    .background(
+                        if (index < rating) Color(0xFFFFD700) else Color(0xFFFFD700).copy(alpha = 0.2f)
+                    )
+            )
+        }
+        Spacer(modifier = Modifier.width(4.dp))
+        Text(
+            text = "$rating/10",
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+    }
+}
+
+@Composable
+private fun CompactIconButton(
+    onClick: () -> Unit,
+    contentDescription: String,
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit
+) {
+    Box(
+        modifier = modifier
+            .size(36.dp)
+            .clip(CircleShape)
+            .background(
+                brush = Brush.radialGradient(
+                    colors = listOf(
+                        MaterialTheme.colorScheme.primary.copy(alpha = 0.12f),
+                        MaterialTheme.colorScheme.primary.copy(alpha = 0.04f)
+                    )
+                )
+            )
+            .clickable(onClick = onClick),
+        contentAlignment = Alignment.Center
+    ) {
+        content()
+    }
+}
+
+@Composable
+private fun CompactExpandButton(
+    isExpanded: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val rotation by animateFloatAsState(
+        targetValue = if (isExpanded) 180f else 0f,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,
+            stiffness = Spring.StiffnessMedium
+        ),
+        label = "chevron_rotation"
+    )
+
+    val scale by animateFloatAsState(
+        targetValue = if (isExpanded) 1.1f else 1f,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy
+        ),
+        label = "button_scale"
+    )
+
+    Box(
+        modifier = modifier
+            .size(36.dp)
+            .scale(scale)
+            .clip(CircleShape)
+            .background(
+                brush = Brush.radialGradient(
+                    colors = listOf(
+                        MaterialTheme.colorScheme.primary.copy(alpha = 0.12f),
+                        MaterialTheme.colorScheme.primary.copy(alpha = 0.04f)
+                    )
+                )
+            )
+            .clickable(onClick = onClick),
+        contentAlignment = Alignment.Center
+    ) {
+        Icon(
+            imageVector = Icons.Outlined.KeyboardArrowDown,
+            contentDescription = if (isExpanded) "Collapse" else "Expand",
+            tint = MaterialTheme.colorScheme.primary,
+            modifier = Modifier
+                .size(20.dp)
+                .rotate(rotation)
+        )
+    }
 }
 
 @Composable
@@ -319,7 +496,7 @@ private fun BackgroundContent(dismissState: SwipeToDismissBoxState) {
 @Composable
 fun MyTvListItemUIPreview() {
     MyTvListItemUI(
-        MyTvUIState(
+        state = MyTvUIState(
             id = 1,
             name = "Suits".toUIText(),
             lastWatchedSeasonEpisode = "S09E04".toUIText(),
@@ -328,6 +505,11 @@ fun MyTvListItemUIPreview() {
             lastWatchedSeason = 5,
             lastWatchedEpisode = 6,
             lastWatchedTimeUIText = "10/Oct".toUIText(),
-        )
+            status = com.hrudhaykanth116.tv.data.datasources.local.models.WatchStatus.WATCHING,
+            rating = 8,
+            notes = "Great show about lawyers in NYC"
+        ),
+        onEditClicked = {},
+        onDeleteClicked = {}
     )
 }
