@@ -1,7 +1,7 @@
 package com.hrudhaykanth116.tv.domaintemp
 
 import com.hrudhaykanth116.core.ui.models.toUIText
-import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.core.ui.models.toUrlImageHolder
 import com.hrudhaykanth116.tv.data.datasources.remote.models.search.TvShowSearchResults
 import com.hrudhaykanth116.tv.data.repositories.tv.MyTvListRepository
@@ -18,21 +18,21 @@ class GetTvListByQuery(
 
     suspend operator fun invoke(
         query: String,
-    ): RepoResultWrapper<List<SearchScreenItemUIState>?> = withContext(
+    ): DomainResult<List<SearchScreenItemUIState>?> = withContext(
         Dispatchers.Default
     ) {
 
-        val tvShowResult: RepoResultWrapper<TvShowSearchResults> =
+        val tvShowResult: DomainResult<TvShowSearchResults> =
             tvShowsRepository.searchTvShow(query)
         val myTvList = myTvListRepository.getMyTvList()
 
 
         when (tvShowResult) {
-            is RepoResultWrapper.Error -> {
+            is DomainResult.Error -> {
                 tvShowResult
             }
 
-            is RepoResultWrapper.Success -> {
+            is DomainResult.Success -> {
 
                 val list = tvShowResult.data.tvShowDataList?.filterNotNull()?.map { tvShowData ->
                     SearchScreenItemUIState(
@@ -43,7 +43,7 @@ class GetTvListByQuery(
                     )
                 }
 
-                RepoResultWrapper.Success(
+                DomainResult.Success(
                     list
                 )
             }

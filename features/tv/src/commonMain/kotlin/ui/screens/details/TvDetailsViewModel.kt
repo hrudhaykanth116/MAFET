@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.hrudhaykanth116.core.ui.models.UserMessage
 import com.hrudhaykanth116.core.ui.NetworkMonitor
 import com.hrudhaykanth116.core.ui.models.toUIText
-import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.core.ui.viewmodels.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDetails
@@ -45,18 +45,19 @@ class TvDetailsViewModel(
                 )
             }
 
-            val tvDetailsUseCase: RepoResultWrapper<TvShowDetails> = getTvDetailsUseCase(id)
+            val tvDetailsUseCase: DomainResult<TvShowDetails> = getTvDetailsUseCase(id)
             when (tvDetailsUseCase) {
-                is RepoResultWrapper.Error -> {
+                is DomainResult.Error -> {
                     setState {
-                        UIState.Error(
-                            contentState = contentState,
-                            errorState = tvDetailsUseCase.errorState
+                        UIState.Idle(
+                            contentState = defaultState.copy(
+                                domainError = tvDetailsUseCase.error
+                            )
                         )
                     }
                 }
 
-                is RepoResultWrapper.Success -> {
+                is DomainResult.Success -> {
                     setState {
                         UIState.Idle(
                             TvDetailsScreenUIState(
@@ -91,17 +92,20 @@ class TvDetailsViewModel(
             val result = addMyTvUseCase(event.id)
 
             when (result) {
-                is RepoResultWrapper.Error -> {
-                    // TODO: kmp do this
-                    // setState {
-                    //     UIState.Idle(
-                    //         contentState = contentState,
-                    //         userMessage = result.errorState.mapToUIMessage(),
-                    //     )
-                    // }
+                is DomainResult.Error -> {
+                    setState {
+                        UIState.Idle(
+                            contentState = contentState?.copy(
+                                domainError = result.error
+                            ) ?: defaultState.copy(
+                                domainError = result.error
+                            ),
+                            userMessage = UserMessage.Error(result.error.toMessage().toUIText())
+                        )
+                    }
                 }
 
-                is RepoResultWrapper.Success -> {
+                is DomainResult.Success -> {
                     setState {
                         UIState.Idle(
                             contentState = contentState,

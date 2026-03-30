@@ -7,9 +7,9 @@ import com.hrudhaykanth116.weather.data.datasources.remote.WeatherForeCastRemote
 import com.hrudhaykanth116.weather.data.datasources.remote.WeatherMapGeoCodeRemoteDataSourceImpl
 import com.hrudhaykanth116.weather.data.datasources.remote.ktor.OpenWeatherApiServiceKtor
 import com.hrudhaykanth116.weather.data.repository.GeoCodeRepositoryImpl
-import com.hrudhaykanth116.weather.data.repository.IGeoCodeRepository
-import com.hrudhaykanth116.weather.data.repository.IWeatherForeCastRepository
 import com.hrudhaykanth116.weather.data.repository.WeatherForeCastRepositoryImpl
+import com.hrudhaykanth116.weather.domain.repository.IGeoCodeRepository
+import com.hrudhaykanth116.weather.domain.repository.IWeatherForeCastRepository
 import com.hrudhaykanth116.weather.domain.usecases.GetForeCastFromLatLongUseCase
 import com.hrudhaykanth116.weather.domain.usecases.GetForeCastUseCaseFromLatLongUseCase
 import com.hrudhaykanth116.weather.domain.usecases.GetWeatherElementIconUseCase

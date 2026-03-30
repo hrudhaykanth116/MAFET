@@ -1,7 +1,7 @@
 package com.hrudhaykanth116.tv.domaintemp
 
-import com.hrudhaykanth116.core.data.ErrorState
-import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.domain.result.DomainError
+import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowData
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDataPagedResponse
 import com.hrudhaykanth116.tv.data.datasources.remote.models.tv.CategorisedTvShows
@@ -11,16 +11,16 @@ import kotlinx.coroutines.coroutineScope
 
 class GetAllTvShowsUseCase(private val repository: TvRepository) {
 
-    suspend operator fun invoke(): RepoResultWrapper<CategorisedTvShows> = coroutineScope {
+    suspend operator fun invoke(): DomainResult<CategorisedTvShows> = coroutineScope {
         val popularDeferred = async { repository.getPopularTvShows(1) }
         val topRatedDeferred = async { repository.getTopRatedTvShows(1) }
         val airingTodayDeferred = async { repository.getAiringTodayShows(1) }
         val trendingDeferred = async { repository.getTrendingTv("day") }
 
-        val popularResult: RepoResultWrapper<TvShowDataPagedResponse> = popularDeferred.await()
-        val topRatedResult: RepoResultWrapper<TvShowDataPagedResponse> = topRatedDeferred.await()
-        val airingTodayResult: RepoResultWrapper<TvShowDataPagedResponse> = airingTodayDeferred.await()
-        val trendingResult: RepoResultWrapper<TvShowDataPagedResponse> = trendingDeferred.await()
+        val popularResult: DomainResult<TvShowDataPagedResponse> = popularDeferred.await()
+        val topRatedResult: DomainResult<TvShowDataPagedResponse> = topRatedDeferred.await()
+        val airingTodayResult: DomainResult<TvShowDataPagedResponse> = airingTodayDeferred.await()
+        val trendingResult: DomainResult<TvShowDataPagedResponse> = trendingDeferred.await()
 
         val popular = extractList(popularResult)
         val topRated = extractList(topRatedResult)
@@ -33,10 +33,10 @@ class GetAllTvShowsUseCase(private val repository: TvRepository) {
         return@coroutineScope if (allEmpty) {
             val firstError =
                 listOf(popularResult, topRatedResult, airingTodayResult, trendingResult)
-                    .firstOrNull { it is RepoResultWrapper.Error } as? RepoResultWrapper.Error
-            firstError ?: RepoResultWrapper.Error(ErrorState.SomethingWentWrong)
+                    .firstOrNull { it is DomainResult.Error } as? DomainResult.Error
+            firstError ?: DomainResult.Error(DomainError.Unknown(message = "Failed to fetch TV shows"))
         } else {
-            RepoResultWrapper.Success(
+            DomainResult.Success(
                 CategorisedTvShows(
                     popular = popular,
                     topRated = topRated,
@@ -47,9 +47,9 @@ class GetAllTvShowsUseCase(private val repository: TvRepository) {
         }
     }
 
-    private fun extractList(result: RepoResultWrapper<*>): List<TvShowData> {
+    private fun extractList(result: DomainResult<*>): List<TvShowData> {
         return when (result) {
-            is RepoResultWrapper.Success -> when (val data = result.data) {
+            is DomainResult.Success -> when (val data = result.data) {
                 is TvShowDataPagedResponse -> data.tvShowsList
                 else -> emptyList()
             }

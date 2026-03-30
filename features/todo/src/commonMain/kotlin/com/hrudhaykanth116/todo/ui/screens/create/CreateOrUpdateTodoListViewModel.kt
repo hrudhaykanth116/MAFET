@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
 import com.hrudhaykanth116.core.ui.NetworkMonitor
 import com.hrudhaykanth116.core.common.utils.random.UniqueIdGenerator
-import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.core.ui.viewmodels.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.core.ui.models.UIText
@@ -51,11 +51,11 @@ class CreateOrUpdateTodoListViewModel(
             val todoModel: TodoModel? = noteId?.let {
                 val getTaskResult = getTaskUseCase(it)
                 when (getTaskResult) {
-                    is RepoResultWrapper.Error -> {
+                    is DomainResult.Error -> {
                         null
                     }
 
-                    is RepoResultWrapper.Success -> {
+                    is DomainResult.Success -> {
                         getTaskResult.data
                     }
                 }
@@ -130,12 +130,12 @@ class CreateOrUpdateTodoListViewModel(
                             )
                         }
 
-                        val createTodoResult: RepoResultWrapper<Unit> = createTodoTaskUseCase(
+                        val createTodoResult: DomainResult<Unit> = createTodoTaskUseCase(
                             todoModel = todoModel
                         )
 
                         when (createTodoResult) {
-                            is RepoResultWrapper.Error -> {
+                            is DomainResult.Error -> {
                                 setState {
                                     UIState.Idle(
                                         currentContentState.copy(
@@ -146,7 +146,7 @@ class CreateOrUpdateTodoListViewModel(
                                 }
                             }
 
-                            is RepoResultWrapper.Success -> {
+                            is DomainResult.Success -> {
                                 setState {
                                     UIState.Idle(
                                         currentContentState.copy(

@@ -1,10 +1,12 @@
 package com.hrudhaykanth116.tv.ui.screens.all
 
+import com.hrudhaykanth116.core.domain.result.DomainError
 import com.hrudhaykanth116.core.ui.models.ImageHolder
 import com.hrudhaykanth116.tv.domain.models.TvCategory
 
 data class TvHomeScreenUIState(
-    val categories: List<TvShowCategoryUi> = emptyList()
+    val categories: List<TvShowCategoryUi> = emptyList(),
+    val domainError: DomainError? = null
 )
 
 data class TvShowCategoryUi(

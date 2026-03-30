@@ -12,6 +12,7 @@ import androidx.compose.runtime.collectAsState
 import com.hrudhaykanth116.core.ui.preview.AppPreview
 import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.data.ErrorState
+import com.hrudhaykanth116.core.domain.result.DomainError
 import com.hrudhaykanth116.core.ui.viewmodels.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.core.ui.models.UserMessage
@@ -74,7 +75,7 @@ fun <T> AppScreenUI(
 
                 ApiErrorScreen(
                     onRetry = onRetry,
-                    apiError = state.errorState,
+                    domainError = state.errorState,
                     modifier = Modifier
                         .fillMaxSize(),
                 )
@@ -123,7 +124,7 @@ private fun AppScreenUIPreview() {
                 .background(color = Color.Green)
         ) {
             AppScreenUI(
-                state = UIState.Error(errorState = ErrorState.SomethingWentWrong, "Hello"),
+                state = UIState.Error(errorState = DomainError.NoNetwork, "Hello"),
                 content = contentState,
                 onUserMessageShown = {},
                 onRetry = {}

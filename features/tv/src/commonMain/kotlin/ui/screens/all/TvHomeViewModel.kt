@@ -2,7 +2,7 @@ package com.hrudhaykanth116.tv.ui.screens.all
 
 import androidx.lifecycle.viewModelScope
 import com.hrudhaykanth116.core.ui.NetworkMonitor
-import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.core.ui.viewmodels.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.core.ui.models.ImageHolder
@@ -50,15 +50,17 @@ class TvHomeViewModel(
             }
 
             when (val result = getAllTvShowsUseCase()) {
-                is RepoResultWrapper.Success -> {
+                is DomainResult.Success -> {
                     setIdleState {
                         result.data.toUiState()
                     }
                 }
-                is RepoResultWrapper.Error -> {
+                is DomainResult.Error -> {
                     setState {
-                        UIState.Error(
-                            result.errorState
+                        UIState.Idle(
+                            contentState = defaultState.copy(
+                                domainError = result.error
+                            )
                         )
                     }
                 }
