@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.ui.components.AppToolbar
 import com.hrudhaykanth116.core.ui.modifier.aspectRatio
 import com.hrudhaykanth116.core.ui.modifier.screenBackground
-import com.hrudhaykanth116.tv.domaintemp.models.constants.BaseUrlConstants
+import com.hrudhaykanth116.tv.domain.usecases.models.constants.BaseUrlConstants
 import com.hrudhaykanth116.tv.ui.components.MoviePoster
 
 @Composable

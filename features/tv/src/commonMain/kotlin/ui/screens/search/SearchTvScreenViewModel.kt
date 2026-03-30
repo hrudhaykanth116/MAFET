@@ -6,8 +6,8 @@ import com.hrudhaykanth116.core.ui.models.UserMessage
 import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.core.ui.viewmodels.UDFViewModel
 import com.hrudhaykanth116.tv.data.repositories.tv.MyTvListRepository
-import com.hrudhaykanth116.tv.domaintemp.AddMyTvUseCase
-import com.hrudhaykanth116.tv.domaintemp.GetTvListByQuery
+import com.hrudhaykanth116.tv.domain.usecases.AddMyTvUseCase
+import com.hrudhaykanth116.tv.domain.usecases.GetTvListByQuery
 import com.hrudhaykanth116.tv.ui.models.search.SearchScreenEffect
 import com.hrudhaykanth116.tv.ui.models.search.SearchScreenEvent
 import com.hrudhaykanth116.tv.ui.models.search.SearchScreenItemUIState

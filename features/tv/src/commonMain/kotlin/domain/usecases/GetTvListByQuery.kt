@@ -1,12 +1,12 @@
-package com.hrudhaykanth116.tv.domaintemp
+package com.hrudhaykanth116.tv.domain.usecases
 
-import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.core.domain.result.DomainResult
+import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.core.ui.models.toUrlImageHolder
-import com.hrudhaykanth116.tv.data.datasources.remote.models.search.TvShowSearchResults
 import com.hrudhaykanth116.tv.data.repositories.tv.MyTvListRepository
 import com.hrudhaykanth116.tv.data.repositories.tv.TvShowsRepository
-import com.hrudhaykanth116.tv.domaintemp.models.constants.BaseUrlConstants
+import com.hrudhaykanth116.tv.domain.models.TvShowSearchResult
+import com.hrudhaykanth116.tv.domain.constants.BaseUrlConstants
 import com.hrudhaykanth116.tv.ui.models.search.SearchScreenItemUIState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -22,7 +22,7 @@ class GetTvListByQuery(
         Dispatchers.Default
     ) {
 
-        val tvShowResult: DomainResult<TvShowSearchResults> =
+        val tvShowResult: DomainResult<TvShowSearchResult> =
             tvShowsRepository.searchTvShow(query)
         val myTvList = myTvListRepository.getMyTvList()
 
@@ -34,12 +34,12 @@ class GetTvListByQuery(
 
             is DomainResult.Success -> {
 
-                val list = tvShowResult.data.tvShowDataList?.filterNotNull()?.map { tvShowData ->
+                val list = tvShowResult.data.tvShows.map { tvShow ->
                     SearchScreenItemUIState(
-                        id = tvShowData.id,
-                        name = tvShowData.name?.toUIText() ?: "- -".toUIText(),
-                        image = (BaseUrlConstants.IMAGES_BASE_URL + tvShowData.posterPath).toUrlImageHolder(),
-                        isMyTvList = myTvList.any { tvShowData.id == it.id }
+                        id = tvShow.id,
+                        name = tvShow.name.toUIText(),
+                        image = (BaseUrlConstants.IMAGES_BASE_URL + tvShow.posterPath).toUrlImageHolder(),
+                        isMyTvList = myTvList.any { tvShow.id == it.id }
                     )
                 }
 

@@ -71,7 +71,7 @@ class WeatherHomeScreenViewModel(
                     is DomainResult.Error -> {
                         setState {
                             UIState.Idle(
-                                contentState = defaultState.copy(
+                                contentState = WeatherHomeScreenUIState(
                                     domainError = foreCastDataResult.error,
                                     location = addressName,
                                 )
