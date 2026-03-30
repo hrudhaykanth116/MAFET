@@ -8,9 +8,9 @@ import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.core.ui.viewmodels.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
-import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDetails
-import com.hrudhaykanth116.tv.domaintemp.AddMyTvUseCase
-import com.hrudhaykanth116.tv.domaintemp.GetTvDetailsUseCase
+import com.hrudhaykanth116.tv.domain.models.TvShowDetail
+import com.hrudhaykanth116.tv.domain.usecases.AddMyTvUseCase
+import com.hrudhaykanth116.tv.domain.usecases.GetTvDetailsUseCase
 import kotlinx.coroutines.launch
 
 class TvDetailsViewModel(
@@ -45,14 +45,12 @@ class TvDetailsViewModel(
                 )
             }
 
-            val tvDetailsUseCase: DomainResult<TvShowDetails> = getTvDetailsUseCase(id)
+            val tvDetailsUseCase: DomainResult<TvShowDetail> = getTvDetailsUseCase(id)
             when (tvDetailsUseCase) {
                 is DomainResult.Error -> {
                     setState {
-                        UIState.Idle(
-                            contentState = defaultState.copy(
-                                domainError = tvDetailsUseCase.error
-                            )
+                        UIState.Error(
+                            errorState = tvDetailsUseCase.error
                         )
                     }
                 }
@@ -94,13 +92,9 @@ class TvDetailsViewModel(
             when (result) {
                 is DomainResult.Error -> {
                     setState {
-                        UIState.Idle(
-                            contentState = contentState?.copy(
-                                domainError = result.error
-                            ) ?: defaultState.copy(
-                                domainError = result.error
-                            ),
-                            userMessage = UserMessage.Error(result.error.toMessage().toUIText())
+                        UIState.Error(
+                            contentState = contentState,
+                            errorState = result.error
                         )
                     }
                 }

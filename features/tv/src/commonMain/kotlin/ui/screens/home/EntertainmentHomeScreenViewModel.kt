@@ -6,8 +6,8 @@ import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
 import com.hrudhaykanth116.core.ui.NetworkMonitor
 import com.hrudhaykanth116.core.ui.viewmodels.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
-import com.hrudhaykanth116.tv.domaintemp.DeleteMyTvUseCase
-import com.hrudhaykanth116.tv.domaintemp.GetMyTvListUseCase
+import com.hrudhaykanth116.tv.domain.usecases.DeleteMyTvUseCase
+import com.hrudhaykanth116.tv.domain.usecases.GetMyTvListUseCase
 import com.hrudhaykanth116.tv.ui.mappers.toUIState
 import com.hrudhaykanth116.tv.ui.models.home.MyTvUIState
 import com.hrudhaykanth116.tv.ui.models.home.EntertainmentHomeScreenEffect

@@ -1,4 +1,4 @@
-package com.hrudhaykanth116.tv.domaintemp.models.constants
+package com.hrudhaykanth116.tv.domain.constants
 
 object BaseUrlConstants {
 

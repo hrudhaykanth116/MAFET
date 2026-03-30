@@ -5,18 +5,18 @@ import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvCreditsRespons
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvImagesResponse
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvReviewsResponse
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvVideosResponse
-import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDataPagedResponse
-import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDetails
 import com.hrudhaykanth116.tv.data.datasources.remote.models.genres.GetTvGenresResponse
-import com.hrudhaykanth116.tv.data.datasources.remote.models.search.TvShowSearchResults
+import com.hrudhaykanth116.tv.domain.models.TvShowDetail
+import com.hrudhaykanth116.tv.domain.models.TvShowPagedResult
+import com.hrudhaykanth116.tv.domain.models.TvShowSearchResult
 
 interface ITvShowsRepository {
-    suspend fun getTvShowDetails(tvShowId: Int): DomainResult<TvShowDetails>
-    suspend fun searchTvShow(query: String): DomainResult<TvShowSearchResults>
+    suspend fun getTvShowDetails(tvShowId: Int): DomainResult<TvShowDetail>
+    suspend fun searchTvShow(query: String): DomainResult<TvShowSearchResult>
     suspend fun getTvGenres(): DomainResult<GetTvGenresResponse>
     suspend fun getTvImages(tvId: Int): DomainResult<GetTvImagesResponse>
     suspend fun getTvShowVideos(tvId: Int): DomainResult<GetTvVideosResponse>
-    suspend fun getTvShowsSimilar(tvId: Int, pageId: Int): DomainResult<TvShowDataPagedResponse>
+    suspend fun getTvShowsSimilar(tvId: Int, pageId: Int): DomainResult<TvShowPagedResult>
     suspend fun getTvReviews(tvId: Int, pageId: Int): DomainResult<GetTvReviewsResponse>
     suspend fun getTvCredits(tvId: Int): DomainResult<GetTvCreditsResponse>
 }

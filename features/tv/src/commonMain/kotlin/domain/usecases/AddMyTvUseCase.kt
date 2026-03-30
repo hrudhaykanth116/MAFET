@@ -1,22 +1,21 @@
-package com.hrudhaykanth116.tv.domaintemp
+package com.hrudhaykanth116.tv.domain.usecases
 
 import com.hrudhaykanth116.core.common.utils.string.replaceIfBlank
 import com.hrudhaykanth116.core.domain.result.DomainResult
-import com.hrudhaykanth116.tv.data.datasources.local.models.MyTvEntity
-import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDetails
 import com.hrudhaykanth116.tv.data.repositories.tv.MyTvListRepository
 import com.hrudhaykanth116.tv.data.repositories.tv.TvShowsRepository
-import com.hrudhaykanth116.tv.domaintemp.models.constants.BaseUrlConstants
+import com.hrudhaykanth116.tv.domain.models.MyTv
+import com.hrudhaykanth116.tv.domain.models.TvShowDetail
+import com.hrudhaykanth116.tv.domain.constants.BaseUrlConstants
 
 class AddMyTvUseCase(
     private val myTvListRepository: MyTvListRepository,
     private val tvShowsRepository: TvShowsRepository,
-
 ) {
 
-    suspend operator fun invoke(id: Int): DomainResult<Unit>{
+    suspend operator fun invoke(id: Int): DomainResult<Unit> {
 
-        val tvShowDetails: DomainResult<TvShowDetails> = tvShowsRepository.getTvShowDetails(id)
+        val tvShowDetails: DomainResult<TvShowDetail> = tvShowsRepository.getTvShowDetails(id)
 
         when (tvShowDetails) {
             is DomainResult.Error -> {
@@ -25,7 +24,7 @@ class AddMyTvUseCase(
             is DomainResult.Success -> {
                 val data = tvShowDetails.data
 
-                val myTvEntity = MyTvEntity(
+                val myTv = MyTv(
                     id = data.id,
                     name = data.name.replaceIfBlank("- -"),
                     lastWatchedSeason = null,
@@ -34,16 +33,11 @@ class AddMyTvUseCase(
                     imgSource = BaseUrlConstants.IMAGES_BASE_URL + data.posterPath
                 )
 
-                myTvListRepository.insertMyTvEntity(myTvEntity)
+                myTvListRepository.insertMyTv(myTv)
 
                 return DomainResult.Success(Unit)
-
             }
         }
-
-
-
-
     }
 
 }

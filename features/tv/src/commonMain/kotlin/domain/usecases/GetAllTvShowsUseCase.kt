@@ -1,11 +1,11 @@
-package com.hrudhaykanth116.tv.domaintemp
+package com.hrudhaykanth116.tv.domain.usecases
 
 import com.hrudhaykanth116.core.domain.result.DomainError
 import com.hrudhaykanth116.core.domain.result.DomainResult
-import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowData
-import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDataPagedResponse
-import com.hrudhaykanth116.tv.data.datasources.remote.models.tv.CategorisedTvShows
 import com.hrudhaykanth116.tv.data.repositories.tv.TvRepository
+import com.hrudhaykanth116.tv.domain.models.CategorisedTvShows
+import com.hrudhaykanth116.tv.domain.models.TvShow
+import com.hrudhaykanth116.tv.domain.models.TvShowPagedResult
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 
@@ -17,10 +17,10 @@ class GetAllTvShowsUseCase(private val repository: TvRepository) {
         val airingTodayDeferred = async { repository.getAiringTodayShows(1) }
         val trendingDeferred = async { repository.getTrendingTv("day") }
 
-        val popularResult: DomainResult<TvShowDataPagedResponse> = popularDeferred.await()
-        val topRatedResult: DomainResult<TvShowDataPagedResponse> = topRatedDeferred.await()
-        val airingTodayResult: DomainResult<TvShowDataPagedResponse> = airingTodayDeferred.await()
-        val trendingResult: DomainResult<TvShowDataPagedResponse> = trendingDeferred.await()
+        val popularResult: DomainResult<TvShowPagedResult> = popularDeferred.await()
+        val topRatedResult: DomainResult<TvShowPagedResult> = topRatedDeferred.await()
+        val airingTodayResult: DomainResult<TvShowPagedResult> = airingTodayDeferred.await()
+        val trendingResult: DomainResult<TvShowPagedResult> = trendingDeferred.await()
 
         val popular = extractList(popularResult)
         val topRated = extractList(topRatedResult)
@@ -47,10 +47,10 @@ class GetAllTvShowsUseCase(private val repository: TvRepository) {
         }
     }
 
-    private fun extractList(result: DomainResult<*>): List<TvShowData> {
+    private fun extractList(result: DomainResult<*>): List<TvShow> {
         return when (result) {
             is DomainResult.Success -> when (val data = result.data) {
-                is TvShowDataPagedResponse -> data.tvShowsList
+                is TvShowPagedResult -> data.tvShows
                 else -> emptyList()
             }
 

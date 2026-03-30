@@ -6,10 +6,10 @@ import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.core.ui.viewmodels.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.core.ui.models.ImageHolder
+import com.hrudhaykanth116.tv.domain.models.CategorisedTvShows
 import com.hrudhaykanth116.tv.domain.models.TvCategory
-import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowData
-import com.hrudhaykanth116.tv.data.datasources.remote.models.tv.CategorisedTvShows
-import com.hrudhaykanth116.tv.domaintemp.GetAllTvShowsUseCase
+import com.hrudhaykanth116.tv.domain.models.TvShow
+import com.hrudhaykanth116.tv.domain.usecases.GetAllTvShowsUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -104,12 +104,12 @@ class TvHomeViewModel(
         )
     }
 
-    fun TvShowData.toUi(): TvShowUi {
+    fun TvShow.toUi(): TvShowUi {
         return TvShowUi(
             id = id,
-            name = name.orEmpty(),
+            name = name,
             posterImage = ImageHolder.Url("https://image.tmdb.org/t/p/w500${posterPath.orEmpty()}"),
-            rating = voteAverage ?: 0.0
+            rating = voteAverage
         )
     }
 

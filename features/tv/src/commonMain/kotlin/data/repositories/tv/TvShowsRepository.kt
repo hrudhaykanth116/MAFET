@@ -7,11 +7,12 @@ import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvCreditsRespons
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvImagesResponse
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvReviewsResponse
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvVideosResponse
-import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDataPagedResponse
-import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDetails
 import com.hrudhaykanth116.tv.data.datasources.remote.models.genres.GetTvGenresResponse
-import com.hrudhaykanth116.tv.data.datasources.remote.models.search.TvShowSearchResults
 import com.hrudhaykanth116.tv.data.datasources.remote.sources.tvshows.TvShowsRemoteDataSource
+import com.hrudhaykanth116.tv.data.mappers.toDomain
+import com.hrudhaykanth116.tv.domain.models.TvShowDetail
+import com.hrudhaykanth116.tv.domain.models.TvShowPagedResult
+import com.hrudhaykanth116.tv.domain.models.TvShowSearchResult
 import kotlinx.coroutines.CoroutineDispatcher
 
 class TvShowsRepository(
@@ -19,15 +20,15 @@ class TvShowsRepository(
     dispatcher: CoroutineDispatcher,
 ) : BaseRepository(dispatcher), ITvShowsRepository {
 
-    override suspend fun getTvShowDetails(tvShowId: Int): DomainResult<TvShowDetails> =
+    override suspend fun getTvShowDetails(tvShowId: Int): DomainResult<TvShowDetail> =
         getResult {
             tvShowsRemoteDataSource.fetchTvShowDetails(tvShowId)
-        }.toDomainResult()
+        }.toDomainResult().map { it.toDomain() }
 
-    override suspend fun searchTvShow(query: String): DomainResult<TvShowSearchResults> =
+    override suspend fun searchTvShow(query: String): DomainResult<TvShowSearchResult> =
         getResult {
             tvShowsRemoteDataSource.searchTvShow(query)
-        }.toDomainResult()
+        }.toDomainResult().map { it.toDomain() }
 
     override suspend fun getTvGenres(): DomainResult<GetTvGenresResponse> = getResult {
         tvShowsRemoteDataSource.getTvGenres()
@@ -46,10 +47,10 @@ class TvShowsRepository(
     override suspend fun getTvShowsSimilar(
         tvId: Int,
         pageId: Int,
-    ): DomainResult<TvShowDataPagedResponse> =
+    ): DomainResult<TvShowPagedResult> =
         getResult {
             tvShowsRemoteDataSource.getTvShowsSimilar(tvId, pageId)
-        }.toDomainResult()
+        }.toDomainResult().map { it.toDomain() }
 
     override suspend fun getTvReviews(
         tvId: Int,

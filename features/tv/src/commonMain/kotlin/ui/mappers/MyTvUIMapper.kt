@@ -5,10 +5,10 @@ import com.hrudhaykanth116.core.ui.models.UIText
 import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.core.ui.constants.UIDefaultValues
 import com.hrudhaykanth116.core.ui.models.toUrlImageHolder
-import com.hrudhaykanth116.tv.domaintemp.models.MyTvDomainModel
+import com.hrudhaykanth116.tv.domain.models.MyTv
 import com.hrudhaykanth116.tv.ui.models.home.MyTvUIState
 
-fun MyTvDomainModel.toUIState(dateTimeUtils: DateTimeUtils): MyTvUIState {
+fun MyTv.toUIState(dateTimeUtils: DateTimeUtils): MyTvUIState {
 
     // hrudhay_check_list: Handle null case
     val lastWatchedSeasonEpisode = UIText.Text("S${lastWatchedSeason ?: 0}E${lastWatchedEpisode ?: 0}")
@@ -25,7 +25,7 @@ fun MyTvDomainModel.toUIState(dateTimeUtils: DateTimeUtils): MyTvUIState {
     )
 }
 
-fun List<MyTvDomainModel>.toUIState(dateTimeUtils: DateTimeUtils): List<MyTvUIState>? {
+fun List<MyTv>.toUIState(dateTimeUtils: DateTimeUtils): List<MyTvUIState>? {
 
 
     return map {

@@ -5,8 +5,8 @@ import com.hrudhaykanth116.core.common.utils.log.Logger
 import androidx.lifecycle.viewModelScope
 import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
 import com.hrudhaykanth116.core.ui.viewmodels.UDFViewModel
-import com.hrudhaykanth116.tv.domaintemp.UpdateMyTvUseCase
-import com.hrudhaykanth116.tv.domaintemp.models.MyTvDomainModel
+import com.hrudhaykanth116.tv.domain.usecases.UpdateMyTvUseCase
+import com.hrudhaykanth116.tv.domain.models.MyTv
 import com.hrudhaykanth116.tv.ui.models.updatemytv.UpdateMyTvScreenEffect
 import com.hrudhaykanth116.tv.ui.models.updatemytv.UpdateMyTvScreenEvent
 import com.hrudhaykanth116.tv.ui.models.updatemytv.UpdateMyTvUIStateActual
@@ -88,7 +88,7 @@ class UpdateMyTvViewModel(
             }
 
             updateMyTvUseCase(
-                myTvDomainModel = MyTvDomainModel(
+                myTv = MyTv(
                     id = data.id,
                     name = data.name,
                     lastWatchedSeason = data.lastWatchedSeason.text.toIntOrNull(),
