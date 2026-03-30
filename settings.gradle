@@ -22,7 +22,6 @@ dependencyResolutionManagement {
 
 include ':app'
 rootProject.name = "MAFET"
-include ':core'
 include ':core-common'
 include ':core-network'
 include ':core-data'

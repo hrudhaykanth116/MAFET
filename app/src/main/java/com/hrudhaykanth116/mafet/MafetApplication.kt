@@ -3,8 +3,6 @@ package com.hrudhaykanth116.mafet
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import com.chibatching.kotpref.Kotpref
-import com.chibatching.kotpref.gsonpref.gson
 import com.google.gson.Gson
 import com.hrudhaykanth116.mafet.ads.AdsInitializer
 import com.hrudhaykanth116.mafet.di.appModule
@@ -39,10 +37,6 @@ class MafetApplication : Application(), Application.ActivityLifecycleCallbacks {
         }
 
         registerActivityLifecycleCallbacks(this)
-
-        //Kot-pref initialization
-        Kotpref.init(this)
-        Kotpref.gson = Gson()
 
         crashHandler.init(this)
         launchInCoroutine { adsInitializer.initialize(this) }

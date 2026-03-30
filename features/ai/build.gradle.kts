@@ -63,8 +63,6 @@ kotlin {
         }
 
         androidMain.dependencies {
-            implementation(project(":core"))
-
             implementation(libs.androidx.compose.bom)
             implementation(libs.androidx.material3)
 
@@ -75,6 +73,16 @@ kotlin {
             implementation(libs.androidx.navigation.compose)
 
             implementation(libs.koin.android)
+
+            /*********** Firebase ************/
+            api(project.dependencies.platform(libs.firebase.bom))
+            // Firebase authentication
+            api(libs.firebase.auth.ktx)
+            //    api("com.google.firebase:firebase-common-ktx'
+            api(libs.firebase.storage.ktx)
+            api(libs.firebase.database.ktx)
+            api(libs.firebase.vertexai)
+            /*********** Firebase ************/
         }
 
         val desktopMain by getting {
