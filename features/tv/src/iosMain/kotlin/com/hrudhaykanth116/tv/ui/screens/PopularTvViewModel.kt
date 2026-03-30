@@ -7,8 +7,8 @@ import com.hrudhaykanth116.tv.data.repositories.tv.AiringTodayShowsRepository
 import com.hrudhaykanth116.tv.data.repositories.tv.PopularTvShowsRepository
 import com.hrudhaykanth116.tv.data.repositories.tv.TopRatedTvShowsRepository
 import com.hrudhaykanth116.tv.data.repositories.tv.TrendingTvShowsRepository
-import com.hrudhaykanth116.tv.data.repositories.tv.TvShowsRepository
 import com.hrudhaykanth116.tv.domain.models.TvCategory
+import com.hrudhaykanth116.tv.domain.repository.ITvShowsRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,7 +21,7 @@ class PopularTvViewModel(
     private val topRatedTvShowsRepository: TopRatedTvShowsRepository,
     private val trendingTvShowsRepository: TrendingTvShowsRepository,
     private val airingTodayShowsRepository: AiringTodayShowsRepository,
-    private val tvShowsRepository: TvShowsRepository,
+    private val tvShowsRepository: ITvShowsRepository,
 ) : ViewModel() {
 
     private val categoryParam: String = savedStateHandle.get<String>("category") ?: TvCategory.POPULAR.routeParam
