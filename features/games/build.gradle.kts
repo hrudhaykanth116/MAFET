@@ -55,7 +55,9 @@ android {
 
 dependencies {
 
-    implementation(project(":core"))
+    implementation(project(":core-common"))
+    implementation(project(":core-ui"))
+    implementation(project(":core-data"))
 
 
     api(libs.androidx.room.runtime)

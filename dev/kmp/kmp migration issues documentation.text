@@ -11,3 +11,7 @@
 * kept getting this issue: Undefined symbol: _kfun:androidx.lifecycle.viewmodel.compose#androidx_lifecycle_viewmodel_compose_LocalViewModelStoreOwner$stableprop_getter$artificial(){}kotlin.Int in kmp project running on ios. desktop and android working fine
 was removing viewmodel compose directly and implicitly from other libraries, eventually added api for some dependencies, some config in gradle.properties(Undefined symbol: _kfun:androidx.lifecycle.viewmodel.compose#androidx_lifecycle_viewmodel_compose_LocalViewModelStoreOwner$stableprop_getter$artificial(){}kotlin.Int in kmp project running on ios. desktop and android working fine)
 * Unsure yet whether ios dispatcher works or use default as claude suggested. need to recheck in future.
+* Do not just remove code, files, modules directly and then check. instead comment incrementally to find usages or implicit issues which are hard to find coz issues are shown at higher level.(could try running the app instead of building project):
+:desktopApp:jvmMain: Could not resolve project :features:tv.
+Required by:
+    project :desktopApp > project :composeApp

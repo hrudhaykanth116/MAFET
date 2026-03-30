@@ -69,8 +69,6 @@ kotlin {
         }
 
         androidMain.dependencies {
-            implementation(project(":core"))
-
             // Android Compose
             implementation(libs.androidx.compose.bom)
             implementation(libs.androidx.material3)

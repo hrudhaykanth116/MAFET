@@ -148,7 +148,6 @@ coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilVe
 coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coilVersion" }
 coil-gif = { module = "io.coil-kt.coil3:coil-gif", version.ref = "coilVersion" }
 
-enum-support = { module = "com.chibatching.kotpref:enum-support", version.ref = "enumSupport" }
 firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-vertexai = { module = "com.google.firebase:firebase-vertexai" }
@@ -157,11 +156,9 @@ firebase-storage-ktx = { module = "com.google.firebase:firebase-storage-ktx" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 google-android-material = { module = "com.google.android.material:material", version.ref = "material" }
 #googlemaps-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "google-maps" }
-gson-support = { module = "com.chibatching.kotpref:gson-support", version.ref = "gsonSupport" }
 hamcrest = { module = "org.hamcrest:hamcrest", version.ref = "hamcrest" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
-kotpref-initializer = { module = "com.chibatching.kotpref:initializer", version.ref = "initializer" }
 
 junit = { module = "junit:junit", version.ref = "junit" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
@@ -180,9 +177,7 @@ logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", ver
 kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinx_immutable" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 
-kotpref = { module = "com.chibatching.kotpref:kotpref", version.ref = "kotpref" }
 glide-ksp = { module = "com.github.bumptech.glide:ksp", version.ref = "glideKspVersion" }
-livedata-support = { module = "com.chibatching.kotpref:livedata-support", version.ref = "livedataSupport" }
 lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
 material-icons-core = { module = "androidx.compose.material:material-icons-core" }

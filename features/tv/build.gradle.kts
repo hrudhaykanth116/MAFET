@@ -69,8 +69,6 @@ kotlin {
         }
 
         androidMain.dependencies {
-            implementation(project(":core"))
-
             // Android Compose
             implementation(libs.androidx.compose.bom)
             implementation(libs.androidx.material3)
@@ -80,6 +78,11 @@ kotlin {
 
             // Room KTX is Android-only
             implementation(libs.androidx.room.ktx)
+
+            api(libs.androidx.paging.runtime)
+            api(libs.androidx.paging.compose)
+            api(libs.androidx.paging.runtime.ktx)
+
 
             // Navigation
             implementation(libs.androidx.navigation.compose)

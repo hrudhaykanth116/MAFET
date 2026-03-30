@@ -64,7 +64,8 @@ android {
 dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
 
-    api(project(":core"))
+    api(project(":core-common"))
+    api(project(":core-data"))
     implementation(project(":core-network"))
     implementation(project(":core-ui"))
     implementation(project(":composeApp"))

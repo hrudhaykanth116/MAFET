@@ -59,8 +59,9 @@ android {
 
 dependencies {
 
-    implementation(project(":core"))
+    implementation(project(":core-common"))
     implementation(project(":core-ui"))
+    implementation(project(":core-data"))
 
     // Compose Multiplatform Resources - needed to use Res from core-ui
     implementation(libs.androidx.compose.bom)

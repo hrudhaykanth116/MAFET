@@ -62,7 +62,7 @@ android {
 
 dependencies {
 
-    implementation(project(":core"))
+    implementation(project(":core-common"))
     implementation(project(":core-network"))
     implementation(project(":core-data"))
     implementation(project(":core-ui"))
@@ -75,6 +75,14 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.compose)
     implementation(libs.koin.compose.viewmodel)
+
+    /*********** Firebase ************/
+    api(platform(libs.firebase.bom))
+    // Firebase authentication
+    api(libs.firebase.auth.ktx)
+    api(libs.firebase.storage.ktx)
+    api(libs.firebase.database.ktx)
+    /*********** Firebase ************/
 
     api(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)

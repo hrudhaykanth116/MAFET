@@ -67,8 +67,6 @@ kotlin {
         }
 
         androidMain.dependencies {
-            implementation(project(":core"))
-
             // Android Compose
             implementation(libs.androidx.compose.bom)
             implementation(libs.androidx.material3)
@@ -84,6 +82,10 @@ kotlin {
 
             // Koin Android
             implementation(libs.koin.android)
+
+            //Lottie
+            api(libs.lottie)
+            api(libs.lottie.compose)
         }
 
         val desktopMain by getting {
