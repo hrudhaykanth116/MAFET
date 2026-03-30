@@ -11,6 +11,9 @@ import com.hrudhaykanth116.tv.data.datasources.remote.sources.tvshows.TvShowsRem
 import com.hrudhaykanth116.tv.data.repositories.tv.MyTvListRepository
 import com.hrudhaykanth116.tv.data.repositories.tv.TvRepository
 import com.hrudhaykanth116.tv.data.repositories.tv.TvShowsRepository
+import com.hrudhaykanth116.tv.domain.repository.IMyTvListRepository
+import com.hrudhaykanth116.tv.domain.repository.ITvRepository
+import com.hrudhaykanth116.tv.domain.repository.ITvShowsRepository
 import com.hrudhaykanth116.tv.domain.usecases.AddMyTvUseCase
 import com.hrudhaykanth116.tv.domain.usecases.DeleteMyTvUseCase
 import com.hrudhaykanth116.tv.domain.usecases.GetAllTvShowsUseCase
@@ -59,16 +62,16 @@ val tvCommonModule = module {
         TvShowsRemoteDataSource(get())
     }
 
-    // Repositories (non-paging)
-    single<MyTvListRepository> {
+    // Repositories (bound to interfaces)
+    single<IMyTvListRepository> {
         MyTvListRepository(get())
     }
 
-    single<TvRepository> {
+    single<ITvRepository> {
         TvRepository(get(), get(named(DispatchersEnum.IoDispatcher)))
     }
 
-    single<TvShowsRepository> {
+    single<ITvShowsRepository> {
         TvShowsRepository(get(), get(named(DispatchersEnum.IoDispatcher)))
     }
 

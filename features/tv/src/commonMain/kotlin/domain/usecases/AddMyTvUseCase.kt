@@ -2,15 +2,15 @@ package com.hrudhaykanth116.tv.domain.usecases
 
 import com.hrudhaykanth116.core.common.utils.string.replaceIfBlank
 import com.hrudhaykanth116.core.domain.result.DomainResult
-import com.hrudhaykanth116.tv.data.repositories.tv.MyTvListRepository
-import com.hrudhaykanth116.tv.data.repositories.tv.TvShowsRepository
+import com.hrudhaykanth116.tv.domain.repository.IMyTvListRepository
+import com.hrudhaykanth116.tv.domain.repository.ITvShowsRepository
 import com.hrudhaykanth116.tv.domain.models.MyTv
 import com.hrudhaykanth116.tv.domain.models.TvShowDetail
 import com.hrudhaykanth116.tv.domain.constants.BaseUrlConstants
 
 class AddMyTvUseCase(
-    private val myTvListRepository: MyTvListRepository,
-    private val tvShowsRepository: TvShowsRepository,
+    private val myTvListRepository: IMyTvListRepository,
+    private val tvShowsRepository: ITvShowsRepository,
 ) {
 
     suspend operator fun invoke(id: Int): DomainResult<Unit> {

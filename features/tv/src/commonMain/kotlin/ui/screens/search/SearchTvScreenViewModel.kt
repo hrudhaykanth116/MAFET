@@ -5,7 +5,7 @@ import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.core.ui.models.UserMessage
 import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.core.ui.viewmodels.UDFViewModel
-import com.hrudhaykanth116.tv.data.repositories.tv.MyTvListRepository
+import com.hrudhaykanth116.tv.domain.repository.IMyTvListRepository
 import com.hrudhaykanth116.tv.domain.usecases.AddMyTvUseCase
 import com.hrudhaykanth116.tv.domain.usecases.GetTvListByQuery
 import com.hrudhaykanth116.tv.ui.models.search.SearchScreenEffect
@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 class SearchTvScreenViewModel(
     private val getTvListByQuery: GetTvListByQuery,
     private val addMyTvUseCase: AddMyTvUseCase,
-    private val myTvListRepository: MyTvListRepository,
+    private val myTvListRepository: IMyTvListRepository,
 
     ) : UDFViewModel<SearchScreenState, SearchScreenEvent, SearchScreenEffect>(
     SearchScreenState("")

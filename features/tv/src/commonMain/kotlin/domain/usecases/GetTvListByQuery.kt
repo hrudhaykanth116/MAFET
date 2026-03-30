@@ -3,8 +3,8 @@ package com.hrudhaykanth116.tv.domain.usecases
 import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.core.ui.models.toUrlImageHolder
-import com.hrudhaykanth116.tv.data.repositories.tv.MyTvListRepository
-import com.hrudhaykanth116.tv.data.repositories.tv.TvShowsRepository
+import com.hrudhaykanth116.tv.domain.repository.IMyTvListRepository
+import com.hrudhaykanth116.tv.domain.repository.ITvShowsRepository
 import com.hrudhaykanth116.tv.domain.models.TvShowSearchResult
 import com.hrudhaykanth116.tv.domain.constants.BaseUrlConstants
 import com.hrudhaykanth116.tv.ui.models.search.SearchScreenItemUIState
@@ -12,8 +12,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class GetTvListByQuery(
-    private val tvShowsRepository: TvShowsRepository,
-    private val myTvListRepository: MyTvListRepository,
+    private val tvShowsRepository: ITvShowsRepository,
+    private val myTvListRepository: IMyTvListRepository,
 ) {
 
     suspend operator fun invoke(

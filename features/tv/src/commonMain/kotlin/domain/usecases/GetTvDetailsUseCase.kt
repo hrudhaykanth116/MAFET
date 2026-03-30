@@ -3,7 +3,7 @@ package com.hrudhaykanth116.tv.domain.usecases
 import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvImagesResponse
 import com.hrudhaykanth116.tv.data.datasources.remote.sources.tvshows.TvShowsRemoteDataSource
-import com.hrudhaykanth116.tv.data.repositories.tv.TvShowsRepository
+import com.hrudhaykanth116.tv.domain.repository.ITvShowsRepository
 import com.hrudhaykanth116.tv.domain.models.TvShowDetail
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
@@ -11,7 +11,7 @@ import kotlinx.coroutines.coroutineScope
 
 class GetTvDetailsUseCase(
     private val tvShowsRemoteDataSource: TvShowsRemoteDataSource,
-    private val tvShowsRepository: TvShowsRepository,
+    private val tvShowsRepository: ITvShowsRepository,
 ) {
 
     suspend operator fun invoke(tvShowId: Int): DomainResult<TvShowDetail> = coroutineScope {

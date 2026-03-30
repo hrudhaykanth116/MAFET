@@ -2,14 +2,14 @@ package com.hrudhaykanth116.tv.domain.usecases
 
 import com.hrudhaykanth116.core.domain.result.DomainError
 import com.hrudhaykanth116.core.domain.result.DomainResult
-import com.hrudhaykanth116.tv.data.repositories.tv.TvRepository
+import com.hrudhaykanth116.tv.domain.repository.ITvRepository
 import com.hrudhaykanth116.tv.domain.models.CategorisedTvShows
 import com.hrudhaykanth116.tv.domain.models.TvShow
 import com.hrudhaykanth116.tv.domain.models.TvShowPagedResult
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 
-class GetAllTvShowsUseCase(private val repository: TvRepository) {
+class GetAllTvShowsUseCase(private val repository: ITvRepository) {
 
     suspend operator fun invoke(): DomainResult<CategorisedTvShows> = coroutineScope {
         val popularDeferred = async { repository.getPopularTvShows(1) }

@@ -1,4 +1,4 @@
-package com.hrudhaykanth116.tv.data.repositories.tv
+package com.hrudhaykanth116.tv.domain.repository
 
 import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvCreditsResponse
