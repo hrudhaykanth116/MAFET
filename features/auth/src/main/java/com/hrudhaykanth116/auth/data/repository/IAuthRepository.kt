@@ -4,14 +4,14 @@ import com.hrudhaykanth116.auth.data.models.LoginRequest
 import com.hrudhaykanth116.auth.data.models.LoginResult
 import com.hrudhaykanth116.auth.data.models.SignUpRequest
 import com.hrudhaykanth116.auth.data.models.SignUpResult
-import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.core.ui.models.UIText
 
 interface IAuthRepository {
 
-    suspend fun getLoggedInUser(): RepoResultWrapper<String>
-    suspend fun login(loginRequest: LoginRequest): RepoResultWrapper<LoginResult>
-    suspend fun signUp(signUpRequest: SignUpRequest): RepoResultWrapper<SignUpResult>
-    suspend fun logout(): RepoResultWrapper<UIText>
+    suspend fun getLoggedInUser(): DomainResult<String>
+    suspend fun login(loginRequest: LoginRequest): DomainResult<LoginResult>
+    suspend fun signUp(signUpRequest: SignUpRequest): DomainResult<SignUpResult>
+    suspend fun logout(): DomainResult<UIText>
 
 }

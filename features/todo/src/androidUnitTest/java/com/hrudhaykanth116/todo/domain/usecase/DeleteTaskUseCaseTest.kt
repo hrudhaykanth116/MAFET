@@ -1,6 +1,6 @@
 package com.hrudhaykanth116.todo.domain.usecase
 
-import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.todo.data.repositories.FakeTodoRepository
 import com.hrudhaykanth116.todo.domain.model.TodoModel
 import com.hrudhaykanth116.todo.domain.use_cases.DeleteTaskUseCase
@@ -29,7 +29,7 @@ class DeleteTaskUseCaseTest {
 
         val result = useCase(listOf("1", "3"))
 
-        assertTrue(result is RepoResultWrapper.Success)
+        assertTrue(result is DomainResult.Success)
         assertEquals(1, repository.getTasks().size)
         assertEquals("2", repository.getTasks()[0].id)
     }
@@ -41,7 +41,7 @@ class DeleteTaskUseCaseTest {
 
         val result = useCase(null)
 
-        assertTrue(result is RepoResultWrapper.Success)
+        assertTrue(result is DomainResult.Success)
         assertTrue(repository.getTasks().isEmpty())
     }
 
@@ -52,7 +52,7 @@ class DeleteTaskUseCaseTest {
 
         val result = useCase(listOf("1"))
 
-        assertTrue(result is RepoResultWrapper.Error)
+        assertTrue(result is DomainResult.Error)
     }
 
     @Test
@@ -61,7 +61,7 @@ class DeleteTaskUseCaseTest {
 
         val result = useCase(emptyList())
 
-        assertTrue(result is RepoResultWrapper.Success)
+        assertTrue(result is DomainResult.Success)
         assertEquals(1, repository.getTasks().size)
     }
 }

@@ -1,7 +1,7 @@
 package com.hrudhaykanth116.todo.ui.screens.list
 
 import androidx.compose.ui.text.input.TextFieldValue
-import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.core.ui.NetworkMonitor
 import com.hrudhaykanth116.core.common.utils.random.UniqueIdGenerator
 import com.hrudhaykanth116.todo.domain.use_cases.CreateTodoTaskUseCase
@@ -90,7 +90,7 @@ class TodoListViewModelTest {
     @Test
     fun `create todo event calls use case and updates state`() = runTest {
 
-        whenever(createTodoTaskUseCase.invoke(any())).thenReturn(RepoResultWrapper.Success(Unit))
+        whenever(createTodoTaskUseCase.invoke(any())).thenReturn(DomainResult.Success(Unit))
         whenever(uniqueIdGenerator.getUniqueId()).thenReturn("10")
 
         val todoTitle = "New Task"

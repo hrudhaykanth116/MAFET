@@ -1,6 +1,6 @@
 package com.hrudhaykanth116.todo.domain.usecase
 
-import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.todo.data.repositories.FakeTodoRepository
 import com.hrudhaykanth116.todo.domain.model.TodoModel
 import com.hrudhaykanth116.todo.domain.use_cases.GetTaskUseCase
@@ -27,8 +27,8 @@ class GetTaskUseCaseTest {
 
         val result = useCase("123")
 
-        assertTrue(result is RepoResultWrapper.Success)
-        val returnedTask = (result as RepoResultWrapper.Success).data
+        assertTrue(result is DomainResult.Success)
+        val returnedTask = (result as DomainResult.Success).data
         assertEquals("My Task", returnedTask.title)
         assertEquals("Details", returnedTask.description)
         assertEquals(2, returnedTask.priority)
@@ -39,7 +39,7 @@ class GetTaskUseCaseTest {
         setup()
         val result = useCase("nonexistent")
 
-        assertTrue(result is RepoResultWrapper.Error)
+        assertTrue(result is DomainResult.Error)
     }
 
     @Test
@@ -50,6 +50,6 @@ class GetTaskUseCaseTest {
 
         val result = useCase("1")
 
-        assertTrue(result is RepoResultWrapper.Error)
+        assertTrue(result is DomainResult.Error)
     }
 }

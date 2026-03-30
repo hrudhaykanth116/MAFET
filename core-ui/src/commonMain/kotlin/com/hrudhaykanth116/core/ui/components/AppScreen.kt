@@ -11,7 +11,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.runtime.collectAsState
 import com.hrudhaykanth116.core.ui.preview.AppPreview
 import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
-import com.hrudhaykanth116.core.data.ErrorState
 import com.hrudhaykanth116.core.domain.result.DomainError
 import com.hrudhaykanth116.core.ui.viewmodels.UIStateViewModel
 import com.hrudhaykanth116.core.ui.models.UIState

@@ -1,6 +1,6 @@
 package com.hrudhaykanth116.todo.domain.usecase
 
-import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.todo.data.repositories.FakeTodoRepository
 import com.hrudhaykanth116.todo.domain.model.TaskCategory
 import com.hrudhaykanth116.todo.domain.model.TodoDefaults
@@ -35,7 +35,7 @@ class CreateTodoTaskUseCaseTest {
 
         val result = useCase(task)
 
-        assertTrue(result is RepoResultWrapper.Success)
+        assertTrue(result is DomainResult.Success)
         assertEquals(1, repository.getTasks().size)
         assertEquals("New Task", repository.getTasks()[0].title)
     }
@@ -47,7 +47,7 @@ class CreateTodoTaskUseCaseTest {
 
         val result = useCase(task)
 
-        assertTrue(result is RepoResultWrapper.Error)
+        assertTrue(result is DomainResult.Error)
     }
 
     @Test
@@ -77,7 +77,7 @@ class CreateTodoTaskUseCaseTest {
 
         val result = useCase(task)
 
-        assertTrue(result is RepoResultWrapper.Error)
+        assertTrue(result is DomainResult.Error)
         assertEquals(0, repository.getTasks().size)
     }
 
@@ -87,7 +87,7 @@ class CreateTodoTaskUseCaseTest {
 
         val result = useCase(task)
 
-        assertTrue(result is RepoResultWrapper.Error)
+        assertTrue(result is DomainResult.Error)
         assertEquals(0, repository.getTasks().size)
     }
 }

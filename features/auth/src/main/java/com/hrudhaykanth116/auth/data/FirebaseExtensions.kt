@@ -1,24 +1,23 @@
 package com.hrudhaykanth116.auth.data
 
 import com.google.android.gms.tasks.Task
-import com.hrudhaykanth116.core.data.ErrorState
-import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.domain.result.DomainError
+import com.hrudhaykanth116.core.domain.result.DomainResult
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
-// TODO: Move this to common place if needed in other modules
-suspend fun <T> Task<T>.await(): RepoResultWrapper<T> {
+suspend fun <T> Task<T>.await(): DomainResult<T> {
     return suspendCancellableCoroutine { cont ->
 
         addOnCompleteListener { task: Task<T> ->
             task.exception?.let { exception ->
                 cont.resume(
-                    RepoResultWrapper.Error(
-                        errorState = ErrorState.SomethingWentWrong
+                    DomainResult.Error(
+                        error = DomainError.Unknown(throwable = exception)
                     )
                 )
             } ?: run {
-                cont.resume(RepoResultWrapper.Success(task.result))
+                cont.resume(DomainResult.Success(task.result))
             }
         }
     }
