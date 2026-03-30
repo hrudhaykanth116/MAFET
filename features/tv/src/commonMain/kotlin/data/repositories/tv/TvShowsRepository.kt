@@ -13,6 +13,7 @@ import com.hrudhaykanth116.tv.data.mappers.toDomain
 import com.hrudhaykanth116.tv.domain.models.TvShowDetail
 import com.hrudhaykanth116.tv.domain.models.TvShowPagedResult
 import com.hrudhaykanth116.tv.domain.models.TvShowSearchResult
+import com.hrudhaykanth116.tv.domain.repository.ITvShowsRepository
 import kotlinx.coroutines.CoroutineDispatcher
 
 class TvShowsRepository(
