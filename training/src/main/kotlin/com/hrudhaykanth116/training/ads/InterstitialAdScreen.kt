@@ -16,7 +16,6 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
-import com.hrudhaykanth116.core.ads.MyAdUnitIds
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
 
 @Composable
@@ -27,20 +26,20 @@ fun InterstitialAdScreen() {
     var interstitialAd by remember { mutableStateOf<InterstitialAd?>(null) }
 
     fun loadAd() {
-        InterstitialAd.load(
-            context,
-            MyAdUnitIds.INTERSTITIAL,
-            AdRequest.Builder().build(),
-            object : InterstitialAdLoadCallback() {
-                override fun onAdLoaded(ad: InterstitialAd) {
-                    interstitialAd = ad
-                }
-
-                override fun onAdFailedToLoad(error: LoadAdError) {
-                    interstitialAd = null
-                }
-            }
-        )
+        // InterstitialAd.load(
+        //     context,
+        //     MyAdUnitIds.INTERSTITIAL,
+        //     AdRequest.Builder().build(),
+        //     object : InterstitialAdLoadCallback() {
+        //         override fun onAdLoaded(ad: InterstitialAd) {
+        //             interstitialAd = ad
+        //         }
+        //
+        //         override fun onAdFailedToLoad(error: LoadAdError) {
+        //             interstitialAd = null
+        //         }
+        //     }
+        // )
     }
 
 

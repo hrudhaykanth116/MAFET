@@ -1,13 +1,4 @@
-package com.hrudhaykanth116.core.common.utils.ui
-
-import android.content.Context
-import android.view.LayoutInflater
-import android.widget.Toast
-import androidx.annotation.DrawableRes
-import androidx.core.content.ContextCompat
-import com.hrudhaykanth116.core.R
-import com.hrudhaykanth116.core.ui.models.UIText
-import com.hrudhaykanth116.core.ui.models.UserMessage
+package com.hrudhaykanth116.core.ui.utils.toast
 
 // TODO: kmp use this
 object ToastHelper {

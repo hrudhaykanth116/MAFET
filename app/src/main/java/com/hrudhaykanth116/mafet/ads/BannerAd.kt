@@ -1,4 +1,4 @@
-package com.hrudhaykanth116.core.ads
+package com.hrudhaykanth116.mafet.ads
 
 import android.os.Bundle
 import androidx.compose.runtime.Composable

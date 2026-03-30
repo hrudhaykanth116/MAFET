@@ -1,4 +1,4 @@
-package com.hrudhaykanth116.core.common.ui.components.paging
+package com.hrudhaykanth116.core.ui.components.paging
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

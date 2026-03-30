@@ -1,8 +1,6 @@
-package com.hrudhaykanth116.core.ui.utils.extensions
+package com.hrudhaykanth116.core.ui.utils
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import com.hrudhaykanth116.core.ui.viewmodels.StatefulViewModel
 import kotlinx.coroutines.CoroutineScope
 

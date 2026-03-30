@@ -22,8 +22,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
-import com.hrudhaykanth116.core.common.ui.components.paging.ErrorState
-import com.hrudhaykanth116.core.common.ui.components.paging.LoadingState
+import com.hrudhaykanth116.core.ui.components.paging.ErrorState
+import com.hrudhaykanth116.core.ui.components.paging.LoadingState
 import com.hrudhaykanth116.core.ui.components.AppToolbar
 import com.hrudhaykanth116.core.ui.modifier.aspectRatio
 import com.hrudhaykanth116.core.ui.modifier.screenBackground
