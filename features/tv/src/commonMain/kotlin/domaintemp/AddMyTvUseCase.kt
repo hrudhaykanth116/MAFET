@@ -1,7 +1,7 @@
 package com.hrudhaykanth116.tv.domaintemp
 
 import com.hrudhaykanth116.core.common.utils.string.replaceIfBlank
-import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.tv.data.datasources.local.models.MyTvEntity
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDetails
 import com.hrudhaykanth116.tv.data.repositories.tv.MyTvListRepository
@@ -14,16 +14,15 @@ class AddMyTvUseCase(
 
 ) {
 
-    suspend operator fun invoke(id: Int): RepoResultWrapper<Unit>{
+    suspend operator fun invoke(id: Int): DomainResult<Unit>{
 
-        val tvShowDetails: RepoResultWrapper<TvShowDetails> = tvShowsRepository.getTvShowDetails(id)
+        val tvShowDetails: DomainResult<TvShowDetails> = tvShowsRepository.getTvShowDetails(id)
 
         when (tvShowDetails) {
-            is RepoResultWrapper.Error -> {
-                // hrudhay_check_list: Handle error
+            is DomainResult.Error -> {
                 return tvShowDetails
             }
-            is RepoResultWrapper.Success -> {
+            is DomainResult.Success -> {
                 val data = tvShowDetails.data
 
                 val myTvEntity = MyTvEntity(
@@ -37,7 +36,7 @@ class AddMyTvUseCase(
 
                 myTvListRepository.insertMyTvEntity(myTvEntity)
 
-                return RepoResultWrapper.Success(Unit)
+                return DomainResult.Success(Unit)
 
             }
         }

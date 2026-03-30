@@ -2,8 +2,8 @@ package com.hrudhaykanth116.todo.data.repositories
 
 import com.hrudhaykanth116.core.common.time.TimeProvider
 import com.hrudhaykanth116.core.ui.NetworkMonitor
-import com.hrudhaykanth116.core.data.ErrorState
-import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.domain.result.DomainError
+import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.todo.data.data_source.local.ITodoLocalDataSource
 import com.hrudhaykanth116.todo.data.mappers.toDomain
 import com.hrudhaykanth116.todo.data.mappers.toLocal
@@ -34,17 +34,17 @@ class TodoRepository(
                     .map { it.toDomain() }
             }
 
-    override suspend fun getTodoTask(id: String): RepoResultWrapper<TodoModel> =
+    override suspend fun getTodoTask(id: String): DomainResult<TodoModel> =
         withContext(dispatcher) {
             val todoEntity = todoLocalDataSource.getTodoTask(id)
             if (todoEntity == null) {
-                RepoResultWrapper.Error(ErrorState.NotFound)
+                DomainResult.Error(DomainError.NotFound("Task not found"))
             } else {
-                RepoResultWrapper.Success(todoEntity.toDomain())
+                DomainResult.Success(todoEntity.toDomain())
             }
         }
 
-    override suspend fun createTodoTask(todoModel: TodoModel): RepoResultWrapper<Unit> =
+    override suspend fun createTodoTask(todoModel: TodoModel): DomainResult<Unit> =
         withContext(dispatcher) {
             try {
                 val syncStatus = if (networkMonitor.internetAvailabilityStateFlow.first()) {
@@ -55,18 +55,18 @@ class TodoRepository(
                 val modelWithSyncStatus = todoModel.copy(syncStatus = syncStatus)
                 val local = modelWithSyncStatus.toLocal(timeProvider.currentTimeMillis())
                 todoLocalDataSource.createTodoTask(local)
-                RepoResultWrapper.Success(Unit)
+                DomainResult.Success(Unit)
             } catch (e: Exception) {
-                RepoResultWrapper.Error(ErrorState.SomethingWentWrong)
+                DomainResult.Error(DomainError.Unknown(e, "Failed to create task"))
             }
         }
 
-    override suspend fun updateTodoTask(todoModel: TodoModel): RepoResultWrapper<Unit> =
+    override suspend fun updateTodoTask(todoModel: TodoModel): DomainResult<Unit> =
         withContext(dispatcher) {
             try {
                 val existing = todoLocalDataSource.getTodoTask(todoModel.id)
                 if (existing == null) {
-                    return@withContext RepoResultWrapper.Error(ErrorState.NotFound)
+                    return@withContext DomainResult.Error(DomainError.NotFound("Task not found"))
                 }
                 val syncStatus = if (networkMonitor.internetAvailabilityStateFlow.first()) {
                     SyncStatus.SYNCED
@@ -80,13 +80,13 @@ class TodoRepository(
                 val modelWithSyncStatus = todoModel.copy(syncStatus = syncStatus)
                 val local = modelWithSyncStatus.toLocal(timeProvider.currentTimeMillis())
                 todoLocalDataSource.updateTodoTask(local)
-                RepoResultWrapper.Success(Unit)
+                DomainResult.Success(Unit)
             } catch (e: Exception) {
-                RepoResultWrapper.Error(ErrorState.SomethingWentWrong)
+                DomainResult.Error(DomainError.Unknown(e, "Failed to update task"))
             }
         }
 
-    override suspend fun deleteTasks(taskId: List<String>): RepoResultWrapper<Unit> =
+    override suspend fun deleteTasks(taskId: List<String>): DomainResult<Unit> =
         withContext(dispatcher) {
             try {
                 if (networkMonitor.internetAvailabilityStateFlow.first()) {
@@ -94,18 +94,18 @@ class TodoRepository(
                 } else {
                     todoLocalDataSource.markForDeletion(taskId)
                 }
-                RepoResultWrapper.Success(Unit)
+                DomainResult.Success(Unit)
             } catch (e: Exception) {
-                RepoResultWrapper.Error(ErrorState.SomethingWentWrong)
+                DomainResult.Error(DomainError.Unknown(e, "Failed to delete tasks"))
             }
         }
 
-    override suspend fun deleteAllTasks(): RepoResultWrapper<Unit> = withContext(dispatcher) {
+    override suspend fun deleteAllTasks(): DomainResult<Unit> = withContext(dispatcher) {
         try {
             todoLocalDataSource.deleteAllTasks()
-            RepoResultWrapper.Success(Unit)
+            DomainResult.Success(Unit)
         } catch (e: Exception) {
-            RepoResultWrapper.Error(ErrorState.SomethingWentWrong)
+            DomainResult.Error(DomainError.Unknown(e, "Failed to delete all tasks"))
         }
     }
 }

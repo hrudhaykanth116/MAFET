@@ -1,12 +1,11 @@
 package com.hrudhaykanth116.weather.domain.usecases
 
-import com.hrudhaykanth116.core.data.ErrorState
-import com.hrudhaykanth116.core.data.RepoResultWrapper
-import com.hrudhaykanth116.weather.data.models.WeatherForeCastResponse
-import com.hrudhaykanth116.weather.data.repository.IGeoCodeRepository
-import com.hrudhaykanth116.weather.data.repository.IWeatherForeCastRepository
+import com.hrudhaykanth116.core.domain.result.DomainError
+import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.weather.domain.models.DailyWeatherUIState
 import com.hrudhaykanth116.weather.domain.models.TodayWeatherUIState
+import com.hrudhaykanth116.weather.domain.repository.IGeoCodeRepository
+import com.hrudhaykanth116.weather.domain.repository.IWeatherForeCastRepository
 
 class GetForeCastUseCaseFromLatLongUseCase(
     private val geoCodeRepository: IGeoCodeRepository,
@@ -17,35 +16,33 @@ class GetForeCastUseCaseFromLatLongUseCase(
 
     suspend operator fun invoke(
         location: String,
-    ): RepoResultWrapper<Pair<TodayWeatherUIState, List<DailyWeatherUIState>>> {
+    ): DomainResult<Pair<TodayWeatherUIState, List<DailyWeatherUIState>>> {
 
-        when (val locationInfoDataResult = geoCodeRepository.getLocationInfo(location)) {
-            is RepoResultWrapper.Error -> {
-                return locationInfoDataResult
+        return when (val locationInfoDataResult = geoCodeRepository.getLocationInfo(location)) {
+            is DomainResult.Error -> {
+                locationInfoDataResult
             }
 
-            is RepoResultWrapper.Success -> {
-                val locationInfo =
-                    locationInfoDataResult.data.firstOrNull()
-                        ?: return RepoResultWrapper.Error(ErrorState.NotFound)
+            is DomainResult.Success -> {
+                val locationInfo = locationInfoDataResult.data.firstOrNull()
+                    ?: return DomainResult.Error(DomainError.NotFound("Location not found"))
 
-                return when (
-                    val foreCastResult: RepoResultWrapper<WeatherForeCastResponse> =
-                        weatherForeCastRepository.getDailyWeatherForeCast(
-                            locationInfo.lat?.toString().orEmpty(),
-                            locationInfo.lon?.toString().orEmpty(),
-                        )
+                when (
+                    val foreCastResult = weatherForeCastRepository.getDailyWeatherForeCast(
+                        locationInfo.lat?.toString().orEmpty(),
+                        locationInfo.lon?.toString().orEmpty(),
+                    )
                 ) {
-                    is RepoResultWrapper.Error -> {
+                    is DomainResult.Error -> {
                         foreCastResult
                     }
 
-                    is RepoResultWrapper.Success -> {
+                    is DomainResult.Success -> {
                         val foreCastList: List<DailyWeatherUIState> =
                             parseDailyForeCastDtoUseCase.invoke(foreCastResult.data)
                         val currentWeatherUIState =
                             parseCurrentWeatherUseCase(foreCastResult.data)
-                        RepoResultWrapper.Success(Pair(currentWeatherUIState, foreCastList))
+                        DomainResult.Success(Pair(currentWeatherUIState, foreCastList))
                     }
                 }
             }

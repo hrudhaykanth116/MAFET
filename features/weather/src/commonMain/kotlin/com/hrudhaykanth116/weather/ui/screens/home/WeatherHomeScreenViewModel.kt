@@ -2,12 +2,14 @@ package com.hrudhaykanth116.weather.ui.screens.home
 
 import androidx.lifecycle.viewModelScope
 import com.hrudhaykanth116.core.common.utils.log.Logger
-import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.core.ui.NetworkMonitor
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.core.ui.models.UserMessage
 import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.core.ui.viewmodels.UIStateViewModel
+import com.hrudhaykanth116.weather.domain.models.DailyWeatherUIState
+import com.hrudhaykanth116.weather.domain.models.TodayWeatherUIState
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenEffect
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenEvent
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenUIState
@@ -38,7 +40,7 @@ class WeatherHomeScreenViewModel(
         viewModelScope.launch {
             setState {
                 UIState.Loading(
-                    currentContentState?.copy(errorState = null),
+                    currentContentState?.copy(domainError = null),
                     message = "Fetching location...".toUIText()
                 )
             }
@@ -56,28 +58,28 @@ class WeatherHomeScreenViewModel(
                 ) ?: "Unknown"
 
                 setLoadingState(
-                    currentContentState?.copy(errorState = null),
+                    currentContentState?.copy(domainError = null),
                     "Fetching forecast for $addressName".toUIText()
                 )
 
-                val foreCastDataResult = getForeCastFromLatLongUseCase(
+                val foreCastDataResult: DomainResult<Pair<TodayWeatherUIState, List<DailyWeatherUIState>>> = getForeCastFromLatLongUseCase(
                     locationResult.latitude,
                     locationResult.longitude
                 )
 
                 when (foreCastDataResult) {
-                    is RepoResultWrapper.Error -> {
+                    is DomainResult.Error -> {
                         setState {
                             UIState.Idle(
                                 contentState = defaultState.copy(
-                                    errorState = foreCastDataResult.errorState,
+                                    domainError = foreCastDataResult.error,
                                     location = addressName,
                                 )
                             )
                         }
                     }
 
-                    is RepoResultWrapper.Success -> {
+                    is DomainResult.Success -> {
                         setState {
                             UIState.Idle(
                                 contentStateOrDefault.copy(
@@ -118,26 +120,26 @@ class WeatherHomeScreenViewModel(
 
         getForeCastJob = viewModelScope.launch {
             setLoadingState(
-                currentContentState?.copy(isSearchActive = false, errorState = null),
+                currentContentState?.copy(isSearchActive = false, domainError = null),
                 "Fetching forecast for $location".toUIText()
             )
 
             val foreCastDataResult = getForeCastUseCaseFromLatLongUseCase(location)
 
             when (foreCastDataResult) {
-                is RepoResultWrapper.Error -> {
-                    Logger.e(TAG, "fetchData: foreCastDataResult: ${foreCastDataResult.errorState}")
+                is DomainResult.Error -> {
+                    Logger.e(TAG, "fetchData: foreCastDataResult: ${foreCastDataResult.error}")
                     setState {
                         UIState.Idle(
                             contentState = defaultState.copy(
-                                errorState = foreCastDataResult.errorState,
+                                domainError = foreCastDataResult.error,
                                 location = location,
                             ),
                         )
                     }
                 }
 
-                is RepoResultWrapper.Success -> {
+                is DomainResult.Success -> {
                     Logger.d(TAG, "fetchData: success")
                     setState {
                         UIState.Idle(

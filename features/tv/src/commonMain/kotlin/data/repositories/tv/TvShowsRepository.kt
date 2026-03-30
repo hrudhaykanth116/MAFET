@@ -1,7 +1,8 @@
 package com.hrudhaykanth116.tv.data.repositories.tv
 
-import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.data.mappers.toDomainResult
 import com.hrudhaykanth116.core.data.repository.BaseRepository
+import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvCreditsResponse
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvImagesResponse
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvReviewsResponse
@@ -18,49 +19,49 @@ class TvShowsRepository(
     dispatcher: CoroutineDispatcher,
 ) : BaseRepository(dispatcher), ITvShowsRepository {
 
-    override suspend fun getTvShowDetails(tvShowId: Int): RepoResultWrapper<TvShowDetails> =
+    override suspend fun getTvShowDetails(tvShowId: Int): DomainResult<TvShowDetails> =
         getResult {
             tvShowsRemoteDataSource.fetchTvShowDetails(tvShowId)
-        }
+        }.toDomainResult()
 
-    override suspend fun searchTvShow(query: String): RepoResultWrapper<TvShowSearchResults> =
+    override suspend fun searchTvShow(query: String): DomainResult<TvShowSearchResults> =
         getResult {
             tvShowsRemoteDataSource.searchTvShow(query)
-        }
+        }.toDomainResult()
 
-    override suspend fun getTvGenres(): RepoResultWrapper<GetTvGenresResponse> = getResult {
+    override suspend fun getTvGenres(): DomainResult<GetTvGenresResponse> = getResult {
         tvShowsRemoteDataSource.getTvGenres()
-    }
+    }.toDomainResult()
 
-    override suspend fun getTvImages(tvId: Int): RepoResultWrapper<GetTvImagesResponse> =
+    override suspend fun getTvImages(tvId: Int): DomainResult<GetTvImagesResponse> =
         getResult {
             tvShowsRemoteDataSource.getTvImages(tvId)
-        }
+        }.toDomainResult()
 
-    override suspend fun getTvShowVideos(tvId: Int): RepoResultWrapper<GetTvVideosResponse> =
+    override suspend fun getTvShowVideos(tvId: Int): DomainResult<GetTvVideosResponse> =
         getResult {
             tvShowsRemoteDataSource.getTvShowVideos(tvId)
-        }
+        }.toDomainResult()
 
     override suspend fun getTvShowsSimilar(
         tvId: Int,
         pageId: Int,
-    ): RepoResultWrapper<TvShowDataPagedResponse> =
+    ): DomainResult<TvShowDataPagedResponse> =
         getResult {
             tvShowsRemoteDataSource.getTvShowsSimilar(tvId, pageId)
-        }
+        }.toDomainResult()
 
     override suspend fun getTvReviews(
         tvId: Int,
         pageId: Int,
-    ): RepoResultWrapper<GetTvReviewsResponse> =
+    ): DomainResult<GetTvReviewsResponse> =
         getResult {
             tvShowsRemoteDataSource.getTvReviews(tvId, pageId)
-        }
+        }.toDomainResult()
 
-    override suspend fun getTvCredits(tvId: Int): RepoResultWrapper<GetTvCreditsResponse> =
+    override suspend fun getTvCredits(tvId: Int): DomainResult<GetTvCreditsResponse> =
         getResult {
             tvShowsRemoteDataSource.getTvCredits(tvId)
-        }
+        }.toDomainResult()
 
 }

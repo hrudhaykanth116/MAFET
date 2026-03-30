@@ -20,58 +20,86 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import com.hrudhaykanth116.core.data.ErrorState
+import com.hrudhaykanth116.core.domain.result.DomainError
 import com.hrudhaykanth116.core.ui.models.ImageHolder
 import com.hrudhaykanth116.core.ui.models.UIText
 import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.core.ui.platform.sdp
 import com.hrudhaykanth116.core.ui.platform.ssp
+import mafet.core_ui.generated.resources.Res
+import mafet.core_ui.generated.resources.icon_no_internet
+import mafet.core_ui.generated.resources.ic_server_connection_lost
+import mafet.core_ui.generated.resources.ic_warning
+import mafet.core_ui.generated.resources.oops
+import mafet.core_ui.generated.resources.something_went_wrong
+import mafet.core_ui.generated.resources.internet_offline_description
+import mafet.core_ui.generated.resources.internet_offline_something_went_wrong_description
 import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun ApiErrorScreen(
-    apiError: ErrorState,
+    domainError: DomainError,
     onRetry: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-
-    CenteredColumn {
-        Text("Unable to load weather data. Api failed to get data. This screen should not be seen.", style = MaterialTheme.typography.bodyMedium)
+    when (domainError) {
+        is DomainError.NoNetwork -> {
+            ApiErrorScreenUI(
+                title = stringResource(Res.string.oops).toUIText(),
+                description = stringResource(Res.string.internet_offline_description).toUIText(),
+                onRetry = onRetry,
+                modifier = modifier,
+                resource = Res.drawable.icon_no_internet
+            )
+        }
+        is DomainError.ServerError, is DomainError.Timeout -> {
+            ApiErrorScreenUI(
+                title = domainError.toMessage().toUIText(),
+                description = stringResource(Res.string.internet_offline_something_went_wrong_description).toUIText(),
+                onRetry = onRetry,
+                modifier = modifier,
+                resource = Res.drawable.ic_server_connection_lost
+            )
+        }
+        is DomainError.Authentication, is DomainError.Unauthorized -> {
+            ApiErrorScreenUI(
+                title = stringResource(Res.string.oops).toUIText(),
+                description = domainError.toMessage().toUIText(),
+                onRetry = onRetry,
+                modifier = modifier,
+                resource = Res.drawable.ic_warning
+            )
+        }
+        is DomainError.NotFound -> {
+            ApiErrorScreenUI(
+                title = stringResource(Res.string.oops).toUIText(),
+                description = domainError.toMessage().toUIText(),
+                onRetry = onRetry,
+                modifier = modifier,
+                resource = Res.drawable.ic_warning
+            )
+        }
+        is DomainError.Validation -> {
+            ApiErrorScreenUI(
+                title = stringResource(Res.string.oops).toUIText(),
+                description = domainError.message.toUIText(),
+                onRetry = onRetry,
+                modifier = modifier,
+                resource = Res.drawable.ic_warning
+            )
+        }
+        is DomainError.Unknown -> {
+            ApiErrorScreenUI(
+                title = stringResource(Res.string.something_went_wrong).toUIText(),
+                description = stringResource(Res.string.internet_offline_something_went_wrong_description).toUIText(),
+                onRetry = onRetry,
+                modifier = modifier,
+                resource = Res.drawable.ic_server_connection_lost
+            )
+        }
     }
-
-    // when (apiError) {
-    //     is ErrorState.NoNetwork -> {
-    //         // No internet ui
-    //         ApiErrorScreenUI(
-    //             title = stringResource(R.string.oops).toUIText(),
-    //             description = stringResource(R.string.internet_offline_description).toUIText(),
-    //             onRetry = onRetry,
-    //             modifier = modifier,
-    //             resId = R.drawable.icon_no_internet
-    //         )
-    //     }
-    //     is ErrorState.Api -> {
-    //         // Api error ui
-    //         ApiErrorScreenUI(
-    //             title = apiError.message?.toUIText() ?: stringResource(R.string.something_went_wrong).toUIText(),
-    //             description = apiError.description?.toUIText(),
-    //             onRetry = onRetry,
-    //             modifier = modifier,
-    //             resId = R.drawable.ic_server_connection_lost
-    //         )
-    //     }
-    //     else -> {
-    //         // Something went wrong ui
-    //         ApiErrorScreenUI(
-    //             title = stringResource(R.string.oops).toUIText(),
-    //             description = stringResource(R.string.internet_offline_something_went_wrong_description).toUIText(),
-    //             onRetry = onRetry,
-    //             modifier = modifier,
-    //             resId = R.drawable.ic_server_connection_lost
-    //         )
-    //     }
-    // }
 }
 
 @Composable

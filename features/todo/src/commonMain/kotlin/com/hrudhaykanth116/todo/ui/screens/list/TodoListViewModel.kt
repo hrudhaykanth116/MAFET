@@ -3,7 +3,7 @@ package com.hrudhaykanth116.todo.ui.screens.list
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.viewModelScope
 import com.hrudhaykanth116.core.common.utils.random.UniqueIdGenerator
-import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.core.ui.NetworkMonitor
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.core.ui.models.UIText
@@ -198,14 +198,14 @@ class TodoListViewModel(
 
     private fun createTodoTask(taskTitle: String) {
         viewModelScope.launch(dispatcher) {
-            val result: RepoResultWrapper<Unit> = createTodoTaskUseCase(
+            val result: DomainResult<Unit> = createTodoTaskUseCase(
                 TodoModel(
                     id = uniqueIdGenerator.getUniqueId(),
                     title = taskTitle,
                 )
             )
             when (result) {
-                is RepoResultWrapper.Error -> {
+                is DomainResult.Error -> {
                     setState {
                         UIState.Idle(
                             contentStateOrDefault,
@@ -214,7 +214,7 @@ class TodoListViewModel(
                     }
                 }
 
-                is RepoResultWrapper.Success -> {
+                is DomainResult.Success -> {
                     setState {
                         UIState.Idle(
                             contentStateOrDefault.copy(todoTitle = TextFieldValue()),

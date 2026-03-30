@@ -1,7 +1,9 @@
 package com.hrudhaykanth116.tv.ui.screens.search
 
 import androidx.lifecycle.viewModelScope
-import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.domain.result.DomainResult
+import com.hrudhaykanth116.core.ui.models.UserMessage
+import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.core.ui.viewmodels.UDFViewModel
 import com.hrudhaykanth116.tv.data.repositories.tv.MyTvListRepository
 import com.hrudhaykanth116.tv.domaintemp.AddMyTvUseCase
@@ -90,19 +92,18 @@ class SearchTvScreenViewModel(
                 )
             }
 
-            val result: RepoResultWrapper<List<SearchScreenItemUIState>?> = getTvListByQuery(it)
+            val result: DomainResult<List<SearchScreenItemUIState>?> = getTvListByQuery(it)
 
             when (result) {
-                is RepoResultWrapper.Error -> {
-                    // TODO: kmp set this
-                    // setState {
-                    //     copy(
-                    //         userMessage = result.errorState.mapToUIMessage(),
-                    //         isLoading = false,
-                    //     )
-                    // }
+                is DomainResult.Error -> {
+                    setState {
+                        copy(
+                            userMessage = UserMessage.Error(result.error.toMessage().toUIText()),
+                            isLoading = false,
+                        )
+                    }
                 }
-                is RepoResultWrapper.Success -> {
+                is DomainResult.Success -> {
                     setState {
                         copy(
                             searchResults = result.data ?: emptyList(),
@@ -137,19 +138,18 @@ class SearchTvScreenViewModel(
             val result = addMyTvUseCase(event.id)
 
             when (result) {
-                is RepoResultWrapper.Error -> {
-                    // TODO: kmp do this
-                    // setState {
-                    //     copy(
-                    //         userMessage = result.errorState.mapToUIMessage(),
-                    //     )
-                    // }
-                }
-
-                is RepoResultWrapper.Success -> {
+                is DomainResult.Error -> {
                     setState {
                         copy(
-                            userMessage = null,
+                            userMessage = UserMessage.Error(result.error.toMessage().toUIText()),
+                        )
+                    }
+                }
+
+                is DomainResult.Success -> {
+                    setState {
+                        copy(
+                            userMessage = UserMessage.Success("Added to Your List".toUIText()),
                         )
                     }
                 }

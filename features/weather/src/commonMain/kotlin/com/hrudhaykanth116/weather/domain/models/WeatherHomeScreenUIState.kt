@@ -1,6 +1,6 @@
 package com.hrudhaykanth116.weather.domain.models
 
-import com.hrudhaykanth116.core.data.ErrorState
+import com.hrudhaykanth116.core.domain.result.DomainError
 import com.hrudhaykanth116.core.ui.models.UIText
 import com.hrudhaykanth116.weather.domain.usecases.WeatherElement
 import com.hrudhaykanth116.weather.domain.usecases.WeatherElementUIState
@@ -13,7 +13,7 @@ data class WeatherHomeScreenUIState(
     val isSearchActive: Boolean = false,
     val weatherForeCastListItemsUIState: List<DailyWeatherUIState> = listOf(),
     val todayWeatherUIState: TodayWeatherUIState? = null,
-    val errorState: ErrorState? = null
+    val domainError: DomainError? = null
 )
 
 data class TodayWeatherUIState(

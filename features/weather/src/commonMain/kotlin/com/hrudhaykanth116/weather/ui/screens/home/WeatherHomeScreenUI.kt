@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.hrudhaykanth116.core.data.ErrorState
 import com.hrudhaykanth116.core.ui.components.ApiErrorScreen
 import com.hrudhaykanth116.core.ui.components.AppProgressBar
 import com.hrudhaykanth116.core.ui.components.VerticalSpacer
@@ -55,7 +56,7 @@ fun WeatherHomeScreenUI(
                     }
                 }
             },
-            sheetPeekHeight = if (!state.isSearchActive && state.errorState == null && uiState is UIState.Idle) 100.dp else 0.dp,
+            sheetPeekHeight = if (!state.isSearchActive && state.domainError == null && uiState is UIState.Idle) 100.dp else 0.dp,
         ) {
             Content(state, it, weatherHomeScreenCallbacks, onRetry, uiState)
         }
@@ -104,10 +105,10 @@ private fun Content(
         if (!state.isSearchActive) {
             VerticalSpacer()
 
-            if (state.errorState != null) {
+            if (state.domainError != null) {
                 ApiErrorScreen(
                     onRetry = onRetry,
-                    apiError = state.errorState,
+                    domainError = state.domainError,
                     modifier = Modifier
                         .fillMaxSize(),
                 )

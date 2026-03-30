@@ -1,6 +1,6 @@
 package com.hrudhaykanth116.tv.domaintemp
 
-import com.hrudhaykanth116.core.data.RepoResultWrapper
+import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvImagesResponse
 import com.hrudhaykanth116.tv.data.datasources.remote.models.TvShowDetails
 import com.hrudhaykanth116.tv.data.datasources.remote.sources.tvshows.TvShowsRemoteDataSource
@@ -16,13 +16,13 @@ class GetTvDetailsUseCase(
 ) {
 
 
-    suspend operator fun invoke(tvShowId: Int): RepoResultWrapper<TvShowDetails> = coroutineScope {
+    suspend operator fun invoke(tvShowId: Int): DomainResult<TvShowDetails> = coroutineScope {
 
 
-        val tvShowDetailsDeferred: Deferred<RepoResultWrapper<TvShowDetails>> = async {
+        val tvShowDetailsDeferred: Deferred<DomainResult<TvShowDetails>> = async {
             tvShowsRepository.getTvShowDetails(tvShowId)
         }
-        val tvImagesDeferred: Deferred<RepoResultWrapper<GetTvImagesResponse>> = async {
+        val tvImagesDeferred: Deferred<DomainResult<GetTvImagesResponse>> = async {
             tvShowsRepository.getTvImages(tvShowId)
         }
         val tvShowImages = tvImagesDeferred.await()
