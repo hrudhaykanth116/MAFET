@@ -1,10 +1,19 @@
 <resources>
-    <string name="journal_screen_title">Journal</string>
-    <string name="journal_input_hint">Write your thoughts...</string>
-    <string name="journal_save_button">Save</string>
-    <string name="journal_clear_button">Clear</string>
-    <string name="journal_empty_title">Start writing</string>
-    <string name="journal_empty_subtitle">Capture your thoughts and ideas here</string>
-    <string name="journal_success_saved">Journal entry saved</string>
-    <string name="journal_error_empty">Please write something first</string>
+    <string name="journal_list_title">Journal</string>
+    <string name="journal_list_empty_title">No entries yet</string>
+    <string name="journal_list_empty_subtitle">Start writing your first journal entry</string>
+    <string name="journal_search_hint">Search entries...</string>
+    <string name="journal_entry_new_title">New Entry</string>
+    <string name="journal_entry_title_hint">Entry title</string>
+    <string name="journal_entry_body_hint">Write your thoughts...</string>
+    <string name="journal_entry_mood_label">How are you feeling?</string>
+    <string name="journal_entry_tags_hint">Add a tag</string>
+    <string name="journal_save">Save</string>
+    <string name="journal_update">Update</string>
+    <string name="journal_delete">Delete</string>
+    <string name="journal_success_created">Entry created</string>
+    <string name="journal_success_updated">Entry updated</string>
+    <string name="journal_success_deleted">Entry deleted</string>
+    <string name="journal_error_title_required">Title is required</string>
+    <string name="journal_error_body_required">Entry content is required</string>
 </resources>
