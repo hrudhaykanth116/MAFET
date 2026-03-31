@@ -32,6 +32,9 @@ class PexelsApiServiceKtor(
         query: String,
         page: Int = 1,
         perPage: Int = 15,
+        orientation: String? = null,
+        size: String? = null,
+        color: String? = null,
         apiKey: String
     ): Result<PhotoSearchResponse> {
         return try {
@@ -40,6 +43,9 @@ class PexelsApiServiceKtor(
                 parameter("query", query)
                 parameter("page", page)
                 parameter("per_page", perPage)
+                orientation?.let { parameter("orientation", it) }
+                size?.let { parameter("size", it) }
+                color?.let { parameter("color", it) }
             }.body<PhotoSearchResponse>()
             Result.success(response)
         } catch (e: Exception) {
@@ -54,6 +60,9 @@ class PexelsApiServiceKtor(
     suspend fun getCuratedPhotos(
         page: Int = 1,
         perPage: Int = 15,
+        orientation: String? = null,
+        size: String? = null,
+        color: String? = null,
         apiKey: String
     ): Result<CuratedPhotosResponse> {
         return try {
@@ -61,6 +70,9 @@ class PexelsApiServiceKtor(
                 header("Authorization", apiKey)
                 parameter("page", page)
                 parameter("per_page", perPage)
+                orientation?.let { parameter("orientation", it) }
+                size?.let { parameter("size", it) }
+                color?.let { parameter("color", it) }
             }.body<CuratedPhotosResponse>()
             Result.success(response)
         } catch (e: Exception) {
@@ -109,13 +121,40 @@ class PexelsApiServiceKtor(
      * https://api.pexels.com/videos/popular?per_page={per_page}
      */
     suspend fun getPopularVideos(
-        perPage: Int,
+        page: Int = 1,
+        perPage: Int = 15,
         apiKey: String
     ): Result<GetPopularVideosResponse> {
         return try {
             val response = httpClient.get("${BASE_URL}videos/popular") {
                 header("Authorization", apiKey)
+                parameter("page", page)
                 parameter("per_page", perPage)
+            }.body<GetPopularVideosResponse>()
+            Result.success(response)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    /**
+     * Search for videos
+     * https://api.pexels.com/videos/search?query={query}&page={page}&per_page={per_page}
+     */
+    suspend fun searchVideos(
+        query: String,
+        page: Int = 1,
+        perPage: Int = 15,
+        orientation: String? = null,
+        apiKey: String
+    ): Result<GetPopularVideosResponse> {
+        return try {
+            val response = httpClient.get("${BASE_URL}videos/search") {
+                header("Authorization", apiKey)
+                parameter("query", query)
+                parameter("page", page)
+                parameter("per_page", perPage)
+                orientation?.let { parameter("orientation", it) }
             }.body<GetPopularVideosResponse>()
             Result.success(response)
         } catch (e: Exception) {

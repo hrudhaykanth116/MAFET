@@ -421,6 +421,77 @@ actual class NetworkMonitor() {
 - Data models (use @Serializable in commonMain)
 - Network calls (use Ktor in commonMain)
 
+### Platform Implementation Priority
+
+**CRITICAL: When creating expect/actual declarations, ALWAYS implement them in this priority order:**
+
+1. **Android (FIRST)** - Always provide a working Android implementation
+2. **iOS (SECOND)** - Implement when Android is complete
+3. **Desktop/Web (THIRD)** - Lowest priority
+
+**Pattern to follow:**
+```kotlin
+// In commonMain
+expect class PlatformFeature {
+    fun doSomething(): Boolean
+}
+
+// In androidMain - MUST BE IMPLEMENTED FIRST
+actual class PlatformFeature(private val context: Context) {
+    actual fun doSomething(): Boolean {
+        // Full Android implementation
+        return true
+    }
+}
+
+// In iosMain - Can be TODO initially
+actual class PlatformFeature() {
+    actual fun doSomething(): Boolean {
+        // TODO: iOS implementation
+        return false
+    }
+}
+
+// In desktopMain - Can be TODO initially
+actual class PlatformFeature() {
+    actual fun doSomething(): Boolean {
+        // TODO: Desktop implementation
+        return false
+    }
+}
+```
+
+**Dependency Injection Pattern:**
+```kotlin
+// In commonMain/di/
+expect val platformModule: Module
+
+val mainModule = module {
+    includes(platformModule)
+    // Common dependencies
+}
+
+// In androidMain/di/
+actual val platformModule = module {
+    single<PlatformFeature> {
+        PlatformFeature(androidContext())
+    }
+}
+
+// In iosMain/di/
+actual val platformModule = module {
+    single<PlatformFeature> {
+        PlatformFeature()
+    }
+}
+```
+
+**Rationale:**
+- Android is the primary development platform
+- Most users are on Android
+- iOS requires different tooling and longer build times
+- Desktop is lowest priority for mobile-first features
+
 ## Testing
 
 ### Test Structure

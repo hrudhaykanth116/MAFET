@@ -11,6 +11,14 @@ data class PhotoResponse(
     val url: String,
     @SerialName("photographer")
     val photographer: String,
+    @SerialName("photographer_url")
+    val photographerUrl: String,
+    @SerialName("width")
+    val width: Int,
+    @SerialName("height")
+    val height: Int,
+    @SerialName("avg_color")
+    val avgColor: String? = null,
     @SerialName("src")
     val src: PhotoSrc
 )

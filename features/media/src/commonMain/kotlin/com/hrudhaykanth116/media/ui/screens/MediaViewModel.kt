@@ -70,7 +70,7 @@ class MediaViewModel(
 
         viewModelScope.launch {
             try {
-                when (val result = pexelsRepository.getPopularVideos(perPage = 5)) {
+                when (val result = pexelsRepository.getPopularVideos(page = 1, perPage = 5)) {
                     is DomainResult.Success -> {
                         val response = result.data
                         Logger.d(TAG, "Popular Videos: $response")

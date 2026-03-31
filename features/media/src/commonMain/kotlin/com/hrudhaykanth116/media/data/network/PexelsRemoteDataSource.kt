@@ -14,14 +14,27 @@ class PexelsRemoteDataSource(
     private val apiKey: String
 ) : NetworkDataSource() {
 
-    suspend fun searchPhotos(query: String, page: Int, perPage: Int): ApiResultWrapper<PhotoSearchResponse> =
+    suspend fun searchPhotos(
+        query: String,
+        page: Int,
+        perPage: Int,
+        orientation: String? = null,
+        size: String? = null,
+        color: String? = null
+    ): ApiResultWrapper<PhotoSearchResponse> =
         getResult {
-            api.searchPhotos(query, page, perPage, apiKey)
+            api.searchPhotos(query, page, perPage, orientation, size, color, apiKey)
         }
 
-    suspend fun getCuratedPhotos(page: Int, perPage: Int): ApiResultWrapper<CuratedPhotosResponse> =
+    suspend fun getCuratedPhotos(
+        page: Int,
+        perPage: Int,
+        orientation: String? = null,
+        size: String? = null,
+        color: String? = null
+    ): ApiResultWrapper<CuratedPhotosResponse> =
         getResult {
-            api.getCuratedPhotos(page, perPage, apiKey)
+            api.getCuratedPhotos(page, perPage, orientation, size, color, apiKey)
         }
 
     suspend fun getPhotoById(id: Int): ApiResultWrapper<PhotoResponse> =
@@ -34,9 +47,22 @@ class PexelsRemoteDataSource(
             api.getVideoById(id, apiKey)
         }
 
-    suspend fun getPopularVideos(perPage: Int): ApiResultWrapper<GetPopularVideosResponse> =
+    suspend fun getPopularVideos(
+        page: Int,
+        perPage: Int
+    ): ApiResultWrapper<GetPopularVideosResponse> =
         getResult {
-            api.getPopularVideos(perPage, apiKey)
+            api.getPopularVideos(page, perPage, apiKey)
+        }
+
+    suspend fun searchVideos(
+        query: String,
+        page: Int,
+        perPage: Int,
+        orientation: String? = null
+    ): ApiResultWrapper<GetPopularVideosResponse> =
+        getResult {
+            api.searchVideos(query, page, perPage, orientation, apiKey)
         }
 
 }

@@ -36,6 +36,10 @@ fun PhotoGridPreview() {
             id = it,
             url = "https://www.pexels.com/photo/sample-$it",
             photographer = "Photographer $it",
+            photographerUrl = "https://www.pexels.com/@photographer-$it",
+            width = 1920,
+            height = 1080,
+            avgColor = "#808080",
             src = PhotoSrc(
                 original = "https://images.pexels.com/photos/32812556/pexels-photo-32812556.jpeg",
                 medium = "https://images.pexels.com/photos/32812556/pexels-photo-32812556.jpeg?auto=compress&cs=tinysrgb&h=350",

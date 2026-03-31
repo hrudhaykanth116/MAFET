@@ -15,14 +15,27 @@ class PexelsRepository(
     dispatcher: CoroutineDispatcher,
 ) : BaseRepository(dispatcher) {
 
-    suspend fun getCuratedPhotos(page: Int, perPage: Int): DomainResult<CuratedPhotosResponse> =
+    suspend fun getCuratedPhotos(
+        page: Int,
+        perPage: Int,
+        orientation: String? = null,
+        size: String? = null,
+        color: String? = null
+    ): DomainResult<CuratedPhotosResponse> =
         fetchResult {
-            remote.getCuratedPhotos(page, perPage)
+            remote.getCuratedPhotos(page, perPage, orientation, size, color)
         }
 
-    suspend fun searchPhotos(query: String, page: Int, perPage: Int): DomainResult<PhotoSearchResponse> =
+    suspend fun searchPhotos(
+        query: String,
+        page: Int,
+        perPage: Int,
+        orientation: String? = null,
+        size: String? = null,
+        color: String? = null
+    ): DomainResult<PhotoSearchResponse> =
         fetchResult {
-            remote.searchPhotos(query, page, perPage)
+            remote.searchPhotos(query, page, perPage, orientation, size, color)
         }
 
     suspend fun getPhotoById(id: Int): DomainResult<PhotoResponse> =
@@ -35,9 +48,22 @@ class PexelsRepository(
             remote.getVideoById(id)
         }
 
-    suspend fun getPopularVideos(perPage: Int): DomainResult<GetPopularVideosResponse> =
+    suspend fun getPopularVideos(
+        page: Int,
+        perPage: Int
+    ): DomainResult<GetPopularVideosResponse> =
         fetchResult {
-            remote.getPopularVideos(perPage)
+            remote.getPopularVideos(page, perPage)
+        }
+
+    suspend fun searchVideos(
+        query: String,
+        page: Int,
+        perPage: Int,
+        orientation: String? = null
+    ): DomainResult<GetPopularVideosResponse> =
+        fetchResult {
+            remote.searchVideos(query, page, perPage, orientation)
         }
 
 }
