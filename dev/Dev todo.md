@@ -3,6 +3,35 @@ Tech features to be implemented in the project.
 * Sonarqube check
 * *
 
+iOS Missing Implementations:
+* NotificationScheduler (core-ui/src/iosMain/.../notification/NotificationScheduler.ios.kt)
+    * Currently: Empty stub methods (no-op)
+    * Needs: UNUserNotificationCenter implementation
+    * Tasks:
+        - Request notification permission using UNUserNotificationCenter.requestAuthorization()
+        - Schedule notifications with UNTimeIntervalNotificationTrigger
+        - Use taskId as notification identifier for cancellation
+        - Handle cancelReminder() and cancelAllReminders()
+    * Complexity: Medium (4-6 hours)
+
+* AIScreen (features/ai/src/iosMain/.../AIScreen.ios.kt)
+    * Currently: Shows "AI feature coming soon to iOS" placeholder
+    * Needs: Firebase Vertex AI or alternative AI SDK for iOS
+    * Note: Android version also shows placeholder, so this is intentional for now
+    * Complexity: High (depends on AI SDK choice)
+
+* AuthNavigation (composeApp/src/iosMain/.../PlatformNavigation.ios.kt)
+    * Currently: Shows "Auth coming soon to iOS" placeholder
+    * Needs: Firebase Authentication KMP support or alternative auth solution
+    * Blocked by: Firebase Auth doesn't have official KMP support yet
+    * Complexity: High (2-3 days if migrating to KMP-compatible auth)
+
+* GamesNavigation (composeApp/src/iosMain/.../PlatformNavigation.ios.kt)
+    * Currently: Shows "Games coming soon to iOS" placeholder
+    * Needs: Port entire games module to KMP
+    * Note: Games module uses Android-specific sprite/game libraries
+    * Complexity: High (3-5 days)
+
 Testing (Newly Added Features):
 * WorkManager Background Sync
     * Create a todo while offline, observe sync status

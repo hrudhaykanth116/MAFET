@@ -40,6 +40,8 @@
 	<string>PEXELS_KEY_REMOVED</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We need your location to show weather for your current area</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>We need access to save downloaded images and videos to your photo library</string>
 	<key>UILaunchScreen</key>
 	<dict/>
 	<key>UIRequiredDeviceCapabilities</key>
