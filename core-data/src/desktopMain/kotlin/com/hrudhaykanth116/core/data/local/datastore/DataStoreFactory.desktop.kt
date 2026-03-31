@@ -2,6 +2,7 @@ package com.hrudhaykanth116.core.data.local.datastore
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import okio.Path.Companion.toPath
 import java.io.File
 
 private fun dataStoreFilePath(): String {
@@ -21,5 +22,5 @@ actual fun createDataStore(): DataStore<Preferences> {
 
 private fun createDataStoreWithPath(producePath: () -> String): DataStore<Preferences> =
     androidx.datastore.preferences.core.PreferenceDataStoreFactory.createWithPath(
-        produceFile = { File(producePath()) }
+        produceFile = { producePath().toPath() }
     )

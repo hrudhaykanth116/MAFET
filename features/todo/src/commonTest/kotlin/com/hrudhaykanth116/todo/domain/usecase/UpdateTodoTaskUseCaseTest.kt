@@ -29,8 +29,8 @@ class UpdateTodoTaskUseCaseTest {
         val result = useCase(updated)
 
         assertTrue(result is DomainResult.Success)
-        assertEquals("Updated", repository.getTasks()[0].title)
-        assertEquals(TaskCategory.WORK, repository.getTasks()[0].category)
+        assertEquals("Updated", repository.getAllTasks()[0].title)
+        assertEquals(TaskCategory.WORK, repository.getAllTasks()[0].category)
     }
 
     @Test
@@ -52,7 +52,7 @@ class UpdateTodoTaskUseCaseTest {
         val result = useCase(task)
 
         assertTrue(result is DomainResult.Error)
-        assertEquals("Original", repository.getTasks()[0].title)
+        assertEquals("Original", repository.getAllTasks()[0].title)
     }
 
     @Test

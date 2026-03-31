@@ -73,9 +73,11 @@ class FakeTodoRepository : ITodoRepository {
         return DomainResult.Success(Unit)
     }
 
+    override suspend fun getTasks(): List<TodoModel> = tasksFlow.value
+
     fun addTask(task: TodoModel) {
         tasksFlow.value += task
     }
 
-    fun getTasks(): List<TodoModel> = tasksFlow.value
+    fun getAllTasks(): List<TodoModel> = tasksFlow.value
 }

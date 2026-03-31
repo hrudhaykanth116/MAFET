@@ -29,8 +29,8 @@ class DeleteTaskUseCaseTest {
         val result = useCase(listOf("1", "3"))
 
         assertTrue(result is DomainResult.Success)
-        assertEquals(1, repository.getTasks().size)
-        assertEquals("2", repository.getTasks()[0].id)
+        assertEquals(1, repository.getAllTasks().size)
+        assertEquals("2", repository.getAllTasks()[0].id)
     }
 
     @Test
@@ -42,7 +42,7 @@ class DeleteTaskUseCaseTest {
         val result = useCase(null)
 
         assertTrue(result is DomainResult.Success)
-        assertTrue(repository.getTasks().isEmpty())
+        assertTrue(repository.getAllTasks().isEmpty())
     }
 
     @Test
@@ -64,6 +64,6 @@ class DeleteTaskUseCaseTest {
         val result = useCase(emptyList())
 
         assertTrue(result is DomainResult.Success)
-        assertEquals(1, repository.getTasks().size)
+        assertEquals(1, repository.getAllTasks().size)
     }
 }

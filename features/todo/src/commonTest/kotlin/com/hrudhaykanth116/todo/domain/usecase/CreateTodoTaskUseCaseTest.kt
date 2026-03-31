@@ -35,8 +35,8 @@ class CreateTodoTaskUseCaseTest {
         val result = useCase(task)
 
         assertTrue(result is DomainResult.Success)
-        assertEquals(1, repository.getTasks().size)
-        assertEquals("New Task", repository.getTasks()[0].title)
+        assertEquals(1, repository.getAllTasks().size)
+        assertEquals("New Task", repository.getAllTasks()[0].title)
     }
 
     @Test
@@ -57,7 +57,7 @@ class CreateTodoTaskUseCaseTest {
         useCase(TodoModel(id = "2", title = "Second"))
         useCase(TodoModel(id = "3", title = "Third"))
 
-        assertEquals(3, repository.getTasks().size)
+        assertEquals(3, repository.getAllTasks().size)
     }
 
     @Test
@@ -67,7 +67,7 @@ class CreateTodoTaskUseCaseTest {
 
         useCase(task)
 
-        val saved = repository.getTasks()[0]
+        val saved = repository.getAllTasks()[0]
         assertEquals(false, saved.completed)
         assertEquals(TaskCategory.DEFAULT, saved.category)
         assertEquals(3, saved.priority)
@@ -81,7 +81,7 @@ class CreateTodoTaskUseCaseTest {
         val result = useCase(task)
 
         assertTrue(result is DomainResult.Error)
-        assertEquals(0, repository.getTasks().size)
+        assertEquals(0, repository.getAllTasks().size)
     }
 
     @Test
@@ -92,6 +92,6 @@ class CreateTodoTaskUseCaseTest {
         val result = useCase(task)
 
         assertTrue(result is DomainResult.Error)
-        assertEquals(0, repository.getTasks().size)
+        assertEquals(0, repository.getAllTasks().size)
     }
 }
