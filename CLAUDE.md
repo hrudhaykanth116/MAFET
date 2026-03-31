@@ -792,6 +792,203 @@ Keep these Android-only when they use Android-specific SDKs:
 
 ## Architecture Patterns
 
+### Architecture Overview Diagram
+
+```
+┌─────────────────────────────────────────────────────────────────────────────────────────┐
+│                                    MAFET Architecture                                    │
+├─────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                         │
+│  ┌─────────────────────────────────────────────────────────────────────────────────┐   │
+│  │                           Platform Entry Points                                  │   │
+│  │  ┌───────────────┐   ┌───────────────┐   ┌───────────────┐   ┌──────────────┐  │   │
+│  │  │  androidApp   │   │  desktopApp   │   │    iosApp     │   │  composeApp  │  │   │
+│  │  │  (Activity)   │   │   (main())    │   │  (SwiftUI)    │   │  (Shared UI) │  │   │
+│  │  └───────┬───────┘   └───────┬───────┘   └───────┬───────┘   └──────┬───────┘  │   │
+│  │          │                   │                   │                  │          │   │
+│  │          └───────────────────┴───────────────────┴──────────────────┘          │   │
+│  │                                        │                                        │   │
+│  └────────────────────────────────────────┼────────────────────────────────────────┘   │
+│                                           │                                             │
+│  ┌────────────────────────────────────────┼────────────────────────────────────────┐   │
+│  │                              Feature Modules                                     │   │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ │   │
+│  │  │   todo   │ │    tv    │ │ weather  │ │ journal  │ │    ai    │ │  media   │ │   │
+│  │  │ A+I+D ✓  │ │  A+I ✓   │ │  A+I ✓   │ │ A+I+D ✓  │ │ A+I+D ✓  │ │ A+I+D ✓  │ │   │
+│  │  └────┬─────┘ └────┬─────┘ └────┬─────┘ └────┬─────┘ └────┬─────┘ └────┬─────┘ │   │
+│  │       │            │            │            │            │            │       │   │
+│  │  ┌──────────┐ ┌──────────┐      │            │            │            │       │   │
+│  │  │   auth   │ │  games   │      │            │            │            │       │   │
+│  │  │ A only   │ │ A only   │      │            │            │            │       │   │
+│  │  └────┬─────┘ └────┬─────┘      │            │            │            │       │   │
+│  │       └────────────┴────────────┴────────────┴────────────┴────────────┘       │   │
+│  └─────────────────────────────────────┬───────────────────────────────────────────┘   │
+│                                        │                                                │
+│  ┌─────────────────────────────────────┼───────────────────────────────────────────┐   │
+│  │                                core-ui                                           │   │
+│  │              (Components, Theme, UIStateViewModel, NetworkMonitor)               │   │
+│  └─────────────────────────────────────┬───────────────────────────────────────────┘   │
+│                                        │                                                │
+│  ┌────────────────┬────────────────────┴────────────────────┬──────────────────────┐   │
+│  │                │                                          │                      │   │
+│  │  ┌─────────────┴─────────────┐  ┌─────────────────────────┴─────────────────┐   │   │
+│  │  │        core-data          │  │               core-network                 │   │   │
+│  │  │  (Repositories, Mappers)  │  │         (Ktor Client, API Config)          │   │   │
+│  │  └─────────────┬─────────────┘  └─────────────────────────┬─────────────────┘   │   │
+│  │                │                                          │                      │   │
+│  │  ┌─────────────┴──────────────────────────────────────────┴─────────────────┐   │   │
+│  │  │                           core-domain                                     │   │   │
+│  │  │                    (DomainResult, DomainError)                            │   │   │
+│  │  └─────────────────────────────────┬────────────────────────────────────────┘   │   │
+│  │                                    │                                             │   │
+│  │  ┌─────────────────────────────────┴────────────────────────────────────────┐   │   │
+│  │  │                           core-common                                     │   │   │
+│  │  │              (Extensions, Utils, DateTime, Logging, UUID)                 │   │   │
+│  │  └──────────────────────────────────────────────────────────────────────────┘   │   │
+│  └──────────────────────────────────────────────────────────────────────────────────┘   │
+│                                                                                         │
+│  Legend: A = Android, I = iOS, D = Desktop, ✓ = KMP Supported                          │
+└─────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+### UI State Management (MVI Pattern) Diagram
+
+```
+┌─────────────────────────────────────────────────────────────────────────────────────────┐
+│                              MVI Pattern - UIStateViewModel                              │
+├─────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                         │
+│   ┌─────────────────────┐          Events (user actions)          ┌─────────────────┐  │
+│   │                     │ ─────────────────────────────────────► │                 │  │
+│   │      UI Screen      │                                         │   ViewModel     │  │
+│   │     (Composable)    │ ◄───────────────────────────────────── │(UIStateViewModel│  │
+│   │                     │           UIState<T> (State)            │                 │  │
+│   └──────────┬──────────┘                                         └────────┬────────┘  │
+│              │                                                             │           │
+│              │                         Effects                             │           │
+│              │ ◄───────────────────────────────────────────────────────────┘           │
+│              │              (Navigation, Toast, One-time events)                       │
+│              │                                                                         │
+│   ┌──────────┴──────────────────────────────────────────────────────────────────────┐  │
+│   │                                                                                  │  │
+│   │   ┌──────────────────────────────────────────────────────────────────────────┐  │  │
+│   │   │                           UIState<T> Sealed Class                         │  │  │
+│   │   │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────────────┐   │  │  │
+│   │   │  │  UIState.Idle   │  │ UIState.Loading │  │    UIState.Error        │   │  │  │
+│   │   │  │  contentState?  │  │  contentState?  │  │ DomainError + content?  │   │  │  │
+│   │   │  │  userMessage?   │  │    message?     │  │                         │   │  │  │
+│   │   │  └─────────────────┘  └─────────────────┘  └─────────────────────────┘   │  │  │
+│   │   └──────────────────────────────────────────────────────────────────────────┘  │  │
+│   │                                                                                  │  │
+│   └──────────────────────────────────────────────────────────────────────────────────┘  │
+│                                                                                         │
+│   Data Flow:                                                                            │
+│   ┌────────────────────────────────────────────────────────────────────────────────┐   │
+│   │  1. User interacts with UI (click, input)                                       │   │
+│   │  2. UI sends Event to ViewModel (processEvent())                                │   │
+│   │  3. ViewModel processes event and calls Use Cases                               │   │
+│   │  4. Use Cases interact with Repository                                          │   │
+│   │  5. ViewModel updates UIState (setState())                                      │   │
+│   │  6. UI observes StateFlow and recomposes                                        │   │
+│   │  7. For navigation/toast, ViewModel sends Effect (setEffect())                  │   │
+│   │  8. UI collects Effect from SharedFlow and handles one-time action              │   │
+│   └────────────────────────────────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Feature Module Structure
+
+```
+┌─────────────────────────────────────────────────────────────────────────────────────────┐
+│                            Feature Module Structure (e.g., todo)                         │
+├─────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                         │
+│  features/todo/                                                                         │
+│  ├── src/                                                                               │
+│  │   ├── commonMain/kotlin/com/hrudhaykanth116/todo/                                   │
+│  │   │   ├── data/                         # Data Layer                                │
+│  │   │   │   ├── data_source/local/        # Room DAOs and local data sources          │
+│  │   │   │   ├── local/room/               # Database, Entities, DAOs                  │
+│  │   │   │   ├── mappers/                  # Entity ↔ Domain mappers                   │
+│  │   │   │   └── repositories/             # Repository implementations                │
+│  │   │   │                                                                              │
+│  │   │   ├── domain/                       # Domain Layer                              │
+│  │   │   │   ├── model/                    # Domain models (TodoModel, TaskCategory)   │
+│  │   │   │   ├── repository/               # Repository interfaces                     │
+│  │   │   │   └── use_cases/                # Business logic use cases                  │
+│  │   │   │                                                                              │
+│  │   │   ├── ui/                           # Presentation Layer                        │
+│  │   │   │   ├── components/               # Reusable UI components                    │
+│  │   │   │   ├── mappers/                  # Domain → UI model mappers                 │
+│  │   │   │   ├── models/                   # UI states, events, effects               │
+│  │   │   │   └── screens/                  # Screen composables and ViewModels         │
+│  │   │   │                                                                              │
+│  │   │   ├── di/                           # Koin module definition                    │
+│  │   │   └── navigation/                   # Navigation routes                          │
+│  │   │                                                                                  │
+│  │   ├── androidMain/kotlin/               # Android-specific implementations          │
+│  │   │   └── TodoDatabaseBuilder.android.kt                                            │
+│  │   │                                                                                  │
+│  │   ├── iosMain/kotlin/                   # iOS-specific implementations              │
+│  │   │   └── TodoDatabaseBuilder.ios.kt                                                │
+│  │   │                                                                                  │
+│  │   ├── desktopMain/kotlin/               # Desktop-specific implementations          │
+│  │   │   └── TodoDatabaseBuilder.desktop.kt                                            │
+│  │   │                                                                                  │
+│  │   └── commonTest/kotlin/                # Shared tests                              │
+│  │                                                                                      │
+│  └── build.gradle.kts                      # KMP module configuration                  │
+└─────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Shared UI Components (core-ui)
+
+```
+┌─────────────────────────────────────────────────────────────────────────────────────────┐
+│                              core-ui Shared Components                                   │
+├─────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                         │
+│  ┌─────────────────────────────────────────────────────────────────────────────────┐   │
+│  │                              UI Components                                       │   │
+│  │  AppCard, AppCircularImage, AppClickableIcon, AppDatePicker, AppDateTimePicker  │   │
+│  │  AppDialog, AppDropDown, AppFormButton, AppIcon, AppImage, AppInputText         │   │
+│  │  AppProgressBar, AppRoundedIcon, AppScreen, AppSearchBar, AppSlider, AppText    │   │
+│  │  AppToolbar, AppToolBarIcon, CenteredColumn, ExpandableView, FancyChip          │   │
+│  │  Flippable, HorizontalMonthDates, HorizontalSpacer, VerticalSpacer              │   │
+│  │  TooltipWithTriangle, VideoPlayerScreen                                          │   │
+│  └─────────────────────────────────────────────────────────────────────────────────┘   │
+│                                                                                         │
+│  ┌─────────────────────────────────────────────────────────────────────────────────┐   │
+│  │                            UI Models (models/)                                   │   │
+│  │  UIState (Loading, Idle, Error) - Core state wrapper                            │   │
+│  │  UIText (StringValue, StringResource) - Platform-agnostic text                  │   │
+│  │  UserMessage - Snackbar/Toast messages                                          │   │
+│  └─────────────────────────────────────────────────────────────────────────────────┘   │
+│                                                                                         │
+│  ┌─────────────────────────────────────────────────────────────────────────────────┐   │
+│  │                         ViewModels (viewmodels/)                                 │   │
+│  │  UIStateViewModel<STATE, EVENT, EFFECT>                                         │   │
+│  │  - uiStateFlow: StateFlow<UIState<STATE>>                                       │   │
+│  │  - effect: SharedFlow<EFFECT>                                                   │   │
+│  │  - processEvent(EVENT)                                                          │   │
+│  │  - setState(), setLoadingState(), setIdleState(), setEffect()                   │   │
+│  └─────────────────────────────────────────────────────────────────────────────────┘   │
+│                                                                                         │
+│  ┌─────────────────────────────────────────────────────────────────────────────────┐   │
+│  │                    Platform Abstractions (expect/actual)                         │   │
+│  │  NetworkMonitor - Network connectivity monitoring                               │   │
+│  │  ToastManager - Platform-specific notifications                                 │   │
+│  │  Dimensions - Screen density calculations                                       │   │
+│  │  Preview - @Preview annotation wrapper                                          │   │
+│  └─────────────────────────────────────────────────────────────────────────────────┘   │
+│                                                                                         │
+│  ┌─────────────────────────────────────────────────────────────────────────────────┐   │
+│  │                              Theme (theme/)                                      │   │
+│  │  Color scheme, Typography, AppTheme composable                                  │   │
+│  └─────────────────────────────────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
 ### Clean Architecture Layers
 
 The project follows Clean Architecture with clear separation of concerns:
@@ -1025,3 +1222,142 @@ import co.touchlab.kermit.Logger
 Logger.d { "Debug message" }
 Logger.e { "Error message" }
 ```
+
+## Feature Details
+
+### Todo Module
+**Status**: Production Ready | **Platforms**: Android, iOS, Desktop
+
+A comprehensive task management system:
+- Create, update, delete tasks with rich metadata
+- Category filtering (Work, Personal, Shopping, Health, Finance, etc.)
+- Priority levels (HIGH, MEDIUM, LOW) with visual indicators
+- Due date/time tracking
+- Search and sort functionality (by date, priority, title)
+- Sync status tracking for offline support
+- Shared element transitions for smooth navigation
+
+**Key Files**:
+- `TodoListViewModel`: `features/todo/src/commonMain/kotlin/.../ui/screens/list/TodoListViewModel.kt`
+- `TodoModel`: `features/todo/src/commonMain/kotlin/.../domain/model/TodoModel.kt`
+- `Room Database`: `features/todo/src/commonMain/kotlin/.../data/local/room/dbs/TodoDb.kt`
+
+### TV Shows Module
+**Status**: Production Ready | **Platforms**: Android, iOS (No Desktop yet)
+
+TV show tracking powered by TMDB API:
+- Home screen with categorized shows (Trending, Popular, Top Rated, Airing Today)
+- Search functionality with instant results
+- Detailed show information (cast, seasons, episodes, ratings)
+- Personal watchlist with watch status tracking (Plan to Watch, Watching, Completed, Dropped)
+- Similar shows recommendations
+
+**Key Files**:
+- `EntertainmentHomeScreen`: `features/tv/src/commonMain/kotlin/ui/screens/home/EntertainmentHomeScreen.kt`
+- `TvDetailsScreen`: `features/tv/src/commonMain/kotlin/ui/screens/details/TvDetailsScreen.kt`
+- `TMDB API Service`: `features/tv/src/commonMain/kotlin/data/datasources/remote/ktor/TmdbApiServiceKtor.kt`
+
+### Weather Module
+**Status**: Production Ready | **Platforms**: Android, iOS (No Desktop yet)
+
+Real-time weather information with OpenWeather API:
+- Current conditions (temperature, humidity, wind speed, visibility)
+- Hourly forecast with weather icons
+- Daily forecast for upcoming days
+- Location-based weather using GPS
+- Search by city with geocoding
+- DataStore for caching last known location
+
+**Key Files**:
+- `WeatherHomeScreen`: `features/weather/src/commonMain/kotlin/.../ui/screens/home/WeatherHomeScreen.kt`
+- `LocationService`: `features/weather/src/commonMain/kotlin/.../location/LocationService.kt` (expect/actual)
+- `OpenWeather API`: `features/weather/src/commonMain/kotlin/.../data/datasources/remote/ktor/OpenWeatherApiServiceKtor.kt`
+
+### Journal Module
+**Status**: Development | **Platforms**: Android, iOS, Desktop
+
+Personal note-taking with emotional awareness:
+- Create and manage journal entries
+- Emotion slider for mood tracking
+- Rich text content
+- Date-based organization
+- Full offline support with Room
+
+**Key Files**:
+- `JournalListScreen`: `features/journal/src/commonMain/kotlin/.../ui/screens/list/JournalListScreen.kt`
+- `JournalEntry`: `features/journal/src/commonMain/kotlin/.../domain/model/JournalEntry.kt`
+
+### AI Module
+**Status**: Development | **Platforms**: Android (Full), iOS/Desktop (Partial)
+
+AI-powered query system:
+- Natural language query interface
+- Firebase Vertex AI integration (Android only)
+- Platform-specific implementations via expect/actual pattern
+
+**Key Files**:
+- `AIScreen`: `features/ai/src/commonMain/kotlin/.../AIScreen.kt` (expect)
+- `QueryScreen`: `features/ai/src/androidMain/kotlin/.../ui/screens/query/QueryScreen.kt` (Android impl)
+
+### Media Module
+**Status**: Development | **Platforms**: Android, iOS, Desktop
+
+Explore photos and videos from Pexels API:
+- Curated content feed
+- Search with filters (orientation, color, size)
+- Staggered grid layout
+- Detail view with color palette extraction
+
+**Key Files**:
+- `MediaHomeScreen`: `features/media/src/commonMain/kotlin/.../ui/screens/home/MediaHomeScreen.kt`
+- `PexelsApiService`: `features/media/src/commonMain/kotlin/.../data/network/ktor/PexelsApiServiceKtor.kt`
+
+### Auth Module
+**Status**: Complete | **Platforms**: Android Only
+
+Firebase-powered authentication:
+- Email/password login and signup
+- Form validation with real-time feedback
+- User profile management
+
+**Note**: Not migrated to KMP due to Firebase Android SDK dependency.
+
+### Games Module
+**Status**: Experimental | **Platforms**: Android Only
+
+Sprite-based game experiments:
+- Custom sprite animation system
+- Touch gesture detection
+- Game state management
+
+**Note**: Not planned for KMP migration.
+
+## Roadmap
+
+### Current Sprint
+- [ ] Desktop support for TV Shows module
+- [ ] Desktop support for Weather module
+- [ ] WorkManager background sync for Todo
+- [ ] Local notifications for task reminders
+
+### Planned
+- [ ] Widget support for Android (Todo, Weather)
+- [ ] Offline-first sync architecture
+- [ ] iOS native integrations (HealthKit for Journal emotions)
+- [ ] End-to-end encryption for Journal entries
+
+### Future Ideas
+- [ ] AI-powered task suggestions
+- [ ] Social features for TV tracking
+- [ ] Weather alerts and notifications
+- [ ] Watch OS companion app
+- [ ] Web support (Compose for Web)
+
+## External APIs
+
+| API | Module | Documentation |
+|-----|--------|---------------|
+| OpenWeather | weather | https://openweathermap.org/api |
+| TMDB | tv | https://www.themoviedb.org/documentation/api |
+| Pexels | media | https://www.pexels.com/api/documentation/ |
+| Firebase | ai, auth | https://firebase.google.com/docs |
