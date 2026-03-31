@@ -2,6 +2,7 @@ package com.hrudhaykanth116.mafet.di
 
 import com.hrudhaykanth116.ai.di.aiModule
 import com.hrudhaykanth116.auth.di.authModule
+import com.hrudhaykanth116.composeapp.di.composeAppModule
 import com.hrudhaykanth116.core.common.di.coreCommonModule
 import com.hrudhaykanth116.core.network.di.networkModule
 import com.hrudhaykanth116.core.ui.NetworkMonitor
@@ -27,7 +28,8 @@ val appModule = module {
         mediaModule,
         *tvModule.toTypedArray(),
         journalModule,
-        aiModule
+        aiModule,
+        composeAppModule
     )
     single { NetworkMonitor(androidContext()) }
     single { AdsInitializer() }

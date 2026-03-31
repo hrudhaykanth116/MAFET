@@ -22,6 +22,7 @@ import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.composeapp.home.models.HomeBottomNavigationItem
 import com.hrudhaykanth116.composeapp.home.models.HomeBottomNavigationUIState
 import com.hrudhaykanth116.composeapp.home.models.HomeRoute
+import com.hrudhaykanth116.composeapp.home.dashboard.DashboardScreen
 import com.hrudhaykanth116.todo.navigation.TodoNavigation
 import com.hrudhaykanth116.tv.ui.EntertainmentNavigation
 import com.hrudhaykanth116.weather.ui.screens.home.WeatherNavigation
@@ -50,10 +51,16 @@ fun HomeScreenUI(
 
 
         Box(modifier = Modifier.padding(padding)) {
-            NavHost(navController, startDestination = HomeRoute.Todo.route) {
+            NavHost(navController, startDestination = HomeRoute.Dashboard.route) {
 
                 HomeRoute.getRoutes().forEach { homeRoute: HomeRoute ->
                     when (homeRoute) {
+
+                        HomeRoute.Dashboard -> {
+                            composable(HomeRoute.Dashboard.route) {
+                                DashboardScreen()
+                            }
+                        }
 
                         HomeRoute.Todo -> {
                             composable(HomeRoute.Todo.route) {

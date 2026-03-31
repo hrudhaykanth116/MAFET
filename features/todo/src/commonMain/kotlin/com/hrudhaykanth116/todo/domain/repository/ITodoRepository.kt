@@ -12,6 +12,8 @@ interface ITodoRepository {
         sort: String
     ): Flow<List<TodoModel>>
 
+    suspend fun getTasks(): List<TodoModel>
+
     suspend fun getTodoTask(id: String): DomainResult<TodoModel>
 
     suspend fun createTodoTask(todoModel: TodoModel): DomainResult<Unit>

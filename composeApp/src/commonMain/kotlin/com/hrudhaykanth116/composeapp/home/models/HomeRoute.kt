@@ -1,6 +1,7 @@
 package com.hrudhaykanth116.composeapp.home.models
 
 sealed class HomeRoute(val route: String){
+    object Dashboard: HomeRoute("dashboard")
     object Todo: HomeRoute("todo")
     object Weather: HomeRoute("weather")
     object Media: HomeRoute("media")
@@ -23,6 +24,7 @@ sealed class HomeRoute(val route: String){
 
         fun getRoutes(): List<HomeRoute> {
             return listOf<HomeRoute>(
+                Dashboard,
                 Todo,
                 Weather,
                 Media,

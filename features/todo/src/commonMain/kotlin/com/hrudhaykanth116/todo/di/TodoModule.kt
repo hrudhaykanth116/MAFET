@@ -12,6 +12,7 @@ import com.hrudhaykanth116.todo.domain.repository.ITodoRepository
 import com.hrudhaykanth116.todo.domain.sync.ITodoSyncManager
 import com.hrudhaykanth116.todo.domain.use_cases.CreateTodoTaskUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.DeleteTaskUseCase
+import com.hrudhaykanth116.todo.domain.use_cases.GetAllTasksUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.GetTaskUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.ObserveTasksUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.UpdateTodoTaskUseCase
@@ -47,6 +48,7 @@ val todoModule = module {
     }
 
     factory { ObserveTasksUseCase(get()) }
+    factory { GetAllTasksUseCase(get()) }
     factory { GetTaskUseCase(get()) }
     factory { CreateTodoTaskUseCase(get()) }
     factory { UpdateTodoTaskUseCase(get()) }

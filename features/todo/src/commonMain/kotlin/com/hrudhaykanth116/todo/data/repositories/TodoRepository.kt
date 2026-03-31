@@ -34,6 +34,13 @@ class TodoRepository(
                     .map { it.toDomain() }
             }
 
+    override suspend fun getTasks(): List<TodoModel> = withContext(dispatcher) {
+        todoLocalDataSource.observeTasks(null, null, "priority")
+            .first()
+            .filter { it.syncStatus != SyncStatus.PENDING_DELETE.key }
+            .map { it.toDomain() }
+    }
+
     override suspend fun getTodoTask(id: String): DomainResult<TodoModel> =
         withContext(dispatcher) {
             val todoEntity = todoLocalDataSource.getTodoTask(id)
