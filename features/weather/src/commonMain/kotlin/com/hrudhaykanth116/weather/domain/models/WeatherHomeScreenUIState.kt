@@ -13,8 +13,16 @@ data class WeatherHomeScreenUIState(
     val isSearchActive: Boolean = false,
     val weatherForeCastListItemsUIState: List<DailyWeatherUIState> = listOf(),
     val todayWeatherUIState: TodayWeatherUIState? = null,
-    val domainError: DomainError? = null
+    val domainError: DomainError? = null,
+    val locationSource: LocationSource = LocationSource.UNAVAILABLE,
+    val lastFetchedTimestamp: Long? = null
 )
+
+enum class LocationSource {
+    CURRENT,
+    LAST,
+    UNAVAILABLE
+}
 
 data class TodayWeatherUIState(
     val weatherMain: WeatherMain? = null,

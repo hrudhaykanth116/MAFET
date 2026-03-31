@@ -6,11 +6,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenCallbacks
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenEvent
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenUIState
 import com.hrudhaykanth116.weather.location.rememberLocationPermissionState
+import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -18,6 +20,7 @@ import org.koin.compose.viewmodel.koinViewModel
 fun WeatherHomeScreen(
     modifier: Modifier = Modifier,
     weatherHomeScreenViewModel: WeatherHomeScreenViewModel = koinViewModel(),
+    dateTimeUtils: DateTimeUtils = koinInject(),
 ) {
     val permissionState = rememberLocationPermissionState { granted ->
         if (granted) {
@@ -81,6 +84,7 @@ fun WeatherHomeScreen(
         modifier,
         uiState,
         weatherHomeScreenCallbacks,
+        dateTimeUtils,
         onRetry = {
             weatherHomeScreenViewModel.onRetry()
         },

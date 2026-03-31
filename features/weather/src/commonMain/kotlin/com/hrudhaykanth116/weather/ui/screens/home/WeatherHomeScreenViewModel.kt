@@ -1,14 +1,19 @@
 package com.hrudhaykanth116.weather.ui.screens.home
 
 import androidx.lifecycle.viewModelScope
+import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
 import com.hrudhaykanth116.core.common.utils.log.Logger
+import com.hrudhaykanth116.core.domain.models.UserLocation
 import com.hrudhaykanth116.core.domain.result.DomainResult
+import com.hrudhaykanth116.core.domain.usecases.GetSavedUserLocationUseCase
+import com.hrudhaykanth116.core.domain.usecases.SaveUserLocationUseCase
 import com.hrudhaykanth116.core.ui.NetworkMonitor
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.core.ui.models.UserMessage
 import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.core.ui.viewmodels.UIStateViewModel
 import com.hrudhaykanth116.weather.domain.models.DailyWeatherUIState
+import com.hrudhaykanth116.weather.domain.models.LocationSource
 import com.hrudhaykanth116.weather.domain.models.TodayWeatherUIState
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenEffect
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenEvent
@@ -23,6 +28,9 @@ class WeatherHomeScreenViewModel(
     private val getForeCastUseCaseFromLatLongUseCase: GetForeCastUseCaseFromLatLongUseCase,
     private val getForeCastFromLatLongUseCase: GetForeCastFromLatLongUseCase,
     private val locationService: LocationService,
+    private val saveUserLocationUseCase: SaveUserLocationUseCase,
+    private val getSavedUserLocationUseCase: GetSavedUserLocationUseCase,
+    private val dateTimeUtils: DateTimeUtils,
     networkMonitor: NetworkMonitor,
 ) : UIStateViewModel<WeatherHomeScreenUIState, WeatherHomeScreenEvent, WeatherHomeScreenEffect>(
     initialState = UIState.Idle(),
@@ -74,18 +82,30 @@ class WeatherHomeScreenViewModel(
                                 contentState = WeatherHomeScreenUIState(
                                     domainError = foreCastDataResult.error,
                                     location = addressName,
+                                    locationSource = LocationSource.CURRENT,
                                 )
                             )
                         }
                     }
 
                     is DomainResult.Success -> {
+                        val currentTimestamp = System.currentTimeMillis()
+
+                        saveLocationToDataStore(
+                            latitude = locationResult.latitude,
+                            longitude = locationResult.longitude,
+                            address = addressName,
+                            timestamp = currentTimestamp
+                        )
+
                         setState {
                             UIState.Idle(
                                 contentStateOrDefault.copy(
                                     todayWeatherUIState = foreCastDataResult.data.first,
                                     weatherForeCastListItemsUIState = foreCastDataResult.data.second,
                                     location = addressName,
+                                    locationSource = LocationSource.CURRENT,
+                                    lastFetchedTimestamp = currentTimestamp
                                 )
                             )
                         }
@@ -161,7 +181,49 @@ class WeatherHomeScreenViewModel(
     }
 
     override fun initializeData() {
-        // fetch data needs to be called after checking location permissions
+        loadSavedLocation()
+    }
+
+    private fun loadSavedLocation() {
+        viewModelScope.launch {
+            getSavedUserLocationUseCase().onSuccess { savedLocation ->
+                savedLocation?.let {
+                    Logger.d(TAG, "loadSavedLocation: Found saved location: ${it.address}")
+                    setState {
+                        UIState.Idle(
+                            contentStateOrDefault.copy(
+                                location = it.address,
+                                locationSource = LocationSource.LAST,
+                                lastFetchedTimestamp = it.timestamp
+                            )
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    private fun saveLocationToDataStore(
+        latitude: Double,
+        longitude: Double,
+        address: String,
+        timestamp: Long
+    ) {
+        viewModelScope.launch {
+            val userLocation = UserLocation(
+                latitude = latitude,
+                longitude = longitude,
+                address = address,
+                timestamp = timestamp
+            )
+            saveUserLocationUseCase(userLocation)
+                .onSuccess {
+                    Logger.d(TAG, "saveLocationToDataStore: Location saved successfully")
+                }
+                .onError { error ->
+                    Logger.e(TAG, "saveLocationToDataStore: Failed to save location: $error")
+                }
+        }
     }
 
     override fun processEvent(event: WeatherHomeScreenEvent) {

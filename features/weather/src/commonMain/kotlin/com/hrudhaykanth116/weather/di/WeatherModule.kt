@@ -95,10 +95,13 @@ val weatherModule = module {
 
     viewModel {
         WeatherHomeScreenViewModel(
-            get(),
-            get(),
-            get(),
-            get()
+            getForeCastUseCaseFromLatLongUseCase = get(),
+            getForeCastFromLatLongUseCase = get(),
+            locationService = get(),
+            saveUserLocationUseCase = get(),
+            getSavedUserLocationUseCase = get(),
+            dateTimeUtils = get(),
+            networkMonitor = get()
         )
     }
 }

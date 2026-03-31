@@ -10,10 +10,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
 import com.hrudhaykanth116.core.ui.components.ApiErrorScreen
 import com.hrudhaykanth116.core.ui.components.AppProgressBar
 import com.hrudhaykanth116.core.ui.components.VerticalSpacer
@@ -30,10 +32,17 @@ fun WeatherHomeScreenUI(
     modifier: Modifier,
     uiState: UIState<WeatherHomeScreenUIState>,
     weatherHomeScreenCallbacks: WeatherHomeScreenCallbacks,
+    dateTimeUtils: DateTimeUtils,
     onRetry: () -> Unit,
     onUserMessageShown: (UIState.Idle<WeatherHomeScreenUIState>) -> Unit,
 ) {
     val state = uiState.contentState ?: WeatherHomeScreenUIState()
+
+    val formattedTimestamp = remember(state.lastFetchedTimestamp) {
+        state.lastFetchedTimestamp?.let {
+            dateTimeUtils.getFormattedDateTime(it, DateTimeUtils.COMPLETE_DATE_TIME_FORMAT)
+        }
+    }
 
     Box(
         modifier = modifier
@@ -57,7 +66,7 @@ fun WeatherHomeScreenUI(
             },
             sheetPeekHeight = if (!state.isSearchActive && state.domainError == null && uiState is UIState.Idle) 100.dp else 0.dp,
         ) {
-            Content(state, it, weatherHomeScreenCallbacks, onRetry, uiState)
+            Content(state, it, weatherHomeScreenCallbacks, dateTimeUtils, formattedTimestamp, onRetry, uiState)
         }
 
         if (uiState is UIState.Loading) {
@@ -80,6 +89,8 @@ private fun Content(
     state: WeatherHomeScreenUIState,
     values: PaddingValues,
     weatherHomeScreenCallbacks: WeatherHomeScreenCallbacks,
+    dateTimeUtils: DateTimeUtils,
+    formattedTimestamp: String?,
     onRetry: () -> Unit,
     uiState: UIState<WeatherHomeScreenUIState>,
 ) {
@@ -93,10 +104,13 @@ private fun Content(
     ) {
         if (uiState !is UIState.Loading) {
             WeatherHomeTopBar(
-                state.searchText ?: "",
+                searchText = state.searchText ?: "",
                 location = state.location,
-                state.isSearchActive,
-                weatherHomeScreenCallbacks,
+                locationSource = state.locationSource,
+                lastFetchedTimestamp = state.lastFetchedTimestamp,
+                formattedTimestamp = formattedTimestamp,
+                isSearchActive = state.isSearchActive,
+                weatherHomeScreenCallbacks = weatherHomeScreenCallbacks,
                 modifier = Modifier.fillMaxWidth()
             )
         }

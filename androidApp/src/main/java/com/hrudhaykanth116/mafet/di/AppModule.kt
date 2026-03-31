@@ -4,6 +4,7 @@ import com.hrudhaykanth116.ai.di.aiModule
 import com.hrudhaykanth116.auth.di.authModule
 import com.hrudhaykanth116.composeapp.di.composeAppModule
 import com.hrudhaykanth116.core.common.di.coreCommonModule
+import com.hrudhaykanth116.core.data.di.coreDataModule
 import com.hrudhaykanth116.core.network.di.networkModule
 import com.hrudhaykanth116.core.ui.NetworkMonitor
 import com.hrudhaykanth116.journal.di.journalModule
@@ -21,6 +22,7 @@ import org.koin.dsl.module
 val appModule = module {
     includes(
         coreCommonModule,
+        coreDataModule,
         networkModule,
         todoModule,
         weatherModule,

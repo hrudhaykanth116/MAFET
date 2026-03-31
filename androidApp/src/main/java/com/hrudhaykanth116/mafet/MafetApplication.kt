@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import com.google.gson.Gson
+import com.hrudhaykanth116.core.data.local.datastore.initDataStore
 import com.hrudhaykanth116.mafet.ads.AdsInitializer
 import com.hrudhaykanth116.mafet.di.appModule
 import kotlinx.coroutines.CoroutineScope
@@ -28,6 +29,8 @@ class MafetApplication : Application(), Application.ActivityLifecycleCallbacks {
 
     override fun onCreate() {
         super.onCreate()
+
+        initDataStore(this)
 
         // Initialize Koin
         startKoin {

@@ -33,6 +33,9 @@ kotlin {
 
             // Room - runtime only in common (KMP compatible)
             implementation(libs.androidx.room.runtime)
+
+            // DataStore Preferences - KMP compatible
+            implementation(libs.androidx.datastore.preferences.core)
         }
 
         androidMain.dependencies {
@@ -42,6 +45,9 @@ kotlin {
 
             // Room KTX is Android-only
             implementation(libs.androidx.room.ktx)
+
+            // DataStore Android extensions
+            implementation("androidx.datastore:datastore-preferences:1.1.1")
         }
 
         val desktopMain by getting {
