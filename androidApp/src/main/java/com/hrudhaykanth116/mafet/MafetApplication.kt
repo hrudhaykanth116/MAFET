@@ -7,6 +7,8 @@ import com.google.gson.Gson
 import com.hrudhaykanth116.core.data.local.datastore.initDataStore
 import com.hrudhaykanth116.mafet.ads.AdsInitializer
 import com.hrudhaykanth116.mafet.di.appModule
+import com.hrudhaykanth116.mafet.notification.NotificationHelper
+import com.hrudhaykanth116.mafet.sync.SyncScheduler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -44,6 +46,8 @@ class MafetApplication : Application(), Application.ActivityLifecycleCallbacks {
         crashHandler.init(this)
         launchInCoroutine { adsInitializer.initialize(this) }
 
+        SyncScheduler.schedulePeriodicSync(this)
+        NotificationHelper.createNotificationChannel(this)
     }
 
     private fun launchInCoroutine(suspendFunction: suspend () -> Unit) {

@@ -1,5 +1,8 @@
 package com.hrudhaykanth116.todo.ui.screens.create
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.text.input.TextFieldValue
@@ -13,6 +16,7 @@ import org.koin.core.parameter.parametersOf
 
 private const val TAG = "CreateTodoListScreen"
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun CreateOrUpdateTodoScreen(
     noteId: String? = null,
@@ -20,6 +24,9 @@ fun CreateOrUpdateTodoScreen(
     isInEditMode: Boolean = true,
     onCreated: () -> Unit,
     onBackClicked: () -> Unit = {},
+    sharedTransitionScope: SharedTransitionScope? = null,
+    animatedVisibilityScope: AnimatedVisibilityScope? = null,
+    sharedElementKey: String? = null,
 ) {
     Logger.d(TAG, "CreateTodoListScreen: ")
 
@@ -91,7 +98,10 @@ fun CreateOrUpdateTodoScreen(
                 onTargetFieldClicked = onTargetFieldClicked,
                 onCategoryFieldClicked = onCategoryFieldClicked,
                 onCategoryDismissRequest = onCategoryDismissRequest,
-                onCategorySelected = onCategorySelected
+                onCategorySelected = onCategorySelected,
+                sharedTransitionScope = sharedTransitionScope,
+                animatedVisibilityScope = animatedVisibilityScope,
+                sharedElementKey = sharedElementKey
             )
         }
     }

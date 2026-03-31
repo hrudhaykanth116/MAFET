@@ -2,6 +2,9 @@ package com.hrudhaykanth116.todo.ui.screens.list
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
@@ -81,7 +84,7 @@ import com.hrudhaykanth116.todo.ui.models.todolist.TodoListUIState
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
 @Composable
 fun TodoListScreenUI(
     modifier: Modifier = Modifier,
@@ -91,6 +94,8 @@ fun TodoListScreenUI(
     onItemClicked: (TodoUIModel) -> Unit = {},
     onCreateBtnClicked: () -> Unit = {},
     todoListAppBarCallbacks: TodoListAppBarCallbacks = TodoListAppBarCallbacks(),
+    sharedTransitionScope: SharedTransitionScope? = null,
+    animatedVisibilityScope: AnimatedVisibilityScope? = null,
 ) {
     val tasksList = uiState.uiList
     val coroutineScope = rememberCoroutineScope()
@@ -140,7 +145,9 @@ fun TodoListScreenUI(
                         listState = listState,
                         modifier = Modifier.fillMaxSize(),
                         onRemoveTask = onRemoveTask,
-                        onItemClicked = onItemClicked
+                        onItemClicked = onItemClicked,
+                        sharedTransitionScope = sharedTransitionScope,
+                        animatedVisibilityScope = animatedVisibilityScope
                     )
                 }
             }

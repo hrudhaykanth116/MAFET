@@ -11,6 +11,11 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
 
+    <!-- Notifications -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+
 <!--    <uses-permission android:name="android.permission.RECORD_AUDIO" />-->
 
 
@@ -39,6 +44,14 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-7885198220580020~1748771250" />
+
+        <receiver
+            android:name=".notification.TodoNotificationReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.hrudhaykanth116.mafet.SHOW_TODO_NOTIFICATION" />
+            </intent-filter>
+        </receiver>
 
     </application>
 

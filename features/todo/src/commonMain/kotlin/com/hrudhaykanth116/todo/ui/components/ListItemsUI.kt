@@ -1,5 +1,8 @@
 package com.hrudhaykanth116.todo.ui.components
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -25,7 +28,7 @@ import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalSharedTransitionApi::class)
 @Composable
 fun ListItemsUI(
     listItems: ImmutableList<ToDoTaskUIState>,
@@ -33,6 +36,8 @@ fun ListItemsUI(
     onRemoveTask: (String) -> Unit = {},
     onItemClicked: (TodoUIModel) -> Unit = {},
     listState: LazyListState = rememberLazyListState(),
+    sharedTransitionScope: SharedTransitionScope? = null,
+    animatedVisibilityScope: AnimatedVisibilityScope? = null,
 ) {
     var currentSize by rememberSaveable { mutableIntStateOf(listItems.size) }
     var isItemAdded by mutableStateOf(listItems.size > currentSize)
@@ -69,7 +74,9 @@ fun ListItemsUI(
                 },
                 onItemClicked = {
                     onItemClicked(toDoTaskUIState.data)
-                }
+                },
+                sharedTransitionScope = sharedTransitionScope,
+                animatedVisibilityScope = animatedVisibilityScope
             )
         }
     }

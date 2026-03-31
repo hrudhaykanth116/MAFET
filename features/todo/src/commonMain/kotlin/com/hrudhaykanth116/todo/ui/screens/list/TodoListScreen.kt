@@ -1,5 +1,8 @@
 package com.hrudhaykanth116.todo.ui.screens.list
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
@@ -7,12 +10,15 @@ import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenEvent
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListUIState
 import org.koin.compose.viewmodel.koinViewModel
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun TodoListScreen(
     todoListViewModel: TodoListViewModel = koinViewModel(),
     navigateToCreateScreen: () -> Unit,
     onItemClicked: (TodoUIModel) -> Unit,
     onBackClicked: () -> Unit = {},
+    sharedTransitionScope: SharedTransitionScope? = null,
+    animatedVisibilityScope: AnimatedVisibilityScope? = null,
 ) {
 
     LaunchedEffect(Unit) {
@@ -32,6 +38,8 @@ fun TodoListScreen(
             todoListViewModel.processEvent(TodoListScreenEvent.RemoveTasks(listOf(id)))
         },
         onItemClicked = onItemClicked,
+        sharedTransitionScope = sharedTransitionScope,
+        animatedVisibilityScope = animatedVisibilityScope,
         onTodoTitleChanged = {
             todoListViewModel.processEvent(TodoListScreenEvent.TodoTaskTitleChanged(it))
         },

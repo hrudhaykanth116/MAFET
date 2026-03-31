@@ -50,9 +50,9 @@ val todoModule = module {
     factory { ObserveTasksUseCase(get()) }
     factory { GetAllTasksUseCase(get()) }
     factory { GetTaskUseCase(get()) }
-    factory { CreateTodoTaskUseCase(get()) }
+    factory { CreateTodoTaskUseCase(get(), get()) }
     factory { UpdateTodoTaskUseCase(get()) }
-    factory { DeleteTaskUseCase(get()) }
+    factory { DeleteTaskUseCase(get(), get()) }
 
     factory { com.hrudhaykanth116.todo.ui.mappers.TodoDomainModelMapper(get()) }
 

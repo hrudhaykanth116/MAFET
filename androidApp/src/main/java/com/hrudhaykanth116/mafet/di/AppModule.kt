@@ -7,6 +7,7 @@ import com.hrudhaykanth116.core.common.di.coreCommonModule
 import com.hrudhaykanth116.core.data.di.coreDataModule
 import com.hrudhaykanth116.core.network.di.networkModule
 import com.hrudhaykanth116.core.ui.NetworkMonitor
+import com.hrudhaykanth116.core.ui.di.coreUIModule
 import com.hrudhaykanth116.journal.di.journalModule
 import com.hrudhaykanth116.media.di.mediaModule
 import com.hrudhaykanth116.mafet.CrashHandler
@@ -24,6 +25,7 @@ val appModule = module {
         coreCommonModule,
         coreDataModule,
         networkModule,
+        coreUIModule,
         todoModule,
         weatherModule,
         authModule,

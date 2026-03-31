@@ -1,6 +1,9 @@
 package com.hrudhaykanth116.todo.ui.components
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -9,6 +12,7 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.BoundsTransform
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -68,12 +72,15 @@ import com.hrudhaykanth116.todo.ui.TodoUIDimens
 import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun TodoListItemUI(
     toDoTaskUIState: ToDoTaskUIState,
     modifier: Modifier = Modifier,
     onRemoveClicked: () -> Unit = {},
-    onItemClicked: () -> Unit = {}
+    onItemClicked: () -> Unit = {},
+    sharedTransitionScope: SharedTransitionScope? = null,
+    animatedVisibilityScope: AnimatedVisibilityScope? = null,
 ) {
     var isExpanded by rememberSaveable { mutableStateOf(false) }
 
@@ -128,8 +135,24 @@ fun TodoListItemUI(
         enableDismissFromStartToEnd = false,
         modifier = modifier
     ) {
+        val cardModifier = if (sharedTransitionScope != null && animatedVisibilityScope != null && todoData.id != null) {
+            with(sharedTransitionScope) {
+                Modifier
+                    .fillMaxWidth()
+                    .sharedElement(
+                        sharedContentState = rememberSharedContentState(key = "task_card_${todoData.id}"),
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        boundsTransform = { _, _ ->
+                            tween(durationMillis = 300, easing = FastOutSlowInEasing)
+                        }
+                    )
+            }
+        } else {
+            Modifier.fillMaxWidth()
+        }
+
         Card(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = cardModifier,
             shape = RoundedCornerShape(TodoUIDimens.ListItemCornerRadius),
             elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
             colors = CardDefaults.cardColors(

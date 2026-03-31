@@ -1,5 +1,10 @@
 package com.hrudhaykanth116.todo.ui.screens.create
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
 import com.hrudhaykanth116.core.ui.components.AppDateTimePicker
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -57,6 +62,7 @@ import org.jetbrains.compose.resources.stringResource
 import com.hrudhaykanth116.todo.ui.TodoColors
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateOrUpdateTodoUIState
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun CreateOrUpdateTodoScreenUI(
     state: CreateOrUpdateTodoUIState,
@@ -73,11 +79,28 @@ fun CreateOrUpdateTodoScreenUI(
     onCategoryDismissRequest: () -> Unit = {},
     onCategorySelected: (com.hrudhaykanth116.todo.domain.model.TaskCategory) -> Unit = {},
     onBackClicked: () -> Unit = {},
+    sharedTransitionScope: SharedTransitionScope? = null,
+    animatedVisibilityScope: AnimatedVisibilityScope? = null,
+    sharedElementKey: String? = null,
 ) {
+    val containerModifier = if (sharedTransitionScope != null && animatedVisibilityScope != null && sharedElementKey != null) {
+        with(sharedTransitionScope) {
+            modifier
+                .fillMaxSize()
+                .sharedElement(
+                    sharedContentState = rememberSharedContentState(key = "task_card_$sharedElementKey"),
+                    animatedVisibilityScope = animatedVisibilityScope,
+                    boundsTransform = { _, _ ->
+                        tween(durationMillis = 300, easing = FastOutSlowInEasing)
+                    }
+                )
+        }
+    } else {
+        modifier.fillMaxSize()
+    }
 
     Column(
-        modifier = modifier
-            .fillMaxSize()
+        modifier = containerModifier
             .screenBackground()
     ) {
 

@@ -96,4 +96,7 @@ dependencies {
 
     implementation(libs.androidx.core.splashscreen)
 
+    // WorkManager for background sync
+    implementation(libs.androidx.work.runtime)
+
 }

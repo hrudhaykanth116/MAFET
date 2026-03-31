@@ -1,7 +1,22 @@
 Tech features to be implemented in the project.
 * CI/CD pipeline with github actions.
 * Sonarqube check
-* * 
+* *
+
+Testing (Newly Added Features):
+* WorkManager Background Sync
+    * Create a todo while offline, observe sync status
+    * Enable network and verify task syncs within 15 minutes
+    * Check Logcat for "TodoSyncWorker" logs
+* Local Notifications
+    * Create todo with targetTime set to 1-2 minutes from now
+    * Close app completely
+    * Verify notification appears at scheduled time
+    * Tap notification and confirm app opens
+* Shared Element Transitions
+    * Tap a todo item in the list
+    * Observe card animating smoothly to detail/edit screen
+    * Press back and verify card animates back to list position
 
 
 Features:
