@@ -14,8 +14,6 @@ abstract class UIStateViewModel<STATE, EVENT, EFFECT>(
     private val networkMonitor: NetworkMonitor,
 ) : ViewModel() {
 
-    protected var timeHiddenToast: Long = 3000L
-
     private val _uiStateFlow = MutableStateFlow(initialState)
     val uiStateFlow: StateFlow<UIState<STATE>> = _uiStateFlow.asStateFlow()
         // .onStart {
@@ -97,25 +95,14 @@ abstract class UIStateViewModel<STATE, EVENT, EFFECT>(
         return uiStateFlow.value
     }
 
-    // protected fun showToastMessage(message: UserMessage) {
-    //     viewModelScope.launch {
-    //         setState {
-    //             copyUIState(
-    //                 newUserMessage = message
-    //             )
-    //         }
-    //         delay(timeHiddenToast)
-    //         hideToastMessage()
-    //     }
-    // }
-
-    // fun hideToastMessage() {
-    //     setState {
-    //         copyUIState(
-    //             newUserMessage = null
-    //         )
-    //     }
-    // }
+    protected fun showUserMessage(message: com.hrudhaykanth116.core.ui.models.UserMessage) {
+        setState {
+            UIState.Idle(
+                contentState = contentStateOrDefault,
+                userMessage = message
+            )
+        }
+    }
 
     // fun <T> callMultiApiOnThread(
     //     requests: MutableList<Flow<ApiResultWrapper<T>>>,

@@ -22,6 +22,7 @@ import com.hrudhaykanth116.todo.ui.models.TodoUIModel
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateOrUpdateTodoUIState
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateTodoEffect
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateTodoEvent
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class CreateOrUpdateTodoListViewModel(
@@ -147,12 +148,13 @@ class CreateOrUpdateTodoListViewModel(
                             }
 
                             is DomainResult.Success -> {
+                                showUserMessage(UIText.StringRes(Res.string.todo_success_saved).toSuccessMessage())
+                                delay(2000)
                                 setState {
                                     UIState.Idle(
                                         currentContentState.copy(
                                             isSubmitted = true,
                                         ),
-                                        userMessage = UIText.StringRes(Res.string.todo_success_saved).toSuccessMessage()
                                     )
                                 }
                             }

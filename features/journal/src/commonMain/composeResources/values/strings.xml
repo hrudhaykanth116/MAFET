@@ -1,0 +1,10 @@
+<resources>
+    <string name="journal_screen_title">Journal</string>
+    <string name="journal_input_hint">Write your thoughts...</string>
+    <string name="journal_save_button">Save</string>
+    <string name="journal_clear_button">Clear</string>
+    <string name="journal_empty_title">Start writing</string>
+    <string name="journal_empty_subtitle">Capture your thoughts and ideas here</string>
+    <string name="journal_success_saved">Journal entry saved</string>
+    <string name="journal_error_empty">Please write something first</string>
+</resources>

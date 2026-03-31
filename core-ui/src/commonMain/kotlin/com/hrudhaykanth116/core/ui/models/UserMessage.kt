@@ -12,6 +12,12 @@ sealed interface UserMessage{
 
     data class Warning(val message: UIText): UserMessage
 
+    companion object {
+        const val ACTION_LABEL_SUCCESS = "success"
+        const val ACTION_LABEL_ERROR = "error"
+        const val ACTION_LABEL_WARNING = "warning"
+    }
+
 }
 
 
