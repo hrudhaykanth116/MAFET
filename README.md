@@ -6,6 +6,7 @@
   <img src="https://img.shields.io/badge/Platforms-Android%20%7C%20iOS%20%7C%20Desktop-green" alt="Platforms">
   <img src="https://img.shields.io/badge/Architecture-Clean%20%7C%20MVI-orange" alt="Architecture">
   <img src="https://img.shields.io/badge/License-MIT-blue" alt="License">
+  <a href="https://github.com/hrudhaykanth116/MAFET/actions/workflows/android-ci.yml"><img src="https://github.com/hrudhaykanth116/MAFET/actions/workflows/android-ci.yml/badge.svg" alt="Android CI"></a>
 </p>
 
 <p align="center">
