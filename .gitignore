@@ -63,16 +63,19 @@ captures/
 /.idea/runConfigurations.xml
 
 # Keystore files
-# Uncomment the following lines if you do not want to check your keystore files in.
-#*.jks
-#*.keystore
+*.jks
+*.keystore
 
 # External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
 .cxx/
 
 # Google Services (e.g. APIs or Firebase)
-# google-services.json
+androidApp/google-services.json
+iosApp/GoogleService-Info.plist
+
+# iOS secrets (API keys injected via xcconfig)
+iosApp/secrets.xcconfig
 
 # Freeline
 freeline.py

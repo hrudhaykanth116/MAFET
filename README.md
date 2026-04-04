@@ -348,14 +348,39 @@ MAFET follows **Clean Architecture** principles with a clear separation of conce
 
 ### API Keys Setup
 
-Create `secrets.properties` in the project root:
+This project requires API keys from 3 external services. Both files below are gitignored — you must create them locally after cloning.
+
+#### Android — `secrets.properties` (project root)
 
 ```properties
-PEXELS_API_KEY=your_pexels_api_key
-TMDB_API_KEY=your_tmdb_api_key
-OPEN_WEATHER_FORECAST_API_KEY=your_openweather_key
-OPEN_WEATHER_GEO_CODING_API_KEY=your_geocoding_key
+PEXELS_API_KEY="your_pexels_api_key"
+TMDB_API_KEY="your_tmdb_api_key"
+OPEN_WEATHER_FORECAST_API_KEY="your_openweather_api_key"
+OPEN_WEATHER_GEO_CODING_API_KEY="your_openweather_api_key"
 ```
+
+Keys are automatically injected into `BuildConfig` at compile time.
+
+#### iOS — `iosApp/secrets.xcconfig`
+
+Copy `iosApp/secrets.xcconfig.example` → `iosApp/secrets.xcconfig` and fill in:
+
+```
+TMDB_API_KEY = your_tmdb_api_key
+OPEN_WEATHER_FORECAST_API_KEY = your_openweather_api_key
+OPEN_WEATHER_GEO_CODING_API_KEY = your_openweather_api_key
+PEXELS_API_KEY = your_pexels_api_key
+```
+
+Then wire it in Xcode: click the project root → **Info** tab → under **Configurations**, set `secrets.xcconfig` for both Debug and Release under the `iosApp` target.
+
+#### Where to get the keys
+
+| Service | Get your key | Used in |
+|---------|-------------|---------|
+| **TMDB** | https://www.themoviedb.org/settings/api | TV Shows module |
+| **OpenWeatherMap** | https://home.openweathermap.org/api_keys | Weather module |
+| **Pexels** | https://www.pexels.com/api/ | Media module |
 
 ### Build & Run
 

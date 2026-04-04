@@ -18,14 +18,10 @@ import org.koin.core.module.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
-private const val PEXELS_API_KEY = "PEXELS_KEY_REMOVED"
-
 expect val platformMediaModule: org.koin.core.module.Module
 
 val mediaModule = module {
     includes(platformMediaModule)
-    // API Key
-    single(named("pexels_api_key")) { PEXELS_API_KEY }
 
     // Network - Ktor API Service (uses HttpClient from core-network)
     single<PexelsApiServiceKtor> {

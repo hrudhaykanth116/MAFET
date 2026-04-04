@@ -29,15 +29,15 @@
 	<true/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
-    <!-- Change the api key    -->
+    <!-- API keys injected from secrets.xcconfig via Xcode build configuration -->
 	<key>TMDB_API_KEY</key>
-	<string>TMDB_KEY_REMOVED</string>
+	<string>$(TMDB_API_KEY)</string>
 	<key>OPEN_WEATHER_FORECAST_API_KEY</key>
-	<string>OPENWEATHER_KEY_REMOVED</string>
+	<string>$(OPEN_WEATHER_FORECAST_API_KEY)</string>
 	<key>OPEN_WEATHER_GEO_CODING_API_KEY</key>
-	<string>OPENWEATHER_KEY_REMOVED</string>
+	<string>$(OPEN_WEATHER_GEO_CODING_API_KEY)</string>
 	<key>PEXELS_API_KEY</key>
-	<string>PEXELS_KEY_REMOVED</string>
+	<string>$(PEXELS_API_KEY)</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We need your location to show weather for your current area</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
