@@ -356,7 +356,6 @@ This project requires API keys from 3 external services. Both files below are gi
 PEXELS_API_KEY="your_pexels_api_key"
 TMDB_API_KEY="your_tmdb_api_key"
 OPEN_WEATHER_FORECAST_API_KEY="your_openweather_api_key"
-OPEN_WEATHER_GEO_CODING_API_KEY="your_openweather_api_key"
 ```
 
 Keys are automatically injected into `BuildConfig` at compile time.
@@ -368,7 +367,6 @@ Copy `iosApp/secrets.xcconfig.example` → `iosApp/secrets.xcconfig` and fill in
 ```
 TMDB_API_KEY = your_tmdb_api_key
 OPEN_WEATHER_FORECAST_API_KEY = your_openweather_api_key
-OPEN_WEATHER_GEO_CODING_API_KEY = your_openweather_api_key
 PEXELS_API_KEY = your_pexels_api_key
 ```
 

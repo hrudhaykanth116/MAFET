@@ -59,7 +59,6 @@ MAFET is a Kotlin Multiplatform (KMP) project providing essential daily utilitie
 PEXELS_API_KEY=your_key
 TMDB_API_KEY=your_key
 OPEN_WEATHER_FORECAST_API_KEY=your_key
-OPEN_WEATHER_GEO_CODING_API_KEY=your_key
 ```
 
 These keys are injected as BuildConfig fields in respective feature modules.

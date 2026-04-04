@@ -34,8 +34,6 @@
 	<string>$(TMDB_API_KEY)</string>
 	<key>OPEN_WEATHER_FORECAST_API_KEY</key>
 	<string>$(OPEN_WEATHER_FORECAST_API_KEY)</string>
-	<key>OPEN_WEATHER_GEO_CODING_API_KEY</key>
-	<string>$(OPEN_WEATHER_GEO_CODING_API_KEY)</string>
 	<key>PEXELS_API_KEY</key>
 	<string>$(PEXELS_API_KEY)</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
