@@ -3,6 +3,13 @@ Tech features to be implemented in the project.
 * Sonarqube check
 * *
 
+iOS Setup:
+* Wire secrets.xcconfig in Xcode (API keys won't work on iOS until done)
+    * Open iosApp/iosApp.xcodeproj in Xcode
+    * Click project root → Info tab → Configurations
+    * Set secrets.xcconfig for both Debug and Release under iosApp target
+    * File location: iosApp/secrets.xcconfig (see secrets.xcconfig.example)
+
 iOS Missing Implementations:
 * NotificationScheduler (core-ui/src/iosMain/.../notification/NotificationScheduler.ios.kt)
     * Currently: Empty stub methods (no-op)
