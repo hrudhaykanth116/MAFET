@@ -26,7 +26,6 @@
 
 - **~90% shared code** across Android, iOS, and Desktop via Kotlin Multiplatform + Compose Multiplatform
 - **MVI architecture** with a custom `UIStateViewModel<STATE, EVENT, EFFECT>` base class enforcing unidirectional data flow
-- **Offline-first** with Room KMP (2.7.2) across all three platforms using platform-specific database builders
 - **Multi-engine Ktor** networking — OkHttp on Android/Desktop, Darwin on iOS — unified under a single API layer
 - **Type-safe DI** with Koin, scoped per module, with platform-specific actual implementations injected transparently
 - **Live API integrations**: OpenWeatherMap, TMDB, Pexels, Firebase Vertex AI
@@ -163,8 +162,9 @@ MAFET/
 **Hrudhay Kanth Thangella**
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?logo=linkedin)](https://www.linkedin.com/in/hrudhay-thangella)
-[![Email](https://img.shields.io/badge/Email-Contact-EA4335?logo=gmail)](mailto:hrudhaykanth116@gmail.com)
 [![GitHub](https://img.shields.io/badge/GitHub-Follow-181717?logo=github)](https://github.com/hrudhaykanth116)
+
+**Email:** hrudhaykanth116@gmail.com
 
 ---
 
