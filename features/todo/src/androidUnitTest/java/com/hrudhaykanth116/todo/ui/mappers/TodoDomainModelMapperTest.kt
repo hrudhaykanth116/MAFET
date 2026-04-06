@@ -5,14 +5,12 @@ import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
 import com.hrudhaykanth116.todo.domain.model.TaskCategory
 import com.hrudhaykanth116.todo.domain.model.TodoDefaults
 import com.hrudhaykanth116.todo.domain.model.TodoModel
-import org.junit.Before
-import org.junit.Test
-import org.mockito.kotlin.any
-import org.mockito.kotlin.eq
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.whenever
+import io.mockk.every
+import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNull
+import org.junit.Before
+import org.junit.Test
 
 class TodoDomainModelMapperTest {
 
@@ -21,8 +19,8 @@ class TodoDomainModelMapperTest {
 
     @Before
     fun setup() {
-        dateTimeUtils = mock()
-        whenever(dateTimeUtils.getFormattedDateTime(any(), any())).thenReturn("2024-01-15 10:30 AM")
+        dateTimeUtils = mockk()
+        every { dateTimeUtils.getFormattedDateTime(any(), any()) } returns "2024-01-15 10:30 AM"
         mapper = TodoDomainModelMapper(dateTimeUtils)
     }
 

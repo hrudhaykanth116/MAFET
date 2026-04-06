@@ -1,13 +1,13 @@
 package com.hrudhaykanth116.core.ui.notification
 
-actual class NotificationScheduler {
+actual class NotificationScheduler : INotificationScheduler {
     // TODO: Implement desktop notifications using java.awt.SystemTray or platform-specific APIs
-    actual fun scheduleReminder(taskId: String, title: String, triggerTimeMillis: Long) {
+    actual override fun scheduleReminder(taskId: String, title: String, triggerTimeMillis: Long) {
     }
 
-    actual fun cancelReminder(taskId: String) {
+    actual override fun cancelReminder(taskId: String) {
     }
 
-    actual fun cancelAllReminders() {
+    actual override fun cancelAllReminders() {
     }
 }

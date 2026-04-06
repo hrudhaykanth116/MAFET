@@ -6,6 +6,7 @@ import com.hrudhaykanth116.todo.domain.model.TaskCategory
 import com.hrudhaykanth116.todo.domain.model.TodoDefaults
 import com.hrudhaykanth116.todo.domain.model.TodoModel
 import com.hrudhaykanth116.todo.domain.use_cases.CreateTodoTaskUseCase
+import com.hrudhaykanth116.todo.testutils.FakeNotificationScheduler
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -18,7 +19,7 @@ class CreateTodoTaskUseCaseTest {
 
     private fun setup() {
         repository = FakeTodoRepository()
-        useCase = CreateTodoTaskUseCase(repository)
+        useCase = CreateTodoTaskUseCase(repository, FakeNotificationScheduler())
     }
 
     @Test

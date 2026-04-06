@@ -16,6 +16,11 @@ import com.hrudhaykanth116.todo.ui.models.ToDoTaskUIState
 import com.hrudhaykanth116.todo.ui.models.TodoListScreenSortItem
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenEvent
 import com.hrudhaykanth116.todo.ui.models.todolist.TodoListScreenMenuItem
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.verify
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertFalse
 import junit.framework.TestCase.assertNotNull
@@ -28,12 +33,6 @@ import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito.times
-import org.mockito.Mockito.verify
-import org.mockito.kotlin.any
-import org.mockito.kotlin.anyOrNull
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.whenever
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class TodoListViewModelTest {
@@ -49,18 +48,14 @@ class TodoListViewModelTest {
 
     @Before
     fun setup() {
-        observeTasksUseCase = mock<ObserveTasksUseCase>()
-        createTodoTaskUseCase = mock<CreateTodoTaskUseCase>()
-        deleteTaskUseCase = mock<DeleteTaskUseCase>()
-        networkMonitor = mock<NetworkMonitor>()
-        mapper = mock<TodoDomainModelMapper>()
-        uniqueIdGenerator = mock<UniqueIdGenerator>()
+        observeTasksUseCase = mockk()
+        createTodoTaskUseCase = mockk()
+        deleteTaskUseCase = mockk()
+        networkMonitor = mockk()
+        mapper = mockk()
+        uniqueIdGenerator = mockk()
 
-        whenever(observeTasksUseCase.invoke(anyOrNull(), anyOrNull(), any())).thenReturn(
-            flowOf(
-                emptyList()
-            )
-        )
+        every { observeTasksUseCase.invoke(any(), any(), any()) } returns flowOf(emptyList())
 
         viewModel = TodoListViewModel(
             observeTasksUseCase,
@@ -189,14 +184,14 @@ class TodoListViewModelTest {
 
         dispatcher.scheduler.advanceUntilIdle()
 
-        verify(deleteTaskUseCase).invoke()
+        coVerify { deleteTaskUseCase.invoke() }
         assertFalse(viewModel.contentStateOrDefault.isMenuVisible)
     }
 
     @Test
     fun `create todo with success clears title and shows success message`() = runTest {
-        whenever(createTodoTaskUseCase.invoke(any())).thenReturn(DomainResult.Success(Unit))
-        whenever(uniqueIdGenerator.getUniqueId()).thenReturn("10")
+        coEvery { createTodoTaskUseCase.invoke(any()) } returns DomainResult.Success(Unit)
+        every { uniqueIdGenerator.getUniqueId() } returns "10"
 
         val todoTitle = "New Task"
         viewModel.processEvent(TodoListScreenEvent.TodoTaskTitleChanged(TextFieldValue(todoTitle)))
@@ -211,10 +206,8 @@ class TodoListViewModelTest {
 
     @Test
     fun `create todo with error shows error message and keeps title`() = runTest {
-        whenever(createTodoTaskUseCase.invoke(any())).thenReturn(
-            DomainResult.Error(DomainError.Unknown())
-        )
-        whenever(uniqueIdGenerator.getUniqueId()).thenReturn("10")
+        coEvery { createTodoTaskUseCase.invoke(any()) } returns DomainResult.Error(DomainError.Unknown())
+        every { uniqueIdGenerator.getUniqueId() } returns "10"
 
         val todoTitle = "New Task"
         viewModel.processEvent(TodoListScreenEvent.CreateTodoTask(todoTitle))
@@ -232,7 +225,7 @@ class TodoListViewModelTest {
 
         dispatcher.scheduler.advanceUntilIdle()
 
-        verify(deleteTaskUseCase).invoke(idsToDelete)
+        coVerify { deleteTaskUseCase.invoke(idsToDelete) }
     }
 
     @Test
@@ -246,10 +239,8 @@ class TodoListViewModelTest {
             ToDoTaskUIState(id = "2", title = "Task 2", category = "Personal")
         )
 
-        whenever(observeTasksUseCase.invoke(anyOrNull(), anyOrNull(), any())).thenReturn(
-            flowOf(todoModels)
-        )
-        whenever(mapper.mapListToUIStates(todoModels)).thenReturn(uiStates)
+        every { observeTasksUseCase.invoke(any(), any(), any()) } returns flowOf(todoModels)
+        every { mapper.mapListToUIStates(todoModels) } returns uiStates
 
         val newViewModel = TodoListViewModel(
             observeTasksUseCase,
@@ -273,7 +264,7 @@ class TodoListViewModelTest {
 
         dispatcher.scheduler.advanceUntilIdle()
 
-        verify(observeTasksUseCase, times(2)).invoke(searchText, null, any())
+        verify(exactly = 2) { observeTasksUseCase.invoke(searchText, null, any()) }
     }
 
     @Test
@@ -283,7 +274,7 @@ class TodoListViewModelTest {
 
         dispatcher.scheduler.advanceUntilIdle()
 
-        verify(observeTasksUseCase, times(2)).invoke(null, category, any())
+        verify(exactly = 2) { observeTasksUseCase.invoke(null, category, any()) }
     }
 
     @Test
@@ -293,6 +284,6 @@ class TodoListViewModelTest {
 
         dispatcher.scheduler.advanceUntilIdle()
 
-        verify(observeTasksUseCase, times(2)).invoke(anyOrNull(), anyOrNull(), sortItem.key)
+        verify(exactly = 2) { observeTasksUseCase.invoke(any(), any(), sortItem.key) }
     }
 }

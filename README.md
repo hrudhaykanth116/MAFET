@@ -1,4 +1,4 @@
-# MAFET - Multi-platform Utilities App
+# MAFET — Multi-platform Utilities App
 
 <p align="center">
   <img src="https://img.shields.io/badge/Kotlin-2.2.0-7F52FF?logo=kotlin&logoColor=white" alt="Kotlin">
@@ -10,331 +10,70 @@
 </p>
 
 <p align="center">
-  <b>A Kotlin Multiplatform application providing essential daily utilities across Android, iOS, and Desktop platforms.</b>
+  A production-grade <b>Kotlin Multiplatform</b> app sharing a single codebase across Android, iOS, and Desktop —<br>
+  featuring real-world architecture patterns, live API integrations, and offline-first design.
 </p>
 
 ---
 
-## Overview
+## Demo & Screenshots
 
-MAFET is a modern, feature-rich utility application built with **Kotlin Multiplatform (KMP)** and **Compose Multiplatform**. Originally developed as an Android app, it has been evolved into a cross-platform solution demonstrating production-grade architecture patterns and the latest in Kotlin development.
+> _Screenshots coming soon — currently building v2 UI._
 
-### Why MAFET?
+---
 
-- **True Cross-Platform**: Share up to 90% of code across Android, iOS, and Desktop
-- **Modern Architecture**: Clean Architecture with MVVM + MVI for scalable, testable code
-- **Production-Ready Patterns**: Real-world implementation of dependency injection, state management, and offline-first design
-- **Comprehensive Testing**: Unit tests across all platforms with MockK
+## Technical Highlights
+
+- **~90% shared code** across Android, iOS, and Desktop via Kotlin Multiplatform + Compose Multiplatform
+- **MVI architecture** with a custom `UIStateViewModel<STATE, EVENT, EFFECT>` base class enforcing unidirectional data flow
+- **Offline-first** with Room KMP (2.7.2) across all three platforms using platform-specific database builders
+- **Multi-engine Ktor** networking — OkHttp on Android/Desktop, Darwin on iOS — unified under a single API layer
+- **Type-safe DI** with Koin, scoped per module, with platform-specific actual implementations injected transparently
+- **Live API integrations**: OpenWeatherMap, TMDB, Pexels, Firebase Vertex AI
+- **CI/CD pipeline** via GitHub Actions running Android unit tests on every push
 
 ---
 
 ## Features
 
-### Todo List
-**Status**: Production Ready | **Platforms**: Android, iOS, Desktop
-
-<details>
-<summary>Click to expand details</summary>
-
-A full-featured task management system with:
-- Create, update, and delete tasks with rich metadata
-- **Category filtering** (Work, Personal, Shopping, Health, etc.)
-- **Priority levels** with visual indicators
-- **Due date/time** tracking with reminders
-- **Search and sort** functionality
-- **Sync status** tracking for offline support
-- **Shared element transitions** for smooth navigation
-- Room database with KMP support
-
-**Tech Stack**: Room KMP, Kotlin Coroutines, Flow, Compose Multiplatform
-
-</details>
-
----
-
-### TV Shows Tracking
-**Status**: Production Ready | **Platforms**: Android, iOS
-
-<details>
-<summary>Click to expand details</summary>
-
-Track your favorite TV shows powered by **TMDB API**:
-- **Home screen** with categorized show lists (Trending, Popular, Top Rated, Airing Today)
-- **Search** functionality with instant results
-- **Detailed show information** (cast, seasons, episodes, ratings)
-- **Personal watchlist** with watch status tracking
-- **Similar shows** recommendations
-- Beautiful poster and backdrop image displays
-- Offline caching with Room database
-
-**Tech Stack**: Ktor Client, TMDB API, Room KMP, Coil 3, Paging 3
-
-</details>
-
----
-
-### Weather Forecast
-**Status**: Production Ready | **Platforms**: Android, iOS
-
-<details>
-<summary>Click to expand details</summary>
-
-Real-time weather information with:
-- **Current conditions** with temperature, humidity, wind speed
-- **Hourly forecast** with weather icons
-- **Daily forecast** for upcoming days
-- **Location-based** weather using GPS
-- **Search by city** with geocoding
-- Beautiful weather-themed UI
-- Pull-to-refresh for latest data
-- **DataStore** for caching last known location
-
-**Tech Stack**: OpenWeather API, Ktor Client, Location Services (platform-specific), DataStore
-
-</details>
-
----
-
-### Journal
-**Status**: Development | **Platforms**: Android, iOS, Desktop
-
-<details>
-<summary>Click to expand details</summary>
-
-Personal note-taking with emotional awareness:
-- Create and manage journal entries
-- **Emotion slider** for mood tracking
-- Rich text content
-- Date-based organization
-- Sync status tracking
-- Full offline support with Room
-
-**Tech Stack**: Room KMP, Compose Multiplatform, Flow
-
-</details>
-
----
-
-### AI Assistant
-**Status**: Development | **Platforms**: Android, iOS, Desktop
-
-<details>
-<summary>Click to expand details</summary>
-
-AI-powered query system:
-- Natural language query interface
-- Response streaming
-- Firebase Vertex AI integration (Android)
-- Platform-specific implementations via expect/actual
-
-**Tech Stack**: Firebase Vertex AI, expect/actual pattern
-
-</details>
-
----
-
-### Media Gallery
-**Status**: Development | **Platforms**: Android, iOS, Desktop
-
-<details>
-<summary>Click to expand details</summary>
-
-Explore stunning photos and videos from **Pexels**:
-- **Curated content** feed
-- **Search** with filters (orientation, color, size)
-- **Staggered grid** layout
-- **Detail view** with color palette extraction
-- Download and share functionality
-
-**Tech Stack**: Pexels API, Ktor Client, Coil 3
-
-</details>
-
----
-
-### Authentication
-**Status**: Complete | **Platforms**: Android Only
-
-<details>
-<summary>Click to expand details</summary>
-
-Firebase-powered authentication:
-- Email/password login and signup
-- Form validation with real-time feedback
-- User profile management
-- Session persistence
-
-**Tech Stack**: Firebase Auth, Firebase Realtime Database
-
-</details>
-
----
-
-### Games
-**Status**: Experimental | **Platforms**: Android Only
-
-<details>
-<summary>Click to expand details</summary>
-
-Sprite-based game experiments:
-- Custom sprite animation system
-- Touch gesture detection
-- Game state management
-
-**Tech Stack**: Compose Canvas, Custom Sprite Engine
-
-</details>
-
----
-
-## Platform Support Matrix
-
-| Feature | Android | iOS | Desktop | Status |
-|---------|:-------:|:---:|:-------:|--------|
-| Todo List | Full | Full | Full | Production |
-| TV Shows | Full | Full | Planned | Production |
-| Weather | Full | Full | Planned | Production |
-| Journal | Full | Full | Full | Development |
-| AI Assistant | Full | Partial | Partial | Development |
-| Media Gallery | Full | Full | Full | Development |
-| Authentication | Full | - | - | Complete |
-| Games | Full | - | - | Experimental |
+| Module             | Platforms                    | Status          |
+|--------------------|------------------------------|-----------------|
+| **Todo List**      | Android · iOS · Desktop      | ✅ Ready        |
+| **TV Shows**       | Android · iOS                | ✅ Ready        |
+| **Weather**        | Android · iOS                | ✅ Ready        |
+| **Journal**        | Android · iOS · Desktop      | ✅ Ready        |
+| **Media Gallery**  | Android · iOS · Desktop      | 🚧 In Progress  |
+| **Authentication** | Android                      | 📋 Planned      |
+| **AI Assistant**   | Android · iOS · Desktop      | 📋 Planned      |
 
 ---
 
 ## Architecture
 
-MAFET follows **Clean Architecture** principles with a clear separation of concerns across three layers:
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                      Presentation Layer                          │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────────┐ │
-│  │   Screens   │  │  ViewModels │  │   UI State / Events     │ │
-│  │  (Compose)  │◄─┤ (MVI/MVVM)  │◄─┤   Effects               │ │
-│  └─────────────┘  └─────────────┘  └─────────────────────────┘ │
-└────────────────────────────┬────────────────────────────────────┘
-                             │
-┌────────────────────────────▼────────────────────────────────────┐
-│                       Domain Layer                               │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────────┐ │
-│  │  Use Cases  │  │   Models    │  │  Repository Interfaces  │ │
-│  └─────────────┘  └─────────────┘  └─────────────────────────┘ │
-└────────────────────────────┬────────────────────────────────────┘
-                             │
-┌────────────────────────────▼────────────────────────────────────┐
-│                        Data Layer                                │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────────┐ │
-│  │Repositories │  │Data Sources │  │   Network / Database    │ │
-│  │   (Impl)    │  │ (Local/API) │  │   (Ktor / Room)         │ │
-│  └─────────────┘  └─────────────┘  └─────────────────────────┘ │
-└─────────────────────────────────────────────────────────────────┘
-```
-
-### UI State Management (MVI Pattern)
-
-```
-┌─────────┐    Events    ┌─────────────┐    State    ┌─────────┐
-│   UI    │─────────────►│  ViewModel  │────────────►│   UI    │
-│(Screen) │              │(UIStateVM)  │             │(Screen) │
-└─────────┘              └─────────────┘             └─────────┘
-     ▲                         │
-     │         Effects         │
-     └─────────────────────────┘
-```
-
-**UIStateViewModel** provides:
-- `UIState<T>` - Loading, Idle, Error states with content
-- `Event` - User interactions (clicks, input changes)
-- `Effect` - One-time side effects (navigation, toasts)
-
-### Module Dependency Graph
-
-```
-                    ┌─────────────────┐
-                    │    androidApp   │
-                    │    desktopApp   │
-                    │      iosApp     │
-                    └────────┬────────┘
-                             │
-                    ┌────────▼────────┐
-                    │    composeApp   │
-                    │  (Shared Entry) │
-                    └────────┬────────┘
-                             │
-        ┌────────────────────┼────────────────────┐
-        │                    │                    │
-   ┌────▼────┐         ┌─────▼─────┐        ┌────▼────┐
-   │  todo   │         │    tv     │        │ weather │
-   │ journal │         │   media   │        │   ai    │
-   └────┬────┘         └─────┬─────┘        └────┬────┘
-        │                    │                   │
-        └────────────────────┼───────────────────┘
-                             │
-                    ┌────────▼────────┐
-                    │     core-ui     │
-                    └────────┬────────┘
-                             │
-        ┌────────────────────┼────────────────────┐
-        │                    │                    │
-   ┌────▼────┐         ┌─────▼─────┐        ┌────▼────┐
-   │core-data│         │core-network│       │core-domain│
-   └────┬────┘         └─────┬─────┘        └────┬────┘
-        │                    │                   │
-        └────────────────────┼───────────────────┘
-                             │
-                    ┌────────▼────────┐
-                    │   core-common   │
-                    └─────────────────┘
-```
+MAFET follows **Clean Architecture** with a clear separation across three layers, all shared in `commonMain`. 
+See [docs/architecture.md](docs/architecture.md) for full details.
 
 ---
 
 ## Tech Stack
 
-### Core Technologies
+| Category       | Library                  |
+|----------------|--------------------------|
+| Language       | Kotlin Multiplatform     |
+| UI             | Compose Multiplatform    |
+| DI             | Koin                     |
+| Networking     | Ktor Client              |
+| Database       | Room KMP                 |
+| Image Loading  | Coil                     |
+| Async          | Kotlinx Coroutines       |
+| Serialization  | Kotlinx Serialization    |
+| Date/Time      | Kotlinx DateTime         |
+| Logging        | Kermit                   |
+| Testing        | MockK                    |
+| Firebase       | Firebase BOM             |
+| Navigation     | Navigation Compose       |
 
-| Category | Technology | Version |
-|----------|-----------|---------|
-| Language | Kotlin | 2.2.0 |
-| UI Framework | Compose Multiplatform | 1.10.1 |
-| Build System | Gradle (Kotlin DSL) | 8.11 |
-| DI Framework | Koin | 4.0.3 |
-
-### Networking & Data
-
-| Library | Purpose |
-|---------|---------|
-| Ktor Client 3.0.2 | HTTP networking (KMP) |
-| Room 2.7.2 | Local database (KMP) |
-| DataStore 1.1.1 | Preferences storage |
-| Kotlinx Serialization | JSON parsing |
-
-### Android Specific
-
-| Library | Purpose |
-|---------|---------|
-| Firebase BOM 33.16 | Auth, Vertex AI, Database |
-| Play Services Location | GPS location |
-| Play Services Ads | Monetization |
-| WorkManager | Background sync |
-
-### UI & Media
-
-| Library | Purpose |
-|---------|---------|
-| Coil 3.0.4 | Image loading (KMP) |
-| Navigation Compose 2.9.2 | Type-safe navigation |
-| Material 3 | Design system |
-| Lottie | Animations |
-
-### Testing
-
-| Library | Purpose |
-|---------|---------|
-| JUnit 4.13.2 | Test framework |
-| MockK 1.14.5 | Mocking library |
-| Kotlinx Coroutines Test | Coroutine testing |
+**Build:** Android min SDK 24, target SDK 36 · Java 17 · KSP 2.2.0
 
 ---
 
@@ -342,16 +81,13 @@ MAFET follows **Clean Architecture** principles with a clear separation of conce
 
 ### Prerequisites
 
-- **JDK 17** or higher
-- **Android Studio Ladybug** (2024.2+) or **IntelliJ IDEA**
-- **Xcode 15+** (for iOS development)
-- **Kotlin Multiplatform Mobile plugin**
+- JDK 17+
+- Android Studio Ladybug (2024.2+) or IntelliJ IDEA
+- Xcode 15+ _(iOS only)_
 
-### API Keys Setup
+### API Keys
 
-This project requires API keys from 3 external services. Both files below are gitignored — you must create them locally after cloning.
-
-#### Android — `secrets.properties` (project root)
+Create `secrets.properties` at the project root (gitignored):
 
 ```properties
 PEXELS_API_KEY="your_pexels_api_key"
@@ -359,53 +95,26 @@ TMDB_API_KEY="your_tmdb_api_key"
 OPEN_WEATHER_FORECAST_API_KEY="your_openweather_api_key"
 ```
 
-Keys are automatically injected into `BuildConfig` at compile time.
+For iOS, copy `iosApp/secrets.xcconfig.example` → `iosApp/secrets.xcconfig` and fill in the same keys. Then in Xcode: project root → **Info** tab → Configurations → set `secrets.xcconfig` for Debug and Release under the `iosApp` target.
 
-#### iOS — `iosApp/secrets.xcconfig`
-
-Copy `iosApp/secrets.xcconfig.example` → `iosApp/secrets.xcconfig` and fill in:
-
-```
-TMDB_API_KEY = your_tmdb_api_key
-OPEN_WEATHER_FORECAST_API_KEY = your_openweather_api_key
-PEXELS_API_KEY = your_pexels_api_key
-```
-
-Then wire it in Xcode: click the project root → **Info** tab → under **Configurations**, set `secrets.xcconfig` for both Debug and Release under the `iosApp` target.
-
-#### Where to get the keys
-
-| Service | Get your key | Used in |
-|---------|-------------|---------|
-| **TMDB** | https://www.themoviedb.org/settings/api | TV Shows module |
-| **OpenWeatherMap** | https://home.openweathermap.org/api_keys | Weather module |
-| **Pexels** | https://www.pexels.com/api/ | Media module |
+| Service          | Get Key                                          | Used In   |
+|------------------|--------------------------------------------------|-----------|
+| TMDB             | https://www.themoviedb.org/settings/api          | TV Shows  |
+| OpenWeatherMap   | https://home.openweathermap.org/api_keys         | Weather   |
+| Pexels           | https://www.pexels.com/api/                      | Media     |
 
 ### Build & Run
 
 ```bash
-# Clone the repository
 git clone https://github.com/hrudhaykanth116/MAFET.git
 cd MAFET
 
-# Build the project
-./gradlew build
-
-# Run Android app
-./gradlew :androidApp:installDebug
-
-# Run Desktop app
-./gradlew :desktopApp:run
-
-# Run tests
-./gradlew allTests
+./gradlew :androidApp:installDebug   # Android
+./gradlew :desktopApp:run            # Desktop
+./gradlew allTests                   # All tests
 ```
 
-### iOS Setup
-
-1. Open `iosApp/iosApp.xcodeproj` in Xcode
-2. Select your development team
-3. Build and run on simulator or device
+For iOS: open `iosApp/iosApp.xcodeproj` in Xcode, select your dev team, build and run.
 
 ---
 
@@ -413,90 +122,39 @@ cd MAFET
 
 ```
 MAFET/
-├── androidApp/          # Android entry point with ads
-├── desktopApp/          # Desktop JVM application
+├── androidApp/          # Android entry point (ads, MainActivity)
+├── desktopApp/          # Desktop JVM entry point
 ├── iosApp/              # iOS SwiftUI wrapper
-├── composeApp/          # Shared Compose UI
+├── composeApp/          # Shared Compose navigation + app shell
 │
-├── core-common/         # Pure Kotlin utilities
-├── core-domain/         # Domain result types
-├── core-data/           # Data layer abstractions
-├── core-network/        # Ktor client setup
-├── core-ui/             # Shared UI components
+├── core-common/         # Pure Kotlin utilities (extensions, logging, date/time)
+├── core-domain/         # DomainResult<T>, DomainError — no platform deps
+├── core-data/           # Repository abstractions, DataStore
+├── core-network/        # Ktor client config, safe API call wrappers
+├── core-ui/             # Shared components, UIStateViewModel, theme
 │
-├── features/
-│   ├── todo/            # Task management (KMP)
-│   ├── tv/              # TV show tracking (KMP)
-│   ├── weather/         # Weather forecast (KMP)
-│   ├── journal/         # Note-taking (KMP)
-│   ├── ai/              # AI features (KMP)
-│   ├── media/           # Media gallery (KMP)
-│   ├── auth/            # Authentication (Android)
-│   └── games/           # Games (Android)
-│
-├── gradle/              # Version catalogs
-└── buildSrc/            # Build conventions
+└── features/
+    ├── todo/            # KMP: Android + iOS + Desktop
+    ├── tv/              # KMP: Android + iOS
+    ├── weather/         # KMP: Android + iOS
+    ├── journal/         # KMP: Android + iOS + Desktop
+    ├── ai/              # KMP: Android + iOS + Desktop
+    ├── media/           # KMP: Android + iOS + Desktop
+    ├── auth/            # Android only (Firebase Auth)
+    └── games/           # Android only (Compose Canvas)
 ```
 
 ---
 
 ## Roadmap
 
-### In Progress
-- [ ] Desktop support for TV Shows module
-- [ ] Desktop support for Weather module
-- [ ] Offline-first sync for all modules
-- [ ] Widget support for Android
-
-### Planned
-- [ ] iOS native integrations (HealthKit, Shortcuts)
-- [ ] Watch OS companion app
+- [ ] Desktop support for TV Shows and Weather
+- [ ] WorkManager background sync for Todo
+- [ ] Local notifications for task reminders
+- [ ] Widget support (Android — Todo, Weather)
+- [ ] iOS HealthKit integration for Journal mood data
+- [ ] End-to-end encryption for Journal entries
 - [ ] Web support (Compose for Web)
-- [ ] End-to-end encryption for Journal
-
-### Future Ideas
-- [ ] AI-powered task suggestions
-- [ ] Social features for TV tracking
-- [ ] Weather alerts and notifications
-
----
-
-## Testing
-
-```bash
-# Run all tests
-./gradlew allTests
-
-# Run platform-specific tests
-./gradlew testDebugUnitTest      # Android
-./gradlew desktopTest            # Desktop
-./gradlew iosSimulatorArm64Test  # iOS
-
-# Run module-specific tests
-./gradlew :features:todo:allTests
-./gradlew :features:tv:testDebugUnitTest
-```
-
----
-
-## APIs Used
-
-- [OpenWeather API](https://openweathermap.org/api) - Weather data
-- [The Movie Database (TMDB)](https://www.themoviedb.org/) - TV show information
-- [Pexels API](https://www.pexels.com/api/) - Stock photos and videos
-- [Firebase](https://firebase.google.com/) - Authentication and AI
-
----
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ---
 
@@ -512,10 +170,8 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+MIT License — see [LICENSE.md](LICENSE.md) for details.
 
 ---
 
-<p align="center">
-  <b>Built with Kotlin Multiplatform</b>
-</p>
+<p align="center">Built with Kotlin Multiplatform</p>

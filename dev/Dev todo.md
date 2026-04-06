@@ -1,4 +1,7 @@
 Tech features to be implemented in the project.
+
+README:
+* Add screenshots to README (## Demo & Screenshots section is a placeholder)
 * CI/CD pipeline with github actions.
 * Sonarqube check
 * *
@@ -54,24 +57,6 @@ Testing (Newly Added Features):
     * Observe card animating smoothly to detail/edit screen
     * Press back and verify card animates back to list position
 
-
-Features:
-
-* Home
-    * Centralised place with most important&relevant information from each feature.
-
-* TODOLIST
-
-* Journal
-    * List of entries.
-
-* Weather
-    * Refresh ability and lastRefreshedTime ui element.
-
-* Tv
-    * List of my tv list that contains the tv series currently being watched or watched already.
-        * This list allows me to track last watched episode, fav episodes, fav scene time interval etc..
-    * Status: In progress, Watched, Wishlist-ed.
 
 Splash screen:
 https://www.youtube.com/watch?v=Oy0oXwv3kSc

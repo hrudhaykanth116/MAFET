@@ -4,6 +4,7 @@ import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.todo.data.repositories.FakeTodoRepository
 import com.hrudhaykanth116.todo.domain.model.TodoModel
 import com.hrudhaykanth116.todo.domain.use_cases.DeleteTaskUseCase
+import com.hrudhaykanth116.todo.testutils.FakeNotificationScheduler
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -16,7 +17,7 @@ class DeleteTaskUseCaseTest {
 
     private fun setup() {
         repository = FakeTodoRepository()
-        useCase = DeleteTaskUseCase(repository)
+        useCase = DeleteTaskUseCase(repository, FakeNotificationScheduler())
     }
 
     @Test

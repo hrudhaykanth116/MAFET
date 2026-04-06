@@ -12,6 +12,11 @@ import com.hrudhaykanth116.todo.domain.model.TodoModel
 import com.hrudhaykanth116.todo.domain.use_cases.CreateTodoTaskUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.GetTaskUseCase
 import com.hrudhaykanth116.todo.ui.models.createtodo.CreateTodoEvent
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.verify
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertFalse
 import junit.framework.TestCase.assertNotNull
@@ -22,10 +27,6 @@ import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito.verify
-import org.mockito.kotlin.any
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.whenever
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class CreateOrUpdateTodoListViewModelTest {
@@ -39,14 +40,14 @@ class CreateOrUpdateTodoListViewModelTest {
 
     @Before
     fun setup() {
-        createTodoTaskUseCase = mock<CreateTodoTaskUseCase>()
-        getTaskUseCase = mock<GetTaskUseCase>()
-        networkMonitor = mock<NetworkMonitor>()
-        dateTimeUtils = mock<DateTimeUtils>()
-        uniqueIdGenerator = mock<UniqueIdGenerator>()
+        createTodoTaskUseCase = mockk()
+        getTaskUseCase = mockk()
+        networkMonitor = mockk()
+        dateTimeUtils = mockk()
+        uniqueIdGenerator = mockk()
 
-        whenever(dateTimeUtils.getFormattedDateTime(any(), any())).thenReturn("2024-01-01 10:30 AM")
-        whenever(dateTimeUtils.getMillisFromDateTime(any(), any())).thenReturn(1704096600000L)
+        every { dateTimeUtils.getFormattedDateTime(any(), any()) } returns "2024-01-01 10:30 AM"
+        every { dateTimeUtils.getMillisFromDateTime(any(), any()) } returns 1704096600000L
     }
 
     private fun createViewModel(todoId: String? = null): CreateOrUpdateTodoListViewModel {
@@ -83,7 +84,7 @@ class CreateOrUpdateTodoListViewModelTest {
             targetTime = 1704096600000L
         )
 
-        whenever(getTaskUseCase.invoke("123")).thenReturn(DomainResult.Success(todoModel))
+        coEvery { getTaskUseCase.invoke("123") } returns DomainResult.Success(todoModel)
 
         val viewModel = createViewModel(todoId = "123")
         dispatcher.scheduler.advanceUntilIdle()
@@ -98,9 +99,7 @@ class CreateOrUpdateTodoListViewModelTest {
 
     @Test
     fun `initial state handles error when loading existing todo`() = runTest {
-        whenever(getTaskUseCase.invoke("123")).thenReturn(
-            DomainResult.Error(DomainError.Unknown())
-        )
+        coEvery { getTaskUseCase.invoke("123") } returns DomainResult.Error(DomainError.Unknown())
 
         val viewModel = createViewModel(todoId = "123")
         dispatcher.scheduler.advanceUntilIdle()
@@ -230,8 +229,8 @@ class CreateOrUpdateTodoListViewModelTest {
 
     @Test
     fun `submit with valid data calls use case and marks submitted`() = runTest {
-        whenever(createTodoTaskUseCase.invoke(any())).thenReturn(DomainResult.Success(Unit))
-        whenever(uniqueIdGenerator.getUniqueId()).thenReturn("new-id")
+        coEvery { createTodoTaskUseCase.invoke(any()) } returns DomainResult.Success(Unit)
+        every { uniqueIdGenerator.getUniqueId() } returns "new-id"
 
         val viewModel = createViewModel()
         dispatcher.scheduler.advanceUntilIdle()
@@ -244,16 +243,14 @@ class CreateOrUpdateTodoListViewModelTest {
 
         dispatcher.scheduler.advanceUntilIdle()
 
-        verify(createTodoTaskUseCase).invoke(any())
+        coVerify { createTodoTaskUseCase.invoke(any()) }
         assertTrue(viewModel.contentStateOrDefault.isSubmitted)
     }
 
     @Test
     fun `submit with error shows error message and does not mark submitted`() = runTest {
-        whenever(createTodoTaskUseCase.invoke(any())).thenReturn(
-            DomainResult.Error(DomainError.Unknown())
-        )
-        whenever(uniqueIdGenerator.getUniqueId()).thenReturn("new-id")
+        coEvery { createTodoTaskUseCase.invoke(any()) } returns DomainResult.Error(DomainError.Unknown())
+        every { uniqueIdGenerator.getUniqueId() } returns "new-id"
 
         val viewModel = createViewModel()
         dispatcher.scheduler.advanceUntilIdle()
@@ -276,8 +273,8 @@ class CreateOrUpdateTodoListViewModelTest {
             category = TaskCategory.PERSONAL
         )
 
-        whenever(getTaskUseCase.invoke("existing-123")).thenReturn(DomainResult.Success(existingTodo))
-        whenever(createTodoTaskUseCase.invoke(any())).thenReturn(DomainResult.Success(Unit))
+        coEvery { getTaskUseCase.invoke("existing-123") } returns DomainResult.Success(existingTodo)
+        coEvery { createTodoTaskUseCase.invoke(any()) } returns DomainResult.Success(Unit)
 
         val viewModel = createViewModel(todoId = "existing-123")
         dispatcher.scheduler.advanceUntilIdle()
@@ -287,14 +284,14 @@ class CreateOrUpdateTodoListViewModelTest {
 
         dispatcher.scheduler.advanceUntilIdle()
 
-        verify(createTodoTaskUseCase).invoke(any())
+        coVerify { createTodoTaskUseCase.invoke(any()) }
         assertTrue(viewModel.contentStateOrDefault.isSubmitted)
     }
 
     @Test
     fun `submit with target time includes time in todo model`() = runTest {
-        whenever(createTodoTaskUseCase.invoke(any())).thenReturn(DomainResult.Success(Unit))
-        whenever(uniqueIdGenerator.getUniqueId()).thenReturn("new-id")
+        coEvery { createTodoTaskUseCase.invoke(any()) } returns DomainResult.Success(Unit)
+        every { uniqueIdGenerator.getUniqueId() } returns "new-id"
 
         val viewModel = createViewModel()
         dispatcher.scheduler.advanceUntilIdle()
@@ -305,16 +302,14 @@ class CreateOrUpdateTodoListViewModelTest {
 
         dispatcher.scheduler.advanceUntilIdle()
 
-        verify(createTodoTaskUseCase).invoke(any())
-        verify(dateTimeUtils).getMillisFromDateTime("2024-01-01 10:30 AM", any())
+        coVerify { createTodoTaskUseCase.invoke(any()) }
+        verify { dateTimeUtils.getMillisFromDateTime("2024-01-01 10:30 AM", any()) }
     }
 
     @Test
     fun `user message shown event clears user message`() = runTest {
-        whenever(createTodoTaskUseCase.invoke(any())).thenReturn(
-            DomainResult.Error(DomainError.Unknown())
-        )
-        whenever(uniqueIdGenerator.getUniqueId()).thenReturn("new-id")
+        coEvery { createTodoTaskUseCase.invoke(any()) } returns DomainResult.Error(DomainError.Unknown())
+        every { uniqueIdGenerator.getUniqueId() } returns "new-id"
 
         val viewModel = createViewModel()
         dispatcher.scheduler.advanceUntilIdle()
@@ -340,8 +335,8 @@ class CreateOrUpdateTodoListViewModelTest {
     @Test
     fun `loading state is shown during submit`() = runTest {
         var loadingStateObserved = false
-        whenever(createTodoTaskUseCase.invoke(any())).thenReturn(DomainResult.Success(Unit))
-        whenever(uniqueIdGenerator.getUniqueId()).thenReturn("new-id")
+        coEvery { createTodoTaskUseCase.invoke(any()) } returns DomainResult.Success(Unit)
+        every { uniqueIdGenerator.getUniqueId() } returns "new-id"
 
         val viewModel = createViewModel()
         dispatcher.scheduler.advanceUntilIdle()

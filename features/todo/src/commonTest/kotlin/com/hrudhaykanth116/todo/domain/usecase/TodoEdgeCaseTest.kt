@@ -7,6 +7,7 @@ import com.hrudhaykanth116.todo.domain.model.TodoDefaults
 import com.hrudhaykanth116.todo.domain.model.TodoModel
 import com.hrudhaykanth116.todo.domain.use_cases.CreateTodoTaskUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.GetTaskUseCase
+import com.hrudhaykanth116.todo.testutils.FakeNotificationScheduler
 import com.hrudhaykanth116.todo.domain.use_cases.ObserveTasksUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.UpdateTodoTaskUseCase
 import kotlinx.coroutines.flow.first
@@ -27,7 +28,7 @@ class TodoEdgeCaseTest {
     @BeforeTest
     fun setup() {
         repository = FakeTodoRepository()
-        createUseCase = CreateTodoTaskUseCase(repository)
+        createUseCase = CreateTodoTaskUseCase(repository, FakeNotificationScheduler())
         updateUseCase = UpdateTodoTaskUseCase(repository)
         getUseCase = GetTaskUseCase(repository)
         observeUseCase = ObserveTasksUseCase(repository)

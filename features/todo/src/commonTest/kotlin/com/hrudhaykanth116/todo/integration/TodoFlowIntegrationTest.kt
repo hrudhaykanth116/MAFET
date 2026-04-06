@@ -7,6 +7,7 @@ import com.hrudhaykanth116.todo.domain.model.TodoDefaults
 import com.hrudhaykanth116.todo.domain.model.TodoModel
 import com.hrudhaykanth116.todo.domain.use_cases.CreateTodoTaskUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.DeleteTaskUseCase
+import com.hrudhaykanth116.todo.testutils.FakeNotificationScheduler
 import com.hrudhaykanth116.todo.domain.use_cases.GetTaskUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.ObserveTasksUseCase
 import com.hrudhaykanth116.todo.domain.use_cases.UpdateTodoTaskUseCase
@@ -29,9 +30,9 @@ class TodoFlowIntegrationTest {
     @BeforeTest
     fun setup() {
         repository = FakeTodoRepository()
-        createUseCase = CreateTodoTaskUseCase(repository)
+        createUseCase = CreateTodoTaskUseCase(repository, FakeNotificationScheduler())
         updateUseCase = UpdateTodoTaskUseCase(repository)
-        deleteUseCase = DeleteTaskUseCase(repository)
+        deleteUseCase = DeleteTaskUseCase(repository, FakeNotificationScheduler())
         getUseCase = GetTaskUseCase(repository)
         observeUseCase = ObserveTasksUseCase(repository)
     }

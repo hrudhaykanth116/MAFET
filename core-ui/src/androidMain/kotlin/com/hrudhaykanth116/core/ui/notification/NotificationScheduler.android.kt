@@ -7,12 +7,12 @@ import android.content.Intent
 import android.os.Build
 import co.touchlab.kermit.Logger
 
-actual class NotificationScheduler(private val context: Context) {
+actual class NotificationScheduler(private val context: Context) : INotificationScheduler {
 
     private val alarmManager: AlarmManager
         get() = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-    actual fun scheduleReminder(taskId: String, title: String, triggerTimeMillis: Long) {
+    actual override fun scheduleReminder(taskId: String, title: String, triggerTimeMillis: Long) {
         if (triggerTimeMillis <= System.currentTimeMillis()) {
             Logger.d { "NotificationScheduler: Trigger time is in the past, skipping" }
             return
@@ -62,7 +62,7 @@ actual class NotificationScheduler(private val context: Context) {
         }
     }
 
-    actual fun cancelReminder(taskId: String) {
+    actual override fun cancelReminder(taskId: String) {
         val intent = Intent(ACTION_SHOW_NOTIFICATION).apply {
             setPackage(context.packageName)
         }
@@ -81,7 +81,7 @@ actual class NotificationScheduler(private val context: Context) {
         }
     }
 
-    actual fun cancelAllReminders() {
+    actual override fun cancelAllReminders() {
         Logger.d { "NotificationScheduler: Cancel all reminders not fully implemented" }
     }
 
