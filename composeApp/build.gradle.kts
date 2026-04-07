@@ -68,6 +68,7 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.androidx.core.ktx)
+            implementation(libs.kotlinx.serialization.json)
 
             // Firebase Remote Config
             implementation(project.dependencies.platform(libs.firebase.bom))

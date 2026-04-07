@@ -8,8 +8,10 @@ import com.hrudhaykanth116.composeapp.models.GateType
 import com.hrudhaykanth116.composeapp.models.RemoteAppConfig
 import com.hrudhaykanth116.core.common.utils.log.Logger
 import kotlinx.coroutines.suspendCancellableCoroutine
-import org.json.JSONException
-import org.json.JSONObject
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.boolean
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import kotlin.coroutines.resume
 
 actual class RemoteConfigManager actual constructor() {
@@ -56,15 +58,13 @@ actual class RemoteConfigManager actual constructor() {
     private fun parseFeatures(): List<FeatureConfig> {
         val raw = remoteConfig.getString(KEY_FEATURES)
         return try {
-            val obj = JSONObject(raw)
-            obj.keys().asSequence().map { key ->
-                val featureObj = obj.getJSONObject(key)
+            Json.parseToJsonElement(raw).jsonObject.entries.map { (key, value) ->
                 FeatureConfig(
                     key = key.uppercase(),
-                    enabled = featureObj.optBoolean("enabled", true),
+                    enabled = value.jsonObject["enabled"]?.jsonPrimitive?.boolean ?: true,
                 )
-            }.toList()
-        } catch (e: JSONException) {
+            }
+        } catch (e: Exception) {
             Logger.e(TAG, "Failed to parse features JSON: $raw", e)
             ALL_FEATURES_DEFAULT
         }

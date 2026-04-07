@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.compose)
     alias(libs.plugins.googleServices)
+    alias(libs.plugins.crashlytics)
 }
 
 android {
@@ -91,6 +92,10 @@ dependencies {
 
     implementation(libs.play.services.ads.api)
     implementation(libs.play.app.update.ktx)
+
+    // Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.crashlytics.ktx)
 
     // Gson for Kotpref
     implementation("com.google.code.gson:gson:2.10.1")
