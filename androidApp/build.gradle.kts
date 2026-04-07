@@ -90,6 +90,7 @@ dependencies {
     implementation(libs.compose.navigationevent)
 
     implementation(libs.play.services.ads.api)
+    implementation(libs.play.app.update.ktx)
 
     // Gson for Kotpref
     implementation("com.google.code.gson:gson:2.10.1")
@@ -99,4 +100,7 @@ dependencies {
     // WorkManager for background sync
     implementation(libs.androidx.work.runtime)
 
+    testImplementation(libs.junit)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
 }

@@ -135,10 +135,11 @@ private fun HomeScreenUIPreview() {
         HomeScreenUI(
             navController,
             HomeBottomNavigationUIState(
-
+                listOf()
             ),
-            onNavItemSelected = {}
+            onNavItemSelected = {
 
+            }
         )
     }
 }

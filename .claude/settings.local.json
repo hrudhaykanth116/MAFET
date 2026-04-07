@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./gradlew :androidApp:compileDebugKotlin --no-configuration-cache)",
+      "Bash(ls:*)",
+      "Bash(./gradlew :androidApp:dependencies --configuration debugRuntimeClasspath --no-configuration-cache)",
+      "Bash(./gradlew :androidApp:dependencies --configuration debugRuntimeClasspath --no-configuration-cache --info)",
+      "Bash(./gradlew :androidApp:assembleDebug --no-configuration-cache)"
+    ]
+  }
+}

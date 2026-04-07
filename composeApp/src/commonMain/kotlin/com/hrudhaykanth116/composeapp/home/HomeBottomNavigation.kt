@@ -28,7 +28,7 @@ private fun HomeBottomNavigationPreview() {
     AppPreviewContainer {
         HomeBottomNavigation(
             uiState = HomeBottomNavigationUIState(
-
+                listOf()
             )
         )
     }

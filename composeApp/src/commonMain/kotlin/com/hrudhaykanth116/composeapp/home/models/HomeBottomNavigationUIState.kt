@@ -1,14 +1,7 @@
 package com.hrudhaykanth116.composeapp.home.models
 
 data class HomeBottomNavigationUIState(
-
-    val list: List<NavigationItemUIState> = listOf(
-        NavigationItemUIState(HomeBottomNavigationItem.TODO),
-        NavigationItemUIState(HomeBottomNavigationItem.WEATHER),
-        NavigationItemUIState(HomeBottomNavigationItem.DASHBOARD),
-        NavigationItemUIState(HomeBottomNavigationItem.JOURNAL),
-        NavigationItemUIState(HomeBottomNavigationItem.ENTERTAINMENT),
-    ),
+    val list: List<NavigationItemUIState>
 )
 
 data class NavigationItemUIState(

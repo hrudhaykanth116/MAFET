@@ -74,6 +74,7 @@ pagingRuntimeKtx = "3.3.6"
 
 playServicesAds = "24.9.0"
 playServicesLocation = "21.3.0"
+playInAppUpdate = "2.1.0"
 
 okhttp = "5.1.0"
 loggingInterceptor = "5.1.0"
@@ -156,6 +157,7 @@ coil-gif = { module = "io.coil-kt.coil3:coil-gif", version.ref = "coilVersion" }
 firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-vertexai = { module = "com.google.firebase:firebase-vertexai" }
+firebase-remote-config = { module = "com.google.firebase:firebase-config" }
 firebase-database-ktx = { module = "com.google.firebase:firebase-database-ktx" }
 firebase-storage-ktx = { module = "com.google.firebase:firebase-storage-ktx" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
@@ -193,6 +195,7 @@ shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmer" }
 
 play-services-ads = { module = "com.google.android.gms:play-services-ads", version.ref = "playServicesAds" }
 play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
+play-app-update-ktx = { module = "com.google.android.play:app-update-ktx", version.ref = "playInAppUpdate" }
 
 ssp-android = { module = "com.intuit.ssp:ssp-android", version.ref = "sdpAndroid" }
 sdp-android = { module = "com.intuit.sdp:sdp-android", version.ref = "sdpAndroid" }

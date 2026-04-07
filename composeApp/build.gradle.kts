@@ -69,6 +69,10 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.androidx.core.ktx)
 
+            // Firebase Remote Config
+            implementation(project.dependencies.platform(libs.firebase.bom))
+            implementation(libs.firebase.remote.config)
+
             implementation(project(":features:auth"))
             implementation(project(":features:games"))
         }

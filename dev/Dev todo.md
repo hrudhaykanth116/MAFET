@@ -14,6 +14,19 @@ iOS Setup:
     * File location: iosApp/secrets.xcconfig (see secrets.xcconfig.example)
 
 iOS Missing Implementations:
+* Remote Config KMP Migration
+    * Currently: RemoteConfigManager lives in androidApp (Firebase Android SDK only)
+    * Needs: Migrate to core-common using dev.gitlive:firebase-config (GitLive KMP SDK)
+    * Why: iOS can't share the current implementation; GitLive wraps both native SDKs under a single commonMain API
+    * Plan:
+        - Add dev.gitlive:firebase-config to core-common
+        - Move RemoteConfigManager + RemoteAppConfig + AppGateConfig to core-common/commonMain
+        - Move FeatureConfig to core-common/commonMain (or keep in composeApp)
+        - AppGateDialog stays in androidApp; iOS gets its own SwiftUI/Compose equivalent
+        - Remove firebase-config from androidApp once migrated
+    * Complexity: Medium (2-4 hours)
+
+
 * NotificationScheduler (core-ui/src/iosMain/.../notification/NotificationScheduler.ios.kt)
     * Currently: Empty stub methods (no-op)
     * Needs: UNUserNotificationCenter implementation
