@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!--
+        Bold letter "M" centered in the 72x72 adaptive icon safe zone
+        (safe zone = 18dp inset on each side of the 108x108 canvas)
+
+        Shape breakdown:
+          Left bar  : x 20–32, y 26–82
+          Right bar : x 76–88, y 26–82
+          Top-V     : (32,26) → (54,44) → (76,26)   (peak of the M)
+          Inner-V   : (32,50) → (54,68) → (76,50)   (valley of the M)
+    -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M20,26 L20,82 L32,82 L32,50 L54,68 L76,50 L76,82 L88,82 L88,26 L76,26 L54,44 L32,26 Z" />
+
+    <!-- Soft glow dot at the bottom-right as a subtle accent -->
+    <path
+        android:fillColor="#818CF8"
+        android:pathData="M84,80 a5,5 0 1,1 0,0.001 Z" />
+
+</vector>

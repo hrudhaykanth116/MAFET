@@ -1,5 +1,16 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
+// ── Version ──────────────────────────────────────────────────────────────────
+// Only change versionName. versionCode is derived automatically.
+// Formula: major * 10_000_000 + minor * 100_000 + patch * 100
+//   → max major ≈ 210  |  minor 0–99  |  patch 0–999
+//   → 0.0.1 = 100  |  1.0.0 = 10_000_000  |  99.99.999 = 999_999_900
+val major = 0
+val minor = 0
+val patch = 1
+val appVersionName = "$major.$minor.$patch"          // to add suffix: "$major.$minor.$patch-beta"
+val appVersionCode = major * 10_000_000 + minor * 100_000 + patch * 100
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.ksp)
@@ -19,8 +30,8 @@ android {
         applicationId = "com.hrudhaykanth116.mafet"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = appVersionCode
+        versionName = appVersionName
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -34,8 +45,15 @@ android {
 
     buildTypes {
         getByName("release") {
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+        getByName("debug") {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
 
