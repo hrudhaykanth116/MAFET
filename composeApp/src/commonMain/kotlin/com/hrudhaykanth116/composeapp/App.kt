@@ -1,65 +1,60 @@
 package com.hrudhaykanth116.composeapp
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
-import com.hrudhaykanth116.composeapp.home.AuthNavigation
 import com.hrudhaykanth116.composeapp.home.HomeScreen
-import com.hrudhaykanth116.composeapp.models.MainUiState
-import com.hrudhaykanth116.composeapp.ui.components.AppGateDialog
-import com.hrudhaykanth116.core.ui.components.CenteredColumn
+import com.hrudhaykanth116.composeapp.models.AppScreenEvent
+import com.hrudhaykanth116.composeapp.models.AppScreenState
+import com.hrudhaykanth116.composeapp.ui.components.AppEntryDialog
 import com.hrudhaykanth116.core.ui.modifier.screenBackground
-
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun App(
-    uiState: MainUiState,
+    appViewModel: AppViewModel = koinViewModel<AppViewModel>(),
 ) {
 
-    val navController = rememberNavController()
+    val uiState: AppScreenState by appViewModel.stateFlow.collectAsState()
 
-    AppUI(uiState, navController)
-
+    AppUI(
+        uiState,
+        onAppEntryDialogDismiss = { appViewModel.processEvent(AppScreenEvent.DismissDialog) },
+        onAppEntryDialogAction = { action ->
+            appViewModel.processEvent(AppScreenEvent.DialogButtonClicked(action))
+        }
+    )
 }
 
 @Composable
-fun AppUI(uiState: MainUiState, navController: NavHostController) {
+fun AppUI(
+    appState: AppScreenState,
+    onAppEntryDialogDismiss: () -> Unit,
+    onAppEntryDialogAction: (action: String) -> Unit,
+) {
+
     Box(
         modifier = Modifier
             .fillMaxSize()
             .screenBackground()
     ) {
-        when (uiState) {
-            MainUiState.Loading -> {
-                // This state is handled using splash screen.
-                CenteredColumn(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(color = Color.Green)
-                ) {
-                    CircularProgressIndicator()
-                }
-            }
 
-            is MainUiState.LoggedIn -> {
-                // TODO: Consider showing error screen if features is empty with server message.
-                HomeScreen(uiState.features)
-            }
+        if (appState.dialogConfig != null) {
+            val dialogConfig = appState.dialogConfig
 
-            MainUiState.LoggedOut -> {
-                AuthNavigation(
-                    navController,
-                    onLoggedIn = {}
-                )
-            }
+            AppEntryDialog(
+                config = dialogConfig,
+                onDismiss = { onAppEntryDialogDismiss() },
+                onButtonAction = { action ->
+                    onAppEntryDialogAction(action)
+                },
+            )
 
-            is MainUiState.Blocked -> AppGateDialog(config = uiState.config)
+        } else {
+            HomeScreen(appState.features)
         }
 
     }

@@ -16,5 +16,4 @@ actual fun getDatabaseBuilder(): RoomDatabase.Builder<TodoDb> {
         name = dbFile.absolutePath,
     )
         .setDriver(BundledSQLiteDriver())
-        .fallbackToDestructiveMigration(dropAllTables = true)
 }

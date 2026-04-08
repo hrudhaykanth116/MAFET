@@ -11,5 +11,5 @@ actual fun getDatabaseBuilder(): RoomDatabase.Builder<JournalDb> {
         context.applicationContext,
         JournalDb::class.java,
         JournalDb.TABLE_NAME
-    ).fallbackToDestructiveMigration(dropAllTables = true)
+    )
 }

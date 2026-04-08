@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
@@ -56,6 +57,9 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.ui)
 
+            // Serialization
+            implementation(libs.kotlinx.serialization.json)
+
             // Koin for dependency injection
             api(libs.koin.core)
             api(libs.koin.compose)
@@ -68,7 +72,6 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.androidx.core.ktx)
-            implementation(libs.kotlinx.serialization.json)
 
             // Firebase Remote Config
             implementation(project.dependencies.platform(libs.firebase.bom))

@@ -1,5 +1,6 @@
 package com.hrudhaykanth116.composeapp.home.models
 
+import com.hrudhaykanth116.composeapp.models.Feature
 import org.jetbrains.compose.resources.DrawableResource
 import mafet.core_ui.generated.resources.Res
 import mafet.core_ui.generated.resources.ic_account
@@ -25,6 +26,22 @@ enum class HomeBottomNavigationItem(val displayName: String,val iconDrawable: Dr
 
     ENTERTAINMENT("Tv", Res.drawable.ic_tv, HomeRoute.Entertainment.route),
 
-    MEDIA("Media", Res.drawable.ic_pictures, HomeRoute.Media.route),
+    MEDIA("Media", Res.drawable.ic_pictures, HomeRoute.Media.route);
+
+    companion object{
+
+        fun getFromKey(key: String): HomeBottomNavigationItem?{
+            return when(key){
+                Feature.TODO.key -> TODO
+                Feature.JOURNAL.key -> JOURNAL
+                Feature.AI.key -> AI
+                Feature.WEATHER.key -> WEATHER
+                Feature.WATCHLIST.key -> ENTERTAINMENT
+                Feature.MEDIA.key -> MEDIA
+                else -> null
+            }
+        }
+
+    }
 
 }

@@ -23,5 +23,4 @@ actual fun getTvDatabaseBuilder(): RoomDatabase.Builder<TvDb> {
         name = dbPath,
     )
         .setDriver(BundledSQLiteDriver())
-        .fallbackToDestructiveMigration(dropAllTables = true)
 }

@@ -15,5 +15,5 @@ actual fun getDatabaseBuilder(): RoomDatabase.Builder<TodoDb> {
         context.applicationContext,
         TodoDb::class.java,
         TodoDb.TABLE_NAME
-    ).fallbackToDestructiveMigration(dropAllTables = true)
+    )
 }

@@ -23,5 +23,4 @@ actual fun getDatabaseBuilder(): RoomDatabase.Builder<JournalDb> {
         name = dbPath,
     )
         .setDriver(BundledSQLiteDriver())
-        .fallbackToDestructiveMigration(dropAllTables = true)
 }

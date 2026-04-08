@@ -11,5 +11,5 @@ actual fun getTvDatabaseBuilder(): RoomDatabase.Builder<TvDb> {
         context.applicationContext,
         TvDb::class.java,
         TvDb.TABLE_NAME
-    ).fallbackToDestructiveMigration(dropAllTables = true)
+    )
 }

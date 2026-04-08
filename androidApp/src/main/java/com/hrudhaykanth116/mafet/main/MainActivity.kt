@@ -26,8 +26,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigationevent.NavigationEventDispatcher
 import androidx.navigationevent.compose.LocalNavigationEventDispatcherOwner
 import com.hrudhaykanth116.composeapp.App
-import com.hrudhaykanth116.composeapp.models.MainUiState
-import com.hrudhaykanth116.composeapp.viewmodels.MainViewModel
+import com.hrudhaykanth116.mafet.main.MainUiState
+import com.hrudhaykanth116.mafet.main.MainViewModel
 import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.mafet.update.InAppUpdateEvent
 import com.hrudhaykanth116.mafet.update.InAppUpdateManager
@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity() {
                         override val navigationEventDispatcher = navigationEventDispatcher
                     }
                 ) {
-                    App(uiState)
+                    App()
                 }
 
                 SnackbarHost(
