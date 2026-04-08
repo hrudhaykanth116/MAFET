@@ -2,6 +2,9 @@ package com.hrudhaykanth116.composeapp
 
 import androidx.compose.ui.window.ComposeUIViewController
 import com.hrudhaykanth116.composeapp.di.composeAppModule
+import com.hrudhaykanth116.composeapp.home.models.FeatureConfig
+import com.hrudhaykanth116.composeapp.models.Feature
+import com.hrudhaykanth116.composeapp.models.MainUiState
 import com.hrudhaykanth116.core.common.di.coreCommonModule
 import com.hrudhaykanth116.core.network.di.networkModule
 import com.hrudhaykanth116.core.ui.di.coreUIModule
@@ -15,11 +18,26 @@ import platform.UIKit.UIViewController
 
 private fun initKoin() {
     startKoin {
-        modules(coreCommonModule, networkModule, coreUIModule, todoModule, weatherModule, mediaModule, *tvModule.toTypedArray(), composeAppModule)
+        modules(
+            coreCommonModule,
+            networkModule,
+            coreUIModule,
+            todoModule,
+            weatherModule,
+            mediaModule,
+            *tvModule.toTypedArray(),
+            composeAppModule
+        )
     }
 }
 
 fun MainViewController(): UIViewController {
     initKoin()
-    return ComposeUIViewController { App() }
+    return ComposeUIViewController {
+        App(
+            MainUiState.LoggedIn(
+                features = listOf(FeatureConfig(key = Feature.TODO.key, enabled = true))
+            )
+        )
+    }
 }
