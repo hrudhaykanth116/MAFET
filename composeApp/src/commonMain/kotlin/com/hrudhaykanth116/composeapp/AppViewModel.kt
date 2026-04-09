@@ -30,7 +30,7 @@ class AppViewModel(
             Logger.d(TAG, "loadConfig: $config")
             val gate = config.appGate
 
-            val dialogConfig = config.dynamicDialog.takeIf { it.isEnabled && it.title.isNotBlank() }
+            val dialogConfig = config.appEntryDialogRemoteConfig.takeIf { it.isEnabled && it.title.isNotBlank() }
 
             setState {
                 copy(

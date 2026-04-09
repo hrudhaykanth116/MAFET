@@ -8,5 +8,5 @@ import kotlinx.serialization.Serializable
 data class RemoteAppConfig(
     @SerialName("app_gate") val appGate: AppGateConfig = AppGateConfig(),
     val features: List<FeatureConfig> = emptyList(),
-    @SerialName("dynamic_dialog") val dynamicDialog: AppEntryDialogRemoteConfig = AppEntryDialogRemoteConfig(),
+    @SerialName("app_entry_dialog") val appEntryDialogRemoteConfig: AppEntryDialogRemoteConfig = AppEntryDialogRemoteConfig(),
 )

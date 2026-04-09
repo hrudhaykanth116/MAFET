@@ -12,7 +12,7 @@ actual class RemoteConfigManager actual constructor() {
     actual suspend fun fetchConfig(): RemoteAppConfig = RemoteAppConfig(
         appGate = AppGateConfig(),
         features = listOf(FeatureConfig(Feature.TODO.key, enabled = true)),
-        dynamicDialog = com.hrudhaykanth116.composeapp.models.AppEntryDialogRemoteConfig(),
+        appEntryDialogRemoteConfig = com.hrudhaykanth116.composeapp.models.AppEntryDialogRemoteConfig(),
     )
 
     actual fun getCachedFeatures(): List<FeatureConfig> = listOf(FeatureConfig(Feature.TODO.key, enabled = true))
