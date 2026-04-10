@@ -7,7 +7,14 @@
       "Bash(./gradlew :androidApp:dependencies --configuration debugRuntimeClasspath --no-configuration-cache --info)",
       "Bash(./gradlew :androidApp:assembleDebug --no-configuration-cache)",
       "Bash(xargs grep:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(adb shell:*)",
+      "Bash(adb pull:*)",
+      "Bash(adb devices:*)",
+      "Bash(adb exec-out:*)",
+      "Bash(adb:*)",
+      "Bash(./gradlew :features:journal:compileDebugKotlinAndroid)",
+      "Bash(./gradlew :androidApp:installDebug)"
     ]
   }
 }

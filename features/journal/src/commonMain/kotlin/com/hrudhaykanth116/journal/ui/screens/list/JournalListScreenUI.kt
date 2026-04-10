@@ -1,14 +1,12 @@
 package com.hrudhaykanth116.journal.ui.screens.list
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.spring
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.scaleIn
-import androidx.compose.animation.scaleOut
-import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -36,17 +34,13 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -85,7 +79,6 @@ private val MoodColors = listOf(
 private val CardBackground = Color.White.copy(alpha = 0.95f)
 private val AccentColor = Color(0xFF6C63FF)
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun JournalListScreenUI(
     uiState: UIState<JournalListUIState>,
@@ -95,133 +88,102 @@ fun JournalListScreenUI(
 ) {
     val contentState = uiState.contentState ?: JournalListUIState()
 
-    Scaffold(
-        containerColor = Color.Transparent,
-        topBar = {
-            TopAppBar(
-                title = {
-                    if (contentState.isSearchBarVisible) {
-                        SearchBar(
-                            searchText = contentState.search,
-                            onSearchTextChanged = { onEvent(JournalListScreenEvent.OnSearchTextChanged(it)) }
-                        )
-                    } else {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .screenBackground()
+    ) {
+        Column(modifier = Modifier.fillMaxSize()) {
+            // Custom top bar without back button
+            AnimatedContent(
+                targetState = contentState.isSearchBarVisible,
+                transitionSpec = {
+                    (fadeIn(tween(250)) + slideInHorizontally { it / 3 }) togetherWith
+                            (fadeOut(tween(200)) + slideOutHorizontally { -it / 3 })
+                },
+                label = "topbar_transition"
+            ) { showSearch ->
+                if (showSearch) {
+                    SearchBar(
+                        searchText = contentState.search,
+                        onSearchTextChanged = { onEvent(JournalListScreenEvent.OnSearchTextChanged(it)) },
+                        onCloseSearch = { onEvent(JournalListScreenEvent.OnCloseSearch) },
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
+                    )
+                } else {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 24.dp, end = 8.dp, top = 16.dp, bottom = 8.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Text(
                             text = stringResource(Res.string.journal_list_title),
                             fontWeight = FontWeight.Bold,
                             fontSize = 28.sp,
                             color = Color.White
                         )
-                    }
-                },
-                navigationIcon = {
-                    IconButton(onClick = onBackClicked) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back",
-                            tint = Color.White
-                        )
-                    }
-                },
-                actions = {
-                    IconButton(
-                        onClick = {
-                            if (contentState.isSearchBarVisible) {
-                                onEvent(JournalListScreenEvent.OnCloseSearch)
-                            } else {
-                                onEvent(JournalListScreenEvent.OnSearchIconClicked)
-                            }
+                        IconButton(
+                            onClick = { onEvent(JournalListScreenEvent.OnSearchIconClicked) }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Search,
+                                contentDescription = "Search",
+                                tint = Color.White
+                            )
                         }
-                    ) {
-                        Icon(
-                            imageVector = if (contentState.isSearchBarVisible) Icons.Default.Close else Icons.Default.Search,
-                            contentDescription = if (contentState.isSearchBarVisible) "Close search" else "Search",
-                            tint = Color.White
-                        )
                     }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color.Transparent
-                )
-            )
-        },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = onCreateEntry,
-                containerColor = Color.White,
-                contentColor = AccentColor,
-                shape = RoundedCornerShape(16.dp),
-                elevation = FloatingActionButtonDefaults.elevation(
-                    defaultElevation = 8.dp,
-                    pressedElevation = 16.dp
-                )
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Create entry",
-                    modifier = Modifier.size(28.dp)
-                )
-            }
-        }
-    ) { paddingValues ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .screenBackground()
-                .padding(paddingValues)
-        ) {
-            AnimatedVisibility(
-                visible = contentState.entries.isEmpty(),
-                enter = fadeIn(tween(500)) + scaleIn(
-                    spring(stiffness = Spring.StiffnessLow),
-                    initialScale = 0.8f
-                ),
-                exit = fadeOut(tween(300)) + scaleOut()
-            ) {
-                EmptyState(modifier = Modifier.fillMaxSize())
+                }
             }
 
-            AnimatedVisibility(
-                visible = contentState.entries.isNotEmpty(),
-                enter = fadeIn(tween(400)),
-                exit = fadeOut(tween(300))
-            ) {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.spacedBy(12.dp),
-                    contentPadding = PaddingValues(horizontal = 20.dp, vertical = 12.dp)
-                ) {
-                    itemsIndexed(
-                        items = contentState.entries,
-                        key = { _, item -> item.id }
-                    ) { index, entry ->
-                        AnimatedVisibility(
-                            visible = true,
-                            enter = slideInVertically(
-                                initialOffsetY = { 100 },
-                                animationSpec = tween(
-                                    durationMillis = 400,
-                                    delayMillis = index * 50
-                                )
-                            ) + fadeIn(
-                                tween(
-                                    durationMillis = 400,
-                                    delayMillis = index * 50
-                                )
-                            )
-                        ) {
+            // Content
+            Box(modifier = Modifier.weight(1f)) {
+                if (contentState.entries.isEmpty()) {
+                    EmptyState(modifier = Modifier.fillMaxSize())
+                } else {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(12.dp),
+                        contentPadding = PaddingValues(horizontal = 20.dp, vertical = 12.dp)
+                    ) {
+                        itemsIndexed(
+                            items = contentState.entries,
+                            key = { _, item -> item.id }
+                        ) { index, entry ->
                             JournalEntryCard(
                                 entry = entry,
                                 onClick = { onEvent(JournalListScreenEvent.OnEntryClicked(entry.id)) },
                                 onDelete = { onEvent(JournalListScreenEvent.OnDeleteEntry(entry.id)) }
                             )
                         }
-                    }
-                    item {
-                        Spacer(modifier = Modifier.height(80.dp))
+                        item {
+                            Spacer(modifier = Modifier.height(80.dp))
+                        }
                     }
                 }
             }
+        }
+
+        // FAB
+        FloatingActionButton(
+            onClick = onCreateEntry,
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(end = 20.dp, bottom = 20.dp),
+            containerColor = Color.White,
+            contentColor = AccentColor,
+            shape = RoundedCornerShape(16.dp),
+            elevation = FloatingActionButtonDefaults.elevation(
+                defaultElevation = 8.dp,
+                pressedElevation = 16.dp
+            )
+        ) {
+            Icon(
+                imageVector = Icons.Default.Add,
+                contentDescription = "Create entry",
+                modifier = Modifier.size(28.dp)
+            )
         }
     }
 }
@@ -230,27 +192,28 @@ fun JournalListScreenUI(
 private fun SearchBar(
     searchText: String,
     onSearchTextChanged: (String) -> Unit,
+    onCloseSearch: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(14.dp),
         color = CardBackground,
         shadowElevation = 2.dp
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 12.dp, vertical = 8.dp),
+                .padding(start = 4.dp, end = 4.dp, top = 2.dp, bottom = 2.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                imageVector = Icons.Default.Search,
-                contentDescription = null,
-                tint = Color(0xFF6C757D),
-                modifier = Modifier.size(20.dp)
-            )
-            Spacer(modifier = Modifier.width(8.dp))
+            IconButton(onClick = onCloseSearch) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = "Close search",
+                    tint = AccentColor
+                )
+            }
             BasicTextField(
                 value = searchText,
                 onValueChange = onSearchTextChanged,
@@ -276,6 +239,15 @@ private fun SearchBar(
                     }
                 }
             )
+            if (searchText.isNotEmpty()) {
+                IconButton(onClick = { onSearchTextChanged("") }) {
+                    Icon(
+                        imageVector = Icons.Default.Close,
+                        contentDescription = "Clear",
+                        tint = Color(0xFF6C757D)
+                    )
+                }
+            }
         }
     }
 }
@@ -418,26 +390,24 @@ private fun TagChip(tag: String) {
 @Composable
 private fun EmptyState(modifier: Modifier = Modifier) {
     Column(
-        modifier = modifier.padding(48.dp),
+        modifier = modifier.padding(horizontal = 40.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Box(
             modifier = Modifier
-                .size(140.dp)
+                .size(120.dp)
                 .clip(CircleShape)
-                .background(Color.White.copy(alpha = 0.2f)),
+                .background(Color.White.copy(alpha = 0.15f)),
             contentAlignment = Alignment.Center
         ) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    text = "📖",
-                    fontSize = 56.sp
-                )
-            }
+            Text(
+                text = "\u270D\uFE0F",
+                fontSize = 48.sp
+            )
         }
 
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(28.dp))
 
         Text(
             text = stringResource(Res.string.journal_list_empty_title),
@@ -447,23 +417,14 @@ private fun EmptyState(modifier: Modifier = Modifier) {
             textAlign = TextAlign.Center
         )
 
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
         Text(
             text = stringResource(Res.string.journal_list_empty_subtitle),
             style = MaterialTheme.typography.bodyLarge,
-            color = Color.White.copy(alpha = 0.8f),
-            textAlign = TextAlign.Center
-        )
-
-        Spacer(modifier = Modifier.height(32.dp))
-
-        Text(
-            text = "Tap + to begin your journey",
-            style = MaterialTheme.typography.bodyMedium,
-            fontWeight = FontWeight.Medium,
-            color = Color.White.copy(alpha = 0.6f),
-            textAlign = TextAlign.Center
+            color = Color.White.copy(alpha = 0.7f),
+            textAlign = TextAlign.Center,
+            lineHeight = 22.sp
         )
     }
 }
