@@ -10,15 +10,15 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.hrudhaykanth116.composeapp.home.models.FeatureConfig
 import com.hrudhaykanth116.composeapp.home.models.HomeBottomNavigationItem
+import com.hrudhaykanth116.composeapp.models.Feature
 import com.hrudhaykanth116.composeapp.home.models.HomeBottomNavigationUIState
 import com.hrudhaykanth116.composeapp.home.models.NavigationItemUIState
 import com.hrudhaykanth116.core.ui.components.CenteredColumn
 
 @Composable
 fun HomeScreen(
-    features: List<FeatureConfig> = emptyList(),
+    features: List<Feature> = emptyList(),
 ) {
 
     if(features.isEmpty()){
@@ -31,8 +31,8 @@ fun HomeScreen(
     val navController = rememberNavController()
 
     val bottomNavigationUIState = remember(features) {
-        val featureNavigationItemUIStates = features.mapNotNull { featureConfig ->
-            HomeBottomNavigationItem.getFromKey(featureConfig.key)?.let { navItem ->
+        val featureNavigationItemUIStates = features.mapNotNull { feature ->
+            HomeBottomNavigationItem.getFromKey(feature)?.let { navItem ->
                 NavigationItemUIState(navItem)
             }
         }

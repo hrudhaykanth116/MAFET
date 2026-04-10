@@ -30,15 +30,14 @@ enum class HomeBottomNavigationItem(val displayName: String,val iconDrawable: Dr
 
     companion object{
 
-        fun getFromKey(key: String): HomeBottomNavigationItem?{
-            return when(key){
-                Feature.TODO.key -> TODO
-                Feature.JOURNAL.key -> JOURNAL
-                Feature.AI.key -> AI
-                Feature.WEATHER.key -> WEATHER
-                Feature.WATCHLIST.key -> ENTERTAINMENT
-                Feature.MEDIA.key -> MEDIA
-                else -> null
+        fun getFromKey(feature: Feature): HomeBottomNavigationItem?{
+            return when(feature){
+                Feature.TODO -> TODO
+                Feature.JOURNAL -> JOURNAL
+                Feature.AI -> AI
+                Feature.WEATHER -> WEATHER
+                Feature.WATCHLIST -> ENTERTAINMENT
+                Feature.MEDIA -> MEDIA
             }
         }
 

@@ -1,62 +1,71 @@
 package com.hrudhaykanth116.composeapp
 
 import androidx.lifecycle.viewModelScope
+import com.hrudhaykanth116.composeapp.domain.GetRemoteConfigUseCase
+import com.hrudhaykanth116.composeapp.domain.model.GateAction
+import com.hrudhaykanth116.composeapp.domain.model.RemoteAppConfig
 import com.hrudhaykanth116.composeapp.models.AppScreenEffect
 import com.hrudhaykanth116.composeapp.models.AppScreenEvent
 import com.hrudhaykanth116.composeapp.models.AppScreenState
 import com.hrudhaykanth116.core.common.utils.log.Logger
-import com.hrudhaykanth116.core.ui.viewmodels.StatefulViewModel
+import com.hrudhaykanth116.core.common.utils.url.isUrl
+import com.hrudhaykanth116.core.ui.NetworkMonitor
+import com.hrudhaykanth116.core.ui.models.UIState
+import com.hrudhaykanth116.core.ui.viewmodels.UIStateViewModel
 import kotlinx.coroutines.launch
 
 class AppViewModel(
-    private val remoteConfigManager: RemoteConfigManager,
-) : StatefulViewModel<AppScreenState, AppScreenEffect, AppScreenEvent>(AppScreenState()) {
-
-    init {
+    private val getRemoteConfig: GetRemoteConfigUseCase,
+    private val networkMonitor: NetworkMonitor,
+) : UIStateViewModel<AppScreenState, AppScreenEvent, AppScreenEffect>(
+    initialState = UIState.Loading(),
+    defaultState = AppScreenState(),
+    networkMonitor = networkMonitor
+) {
+    override fun initializeData() {
         loadConfig()
-        observeRealTimeUpdates()
+        // observeRealTimeUpdates()
     }
 
     override fun processEvent(event: AppScreenEvent) {
         when (event) {
-            AppScreenEvent.DismissDialog -> dismissDialog()
-            is AppScreenEvent.DialogButtonClicked -> handleDialogAction(event.action)
+            is AppScreenEvent.GateButtonAction -> handleGateAction(event.action)
+        }
+    }
+
+    private fun handleGateAction(action: String) {
+        when {
+            action == GateAction.DISMISS -> setIdleState { copy(activeGate = null) }
+            action.isUrl()              -> setEffect(AppScreenEffect.OpenUrl(action))
         }
     }
 
     private fun loadConfig() {
+        setLoadingState(null)
         viewModelScope.launch {
-            val config = remoteConfigManager.fetchConfig()
+            val config = getRemoteConfig()
             Logger.d(TAG, "loadConfig: $config")
-            val gate = config.appGate
-
-            val dialogConfig = config.appEntryDialogRemoteConfig.takeIf { it.isEnabled && it.title.isNotBlank() }
-
-            setState {
-                copy(
-                    features = config.features.filter { it.enabled },
-                    blockingConfig = gate,
-                    dialogConfig = dialogConfig,
-                )
-            }
+            setStateFromRemoteConfig(config)
         }
     }
 
     private fun observeRealTimeUpdates() {
         viewModelScope.launch {
-            remoteConfigManager.configUpdates().collect {
-                loadConfig()
+            getRemoteConfig.configUpdates().collect {
+                val config = getRemoteConfig.getCached()
+                Logger.d(TAG, "realTimeUpdate: $config")
+                setStateFromRemoteConfig(config)
             }
         }
     }
 
-    private fun dismissDialog() {
-        setState { copy(dialogConfig = null) }
-    }
-
-    private fun handleDialogAction(action: String) {
-        setEffect(AppScreenEffect.HandleDialogAction(action))
-        dismissDialog()
+    private fun setStateFromRemoteConfig(config: RemoteAppConfig) {
+        setIdleState {
+            copy(
+                features = config.features,
+                activeGate = config.appGateConfig,
+            )
+        }
     }
 
     companion object {

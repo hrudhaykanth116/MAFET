@@ -2,6 +2,7 @@ package com.hrudhaykanth116.mafet.di
 
 import com.hrudhaykanth116.ai.di.aiModule
 import com.hrudhaykanth116.auth.di.authModule
+import com.hrudhaykanth116.composeapp.data.RemoteConfigDataSource
 import com.hrudhaykanth116.composeapp.di.composeAppModule
 import com.hrudhaykanth116.core.common.di.coreCommonModule
 import com.hrudhaykanth116.core.data.di.coreDataModule
@@ -13,7 +14,7 @@ import com.hrudhaykanth116.media.di.mediaModule
 import com.hrudhaykanth116.mafet.CrashHandler
 import com.hrudhaykanth116.mafet.ads.AdsInitializer
 import com.hrudhaykanth116.mafet.update.InAppUpdateManager
-import com.hrudhaykanth116.composeapp.RemoteConfigManager
+import com.hrudhaykanth116.mafet.BuildConfig
 import com.hrudhaykanth116.mafet.main.MainViewModel
 import com.hrudhaykanth116.todo.di.todoModule
 import com.hrudhaykanth116.tv.di.tvModule
@@ -41,6 +42,6 @@ val appModule = module {
     single { AdsInitializer() }
     single { CrashHandler() }
     single { InAppUpdateManager(androidContext()) }
-    single { RemoteConfigManager() }
+    single { RemoteConfigDataSource(fetchIntervalSeconds = if (BuildConfig.DEBUG) 0L else 3600L) }
     viewModel { MainViewModel() }
 }

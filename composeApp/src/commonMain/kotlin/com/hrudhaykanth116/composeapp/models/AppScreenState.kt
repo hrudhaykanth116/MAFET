@@ -1,9 +1,8 @@
 package com.hrudhaykanth116.composeapp.models
 
-import com.hrudhaykanth116.composeapp.home.models.FeatureConfig
+import com.hrudhaykanth116.composeapp.domain.model.AppGateConfig
 
 data class AppScreenState(
-    val features: List<FeatureConfig> = emptyList(),
-    val blockingConfig: AppGateConfig = AppGateConfig(),
-    val dialogConfig: AppEntryDialogRemoteConfig? = null,
+    val features: List<Feature> = emptyList(),
+    val activeGate: AppGateConfig? = null,
 )

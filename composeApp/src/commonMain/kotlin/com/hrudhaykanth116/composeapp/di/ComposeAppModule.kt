@@ -1,6 +1,9 @@
 package com.hrudhaykanth116.composeapp.di
 
 import com.hrudhaykanth116.composeapp.AppViewModel
+import com.hrudhaykanth116.composeapp.data.RemoteConfigRepository
+import com.hrudhaykanth116.composeapp.domain.GetRemoteConfigUseCase
+import com.hrudhaykanth116.composeapp.domain.IRemoteConfigRepository
 import com.hrudhaykanth116.composeapp.home.dashboard.DashboardViewModel
 import com.hrudhaykanth116.composeapp.home.dashboard.domain.GetDashboardTodoUseCase
 import com.hrudhaykanth116.composeapp.home.dashboard.domain.GetDashboardTvUseCase
@@ -14,8 +17,11 @@ val composeAppModule = module {
     factory { GetDashboardWeatherUseCase(get(), get()) }
     factory { GetDashboardTvUseCase(get()) }
 
+    single<IRemoteConfigRepository> { RemoteConfigRepository(get()) }
+    factory { GetRemoteConfigUseCase(get()) }
+
     viewModel {
-        AppViewModel(remoteConfigManager = get())
+        AppViewModel(getRemoteConfig = get(), networkMonitor = get())
     }
 
     viewModel {

@@ -11,6 +11,7 @@ import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
+import androidx.compose.material3.Text
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -29,6 +30,7 @@ import com.hrudhaykanth116.composeapp.App
 import com.hrudhaykanth116.mafet.main.MainUiState
 import com.hrudhaykanth116.mafet.main.MainViewModel
 import com.hrudhaykanth116.core.common.utils.log.Logger
+import com.hrudhaykanth116.core.ui.components.CenteredColumn
 import com.hrudhaykanth116.mafet.update.InAppUpdateEvent
 import com.hrudhaykanth116.mafet.update.InAppUpdateManager
 import kotlinx.coroutines.flow.collect

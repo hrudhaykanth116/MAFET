@@ -6,7 +6,8 @@
       "Bash(./gradlew :androidApp:dependencies --configuration debugRuntimeClasspath --no-configuration-cache)",
       "Bash(./gradlew :androidApp:dependencies --configuration debugRuntimeClasspath --no-configuration-cache --info)",
       "Bash(./gradlew :androidApp:assembleDebug --no-configuration-cache)",
-      "Bash(xargs grep:*)"
+      "Bash(xargs grep:*)",
+      "Bash(find:*)"
     ]
   }
 }

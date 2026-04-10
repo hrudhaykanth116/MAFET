@@ -18,6 +18,7 @@ import kotlinx.coroutines.launch
  * Action: A type that represents all of the actions that cause the state of the application to
  *      change such as user actions, notifications, event sources and more.
  */
+@Deprecated("Use [com.hrudhaykanth116.core.ui.viewmodels.UIStateViewModel]")
 abstract class StatefulViewModel<STATE, EFFECT, EVENT>(
     initialState: STATE,
 ) : ViewModel() {

@@ -3,13 +3,15 @@ package com.hrudhaykanth116.composeapp
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import com.hrudhaykanth116.composeapp.home.HomeScreen
+import com.hrudhaykanth116.composeapp.models.AppScreenEffect
 import com.hrudhaykanth116.composeapp.models.AppScreenEvent
 import com.hrudhaykanth116.composeapp.models.AppScreenState
-import com.hrudhaykanth116.composeapp.ui.components.AppEntryDialog
+import com.hrudhaykanth116.composeapp.ui.components.AppGateDialog
+import com.hrudhaykanth116.core.ui.components.AppScreen
 import com.hrudhaykanth116.core.ui.modifier.screenBackground
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -17,45 +19,53 @@ import org.koin.compose.viewmodel.koinViewModel
 fun App(
     appViewModel: AppViewModel = koinViewModel<AppViewModel>(),
 ) {
+    val uriHandler = LocalUriHandler.current
 
-    val uiState: AppScreenState by appViewModel.stateFlow.collectAsState()
+    LaunchedEffect(Unit) {
+        appViewModel.initializeData()
+    }
 
-    AppUI(
-        uiState,
-        onAppEntryDialogDismiss = { appViewModel.processEvent(AppScreenEvent.DismissDialog) },
-        onAppEntryDialogAction = { action ->
-            appViewModel.processEvent(AppScreenEvent.DialogButtonClicked(action))
+    LaunchedEffect(Unit) {
+        appViewModel.effect.collect { effect ->
+            when (effect) {
+                is AppScreenEffect.OpenUrl -> {
+                    if (effect.url.isNotBlank()) {
+                        uriHandler.openUri(effect.url)
+                    }
+                }
+            }
         }
-    )
+    }
+
+    AppScreen(appViewModel) { state: AppScreenState ->
+        AppUI(
+            appState = state,
+            onGateAction = { action ->
+                appViewModel.processEvent(AppScreenEvent.GateButtonAction(action))
+            },
+        )
+    }
 }
 
 @Composable
 fun AppUI(
     appState: AppScreenState,
-    onAppEntryDialogDismiss: () -> Unit,
-    onAppEntryDialogAction: (action: String) -> Unit,
+    onGateAction: (action: String) -> Unit,
 ) {
-
     Box(
         modifier = Modifier
             .fillMaxSize()
             .screenBackground()
     ) {
-
-        if (appState.dialogConfig != null) {
-            val dialogConfig = appState.dialogConfig
-
-            AppEntryDialog(
-                config = dialogConfig,
-                onDismiss = { onAppEntryDialogDismiss() },
-                onButtonAction = { action ->
-                    onAppEntryDialogAction(action)
-                },
+        val gate = appState.activeGate
+        if (gate != null) {
+            AppGateDialog(
+                gate = gate,
+                onAction = onGateAction,
             )
-
         } else {
             HomeScreen(appState.features)
         }
-
     }
 }
+
