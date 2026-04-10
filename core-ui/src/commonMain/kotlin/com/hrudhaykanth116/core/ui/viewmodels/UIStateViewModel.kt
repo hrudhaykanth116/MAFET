@@ -2,6 +2,7 @@ package com.hrudhaykanth116.core.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.hrudhaykanth116.core.domain.result.DomainError
 import com.hrudhaykanth116.core.ui.NetworkMonitor
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.core.ui.models.UIText
@@ -82,6 +83,18 @@ abstract class UIStateViewModel<STATE, EVENT, EFFECT>(
             UIState.Idle(
                 contentStateOrDefault.contentState()
             )
+        }
+    }
+
+    protected fun setErrorState(errorState: DomainError, contentSTATE: STATE? = null) {
+        setState {
+            UIState.Error(errorState, contentState)
+        }
+    }
+
+    protected fun setErrorState(errorState: DomainError, contentState: STATE.() -> STATE) {
+        setState {
+            UIState.Error(errorState, contentStateOrDefault.contentState())
         }
     }
 

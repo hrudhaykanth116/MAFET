@@ -11,6 +11,7 @@ import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.tv.domain.models.TvShowDetail
 import com.hrudhaykanth116.tv.domain.usecases.AddMyTvUseCase
 import com.hrudhaykanth116.tv.domain.usecases.GetTvDetailsUseCase
+import com.hrudhaykanth116.tv.ui.mappers.toUIState
 import kotlinx.coroutines.launch
 
 class TvDetailsViewModel(
@@ -20,7 +21,16 @@ class TvDetailsViewModel(
     private val networkMonitor: NetworkMonitor,
 ) : UIStateViewModel<TvDetailsScreenUIState, TvDetailsScreenEvent, TvDetailsScreenEffect>(
     initialState = UIState.Loading(),
-    defaultState = TvDetailsScreenUIState(),
+    defaultState = TvDetailsScreenUIState(
+        id = -1,
+        title = "",
+        overview = "",
+        backdropImage = null,
+        dateRange = "",
+        rating = "",
+        genres = emptyList(),
+        networks = emptyList(),
+    ),
     networkMonitor = networkMonitor,
 ) {
 
@@ -58,9 +68,7 @@ class TvDetailsViewModel(
                 is DomainResult.Success -> {
                     setState {
                         UIState.Idle(
-                            TvDetailsScreenUIState(
-                                tvShowDetails = tvDetailsUseCase.data
-                            )
+                            tvDetailsUseCase.data.toUIState()
                         )
                     }
                 }

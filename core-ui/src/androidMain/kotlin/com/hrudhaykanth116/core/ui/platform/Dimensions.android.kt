@@ -15,11 +15,15 @@ actual val Int.sdp: Dp
     @ReadOnlyComposable
     get() {
         val context = LocalContext.current
-        val resourceId = context.resources.getIdentifier("_${this}sdp", "dimen", context.packageName)
-        return if (resourceId != 0) {
-            val pixels = context.resources.getDimension(resourceId)
-            Dp(pixels / context.resources.displayMetrics.density)
-        } else {
+        return try {
+            val resourceId = context.resources.getIdentifier("_${this}sdp", "dimen", context.packageName)
+            if (resourceId != 0) {
+                val pixels = context.resources.getDimension(resourceId)
+                Dp(pixels / context.resources.displayMetrics.density)
+            } else {
+                Dp(this.toFloat())
+            }
+        } catch (_: android.content.res.Resources.NotFoundException) {
             Dp(this.toFloat())
         }
     }
@@ -29,11 +33,15 @@ actual val Int.ssp: TextUnit
     @ReadOnlyComposable
     get() {
         val context = LocalContext.current
-        val resourceId = context.resources.getIdentifier("_${this}ssp", "dimen", context.packageName)
-        return if (resourceId != 0) {
-            val pixels = context.resources.getDimension(resourceId)
-            TextUnit(pixels / context.resources.displayMetrics.scaledDensity, androidx.compose.ui.unit.TextUnitType.Sp)
-        } else {
+        return try {
+            val resourceId = context.resources.getIdentifier("_${this}ssp", "dimen", context.packageName)
+            if (resourceId != 0) {
+                val pixels = context.resources.getDimension(resourceId)
+                TextUnit(pixels / context.resources.displayMetrics.scaledDensity, androidx.compose.ui.unit.TextUnitType.Sp)
+            } else {
+                this.sp
+            }
+        } catch (_: android.content.res.Resources.NotFoundException) {
             this.sp
         }
     }

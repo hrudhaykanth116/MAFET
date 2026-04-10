@@ -46,6 +46,7 @@ import com.hrudhaykanth116.composeapp.home.dashboard.models.TodoSummary
 import com.hrudhaykanth116.composeapp.home.dashboard.models.TvSummary
 import com.hrudhaykanth116.composeapp.home.dashboard.models.WeatherSummary
 import com.hrudhaykanth116.core.ui.models.UIState
+import com.hrudhaykanth116.core.ui.modifier.screenBackground
 import org.koin.compose.viewmodel.koinViewModel
 
 private val TodoGradient = listOf(Color(0xFF667eea), Color(0xFF764ba2))
@@ -95,7 +96,7 @@ private fun DashboardContent(state: DashboardScreenState) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
+            .screenBackground()
             .verticalScroll(rememberScrollState())
             .padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(20.dp)

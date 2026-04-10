@@ -39,7 +39,10 @@ class GetTvListByQuery(
                         id = tvShow.id,
                         name = tvShow.name.toUIText(),
                         image = (BaseUrlConstants.IMAGES_BASE_URL + tvShow.posterPath).toUrlImageHolder(),
-                        isMyTvList = myTvList.any { tvShow.id == it.id }
+                        isMyTvList = myTvList.any { tvShow.id == it.id },
+                        overview = tvShow.overview,
+                        rating = tvShow.voteAverage,
+                        firstAirDate = tvShow.firstAirDate,
                     )
                 }
 

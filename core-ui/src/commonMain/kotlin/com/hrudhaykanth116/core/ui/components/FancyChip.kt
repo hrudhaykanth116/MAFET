@@ -23,6 +23,9 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.hrudhaykanth116.core.ui.platform.sdp
+import com.hrudhaykanth116.core.ui.platform.ssp
+import kotlinx.serialization.json.JsonNull.content
 
 @Composable
 fun FancyChip(
@@ -34,15 +37,15 @@ fun FancyChip(
     val bg = Brush.horizontalGradient(listOf(Color(0xFF6A11CB), Color(0xFF2575FC)))
     Box(
         modifier
-            .shadow(6.dp, shape, clip = false)
+            .shadow(6.sdp, shape, clip = false)
             .clip(shape)
             .background(bg)
             .border(1.dp, Color.White.copy(alpha = 0.35f), shape)
             .then(if (onClick != null) Modifier.clickable { onClick() } else Modifier)
-            .padding(horizontal = 14.dp, vertical = 8.dp),
+            .padding(horizontal = 8.sdp, vertical = 2.sdp),
         contentAlignment = Alignment.Center
     ) {
-        Text(text = text, color = Color.White, style = MaterialTheme.typography.labelLarge)
+        Text(text = text, color = Color.White, fontSize = 10.ssp)
     }
 }
 

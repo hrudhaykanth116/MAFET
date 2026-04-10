@@ -14,7 +14,10 @@
       "Bash(adb exec-out:*)",
       "Bash(adb:*)",
       "Bash(./gradlew :features:journal:compileDebugKotlinAndroid)",
-      "Bash(./gradlew :androidApp:installDebug)"
+      "Bash(./gradlew :androidApp:installDebug)",
+      "Bash(./gradlew :features:tv:compileKotlinDesktop)",
+      "Bash(./gradlew :features:tv:compileDebugKotlin)",
+      "Bash(./gradlew :features:tv:compileDebugKotlinAndroid)"
     ]
   }
 }

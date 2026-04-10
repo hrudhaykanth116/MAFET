@@ -5,12 +5,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.hrudhaykanth116.core.ui.constants.Dimens
 import com.hrudhaykanth116.tv.ui.models.search.SearchScreenItemUIState
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.layout.fillMaxWidth
 
 @Composable
 fun TvSearchResultsUI(
@@ -23,26 +25,29 @@ fun TvSearchResultsUI(
 
     LazyColumn(
         state = listState,
-        // Adds space between items
         verticalArrangement = Arrangement.spacedBy(Dimens.DEFAULT_PADDING),
-        // Adds padding to the row. Out side of the list item.
         contentPadding = PaddingValues(horizontal = Dimens.DEFAULT_PADDING),
     ) {
 
-        items(list) { myTv ->
+        itemsIndexed(list, key = { _, item -> item.id }) { _, myTv ->
 
             TvSearchItemUI(
                 state = myTv,
                 onAdd = {
                     onAdd(myTv.id)
                 },
-                modifier = Modifier.clickable{
-                    onSearchItemClicked(myTv.id)
-                }
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .animateItem(
+                        fadeInSpec = tween(300),
+                        fadeOutSpec = tween(300),
+                    )
+                    .clickable {
+                        onSearchItemClicked(myTv.id)
+                    },
             )
 
         }
-
 
     }
 

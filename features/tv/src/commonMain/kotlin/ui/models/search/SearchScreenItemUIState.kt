@@ -8,4 +8,7 @@ data class SearchScreenItemUIState(
     val name: UIText,
     val image: ImageHolder?,
     val isMyTvList: Boolean,
+    val overview: String = "",
+    val rating: Double = 0.0,
+    val firstAirDate: String? = null,
 )

@@ -15,22 +15,21 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
-import coil3.compose.AsyncImage
 import com.hrudhaykanth116.core.ui.preview.AppPreview
 import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.ui.modifier.gradientBackground
+import com.hrudhaykanth116.core.ui.components.AppImage
 import com.hrudhaykanth116.core.ui.components.AppRoundedIcon
 import com.hrudhaykanth116.core.ui.components.FancyChipsFlow
 import com.hrudhaykanth116.core.ui.components.HorizontalSpacer
 import com.hrudhaykanth116.core.ui.components.VerticalSpacer
-import com.hrudhaykanth116.tv.domain.models.Network
-import com.hrudhaykanth116.tv.domain.models.TvGenre
-import com.hrudhaykanth116.tv.domain.models.TvShowDetail
+import com.hrudhaykanth116.core.ui.models.ImageHolder
 import com.hrudhaykanth116.core.ui.platform.sdp
 import com.hrudhaykanth116.core.ui.platform.ssp
 import mafet.core_ui.generated.resources.Res
 import mafet.core_ui.generated.resources.ic_back
 import mafet.core_ui.generated.resources.ic_bookmark
+import mafet.core_ui.generated.resources.image_place_holder
 
 @Composable
 fun TvDetailsScreenUI(
@@ -39,8 +38,6 @@ fun TvDetailsScreenUI(
     onBackClicked: () -> Unit = {},
     onBookMarkClicked: (Int) -> Unit = {},
 ) {
-
-    val tvShow = state.tvShowDetails ?: return
 
     Box(
         modifier = modifier
@@ -52,14 +49,13 @@ fun TvDetailsScreenUI(
         ) {
 
             Box {
-                if (!tvShow.posterPath.isNullOrEmpty()) {
-                    AsyncImage(
-                        model = "https://image.tmdb.org/t/p/w500${tvShow.backdropPath}",
-                        contentDescription = "${tvShow.name} poster",
+                if (state.backdropImage != null) {
+                    AppImage(
+                        imageSource = state.backdropImage,
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(300.sdp),
-                        contentScale = ContentScale.Crop
+                        contentScale = ContentScale.Crop,
                     )
                 }
                 Column(
@@ -76,9 +72,8 @@ fun TvDetailsScreenUI(
                         .padding(horizontal = 8.sdp, vertical = 10.sdp),
                     verticalArrangement = Arrangement.Bottom
                 ) {
-                    // Title
                     Text(
-                        text = tvShow.name.ifEmpty { tvShow.originalName },
+                        text = state.title,
                         fontSize = 18.ssp,
                         color = Color.White,
                         fontWeight = FontWeight.Bold
@@ -86,10 +81,9 @@ fun TvDetailsScreenUI(
 
                     Spacer(Modifier.height(8.sdp))
 
-                    // First Air Date & Status
-                    Row() {
+                    Row {
                         Text(
-                            text = "${tvShow.firstAirDate.orEmpty()} - ${tvShow.lastAirDate.orEmpty()}",
+                            text = state.dateRange,
                             fontSize = 10.ssp,
                             color = Color.White
                         )
@@ -100,76 +94,14 @@ fun TvDetailsScreenUI(
                             color = Color.White
                         )
                         HorizontalSpacer(width = 1.sdp)
-                        val voteAvg = tvShow.voteAverage
-                        val formattedVote = ((voteAvg * 10).toInt() / 10.0).toString()
                         Text(
-                            text = "$formattedVote / 10",
+                            text = state.rating,
                             color = Color.White,
                             fontSize = 10.ssp,
                         )
                     }
-
-                    Spacer(Modifier.height(8.sdp))
-
-                    val genres = tvShow.genres.map { it.name }
-
-                    if (genres.isNotEmpty()) {
-                        FancyChipsFlow(
-                            items = genres,
-                        )
-                    }
-
-
-                    if (tvShow.networks.isNotEmpty()) {
-                        VerticalSpacer()
-                        LazyRow(
-                            horizontalArrangement = Arrangement.spacedBy(8.sdp),
-                            // contentPadding = PaddingValues(horizontal = 8.sdp)
-                        ) {
-                            items(tvShow.networks) { it: Network ->
-                                Column(
-                                    horizontalAlignment = Alignment.CenterHorizontally,
-                                    modifier = Modifier
-                                        .clip(RoundedCornerShape(8.sdp))
-                                        .background(Color(0xFFD9D9D9))
-                                        .padding(horizontal = 8.sdp, vertical = 4.sdp)
-                                ) {
-                                    if (it.logoPath != null && it.logoPath.isNotEmpty()) {
-                                        AsyncImage(
-                                            model = "https://image.tmdb.org/t/p/w500${it.logoPath}",
-                                            contentDescription = it.name,
-                                            modifier = Modifier
-                                                .height(30.sdp)
-                                                .width(60.sdp)
-                                                .clip(RoundedCornerShape(4.sdp)),
-                                            contentScale = ContentScale.Fit
-                                        )
-                                    } else {
-                                        Box(
-                                            modifier = Modifier
-                                                .height(30.sdp)
-                                                .width(60.sdp)
-                                                .clip(RoundedCornerShape(4.sdp))
-                                                .background(Color.Gray),
-                                            contentAlignment = Alignment.Center
-                                        ) {
-                                            Text(
-                                                text = it.name,
-                                                fontSize = 8.ssp,
-                                                color = Color.White,
-                                                modifier = Modifier.padding(4.sdp),
-                                                maxLines = 2
-                                            )
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
                 }
             }
-
-
 
             Column(
                 modifier = Modifier
@@ -177,11 +109,55 @@ fun TvDetailsScreenUI(
                     .background(
                         color = Color(0xFF000000)
                     )
-            ) {
+                    .padding(horizontal = 8.sdp, vertical = 8.sdp),
+                ) {
+
+                if (state.genres.isNotEmpty()) {
+                    FancyChipsFlow(
+                        items = state.genres,
+                    )
+                }
+
+                if (state.networks.isNotEmpty()) {
+                    VerticalSpacer(height = 8.sdp)
+                    LazyRow(
+                        horizontalArrangement = Arrangement.spacedBy(8.sdp),
+                    ) {
+                        items(state.networks) { network ->
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                modifier = Modifier
+                                    .clip(RoundedCornerShape(8.sdp))
+                                    .background(Color(0xFFD9D9D9))
+                                    .padding(horizontal = 8.sdp, vertical = 2.sdp)
+                            ) {
+                                if (network.logo != null) {
+                                    AppImage(
+                                        imageSource = network.logo,
+                                        modifier = Modifier
+                                            .height(15.sdp)
+                                            .width(40.sdp)
+                                            .clip(RoundedCornerShape(4.sdp)),
+                                        contentScale = ContentScale.Fit,
+                                    )
+                                } else {
+                                    Text(
+                                        text = network.name,
+                                        fontSize = 8.ssp,
+                                        color = Color.Blue, fontWeight = FontWeight.Bold,
+                                        modifier = Modifier.heightIn(min = 15.sdp, max = 15.sdp).padding(4.sdp),
+                                        maxLines = 2
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+
                 Spacer(Modifier.height(20.sdp))
 
                 Text(
-                    text = tvShow.overview,
+                    text = state.overview,
                     color = Color.White,
                     fontSize = 12.ssp,
                     modifier = Modifier.padding(horizontal = 8.sdp)
@@ -209,7 +185,7 @@ fun TvDetailsScreenUI(
                 .align(Alignment.TopEnd)
                 .offset(y = 10.sdp, x = (-10).sdp)
                 .clickable {
-                    onBookMarkClicked(tvShow.id)
+                    onBookMarkClicked(state.id)
                 }
         )
 
@@ -221,101 +197,28 @@ fun TvDetailsScreenUI(
 @AppPreview
 @Composable
 private fun TvDetailsScreenPreview() {
-
-    val dummyTvShow = TvShowDetail(
-        id = 1396,
-        name = "Breaking Bad",
-        overview = "When Walter White, a New Mexico chemistry teacher, is diagnosed with Stage III cancer and given only two years to live, he decides to risk everything by entering the meth business to secure his family’s future.",
-        posterPath = "/ggFHVNu6YYI5L9pCfOacjizRGt.jpg",
-        backdropPath = "/bzoZjhbpriBT2N5kwgK0weUfVOX.jpg",
-        voteAverage = 8.9,
-        voteCount = 14000,
-        firstAirDate = "2008-01-20",
-        lastAirDate = "2013-09-29",
-        popularity = 200.5,
-        originalLanguage = "en",
-        originalName = "Breaking Bad",
-        originCountry = listOf("US"),
-        genres = listOf(
-            TvGenre(id = 18, name = "Drama"),
-            TvGenre(id = 80, name = "Crime")
-        ),
-        createdBy = listOf(
-            com.hrudhaykanth116.tv.domain.models.Creator(
-                id = 66633,
-                name = "Vince Gilligan",
-                creditId = "52e682cf9251415f28007e43",
-                gender = 2,
-                profilePath = "/uFh3OrBvkwKSU3N5y0XnXOhqBJz.jpg"
-            )
-        ),
-        networks = listOf(
-            Network(
-                id = 174,
-                name = "AMC",
-                logoPath = "/alqLicR1ZMHMaZGP3xRQxn9sq7p.png",
-                originCountry = "US"
-            )
-        ),
-        productionCompanies = listOf(
-            com.hrudhaykanth116.tv.domain.models.ProductionCompany(
-                id = 11073,
-                name = "High Bridge Entertainment",
-                logoPath = "/aCbASRcI1MI7DXjPbSW9Fcv9pvF.png",
-                originCountry = "US"
-            )
-        ),
-        seasons = listOf(
-            com.hrudhaykanth116.tv.domain.models.Season(
-                id = 3572,
-                name = "Season 1",
-                overview = "Walter White’s transformation begins.",
-                airDate = "2008-01-20",
-                episodeCount = 7,
-                posterPath = "/1yeVJox3rjo2jBKrrihIMj7uoS9.jpg",
-                seasonNumber = 1
-            ),
-            com.hrudhaykanth116.tv.domain.models.Season(
-                id = 3573,
-                name = "Season 2",
-                overview = "The empire grows as Walt dives deeper.",
-                airDate = "2009-03-08",
-                episodeCount = 13,
-                posterPath = "/e3oGYpoTUhOFK0BJfloru5ZmGV.jpg",
-                seasonNumber = 2
-            )
-        ),
-        numberOfEpisodes = 62,
-        numberOfSeasons = 5,
-        episodeRunTime = listOf(47),
-        lastEpisodeToAir = com.hrudhaykanth116.tv.domain.models.Episode(
-            id = 62161,
-            name = "Felina",
-            overview = "The series finale: Walter White returns to Albuquerque to tie up loose ends.",
-            airDate = "2013-09-29",
-            episodeNumber = 16,
-            seasonNumber = 5,
-            showId = 1396,
-            stillPath = "/r3z70vunihrAkjILQKWHX0G2xzO.jpg",
-            voteAverage = 9.7,
-            voteCount = 220,
-            productionCode = "5AGH16"
-        ),
-        status = "Ended",
-        type = "Scripted",
-        homepage = "http://www.amc.com/shows/breaking-bad",
-        inProduction = false,
-        languages = listOf("en")
-    )
-
-
     AppPreviewContainer {
         TvDetailsScreenUI(
             state = TvDetailsScreenUIState(
-                tvShowDetails = dummyTvShow
+                id = 1396,
+                title = "Breaking Bad",
+                overview = "When Walter White, a New Mexico chemistry teacher, is diagnosed with Stage III cancer and given only two years to live, he decides to risk everything by entering the meth business to secure his family's future.",
+                backdropImage = ImageHolder.LocalDrawableResource(Res.drawable.image_place_holder),
+                dateRange = "2008-01-20 - 2013-09-29",
+                rating = "8.9 / 10",
+                genres = listOf("Drama", "Crime", "Action & Adventure"),
+                networks = listOf(
+                    NetworkUIState(
+                        name = "AMC",
+                        logo = ImageHolder.LocalDrawableResource(Res.drawable.image_place_holder),
+                    ),
+                    NetworkUIState(
+                        name = "HBO",
+                        logo = null
+                    )
+                ),
             ),
             modifier = Modifier.fillMaxSize(),
         )
     }
-
 }

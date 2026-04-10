@@ -1,10 +1,19 @@
 package com.hrudhaykanth116.tv.ui.screens.details
 
-import com.hrudhaykanth116.core.domain.result.DomainError
-import com.hrudhaykanth116.tv.domain.models.TvShowDetail
-
+import com.hrudhaykanth116.core.ui.models.ImageHolder
 
 data class TvDetailsScreenUIState(
-    // TODO: make non nullable
-    val tvShowDetails: TvShowDetail? = null,
+    val id: Int,
+    val title: String,
+    val overview: String,
+    val backdropImage: ImageHolder?,
+    val dateRange: String,
+    val rating: String,
+    val genres: List<String>,
+    val networks: List<NetworkUIState>,
+)
+
+data class NetworkUIState(
+    val name: String,
+    val logo: ImageHolder?,
 )
