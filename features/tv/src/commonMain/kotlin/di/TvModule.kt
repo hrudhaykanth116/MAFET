@@ -20,6 +20,7 @@ import com.hrudhaykanth116.tv.domain.usecases.GetAllTvShowsUseCase
 import com.hrudhaykanth116.tv.domain.usecases.GetMyTvListUseCase
 import com.hrudhaykanth116.tv.domain.usecases.GetTvDetailsUseCase
 import com.hrudhaykanth116.tv.domain.usecases.GetTvListByQuery
+import com.hrudhaykanth116.tv.domain.usecases.IsTvBookmarkedUseCase
 import com.hrudhaykanth116.tv.domain.usecases.UpdateMyTvUseCase
 import com.hrudhaykanth116.tv.ui.screens.all.TvHomeViewModel
 import com.hrudhaykanth116.tv.ui.screens.details.TvDetailsViewModel
@@ -80,8 +81,12 @@ val tvCommonModule = module {
         GetAllTvShowsUseCase(get())
     }
 
+    single<IsTvBookmarkedUseCase> {
+        IsTvBookmarkedUseCase(get())
+    }
+
     single<GetTvDetailsUseCase> {
-        GetTvDetailsUseCase(get(), get())
+        GetTvDetailsUseCase(get(), get(), get())
     }
 
     single<AddMyTvUseCase> {
@@ -110,7 +115,7 @@ val tvCommonModule = module {
     }
 
     factory {
-        TvDetailsViewModel(get(), get(), get(), get())
+        TvDetailsViewModel(get(), get(), get(), get(), get(), get())
     }
 
     factory {

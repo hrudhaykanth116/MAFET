@@ -124,7 +124,10 @@ fun EntertainmentNavigation() {
             TvDetailsScreen(
                 onBackClicked = {
                     navController.popBackStack()
-                }
+                },
+                onNavigateToTvDetails = { id ->
+                    navController.navigate("tv_details/$id")
+                },
             )
         }
 

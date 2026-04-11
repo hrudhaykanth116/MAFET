@@ -17,7 +17,8 @@
       "Bash(./gradlew :androidApp:installDebug)",
       "Bash(./gradlew :features:tv:compileKotlinDesktop)",
       "Bash(./gradlew :features:tv:compileDebugKotlin)",
-      "Bash(./gradlew :features:tv:compileDebugKotlinAndroid)"
+      "Bash(./gradlew :features:tv:compileDebugKotlinAndroid)",
+      "Bash(grep -E \"\\\\.\\(kt\\)$\")"
     ]
   }
 }

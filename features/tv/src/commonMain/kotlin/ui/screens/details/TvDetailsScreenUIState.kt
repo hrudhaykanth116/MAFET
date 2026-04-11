@@ -11,9 +11,85 @@ data class TvDetailsScreenUIState(
     val rating: String,
     val genres: List<String>,
     val networks: List<NetworkUIState>,
+    val isBookmarked: Boolean = false,
+    val aboutTabState: AboutTabUIState? = null,
+    val moreLikeThisTabState: MoreLikeThisTabUIState? = null,
+    val mediaTabState: MediaTabUIState? = null,
 )
 
 data class NetworkUIState(
     val name: String,
     val logo: ImageHolder?,
+)
+
+// --- About Tab ---
+
+data class AboutTabUIState(
+    val cast: List<CastUIState>,
+    val creators: List<CreatorUIState>,
+    val seasons: List<SeasonUIState>,
+    val productionCompanies: List<ProductionCompanyUIState>,
+    val languages: List<String>,
+    val status: String,
+    val type: String,
+    val numberOfEpisodes: Int,
+    val numberOfSeasons: Int,
+)
+
+data class CastUIState(
+    val id: Int,
+    val name: String,
+    val character: String,
+    val profileImage: ImageHolder?,
+)
+
+data class CreatorUIState(
+    val id: Int,
+    val name: String,
+    val profileImage: ImageHolder?,
+)
+
+data class SeasonUIState(
+    val id: Int,
+    val name: String,
+    val episodeCount: Int,
+    val airDate: String,
+    val posterImage: ImageHolder?,
+    val seasonNumber: Int,
+)
+
+data class ProductionCompanyUIState(
+    val name: String,
+    val logo: ImageHolder?,
+)
+
+// --- More Like This Tab ---
+
+data class MoreLikeThisTabUIState(
+    val similarShows: List<SimilarShowUIState>,
+)
+
+data class SimilarShowUIState(
+    val id: Int,
+    val name: String,
+    val rating: String,
+    val posterImage: ImageHolder?,
+)
+
+// --- Media Tab ---
+
+data class MediaTabUIState(
+    val images: List<MediaImageUIState>,
+    val videos: List<MediaVideoUIState>,
+)
+
+data class MediaImageUIState(
+    val image: ImageHolder,
+)
+
+data class MediaVideoUIState(
+    val key: String,
+    val name: String,
+    val thumbnail: ImageHolder,
+    val site: String,
 )
