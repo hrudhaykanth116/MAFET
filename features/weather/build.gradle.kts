@@ -22,6 +22,12 @@ kotlin {
         }
     }
 
+    jvm("desktop") {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+        }
+    }
+
     iosX64()
     iosArm64()
     iosSimulatorArm64()
@@ -86,6 +92,14 @@ kotlin {
             implementation(libs.play.services.location)
         }
 
+        val desktopMain by getting {
+            dependencies {
+                implementation(compose.desktop.currentOs)
+                implementation(libs.kotlinx.coroutines.swing)
+                implementation(libs.ktor.client.okhttp)
+            }
+        }
+
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
         }
@@ -101,12 +115,8 @@ android {
     namespace = "com.hrudhaykanth116.weather"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
-    val openWeatherApiKey = rootProject.extra["OPEN_WEATHER_FORECAST_API_KEY"] as String
-
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
-
-        buildConfigField("String", "OPEN_WEATHER_FORECAST_API_KEY", openWeatherApiKey)
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

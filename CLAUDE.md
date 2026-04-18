@@ -30,6 +30,8 @@ See [README.md](README.md) for features, platform matrix, tech stack, and projec
 8. **Platform implementation priority:** Android first → iOS second → Desktop last(Only if asked for).
 9. **`room-ktx` is Android-only** — put in `androidMain`. Use `room-runtime` in `commonMain`.
 10. **Inject `CoroutineDispatcher`** into ViewModels for testability.
+11. **Platform checks** — use `currentPlatform` / `isAndroid` / `isIos` / `isDesktop` from `com.hrudhaykanth116.core.common.platform`. Do NOT add new per-module `expect val isX: Boolean` flags.
+12. **API keys** — all secrets live in `com.hrudhaykanth116.core.common.config.ApiConfig` (core-common). Do NOT create per-module `XxxApiConfig` or per-module `buildConfigField`/`generateDesktopBuildConfig` plumbing. See [docs/kmp-guide.md](docs/kmp-guide.md#api-keys--secrets) for adding a new key.
 
 ---
 

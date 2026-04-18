@@ -44,6 +44,7 @@ kotlin {
         }
 
         val desktopMain by getting {
+            kotlin.srcDir("build/generated/desktopBuildConfig")
             dependencies {
                 implementation(libs.kotlinx.coroutines.swing)
             }
@@ -55,8 +56,16 @@ android {
     namespace = "com.hrudhaykanth116.core.common"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
+    val openWeatherApiKey = rootProject.extra["OPEN_WEATHER_FORECAST_API_KEY"] as String
+    val tmdbApiKey = rootProject.extra["TMDB_API_KEY"] as String
+    val pexelsApiKey = rootProject.extra["PEXELS_API_KEY"] as String
+
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
+
+        buildConfigField("String", "OPEN_WEATHER_FORECAST_API_KEY", openWeatherApiKey)
+        buildConfigField("String", "TMDB_API_KEY", tmdbApiKey)
+        buildConfigField("String", "PEXELS_API_KEY", pexelsApiKey)
     }
 
     compileOptions {
@@ -65,6 +74,37 @@ android {
     }
 
     buildFeatures {
-        buildConfig = false
+        buildConfig = true
     }
+}
+
+val desktopOpenWeatherApiKey = rootProject.extra["OPEN_WEATHER_FORECAST_API_KEY"] as String
+val desktopTmdbApiKey = rootProject.extra["TMDB_API_KEY"] as String
+val desktopPexelsApiKey = rootProject.extra["PEXELS_API_KEY"] as String
+
+val generateDesktopBuildConfig by tasks.registering {
+    val outputDir = layout.buildDirectory.dir("generated/desktopBuildConfig")
+    val openWeatherKey = desktopOpenWeatherApiKey
+    val tmdbKey = desktopTmdbApiKey
+    val pexelsKey = desktopPexelsApiKey
+    outputs.dir(outputDir)
+    doLast {
+        val dir = outputDir.get().asFile.resolve("com/hrudhaykanth116/core/common")
+        dir.mkdirs()
+        dir.resolve("DesktopBuildConfig.kt").writeText(
+            """
+            |package com.hrudhaykanth116.core.common
+            |
+            |object DesktopBuildConfig {
+            |    const val OPEN_WEATHER_FORECAST_API_KEY = $openWeatherKey
+            |    const val TMDB_API_KEY = $tmdbKey
+            |    const val PEXELS_API_KEY = $pexelsKey
+            |}
+            """.trimMargin()
+        )
+    }
+}
+
+tasks.matching { it.name == "compileKotlinDesktop" }.configureEach {
+    dependsOn(generateDesktopBuildConfig)
 }

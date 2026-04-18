@@ -36,6 +36,7 @@ import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
 import mafet.core_ui.generated.resources.Res
 import mafet.core_ui.generated.resources.ic_add
 import mafet.core_ui.generated.resources.ic_bookmark
+import mafet.core_ui.generated.resources.ic_bookmark_filled
 import mafet.core_ui.generated.resources.ic_check
 import mafet.core_ui.generated.resources.image_place_holder
 
@@ -127,7 +128,7 @@ fun TvSearchItemUI(
             ) {
                 if (state.isMyTvList) {
                     AppIcon(
-                        resource = Res.drawable.ic_check,
+                        resource = Res.drawable.ic_bookmark_filled,
                         modifier = Modifier.size(36.dp),
                         tint = MaterialTheme.colorScheme.primary,
                     )

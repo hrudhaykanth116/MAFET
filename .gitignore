@@ -176,3 +176,7 @@ webpack.config.d/
 # Platform-specific caches
 .kotlin/
 kotlin-js-store/
+
+# Claude Code local state
+.claude/
+CLAUDE.md

@@ -22,6 +22,12 @@ kotlin {
         }
     }
 
+    jvm("desktop") {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+        }
+    }
+
     iosX64()
     iosArm64()
     iosSimulatorArm64()
@@ -94,6 +100,15 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
         }
 
+        val desktopMain by getting {
+            dependencies {
+                implementation(compose.desktop.currentOs)
+                implementation(libs.kotlinx.coroutines.swing)
+                implementation(libs.ktor.client.okhttp)
+                implementation(libs.androidx.sqlite.bundled)
+            }
+        }
+
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
             implementation(libs.androidx.sqlite.bundled)
@@ -109,6 +124,7 @@ kotlin {
 // Configure KSP for Room
 dependencies {
     add("kspAndroid", libs.androidx.room.compiler)
+    add("kspDesktop", libs.androidx.room.compiler)
     add("kspIosX64", libs.androidx.room.compiler)
     add("kspIosArm64", libs.androidx.room.compiler)
     add("kspIosSimulatorArm64", libs.androidx.room.compiler)
@@ -123,12 +139,8 @@ android {
     namespace = "com.hrudhaykanth116.tv"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
-    val tmdbApiKey = rootProject.extra["TMDB_API_KEY"] as String
-
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
-
-        buildConfigField("String", "TMDB_API_KEY", tmdbApiKey)
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -151,6 +163,5 @@ android {
 
     buildFeatures {
         compose = true
-        buildConfig = true
     }
 }

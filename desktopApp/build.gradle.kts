@@ -28,6 +28,11 @@ kotlin {
 
                 // Feature modules
                 implementation(project(":features:todo"))
+                implementation(project(":features:weather"))
+                implementation(project(":features:tv"))
+                implementation(project(":features:media"))
+                implementation(project(":features:journal"))
+                implementation(project(":features:ai"))
 
                 // Compose Desktop
                 implementation(compose.desktop.currentOs)

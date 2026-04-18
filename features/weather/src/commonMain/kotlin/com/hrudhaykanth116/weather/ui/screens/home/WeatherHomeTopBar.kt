@@ -21,6 +21,7 @@ import com.hrudhaykanth116.core.ui.components.AppSearchBar
 import com.hrudhaykanth116.core.ui.components.AppToolBarIcon
 import com.hrudhaykanth116.weather.domain.models.LocationSource
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenCallbacks
+import com.hrudhaykanth116.core.common.platform.isDesktop
 import mafet.core_ui.generated.resources.Res
 import mafet.core_ui.generated.resources.ic_gps
 import mafet.core_ui.generated.resources.ic_refresh
@@ -106,10 +107,12 @@ fun WeatherHomeTopBar(
                         onClick = weatherHomeScreenCallbacks.onRefreshIconClicked,
                     )
 
-                    AppToolBarIcon(
-                        iconResId = Res.drawable.ic_gps,
-                        onClick = weatherHomeScreenCallbacks.onGpsIconClicked,
-                    )
+                    if (!isDesktop) {
+                        AppToolBarIcon(
+                            iconResId = Res.drawable.ic_gps,
+                            onClick = weatherHomeScreenCallbacks.onGpsIconClicked,
+                        )
+                    }
 
                     AppToolBarIcon(
                         iconResId = Res.drawable.ic_search,

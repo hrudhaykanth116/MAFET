@@ -47,7 +47,8 @@ fun MediaCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .aspectRatio(
-                        ratio = item.width.toFloat() / item.height.toFloat()
+                        ratio = (item.width.toFloat() / item.height.toFloat())
+                            .coerceIn(0.5f, 2.0f)
                     )
                     .clip(RoundedCornerShape(12.dp)),
                 contentScale = ContentScale.Crop

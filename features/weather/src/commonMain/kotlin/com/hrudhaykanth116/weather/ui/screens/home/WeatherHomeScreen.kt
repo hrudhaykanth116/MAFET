@@ -11,7 +11,9 @@ import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenCallbacks
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenEvent
 import com.hrudhaykanth116.weather.domain.models.WeatherHomeScreenUIState
+import com.hrudhaykanth116.weather.location.LocationPermissionState
 import com.hrudhaykanth116.weather.location.rememberLocationPermissionState
+import com.hrudhaykanth116.core.common.platform.isDesktop
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -22,24 +24,33 @@ fun WeatherHomeScreen(
     weatherHomeScreenViewModel: WeatherHomeScreenViewModel = koinViewModel(),
     dateTimeUtils: DateTimeUtils = koinInject(),
 ) {
-    val permissionState = rememberLocationPermissionState { granted ->
-        if (granted) {
-            weatherHomeScreenViewModel.fetchLocationAndWeather()
-        } else {
-            weatherHomeScreenViewModel.handleLocationOrGpsUnAvailableCases()
+    val permissionState: LocationPermissionState? = if (isDesktop) {
+        null
+    } else {
+        rememberLocationPermissionState { granted ->
+            if (granted) {
+                weatherHomeScreenViewModel.fetchLocationAndWeather()
+            } else {
+                weatherHomeScreenViewModel.handleLocationOrGpsUnAvailableCases()
+            }
         }
     }
 
     LaunchedEffect(Unit) {
+        if (isDesktop) {
+            weatherHomeScreenViewModel.loadSavedLocationOrPromptSearch()
+            return@LaunchedEffect
+        }
+        val state = permissionState ?: return@LaunchedEffect
         when {
-            permissionState.hasPermission && permissionState.isLocationEnabled -> {
+            state.hasPermission && state.isLocationEnabled -> {
                 weatherHomeScreenViewModel.fetchLocationAndWeather()
             }
-            permissionState.hasPermission && !permissionState.isLocationEnabled -> {
+            state.hasPermission && !state.isLocationEnabled -> {
                 weatherHomeScreenViewModel.handleLocationOrGpsUnAvailableCases()
             }
             else -> {
-                permissionState.requestPermission()
+                state.requestPermission()
             }
         }
     }
@@ -59,15 +70,16 @@ fun WeatherHomeScreen(
                 WeatherHomeScreenEvent.OnExpandedChange(it)
             )
         },
-        onGpsIconClicked = {
-            if (permissionState.hasPermission) {
-                if (permissionState.isLocationEnabled) {
+        onGpsIconClicked = onGpsIconClicked@{
+            val state = permissionState ?: return@onGpsIconClicked
+            if (state.hasPermission) {
+                if (state.isLocationEnabled) {
                     weatherHomeScreenViewModel.fetchLocationAndWeather()
                 } else {
-                    permissionState.openLocationSettings()
+                    state.openLocationSettings()
                 }
             } else {
-                permissionState.requestPermission()
+                state.requestPermission()
             }
         },
         onSearchIconClicked = {

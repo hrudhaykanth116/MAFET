@@ -100,6 +100,7 @@ val weatherModule = module {
             locationService = get(),
             saveUserLocationUseCase = get(),
             getSavedUserLocationUseCase = get(),
+            timeProvider = get(),
             dateTimeUtils = get(),
             networkMonitor = get()
         )

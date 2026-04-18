@@ -1,5 +1,6 @@
 package com.hrudhaykanth116.weather.data.datasources.remote.ktor
 
+import com.hrudhaykanth116.core.common.config.ApiConfig
 import com.hrudhaykanth116.weather.data.models.GetLocationInfoResponseItem
 import com.hrudhaykanth116.weather.data.models.OWMReverseGeocodingResponseItem
 import com.hrudhaykanth116.weather.data.models.WeatherForeCastResponse
@@ -19,7 +20,7 @@ class OpenWeatherApiServiceKtor(
     suspend fun getDailyWeatherForeCast(
         latitude: String,
         longitude: String,
-        token: String = WeatherApiConfig.openWeatherApiKey,
+        token: String = ApiConfig.openWeatherApiKey,
     ): Result<WeatherForeCastResponse> {
         return try {
             val response = httpClient.get("${BASE_URL}data/3.0/onecall") {
@@ -36,7 +37,7 @@ class OpenWeatherApiServiceKtor(
     suspend fun getLocationInfo(
         location: String,
         limit: Int = 1,
-        token: String = WeatherApiConfig.openWeatherApiKey,
+        token: String = ApiConfig.openWeatherApiKey,
     ): Result<List<GetLocationInfoResponseItem>> {
         return try {
             val response = httpClient.get("${BASE_URL}geo/1.0/direct") {
@@ -54,7 +55,7 @@ class OpenWeatherApiServiceKtor(
         latitude: String,
         longitude: String,
         limit: Int = 1,
-        token: String = WeatherApiConfig.openWeatherApiKey,
+        token: String = ApiConfig.openWeatherApiKey,
     ): Result<List<OWMReverseGeocodingResponseItem>> {
         return try {
             val response = httpClient.get("${BASE_URL}geo/1.0/reverse") {

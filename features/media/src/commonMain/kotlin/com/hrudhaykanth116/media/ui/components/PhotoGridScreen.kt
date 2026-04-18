@@ -16,7 +16,7 @@ import com.hrudhaykanth116.media.data.models.PhotoSrc
 @Composable
 fun PhotoGridScreen(photos: List<PhotoResponse>) {
     LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
+        columns = GridCells.Adaptive(minSize = 180.dp),
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),

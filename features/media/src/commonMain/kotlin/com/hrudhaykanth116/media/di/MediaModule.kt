@@ -1,5 +1,6 @@
 package com.hrudhaykanth116.media.di
 
+import com.hrudhaykanth116.core.common.config.ApiConfig
 import com.hrudhaykanth116.core.common.di.DispatchersEnum
 import com.hrudhaykanth116.media.data.network.PexelsRemoteDataSource
 import com.hrudhaykanth116.media.data.network.ktor.PexelsApiServiceKtor
@@ -34,7 +35,7 @@ val mediaModule = module {
     single<PexelsRemoteDataSource> {
         PexelsRemoteDataSource(
             get(),
-            get(named("pexels_api_key"))
+            ApiConfig.pexelsApiKey
         )
     }
 

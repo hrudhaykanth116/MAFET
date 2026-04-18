@@ -1,6 +1,7 @@
 package com.hrudhaykanth116.weather.ui.screens.home
 
 import androidx.lifecycle.viewModelScope
+import com.hrudhaykanth116.core.common.time.TimeProvider
 import com.hrudhaykanth116.core.common.utils.date.DateTimeUtils
 import com.hrudhaykanth116.core.common.utils.log.Logger
 import com.hrudhaykanth116.core.domain.models.UserLocation
@@ -30,6 +31,7 @@ class WeatherHomeScreenViewModel(
     private val locationService: LocationService,
     private val saveUserLocationUseCase: SaveUserLocationUseCase,
     private val getSavedUserLocationUseCase: GetSavedUserLocationUseCase,
+    private val timeProvider: TimeProvider,
     private val dateTimeUtils: DateTimeUtils,
     networkMonitor: NetworkMonitor,
 ) : UIStateViewModel<WeatherHomeScreenUIState, WeatherHomeScreenEvent, WeatherHomeScreenEffect>(
@@ -89,7 +91,7 @@ class WeatherHomeScreenViewModel(
                     }
 
                     is DomainResult.Success -> {
-                        val currentTimestamp = System.currentTimeMillis()
+                        val currentTimestamp = timeProvider.currentTimeMillis()
 
                         saveLocationToDataStore(
                             latitude = locationResult.latitude,
@@ -198,6 +200,65 @@ class WeatherHomeScreenViewModel(
                             )
                         )
                     }
+                }
+            }
+        }
+    }
+
+    fun loadSavedLocationOrPromptSearch() {
+        viewModelScope.launch {
+            val savedLocation = when (val result = getSavedUserLocationUseCase()) {
+                is DomainResult.Success -> result.data
+                is DomainResult.Error -> {
+                    Logger.e(TAG, "loadSavedLocationOrPromptSearch: error ${result.error}")
+                    null
+                }
+            }
+            if (savedLocation != null) {
+                fetchForecastForSavedLocation(savedLocation)
+            } else {
+                setState {
+                    UIState.Idle(
+                        contentStateOrDefault.copy(isSearchActive = true)
+                    )
+                }
+            }
+        }
+    }
+
+    private fun fetchForecastForSavedLocation(savedLocation: UserLocation) {
+        val address = savedLocation.address ?: "Unknown"
+        getForeCastJob?.cancel()
+        getForeCastJob = viewModelScope.launch {
+            setLoadingState(
+                currentContentState?.copy(domainError = null),
+                "Fetching forecast for $address".toUIText()
+            )
+            val result = getForeCastFromLatLongUseCase(
+                savedLocation.latitude,
+                savedLocation.longitude
+            )
+            when (result) {
+                is DomainResult.Error -> setState {
+                    UIState.Idle(
+                        contentState = WeatherHomeScreenUIState(
+                            domainError = result.error,
+                            location = address,
+                            locationSource = LocationSource.LAST,
+                        )
+                    )
+                }
+
+                is DomainResult.Success -> setState {
+                    UIState.Idle(
+                        contentStateOrDefault.copy(
+                            todayWeatherUIState = result.data.first,
+                            weatherForeCastListItemsUIState = result.data.second,
+                            location = address,
+                            locationSource = LocationSource.LAST,
+                            lastFetchedTimestamp = savedLocation.timestamp,
+                        )
+                    )
                 }
             }
         }

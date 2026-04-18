@@ -1,5 +1,6 @@
 package com.hrudhaykanth116.tv.data.datasources.remote.ktor
 
+import com.hrudhaykanth116.core.common.config.ApiConfig
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvCreditsResponse
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvImagesResponse
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvReviewsResponse
@@ -26,7 +27,7 @@ class TmdbApiServiceKtor(
 
     companion object {
         private const val BASE_URL = "https://api.themoviedb.org/3/"
-        private val API_KEY = TvApiConfig.tmdbApiKey
+        private val API_KEY = ApiConfig.tmdbApiKey
     }
 
     // ****************** Movies **************************

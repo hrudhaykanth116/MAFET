@@ -2,6 +2,7 @@ package com.hrudhaykanth116.media.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,32 +24,41 @@ fun MediaStaggeredGrid(
     onLoadMore: () -> Unit,
     isLoading: Boolean,
     modifier: Modifier = Modifier,
-    columns: Int = 2
+    columns: Int? = null
 ) {
-    LazyVerticalStaggeredGrid(
-        columns = StaggeredGridCells.Fixed(columns),
-        modifier = modifier.fillMaxSize(),
-        contentPadding = PaddingValues(8.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalItemSpacing = 8.dp
-    ) {
-        items(items, key = { it.id }) { item ->
-            MediaCard(
-                item = item,
-                onClick = { onItemClick(item) },
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
+    val spacing = 8.dp
+    val targetItemWidth = 180.dp
 
-        if (isLoading) {
-            item {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator()
+    BoxWithConstraints(modifier = modifier.fillMaxSize()) {
+        val effectiveColumns = columns ?: (
+            ((maxWidth + spacing) / (targetItemWidth + spacing)).toInt()
+        ).coerceIn(2, 6)
+
+        LazyVerticalStaggeredGrid(
+            columns = StaggeredGridCells.Fixed(effectiveColumns),
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(spacing),
+            horizontalArrangement = Arrangement.spacedBy(spacing),
+            verticalItemSpacing = spacing
+        ) {
+            items(items, key = { it.id }) { item ->
+                MediaCard(
+                    item = item,
+                    onClick = { onItemClick(item) },
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+
+            if (isLoading) {
+                item {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
                 }
             }
         }

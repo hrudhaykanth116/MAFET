@@ -171,6 +171,52 @@ AsyncImage(model = imageUrl, contentDescription = null)
 
 ---
 
+## Platform Detection
+
+Use `currentPlatform` and the `isAndroid` / `isIos` / `isDesktop` helpers from `core-common`. **Do not** create new `expect val isX: Boolean` patterns or per-module platform flags.
+
+```kotlin
+import com.hrudhaykanth116.core.common.platform.currentPlatform
+import com.hrudhaykanth116.core.common.platform.isDesktop
+import com.hrudhaykanth116.core.common.platform.Platform
+
+if (isDesktop) { /* ... */ }
+
+when (currentPlatform) {
+    Platform.ANDROID -> ...
+    Platform.IOS -> ...
+    Platform.DESKTOP -> ...
+}
+```
+
+Source: `core-common/src/commonMain/.../platform/Platform.kt` (one `expect val currentPlatform: Platform`, each platform actual is a single line). The helpers are derived top-level `val`s in commonMain — no duplication across platforms.
+
+For *behavior* that differs per platform (not just a branch), still prefer `expect/actual` (see next section) — platform checks are for small branches in otherwise-shared code.
+
+---
+
+## API Keys / Secrets
+
+All keys live in `core-common`: `com.hrudhaykanth116.core.common.config.ApiConfig`.
+
+```kotlin
+import com.hrudhaykanth116.core.common.config.ApiConfig
+
+ApiConfig.tmdbApiKey
+ApiConfig.openWeatherApiKey
+ApiConfig.pexelsApiKey
+```
+
+**Do not** create per-module `XxxApiConfig` expect/actual objects or per-module `buildConfigField` / `generateDesktopBuildConfig` plumbing. All of that lives in `core-common/build.gradle.kts` once.
+
+**Adding a new key:**
+1. Add entry to `secrets.properties` (and `secrets.properties.example`) + root `build.gradle.kts` `extra[...]` line
+2. Add `buildConfigField` in `core-common/build.gradle.kts` (Android) + entry in the `generateDesktopBuildConfig` task (Desktop)
+3. Add the key to `iosApp/iosApp/Info.plist` (iOS reads via `NSBundle`)
+4. Add `val newKey: String` to `ApiConfig` expect + three actuals in core-common
+
+---
+
 ## expect/actual Pattern
 
 Use **sparingly** — only for true platform differences:

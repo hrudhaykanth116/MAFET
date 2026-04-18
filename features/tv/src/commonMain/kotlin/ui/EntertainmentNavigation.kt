@@ -10,7 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.hrudhaykanth116.tv.ui.screens.PopularTvScreen
+import com.hrudhaykanth116.tv.ui.screens.TvShowsScreen
 import com.hrudhaykanth116.tv.ui.screens.all.TvHomeScreen
 import com.hrudhaykanth116.tv.ui.screens.details.TvDetailsScreen
 import com.hrudhaykanth116.tv.ui.screens.home.EntertainmentHomeScreen
@@ -100,7 +100,7 @@ fun EntertainmentNavigation() {
                 }
             )
         ) { backStackEntry ->
-            PopularTvScreen(
+            TvShowsScreen(
                 onNavigateToSearchScreen = {
                     navController.navigate("tv_search")
                 },

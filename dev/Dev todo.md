@@ -1,10 +1,5 @@
 Tech features to be implemented in the project.
 
-README:
-* Add screenshots to README (## Demo & Screenshots section is a placeholder)
-* CI/CD pipeline with github actions.
-* Sonarqube check
-* *
 
 iOS Setup:
 * Wire secrets.xcconfig in Xcode (API keys won't work on iOS until done)
@@ -35,7 +30,7 @@ iOS Missing Implementations:
         - Schedule notifications with UNTimeIntervalNotificationTrigger
         - Use taskId as notification identifier for cancellation
         - Handle cancelReminder() and cancelAllReminders()
-    * Complexity: Medium (4-6 hours)
+* Complexity: Medium (4-6 hours)
 
 * AIScreen (features/ai/src/iosMain/.../AIScreen.ios.kt)
     * Currently: Shows "AI feature coming soon to iOS" placeholder
@@ -85,6 +80,3 @@ Compose UI:
 Tools/Libs:
   *Recompositions debugger: https://github.com/theapache64/rebugger (Plugin: https://github.com/theapache64/rebugger-plugin/)
   *Konsist. Lint checks
-
-
-* Interface mapper generic for layer to layer models conversion

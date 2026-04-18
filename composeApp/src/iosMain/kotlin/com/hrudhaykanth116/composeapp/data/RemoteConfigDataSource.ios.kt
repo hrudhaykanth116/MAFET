@@ -15,12 +15,17 @@ actual class RemoteConfigDataSource actual constructor(fetchIntervalSeconds: Lon
         else -> ""
     }
 
-    actual fun getBoolean(key: String): Boolean =
-        key == RemoteConfigKeys.featureFlag(Feature.TODO)
+    actual fun getBoolean(key: String): Boolean = key in ENABLED_FEATURES
 
     actual fun configUpdates(): Flow<Unit> = emptyFlow()
 
     companion object {
+        private val ENABLED_FEATURES = setOf(
+            RemoteConfigKeys.featureFlag(Feature.TODO),
+            RemoteConfigKeys.featureFlag(Feature.WEATHER),
+            RemoteConfigKeys.featureFlag(Feature.WATCHLIST),
+            RemoteConfigKeys.featureFlag(Feature.MEDIA),
+        )
         private const val DISABLED_GATE_JSON =
             """{"is_enabled":false,"type":"force","title":"","message":"","buttons":[]}"""
     }
