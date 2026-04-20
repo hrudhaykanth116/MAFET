@@ -1,6 +1,12 @@
 package com.hrudhaykanth116.mafet.main
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.os.Bundle
+import android.os.SystemClock
+import android.view.View
+import android.view.animation.AccelerateInterpolator
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
@@ -20,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -51,6 +58,8 @@ class MainActivity : AppCompatActivity() {
 
         enableEdgeToEdge()
 
+        val splashStartMs = SystemClock.elapsedRealtime()
+
         var uiState: MainUiState by mutableStateOf(MainUiState.Loading)
 
         lifecycleScope.launch {
@@ -62,9 +71,36 @@ class MainActivity : AppCompatActivity() {
         }
 
         splashScreen.setKeepOnScreenCondition {
-            Logger.d(TAG, "onCreate: setKeepOnScreenCondition")
-            // This condition is checked every frame.
-            uiState is MainUiState.Loading
+            val elapsed = SystemClock.elapsedRealtime() - splashStartMs
+            uiState is MainUiState.Loading || elapsed < MIN_SPLASH_MS
+        }
+
+        splashScreen.setOnExitAnimationListener { splashProvider ->
+            val rootView = splashProvider.view
+            val iconAnim = ObjectAnimator.ofPropertyValuesHolder(
+                splashProvider.iconView,
+                PropertyValuesHolder.ofFloat(View.SCALE_X, 1.0f, 1.15f, 0.0f),
+                PropertyValuesHolder.ofFloat(View.SCALE_Y, 1.0f, 1.15f, 0.0f),
+                PropertyValuesHolder.ofFloat(View.ALPHA, 1.0f, 0.0f),
+            ).apply {
+                duration = SPLASH_EXIT_DURATION_MS
+                interpolator = AccelerateInterpolator()
+            }
+            val slideAnim = ObjectAnimator.ofFloat(
+                rootView,
+                "translationY",
+                0f,
+                -rootView.height.toFloat(),
+            ).apply {
+                duration = SPLASH_EXIT_DURATION_MS
+                interpolator = AccelerateInterpolator()
+                startDelay = SPLASH_EXIT_SLIDE_DELAY_MS
+            }
+            AnimatorSet().apply {
+                playTogether(iconAnim, slideAnim)
+                doOnEnd { splashProvider.remove() }
+                start()
+            }
         }
 
         setContent {
@@ -122,6 +158,9 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val TAG = "MainActivity"
+        private const val MIN_SPLASH_MS = 600L
+        private const val SPLASH_EXIT_DURATION_MS = 400L
+        private const val SPLASH_EXIT_SLIDE_DELAY_MS = 100L
     }
 
 }

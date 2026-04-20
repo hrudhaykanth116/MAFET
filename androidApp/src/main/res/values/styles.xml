@@ -16,8 +16,10 @@
     </style>
 
     <style name="SplashTheme" parent="Theme.SplashScreen">
-        <!-- Set a proper icon -->
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_genie_with_50p_padding</item>
+        <item name="windowSplashScreenBackground">@color/splash_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/avd_splash_genie</item>
+        <item name="windowSplashScreenAnimationDuration">800</item>
+        <item name="windowSplashScreenIconBackgroundColor">@color/splash_icon_background</item>
         <item name="postSplashScreenTheme">@style/AppTheme</item>
     </style>
 

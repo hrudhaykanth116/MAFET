@@ -21,13 +21,14 @@ class CreateTodoTaskUseCase constructor(
 
         val result = todoRepository.createTodoTask(todoModel)
 
-        if (result is DomainResult.Success && todoModel.targetTime != null) {
-            notificationScheduler.scheduleReminder(
-                taskId = todoModel.id,
-                title = todoModel.title,
-                triggerTimeMillis = todoModel.targetTime
-            )
-        }
+        // TODO: Sometime in future implement notification scheduling for tasks with target time
+        // if (result is DomainResult.Success && todoModel.targetTime != null) {
+        //     notificationScheduler.scheduleReminder(
+        //         taskId = todoModel.id,
+        //         title = todoModel.title,
+        //         triggerTimeMillis = todoModel.targetTime
+        //     )
+        // }
 
         return result
     }

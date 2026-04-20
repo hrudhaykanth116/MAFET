@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic_genie_with_50p_padding">
+    <target
+        android:name="root"
+        android:animation="@animator/splash_icon_scale_x"/>
+    <target
+        android:name="root"
+        android:animation="@animator/splash_icon_scale_y"/>
+    <target
+        android:name="root"
+        android:animation="@animator/splash_icon_alpha"/>
+</animated-vector>
