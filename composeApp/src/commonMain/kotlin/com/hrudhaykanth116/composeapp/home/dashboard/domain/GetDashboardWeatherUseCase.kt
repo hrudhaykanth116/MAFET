@@ -2,9 +2,7 @@ package com.hrudhaykanth116.composeapp.home.dashboard.domain
 
 import com.hrudhaykanth116.composeapp.home.dashboard.models.WeatherSummary
 import com.hrudhaykanth116.core.domain.result.DomainResult
-import com.hrudhaykanth116.core.ui.models.UIText
 import com.hrudhaykanth116.weather.domain.usecases.GetForeCastFromLatLongUseCase
-import com.hrudhaykanth116.weather.domain.usecases.WeatherElement
 import com.hrudhaykanth116.weather.location.LocationService
 
 class GetDashboardWeatherUseCase(
@@ -32,8 +30,8 @@ class GetDashboardWeatherUseCase(
                 val weatherMain = todayWeather.weatherMain ?: return null
 
                 WeatherSummary(
-                    temperature = weatherMain.title,
-                    condition = weatherMain.description,
+                    title = weatherMain.title,
+                    description = weatherMain.description,
                     location = addressName,
                     icon = weatherMain.icon,
                 )

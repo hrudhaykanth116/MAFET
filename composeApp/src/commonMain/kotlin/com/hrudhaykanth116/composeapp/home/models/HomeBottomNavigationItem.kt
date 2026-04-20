@@ -5,6 +5,7 @@ import org.jetbrains.compose.resources.DrawableResource
 import mafet.core_ui.generated.resources.Res
 import mafet.core_ui.generated.resources.ic_account
 import mafet.core_ui.generated.resources.ic_clipboard
+import mafet.core_ui.generated.resources.ic_dashboard
 import mafet.core_ui.generated.resources.ic_diary
 import mafet.core_ui.generated.resources.ic_weather
 import mafet.core_ui.generated.resources.ic_tv
@@ -14,7 +15,7 @@ import mafet.core_ui.generated.resources.ic_genie
 
 enum class HomeBottomNavigationItem(val displayName: String,val iconDrawable: DrawableResource, val route: String) {
 
-    DASHBOARD("Home", Res.drawable.ic_account, HomeRoute.Dashboard.route),
+    DASHBOARD("Home", Res.drawable.ic_dashboard, HomeRoute.Dashboard.route),
 
     TODO("Todo", Res.drawable.ic_clipboard, HomeRoute.Todo.route),
 
