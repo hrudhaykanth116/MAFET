@@ -3,6 +3,7 @@ package com.hrudhaykanth116.tv.ui.screens
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,7 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.hrudhaykanth116.core.ui.components.AppToolbar
 import com.hrudhaykanth116.core.ui.modifier.screenBackground
-import com.hrudhaykanth116.tv.domain.usecases.models.constants.BaseUrlConstants
+import com.hrudhaykanth116.tv.domain.constants.BaseUrlConstants
 import com.hrudhaykanth116.tv.ui.components.MoviePoster
 
 @Composable
@@ -63,20 +64,29 @@ fun TvShowsScreenUI(
                 }
             }
             else -> {
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    items(uiState.tvShows) { item ->
-                        MoviePoster(
-                            BaseUrlConstants.IMAGES_BASE_URL + item.posterPath,
-                            modifier = Modifier.clickable {
-                                onNavigateToDetailsScreen(item.id)
-                            }
-                        )
+                val spacing = 8.dp
+                val targetItemWidth = 160.dp
+
+                BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
+                    val effectiveColumns = (
+                        ((maxWidth + spacing) / (targetItemWidth + spacing)).toInt()
+                    ).coerceIn(2, 6)
+
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(effectiveColumns),
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(spacing),
+                        verticalArrangement = Arrangement.spacedBy(spacing),
+                        horizontalArrangement = Arrangement.spacedBy(spacing)
+                    ) {
+                        items(uiState.tvShows) { item ->
+                            MoviePoster(
+                                BaseUrlConstants.IMAGES_BASE_URL + item.posterPath,
+                                modifier = Modifier.clickable {
+                                    onNavigateToDetailsScreen(item.id)
+                                }
+                            )
+                        }
                     }
                 }
             }

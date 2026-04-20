@@ -1,13 +1,14 @@
 package com.hrudhaykanth116.tv.ui.screens.details.tabs
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -17,8 +18,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -37,6 +41,9 @@ import com.hrudhaykanth116.core.ui.platform.ssp
 import com.hrudhaykanth116.tv.ui.screens.details.AboutTabUIState
 import com.hrudhaykanth116.tv.ui.screens.details.CastUIState
 import com.hrudhaykanth116.tv.ui.screens.details.CreatorUIState
+import com.hrudhaykanth116.tv.ui.screens.details.MediaImageUIState
+import com.hrudhaykanth116.tv.ui.screens.details.MediaTabUIState
+import com.hrudhaykanth116.tv.ui.screens.details.MediaVideoUIState
 import com.hrudhaykanth116.tv.ui.screens.details.ProductionCompanyUIState
 import com.hrudhaykanth116.tv.ui.screens.details.SeasonUIState
 
@@ -44,6 +51,8 @@ import com.hrudhaykanth116.tv.ui.screens.details.SeasonUIState
 fun AboutTabContent(
     overview: String,
     aboutState: AboutTabUIState?,
+    mediaState: MediaTabUIState?,
+    onVideoClicked: (key: String, site: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     if (aboutState == null) {
@@ -70,44 +79,36 @@ fun AboutTabContent(
             VerticalSpacer(height = 16.sdp)
         }
 
-        // if (state.networks.isNotEmpty()) {
-        //     VerticalSpacer(height = 8.sdp)
-        //     LazyRow(
-        //         horizontalArrangement = Arrangement.spacedBy(8.sdp),
-        //     ) {
-        //         items(state.networks) { network ->
-        //             Column(
-        //                 horizontalAlignment = Alignment.CenterHorizontally,
-        //                 modifier = Modifier
-        //                     .clip(RoundedCornerShape(8.sdp))
-        //                     .background(Color(0xFFD9D9D9))
-        //                     .padding(horizontal = 8.sdp, vertical = 2.sdp),
-        //             ) {
-        //                 if (network.logo != null) {
-        //                     AppImage(
-        //                         imageSource = network.logo,
-        //                         modifier = Modifier
-        //                             .height(15.sdp)
-        //                             .width(40.sdp)
-        //                             .clip(RoundedCornerShape(4.sdp)),
-        //                         contentScale = ContentScale.Fit,
-        //                     )
-        //                 } else {
-        //                     Text(
-        //                         text = network.name,
-        //                         fontSize = 8.ssp,
-        //                         color = Color.Blue,
-        //                         fontWeight = FontWeight.Bold,
-        //                         modifier = Modifier
-        //                             .heightIn(min = 15.sdp, max = 15.sdp)
-        //                             .padding(4.sdp),
-        //                         maxLines = 2,
-        //                     )
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
+        // Videos
+        if (mediaState != null && mediaState.videos.isNotEmpty()) {
+            SectionTitle("Videos")
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(10.sdp),
+                contentPadding = PaddingValues(horizontal = 12.sdp),
+            ) {
+                items(mediaState.videos) { video ->
+                    VideoItem(
+                        video = video,
+                        onClick = { onVideoClicked(video.key, video.site) },
+                    )
+                }
+            }
+            VerticalSpacer(height = 16.sdp)
+        }
+
+        // Images
+        if (mediaState != null && mediaState.images.isNotEmpty()) {
+            SectionTitle("Images")
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(10.sdp),
+                contentPadding = PaddingValues(horizontal = 12.sdp),
+            ) {
+                items(mediaState.images) { image ->
+                    ImageItem(image)
+                }
+            }
+            VerticalSpacer(height = 16.sdp)
+        }
 
         // Cast
         if (aboutState.cast.isNotEmpty()) {
@@ -304,27 +305,99 @@ private fun CreatorItem(creator: CreatorUIState) {
 private fun ProductionCompanyItem(company: ProductionCompanyUIState) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.width(80.sdp),
+        modifier = Modifier.width(100.sdp),
     ) {
-        if (company.logo != null) {
-            AppImage(
-                imageSource = company.logo,
-                modifier = Modifier
-                    .height(40.sdp)
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(4.sdp)),
-                contentScale = ContentScale.Fit,
-            )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.sdp)
+                .clip(RoundedCornerShape(8.sdp))
+                .background(Color.White)
+                .padding(8.sdp),
+            contentAlignment = Alignment.Center,
+        ) {
+            if (company.logo != null) {
+                AppImage(
+                    imageSource = company.logo,
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.Fit,
+                )
+            } else {
+                Text(
+                    text = company.name.take(3).uppercase(),
+                    color = Color.Black,
+                    fontSize = 12.ssp,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center,
+                )
+            }
         }
-        VerticalSpacer(height = 4.sdp)
+        VerticalSpacer(height = 6.sdp)
         Text(
             text = company.name,
-            color = Color.Gray,
-            fontSize = 8.ssp,
+            color = Color.LightGray,
+            fontSize = 9.ssp,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth(),
         )
     }
+}
+
+@Composable
+private fun VideoItem(
+    video: MediaVideoUIState,
+    onClick: () -> Unit,
+) {
+    Column(
+        modifier = Modifier
+            .width(200.sdp)
+            .clickable(onClick = onClick),
+    ) {
+        Box {
+            AppImage(
+                imageSource = video.thumbnail,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(112.sdp)
+                    .clip(RoundedCornerShape(8.sdp)),
+                contentScale = ContentScale.Crop,
+            )
+            Surface(
+                shape = CircleShape,
+                color = Color.Black.copy(alpha = 0.6f),
+                modifier = Modifier
+                    .size(36.sdp)
+                    .align(Alignment.Center),
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.PlayArrow,
+                    contentDescription = "Play",
+                    tint = Color.White,
+                    modifier = Modifier.padding(6.sdp),
+                )
+            }
+        }
+        VerticalSpacer(height = 4.sdp)
+        Text(
+            text = video.name,
+            color = Color.White,
+            fontSize = 9.ssp,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
+        )
+    }
+}
+
+@Composable
+private fun ImageItem(image: MediaImageUIState) {
+    AppImage(
+        imageSource = image.image,
+        modifier = Modifier
+            .width(200.sdp)
+            .height(112.sdp)
+            .clip(RoundedCornerShape(8.sdp)),
+        contentScale = ContentScale.Crop,
+    )
 }

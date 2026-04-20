@@ -38,7 +38,10 @@
       "Bash(./gradlew :features:weather:compileKotlinDesktop :features:weather:compileDebugKotlinAndroid :features:tv:compileKotlinDesktop :features:tv:compileDebugKotlinAndroid --no-daemon)",
       "Bash(./gradlew :core-common:compileKotlinDesktop :core-common:compileDebugKotlinAndroid :features:weather:compileKotlinDesktop :features:weather:compileDebugKotlinAndroid :features:tv:compileKotlinDesktop :features:tv:compileDebugKotlinAndroid :features:media:compileKotlinDesktop :features:media:compileDebugKotlinAndroid --no-daemon)",
       "Bash(./gradlew :desktopApp:tasks --no-daemon)",
-      "Bash(./gradlew :desktopApp:run --no-daemon)"
+      "Bash(./gradlew :desktopApp:run --no-daemon)",
+      "Bash(./gradlew :features:tv:compileDebugKotlinAndroid :features:tv:compileKotlinDesktop --quiet)",
+      "Bash(./gradlew :features:tv:compileKotlinDesktop --quiet)",
+      "Bash(./gradlew :composeApp:compileDebugKotlinAndroid)"
     ]
   }
 }

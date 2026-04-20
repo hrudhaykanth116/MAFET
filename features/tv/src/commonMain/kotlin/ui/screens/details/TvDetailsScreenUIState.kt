@@ -15,6 +15,7 @@ data class TvDetailsScreenUIState(
     val aboutTabState: AboutTabUIState? = null,
     val moreLikeThisTabState: MoreLikeThisTabUIState? = null,
     val mediaTabState: MediaTabUIState? = null,
+    val reviewsTabState: ReviewsTabUIState? = null,
 )
 
 data class NetworkUIState(
@@ -92,4 +93,17 @@ data class MediaVideoUIState(
     val name: String,
     val thumbnail: ImageHolder,
     val site: String,
+)
+
+data class ReviewsTabUIState(
+    val reviews: List<ReviewUIState>,
+)
+
+data class ReviewUIState(
+    val id: String,
+    val author: String,
+    val avatar: ImageHolder?,
+    val content: String,
+    val rating: String,
+    val createdAt: String,
 )

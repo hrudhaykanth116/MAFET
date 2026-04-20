@@ -3,6 +3,7 @@ package com.hrudhaykanth116.tv.ui.mappers
 import com.hrudhaykanth116.core.ui.models.toUrlImageHolder
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvCreditsResponse
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvImagesResponse
+import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvReviewsResponse
 import com.hrudhaykanth116.tv.data.datasources.remote.models.GetTvVideosResponse
 import com.hrudhaykanth116.tv.domain.constants.BaseUrlConstants
 import com.hrudhaykanth116.tv.domain.models.TvShowDetail
@@ -16,6 +17,8 @@ import com.hrudhaykanth116.tv.ui.screens.details.MediaVideoUIState
 import com.hrudhaykanth116.tv.ui.screens.details.MoreLikeThisTabUIState
 import com.hrudhaykanth116.tv.ui.screens.details.NetworkUIState
 import com.hrudhaykanth116.tv.ui.screens.details.ProductionCompanyUIState
+import com.hrudhaykanth116.tv.ui.screens.details.ReviewUIState
+import com.hrudhaykanth116.tv.ui.screens.details.ReviewsTabUIState
 import com.hrudhaykanth116.tv.ui.screens.details.SeasonUIState
 import com.hrudhaykanth116.tv.ui.screens.details.SimilarShowUIState
 import com.hrudhaykanth116.tv.ui.screens.details.TvDetailsScreenUIState
@@ -154,4 +157,41 @@ fun toMediaTabUIState(
         images = imageStates,
         videos = videoStates,
     )
+}
+
+// --- Reviews / Discussions Tab mapping ---
+
+fun GetTvReviewsResponse.toReviewsTabUIState(): ReviewsTabUIState {
+    val reviews = reviewDetails.mapNotNull { review ->
+        val id = review.id ?: return@mapNotNull null
+        val content = review.content?.takeIf { it.isNotBlank() } ?: return@mapNotNull null
+        val author = review.author?.takeIf { it.isNotBlank() }
+            ?: review.author_details?.username
+            ?: review.author_details?.name
+            ?: "Anonymous"
+
+        val avatarPath = review.author_details?.avatar_path
+        val avatar = avatarPath?.let {
+            if (it.startsWith("/http")) it.drop(1).toUrlImageHolder()
+            else (BaseUrlConstants.IMAGES_BASE_URL + it).toUrlImageHolder()
+        }
+
+        val ratingValue = review.author_details?.rating
+        val rating = if (ratingValue != null && ratingValue > 0) {
+            val rounded = ((ratingValue * 10).toInt() / 10.0)
+            "$rounded / 10"
+        } else ""
+
+        val createdAt = review.created_at?.take(10).orEmpty()
+
+        ReviewUIState(
+            id = id,
+            author = author,
+            avatar = avatar,
+            content = content,
+            rating = rating,
+            createdAt = createdAt,
+        )
+    }
+    return ReviewsTabUIState(reviews = reviews)
 }

@@ -36,8 +36,8 @@ import com.hrudhaykanth116.core.ui.models.ImageHolder
 import com.hrudhaykanth116.core.ui.platform.sdp
 import com.hrudhaykanth116.core.ui.platform.ssp
 import com.hrudhaykanth116.tv.ui.screens.details.tabs.AboutTabContent
-import com.hrudhaykanth116.tv.ui.screens.details.tabs.MediaTabContent
 import com.hrudhaykanth116.tv.ui.screens.details.tabs.MoreLikeThisTabContent
+import com.hrudhaykanth116.tv.ui.screens.details.tabs.ReviewsTabContent
 import kotlinx.coroutines.launch
 import mafet.core_ui.generated.resources.Res
 import mafet.core_ui.generated.resources.ic_back
@@ -45,7 +45,7 @@ import mafet.core_ui.generated.resources.ic_bookmark
 import mafet.core_ui.generated.resources.ic_bookmark_filled
 import mafet.core_ui.generated.resources.image_place_holder
 
-private val TAB_TITLES = listOf("About", "More Like This", "Media")
+private val TAB_TITLES = listOf("About", "Reviews", "More Like This")
 
 @Composable
 fun TvDetailsScreenUI(
@@ -169,14 +169,15 @@ fun TvDetailsScreenUI(
                     0 -> AboutTabContent(
                         overview = state.overview,
                         aboutState = state.aboutTabState,
+                        mediaState = state.mediaTabState,
+                        onVideoClicked = onVideoClicked,
                     )
-                    1 -> MoreLikeThisTabContent(
+                    1 -> ReviewsTabContent(
+                        state = state.reviewsTabState,
+                    )
+                    2 -> MoreLikeThisTabContent(
                         state = state.moreLikeThisTabState,
                         onSimilarShowClicked = onSimilarShowClicked,
-                    )
-                    2 -> MediaTabContent(
-                        state = state.mediaTabState,
-                        onVideoClicked = onVideoClicked,
                     )
                 }
             }

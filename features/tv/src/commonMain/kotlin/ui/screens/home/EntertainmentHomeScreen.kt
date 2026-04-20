@@ -9,6 +9,7 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun EntertainmentHomeScreen(
     onNavigateToSearchScreen: () -> Unit,
+    onNavigateToDetails: (Int) -> Unit = {},
     entertainmentHomeScreenViewModel: EntertainmentHomeScreenViewModel = koinViewModel(),
 ) {
 
@@ -18,8 +19,8 @@ fun EntertainmentHomeScreen(
         onUpdateTvCloseRequest = {
             entertainmentHomeScreenViewModel.processEvent(EntertainmentHomeScreenEvent.CloseUpdateTv)
         },
-        onTvListItemClicked = {
-            entertainmentHomeScreenViewModel.processEvent(EntertainmentHomeScreenEvent.MyEntertainmentListItemClicked(it))
+        onTvListItemClicked = { myTv ->
+            onNavigateToDetails(myTv.id)
         },
         onTvListItemEditClicked = {
             entertainmentHomeScreenViewModel.processEvent(EntertainmentHomeScreenEvent.MyEntertainmentListItemClicked(it))

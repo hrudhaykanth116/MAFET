@@ -19,6 +19,7 @@ import com.hrudhaykanth116.tv.ui.mappers.toAboutTabUIState
 import com.hrudhaykanth116.tv.ui.mappers.toCastUIStates
 import com.hrudhaykanth116.tv.ui.mappers.toMediaTabUIState
 import com.hrudhaykanth116.tv.ui.mappers.toMoreLikeThisTabUIState
+import com.hrudhaykanth116.tv.ui.mappers.toReviewsTabUIState
 import com.hrudhaykanth116.tv.ui.mappers.toUIState
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -80,6 +81,7 @@ class TvDetailsViewModel(
                         )
                     }
                     fetchCredits()
+                    fetchMedia()
                 }
             }
         }
@@ -104,6 +106,17 @@ class TvDetailsViewModel(
             if (result is DomainResult.Success) {
                 setIdleState {
                     copy(moreLikeThisTabState = result.data.toMoreLikeThisTabUIState())
+                }
+            }
+        }
+    }
+
+    private fun fetchReviews() {
+        viewModelScope.launch {
+            val result = tvShowsRepository.getTvReviews(id, 1)
+            if (result is DomainResult.Success) {
+                setIdleState {
+                    copy(reviewsTabState = result.data.toReviewsTabUIState())
                 }
             }
         }
@@ -140,9 +153,12 @@ class TvDetailsViewModel(
 
             is TvDetailsScreenEvent.OnTabSelected -> {
                 when (event.tabIndex) {
-                    0 -> if (contentStateOrDefault.aboutTabState == null) fetchCredits()
-                    1 -> if (contentStateOrDefault.moreLikeThisTabState == null) fetchMoreLikeThis()
-                    2 -> if (contentStateOrDefault.mediaTabState == null) fetchMedia()
+                    0 -> {
+                        if (contentStateOrDefault.aboutTabState == null) fetchCredits()
+                        if (contentStateOrDefault.mediaTabState == null) fetchMedia()
+                    }
+                    1 -> if (contentStateOrDefault.reviewsTabState == null) fetchReviews()
+                    2 -> if (contentStateOrDefault.moreLikeThisTabState == null) fetchMoreLikeThis()
                 }
             }
 

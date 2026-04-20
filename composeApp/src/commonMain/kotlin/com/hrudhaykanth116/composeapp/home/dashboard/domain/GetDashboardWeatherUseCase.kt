@@ -4,6 +4,7 @@ import com.hrudhaykanth116.composeapp.home.dashboard.models.WeatherSummary
 import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.core.ui.models.UIText
 import com.hrudhaykanth116.weather.domain.usecases.GetForeCastFromLatLongUseCase
+import com.hrudhaykanth116.weather.domain.usecases.WeatherElement
 import com.hrudhaykanth116.weather.location.LocationService
 
 class GetDashboardWeatherUseCase(
@@ -33,7 +34,8 @@ class GetDashboardWeatherUseCase(
                 WeatherSummary(
                     temperature = weatherMain.title,
                     condition = weatherMain.description,
-                    location = addressName
+                    location = addressName,
+                    icon = weatherMain.icon,
                 )
             }
         }

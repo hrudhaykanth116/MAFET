@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -51,64 +52,73 @@ fun TvShowsScreenUI(
             onBackClicked = onBackClicked
         )
 
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            items(lazyPagingItems.itemCount) { index ->
-                val item = lazyPagingItems[index]
-                if (item != null) {
-                    MoviePoster(
-                        BaseUrlConstants.IMAGES_BASE_URL + item.posterPath,
-                        modifier = Modifier.clickable{
-                            onNavigateToDetailsScreen(item.id)
+        val spacing = 8.dp
+        val targetItemWidth = 160.dp
+
+        BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
+            val effectiveColumns = (
+                ((maxWidth + spacing) / (targetItemWidth + spacing)).toInt()
+            ).coerceIn(2, 6)
+
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(effectiveColumns),
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(spacing),
+                verticalArrangement = Arrangement.spacedBy(spacing),
+                horizontalArrangement = Arrangement.spacedBy(spacing)
+            ) {
+                items(lazyPagingItems.itemCount) { index ->
+                    val item = lazyPagingItems[index]
+                    if (item != null) {
+                        MoviePoster(
+                            BaseUrlConstants.IMAGES_BASE_URL + item.posterPath,
+                            modifier = Modifier.clickable{
+                                onNavigateToDetailsScreen(item.id)
+                            }
+                        )
+                    } else {
+                        Box(
+                            modifier = Modifier
+                                .aspectRatio(2f / 3f)
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(12.dp))
+                                .background(Color.LightGray),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator(modifier = Modifier.size(24.dp))
                         }
-                    )
-                } else {
-                    Box(
-                        modifier = Modifier
-                            .aspectRatio(2f / 3f)
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(12.dp))
-                            .background(Color.LightGray),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        CircularProgressIndicator(modifier = Modifier.size(24.dp))
                     }
                 }
-            }
 
-            lazyPagingItems.apply {
-                when {
-                    loadState.refresh is LoadState.Loading -> {
-                        item(span = { GridItemSpan(maxLineSpan) }) {
-                            LoadingState("Loading TV shows…")
-                        }
-                    }
-
-                    loadState.append is LoadState.Loading -> {
-                        item(span = { GridItemSpan(maxLineSpan) }) {
-                            LoadingState("Loading more…")
-                        }
-                    }
-
-                    loadState.refresh is LoadState.Error -> {
-                        val e = loadState.refresh as LoadState.Error
-                        item(span = { GridItemSpan(maxLineSpan) }) {
-                            ErrorState(message = e.error.localizedMessage ?: "Unknown error") {
-                                retry()
+                lazyPagingItems.apply {
+                    when {
+                        loadState.refresh is LoadState.Loading -> {
+                            item(span = { GridItemSpan(maxLineSpan) }) {
+                                LoadingState("Loading TV shows…")
                             }
                         }
-                    }
 
-                    loadState.append is LoadState.Error -> {
-                        val e = loadState.append as LoadState.Error
-                        item(span = { GridItemSpan(maxLineSpan) }) {
-                            ErrorState(message = e.error.localizedMessage ?: "Unknown error") {
-                                retry()
+                        loadState.append is LoadState.Loading -> {
+                            item(span = { GridItemSpan(maxLineSpan) }) {
+                                LoadingState("Loading more…")
+                            }
+                        }
+
+                        loadState.refresh is LoadState.Error -> {
+                            val e = loadState.refresh as LoadState.Error
+                            item(span = { GridItemSpan(maxLineSpan) }) {
+                                ErrorState(message = e.error.localizedMessage ?: "Unknown error") {
+                                    retry()
+                                }
+                            }
+                        }
+
+                        loadState.append is LoadState.Error -> {
+                            val e = loadState.append as LoadState.Error
+                            item(span = { GridItemSpan(maxLineSpan) }) {
+                                ErrorState(message = e.error.localizedMessage ?: "Unknown error") {
+                                    retry()
+                                }
                             }
                         }
                     }

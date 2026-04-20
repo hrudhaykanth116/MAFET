@@ -56,7 +56,10 @@ fun EntertainmentNavigation() {
             EntertainmentHomeScreen(
                 onNavigateToSearchScreen = {
                     navController.navigate("tv_home")
-                }
+                },
+                onNavigateToDetails = { id ->
+                    navController.navigate("tv_details/$id")
+                },
             )
         }
 

@@ -2,6 +2,7 @@ package com.hrudhaykanth116.tv.ui.screens.details.tabs
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
@@ -52,18 +54,27 @@ fun MoreLikeThisTabContent(
         return
     }
 
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(3),
-        modifier = modifier.fillMaxSize(),
-        contentPadding = PaddingValues(8.sdp),
-        verticalArrangement = Arrangement.spacedBy(10.sdp),
-        horizontalArrangement = Arrangement.spacedBy(8.sdp),
-    ) {
-        items(state.similarShows) { show ->
-            SimilarShowItem(
-                show = show,
-                onClick = { onSimilarShowClicked(show.id) },
-            )
+    val spacing = 8.dp
+    val targetItemWidth = 140.dp
+
+    BoxWithConstraints(modifier = modifier.fillMaxSize()) {
+        val effectiveColumns = (
+            ((maxWidth + spacing) / (targetItemWidth + spacing)).toInt()
+        ).coerceIn(2, 6)
+
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(effectiveColumns),
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(8.sdp),
+            verticalArrangement = Arrangement.spacedBy(10.sdp),
+            horizontalArrangement = Arrangement.spacedBy(8.sdp),
+        ) {
+            items(state.similarShows) { show ->
+                SimilarShowItem(
+                    show = show,
+                    onClick = { onSimilarShowClicked(show.id) },
+                )
+            }
         }
     }
 }
