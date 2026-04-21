@@ -16,6 +16,8 @@ data class TvDetailsScreenUIState(
     val moreLikeThisTabState: MoreLikeThisTabUIState? = null,
     val mediaTabState: MediaTabUIState? = null,
     val reviewsTabState: ReviewsTabUIState? = null,
+    val fullscreenImageUrl: String? = null,
+    val isDownloadingImage: Boolean = false,
 )
 
 data class NetworkUIState(
@@ -86,6 +88,7 @@ data class MediaTabUIState(
 
 data class MediaImageUIState(
     val image: ImageHolder,
+    val originalUrl: String,
 )
 
 data class MediaVideoUIState(

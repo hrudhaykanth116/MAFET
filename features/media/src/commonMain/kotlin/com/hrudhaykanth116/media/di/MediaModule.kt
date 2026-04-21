@@ -2,6 +2,7 @@ package com.hrudhaykanth116.media.di
 
 import com.hrudhaykanth116.core.common.config.ApiConfig
 import com.hrudhaykanth116.core.common.di.DispatchersEnum
+import com.hrudhaykanth116.core.ui.download.ImageDownloadManager
 import com.hrudhaykanth116.media.data.network.PexelsRemoteDataSource
 import com.hrudhaykanth116.media.data.network.ktor.PexelsApiServiceKtor
 import com.hrudhaykanth116.media.data.repositories.PexelsRepository
@@ -80,6 +81,7 @@ val mediaModule = module {
         MediaDetailViewModel(
             getMediaDetailUseCase = get(),
             platformActions = get(),
+            downloadManager = get<ImageDownloadManager>(),
             networkMonitor = get(),
             dispatcher = get(named(DispatchersEnum.IoDispatcher)),
             mediaId = mediaId,

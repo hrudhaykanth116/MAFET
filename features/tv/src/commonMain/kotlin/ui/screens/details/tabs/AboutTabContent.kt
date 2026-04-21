@@ -53,6 +53,7 @@ fun AboutTabContent(
     aboutState: AboutTabUIState?,
     mediaState: MediaTabUIState?,
     onVideoClicked: (key: String, site: String) -> Unit,
+    onImageClick: (url: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     if (aboutState == null) {
@@ -104,7 +105,7 @@ fun AboutTabContent(
                 contentPadding = PaddingValues(horizontal = 12.sdp),
             ) {
                 items(mediaState.images) { image ->
-                    ImageItem(image)
+                    ImageItem(image, onClick = { onImageClick(image.originalUrl) })
                 }
             }
             VerticalSpacer(height = 16.sdp)
@@ -391,13 +392,14 @@ private fun VideoItem(
 }
 
 @Composable
-private fun ImageItem(image: MediaImageUIState) {
+private fun ImageItem(image: MediaImageUIState, onClick: () -> Unit) {
     AppImage(
         imageSource = image.image,
         modifier = Modifier
-            .width(200.sdp)
-            .height(112.sdp)
-            .clip(RoundedCornerShape(8.sdp)),
+            .width(100.sdp)
+            .height(150.sdp)
+            .clip(RoundedCornerShape(8.sdp))
+            .clickable(onClick = onClick),
         contentScale = ContentScale.Crop,
     )
 }

@@ -131,12 +131,14 @@ fun toMediaTabUIState(
     images: GetTvImagesResponse,
     videos: GetTvVideosResponse,
 ): MediaTabUIState {
-    val imageStates = (images.backdrops + images.posters)
+    val imageStates = images.posters
         .filterNotNull()
+        .filter { (it.aspect_ratio ?: 1.0) < 1.0 }
         .mapNotNull { imageObj ->
             imageObj.file_path?.let { path ->
                 MediaImageUIState(
-                    image = (BaseUrlConstants.IMAGES_BASE_URL + path).toUrlImageHolder()
+                    image = (BaseUrlConstants.IMAGES_THUMBNAIL_BASE_URL + path).toUrlImageHolder(),
+                    originalUrl = BaseUrlConstants.IMAGES_BASE_URL + path,
                 )
             }
         }

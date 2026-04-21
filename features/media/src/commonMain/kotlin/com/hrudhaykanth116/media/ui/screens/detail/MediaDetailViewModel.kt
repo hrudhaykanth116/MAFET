@@ -3,6 +3,7 @@ package com.hrudhaykanth116.media.ui.screens.detail
 import androidx.lifecycle.viewModelScope
 import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.core.ui.NetworkMonitor
+import com.hrudhaykanth116.core.ui.download.ImageDownloadManager
 import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.core.ui.models.toErrorMessage
 import com.hrudhaykanth116.core.ui.models.toSuccessMessage
@@ -17,6 +18,7 @@ import kotlinx.coroutines.launch
 class MediaDetailViewModel(
     private val getMediaDetailUseCase: GetMediaDetailUseCase,
     private val platformActions: MediaPlatformActions,
+    private val downloadManager: ImageDownloadManager,
     private val networkMonitor: NetworkMonitor,
     private val dispatcher: CoroutineDispatcher,
     private val mediaId: Int,
@@ -84,18 +86,11 @@ class MediaDetailViewModel(
         val filename = "pexels_${mediaItem.id}_${quality.name.lowercase()}.${if (mediaItem.type == MediaType.VIDEOS) "mp4" else "jpg"}"
 
         viewModelScope.launch(dispatcher) {
-            setLoadingState(
-                contentSTATE = contentStateOrDefault,
-                message = "Downloading...".toUIText()
-            )
-
-            val success = platformActions.downloadFile(url, filename)
+            val success = downloadManager.downloadFile(url, filename)
 
             if (success) {
-                setIdleState(contentStateOrDefault)
                 showUserMessage("Download completed successfully".toUIText().toSuccessMessage())
             } else {
-                setIdleState(contentStateOrDefault)
                 showUserMessage("Download failed. Please try again.".toUIText().toErrorMessage())
             }
         }

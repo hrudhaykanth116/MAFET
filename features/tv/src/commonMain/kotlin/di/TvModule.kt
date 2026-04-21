@@ -1,6 +1,7 @@
 package com.hrudhaykanth116.tv.di
 
 import com.hrudhaykanth116.core.common.di.DispatchersEnum
+import com.hrudhaykanth116.core.ui.download.ImageDownloadManager
 import com.hrudhaykanth116.tv.data.datasources.local.MyTvListLocalDataSource
 import com.hrudhaykanth116.tv.data.datasources.local.room.TvDb
 import com.hrudhaykanth116.tv.data.datasources.local.room.dao.MyTvListDao
@@ -115,7 +116,7 @@ val tvCommonModule = module {
     }
 
     factory {
-        TvDetailsViewModel(get(), get(), get(), get(), get(), get())
+        TvDetailsViewModel(get(), get(), get(), get(), get(), get(), get<ImageDownloadManager>())
     }
 
     factory {

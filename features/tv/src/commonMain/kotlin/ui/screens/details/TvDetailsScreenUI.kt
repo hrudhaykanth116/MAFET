@@ -29,6 +29,7 @@ import com.hrudhaykanth116.core.ui.preview.AppPreviewContainer
 import com.hrudhaykanth116.core.ui.modifier.gradientBackground
 import com.hrudhaykanth116.core.ui.components.AppImage
 import com.hrudhaykanth116.core.ui.components.AppRoundedIcon
+import com.hrudhaykanth116.core.ui.components.FullScreenImageViewer
 import com.hrudhaykanth116.core.ui.components.FancyChipsFlow
 import com.hrudhaykanth116.core.ui.components.HorizontalSpacer
 import com.hrudhaykanth116.core.ui.components.VerticalSpacer
@@ -56,6 +57,9 @@ fun TvDetailsScreenUI(
     onTabSelected: (Int) -> Unit = {},
     onSimilarShowClicked: (Int) -> Unit = {},
     onVideoClicked: (key: String, site: String) -> Unit = { _, _ -> },
+    onImageClick: (url: String) -> Unit = {},
+    onCloseFullscreen: () -> Unit = {},
+    onDownloadImage: (url: String) -> Unit = {},
 ) {
     val pagerState = rememberPagerState { TAB_TITLES.size }
     val coroutineScope = rememberCoroutineScope()
@@ -171,6 +175,7 @@ fun TvDetailsScreenUI(
                         aboutState = state.aboutTabState,
                         mediaState = state.mediaTabState,
                         onVideoClicked = onVideoClicked,
+                        onImageClick = onImageClick,
                     )
                     1 -> ReviewsTabContent(
                         state = state.reviewsTabState,
@@ -203,6 +208,16 @@ fun TvDetailsScreenUI(
                 .offset(y = 10.sdp, x = (-10).sdp)
                 .clickable { onBookMarkClicked(state.id) },
         )
+
+        if (state.fullscreenImageUrl != null) {
+            FullScreenImageViewer(
+                imageUrl = state.fullscreenImageUrl,
+                onBack = onCloseFullscreen,
+                onDownloadClick = { onDownloadImage(state.fullscreenImageUrl) },
+                isDownloading = state.isDownloadingImage,
+                modifier = Modifier.fillMaxSize(),
+            )
+        }
     }
 }
 
@@ -257,8 +272,8 @@ private fun TvDetailsScreenPreview() {
                 ),
                 mediaTabState = MediaTabUIState(
                     images = listOf(
-                        MediaImageUIState(placeholderImage),
-                        MediaImageUIState(placeholderImage),
+                        MediaImageUIState(placeholderImage, originalUrl = ""),
+                        MediaImageUIState(placeholderImage, originalUrl = ""),
                     ),
                     videos = listOf(
                         MediaVideoUIState("dummyKey", "Official Trailer", placeholderImage, "YouTube"),

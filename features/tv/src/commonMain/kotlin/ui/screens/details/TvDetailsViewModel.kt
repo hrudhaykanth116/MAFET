@@ -4,6 +4,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.hrudhaykanth116.core.ui.models.UserMessage
 import com.hrudhaykanth116.core.ui.NetworkMonitor
+import com.hrudhaykanth116.core.ui.download.ImageDownloadManager
+import com.hrudhaykanth116.core.ui.models.toErrorMessage
+import com.hrudhaykanth116.core.ui.models.toSuccessMessage
 import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.core.domain.result.DomainResult
 import com.hrudhaykanth116.core.ui.viewmodels.UIStateViewModel
@@ -21,6 +24,8 @@ import com.hrudhaykanth116.tv.ui.mappers.toMediaTabUIState
 import com.hrudhaykanth116.tv.ui.mappers.toMoreLikeThisTabUIState
 import com.hrudhaykanth116.tv.ui.mappers.toReviewsTabUIState
 import com.hrudhaykanth116.tv.ui.mappers.toUIState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
@@ -32,6 +37,7 @@ class TvDetailsViewModel(
     private val deleteMyTvUseCase: DeleteMyTvUseCase,
     private val networkMonitor: NetworkMonitor,
     private val tvShowsRepository: ITvShowsRepository,
+    private val downloadManager: ImageDownloadManager,
 ) : UIStateViewModel<TvDetailsScreenUIState, TvDetailsScreenEvent, TvDetailsScreenEffect>(
     initialState = UIState.Loading(),
     defaultState = TvDetailsScreenUIState(
@@ -175,6 +181,28 @@ class TvDetailsViewModel(
                     else -> return
                 }
                 setEffect(TvDetailsScreenEffect.OpenVideoUrl(url))
+            }
+
+            is TvDetailsScreenEvent.OnImageClick -> {
+                setIdleState { copy(fullscreenImageUrl = event.url) }
+            }
+
+            is TvDetailsScreenEvent.OnCloseFullscreen -> {
+                setIdleState { copy(fullscreenImageUrl = null) }
+            }
+
+            is TvDetailsScreenEvent.OnDownloadImage -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setIdleState { copy(isDownloadingImage = true) }
+                    val filename = "${contentStateOrDefault.title}_${event.url.substringAfterLast("/")}"
+                    val success = downloadManager.downloadFile(event.url, filename)
+                    setIdleState { copy(isDownloadingImage = false) }
+                    if (success) {
+                        showUserMessage("Download completed successfully".toUIText().toSuccessMessage())
+                    } else {
+                        showUserMessage("Download failed. Please try again.".toUIText().toErrorMessage())
+                    }
+                }
             }
         }
     }

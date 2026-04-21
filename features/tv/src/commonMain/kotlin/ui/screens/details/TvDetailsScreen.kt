@@ -46,6 +46,15 @@ fun TvDetailsScreen(
             onVideoClicked = { key, site ->
                 viewModel.processEvent(TvDetailsScreenEvent.OnVideoClicked(key, site))
             },
+            onImageClick = { url ->
+                viewModel.processEvent(TvDetailsScreenEvent.OnImageClick(url))
+            },
+            onCloseFullscreen = {
+                viewModel.processEvent(TvDetailsScreenEvent.OnCloseFullscreen)
+            },
+            onDownloadImage = { url ->
+                viewModel.processEvent(TvDetailsScreenEvent.OnDownloadImage(url))
+            },
         )
     }
 }
