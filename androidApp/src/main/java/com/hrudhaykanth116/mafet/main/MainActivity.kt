@@ -77,16 +77,23 @@ class MainActivity : AppCompatActivity() {
 
         splashScreen.setOnExitAnimationListener { splashProvider ->
             val rootView = splashProvider.view
-            val iconAnim = ObjectAnimator.ofPropertyValuesHolder(
-                splashProvider.iconView,
-                PropertyValuesHolder.ofFloat(View.SCALE_X, 1.0f, 1.15f, 0.0f),
-                PropertyValuesHolder.ofFloat(View.SCALE_Y, 1.0f, 1.15f, 0.0f),
-                PropertyValuesHolder.ofFloat(View.ALPHA, 1.0f, 0.0f),
-            ).apply {
-                duration = SPLASH_EXIT_DURATION_MS
-                interpolator = AccelerateInterpolator()
+            val animators = mutableListOf<android.animation.Animator>()
+
+            // getIconView() can throw NPE on Android 12+ when no icon is configured
+            val iconView = try { splashProvider.iconView } catch (_: NullPointerException) { null }
+            iconView?.let {
+                animators += ObjectAnimator.ofPropertyValuesHolder(
+                    it,
+                    PropertyValuesHolder.ofFloat(View.SCALE_X, 1.0f, 1.15f, 0.0f),
+                    PropertyValuesHolder.ofFloat(View.SCALE_Y, 1.0f, 1.15f, 0.0f),
+                    PropertyValuesHolder.ofFloat(View.ALPHA, 1.0f, 0.0f),
+                ).apply {
+                    duration = SPLASH_EXIT_DURATION_MS
+                    interpolator = AccelerateInterpolator()
+                }
             }
-            val slideAnim = ObjectAnimator.ofFloat(
+
+            animators += ObjectAnimator.ofFloat(
                 rootView,
                 "translationY",
                 0f,
@@ -96,8 +103,9 @@ class MainActivity : AppCompatActivity() {
                 interpolator = AccelerateInterpolator()
                 startDelay = SPLASH_EXIT_SLIDE_DELAY_MS
             }
+
             AnimatorSet().apply {
-                playTogether(iconAnim, slideAnim)
+                playTogether(*animators.toTypedArray())
                 doOnEnd { splashProvider.remove() }
                 start()
             }

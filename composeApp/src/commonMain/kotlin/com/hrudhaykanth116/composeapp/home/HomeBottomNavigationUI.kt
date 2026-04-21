@@ -32,7 +32,9 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import com.hrudhaykanth116.composeapp.testing.TestTags
 import com.hrudhaykanth116.core.ui.constants.Dimens
 import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.core.ui.components.AppIcon
@@ -55,6 +57,7 @@ fun HomeBottomNavigationUI(
 
     val newModifier = modifier
         .fillMaxWidth()
+        .testTag(TestTags.HOME_BOTTOM_NAV)
 
     Card(
         modifier = newModifier,
@@ -147,6 +150,7 @@ private fun AppBottomBarItem(
     Box(
         modifier = modifier
             .padding(horizontal = 4.dp)
+            .testTag(TestTags.bottomNavItem(navigationItem.homeBottomNavigationItem.name))
             .width(pillWidth)
             .height(60.dp)
             .clip(RoundedCornerShape(30.dp))

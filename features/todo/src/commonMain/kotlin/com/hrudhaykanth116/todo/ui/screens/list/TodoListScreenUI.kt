@@ -57,6 +57,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
@@ -116,6 +117,7 @@ fun TodoListScreenUI(
 
     Box(
         modifier = modifier
+            .testTag("todo_list_root")
             .fillMaxSize()
             .screenBackground()
     ) {
@@ -322,6 +324,7 @@ private fun BottomInputSection(
                 },
                 modifier = Modifier
                     .weight(1f)
+                    .testTag("todo_title_input")
                     .onFocusChanged { focusState ->
                         isFocused = focusState.isFocused
                     },
@@ -348,7 +351,9 @@ private fun BottomInputSection(
 
             FloatingActionButton(
                 onClick = onCreateBtnClicked,
-                modifier = Modifier.size(48.dp),
+                modifier = Modifier
+                    .size(48.dp)
+                    .testTag("todo_add_button"),
                 shape = CircleShape,
                 containerColor = MaterialTheme.colorScheme.primary,
                 contentColor = MaterialTheme.colorScheme.onPrimary,

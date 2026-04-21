@@ -57,6 +57,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
@@ -103,6 +104,7 @@ fun TodoListItemUI(
 
     SwipeToDismissBox(
         state = dismissState,
+        modifier = modifier.testTag("todo_item_${todoData.title.text}"),
         backgroundContent = {
             val color by animateColorAsState(
                 targetValue = when (dismissState.targetValue) {
@@ -133,7 +135,6 @@ fun TodoListItemUI(
             }
         },
         enableDismissFromStartToEnd = false,
-        modifier = modifier
     ) {
         val cardModifier = if (sharedTransitionScope != null && animatedVisibilityScope != null && todoData.id != null) {
             with(sharedTransitionScope) {

@@ -34,6 +34,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
@@ -50,6 +51,7 @@ import com.hrudhaykanth116.core.ui.models.UIState
 import com.hrudhaykanth116.core.ui.models.toUIText
 import com.hrudhaykanth116.core.ui.modifier.screenBackground
 import com.hrudhaykanth116.core.ui.preview.MyPreview
+import com.hrudhaykanth116.composeapp.testing.TestTags
 import com.hrudhaykanth116.weather.resources.Res
 import com.hrudhaykanth116.weather.resources.ic_clouds
 import com.hrudhaykanth116.weather.resources.ic_rain
@@ -91,6 +93,7 @@ private fun DashboardContent(state: DashboardScreenState) {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .testTag(TestTags.DASHBOARD_ROOT)
             .screenBackground()
             .verticalScroll(rememberScrollState())
             .padding(horizontal = 20.dp, vertical = 20.dp),
