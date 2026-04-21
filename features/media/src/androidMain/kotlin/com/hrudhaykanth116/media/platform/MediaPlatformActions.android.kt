@@ -77,10 +77,14 @@ actual class MediaPlatformActions(private val context: Context) {
     }
 
     /**
-     * Downloads file using MediaStore API (Android 10+).
+     * Downloads file using MediaStore Downloads API (Android 10+).
      * No permissions required - Scoped Storage handles access automatically.
+     * Uses MediaStore.Downloads collection which is correct for the Downloads directory.
      */
+    @android.annotation.TargetApi(android.os.Build.VERSION_CODES.Q)
     private fun downloadFileApi29Plus(url: String, filename: String): Boolean {
+        val resolver = context.contentResolver
+        var uri: android.net.Uri? = null
         return try {
             val mimeType = when {
                 filename.endsWith(".mp4", ignoreCase = true) -> "video/mp4"
@@ -94,16 +98,11 @@ actual class MediaPlatformActions(private val context: Context) {
                 put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
                 put(MediaStore.MediaColumns.MIME_TYPE, mimeType)
                 put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
+                put(MediaStore.MediaColumns.IS_PENDING, 1)
             }
 
-            val resolver = context.contentResolver
-            val collection = if (mimeType.startsWith("video")) {
-                MediaStore.Video.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
-            } else {
-                MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
-            }
-
-            val uri = resolver.insert(collection, contentValues) ?: return false
+            val collection = MediaStore.Downloads.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
+            uri = resolver.insert(collection, contentValues) ?: return false
 
             resolver.openOutputStream(uri)?.use { output ->
                 val connection = URL(url).openConnection().apply {
@@ -115,6 +114,8 @@ actual class MediaPlatformActions(private val context: Context) {
 
                 val responseCode = (connection as? java.net.HttpURLConnection)?.responseCode
                 if (responseCode != null && responseCode !in 200..299) {
+                    resolver.delete(uri, null, null)
+                    uri = null
                     return false
                 }
 
@@ -123,8 +124,11 @@ actual class MediaPlatformActions(private val context: Context) {
                 }
             }
 
+            val updateValues = ContentValues().apply { put(MediaStore.MediaColumns.IS_PENDING, 0) }
+            resolver.update(uri, updateValues, null, null)
             true
         } catch (e: Exception) {
+            uri?.let { resolver.delete(it, null, null) }
             e.printStackTrace()
             false
         }
