@@ -6,4 +6,9 @@
 
     <color name="splash_background">#F6F4FF</color>
     <color name="splash_icon_background">#FFFFFF</color>
+
+    <!-- Normal launcher icon background -->
+    <color name="ic_launcher_normal_background">#4A90E2</color>
+    <!-- Premium launcher icon background -->
+    <color name="ic_launcher_premium_background">#1A1A2E</color>
 </resources>

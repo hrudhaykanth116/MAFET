@@ -30,16 +30,49 @@
         android:theme="@style/SplashTheme"
         android:usesCleartextTraffic="true">
 
-        <activity
-            android:name=".main.MainActivity"
+<!--        <activity-->
+<!--            android:name=".main.MainActivity"-->
+<!--            android:exported="true"-->
+<!--            android:windowSoftInputMode="adjustResize">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
+
+        <activity android:name=".main.MainActivity"
+            android:windowSoftInputMode="adjustResize"
+            />
+
+        <activity-alias
+            android:name="com.hrudhaykanth116.mafet.MainActivityAlias"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize">
+            android:icon="@mipmap/ic_launcher_normal"
+            android:roundIcon="@drawable/ic_launcher_normal"
+            android:targetActivity=".main.MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+
+        </activity-alias>
+
+        <activity-alias
+            android:name="com.hrudhaykanth116.mafet.MainActivityPremiumAlias"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_premium"
+            android:roundIcon="@mipmap/ic_launcher_premium_round"
+            android:label="MAFET Pro"
+            android:targetActivity=".main.MainActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity-alias>
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"

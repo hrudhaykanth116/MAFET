@@ -1,5 +1,8 @@
 Tech features to be implemented in the project.
 
+Implement Network Monitor in NetworkDataSource.
+Handle api error cases.
+
 
 iOS Setup:
 * Wire secrets.xcconfig in Xcode (API keys won't work on iOS until done)
@@ -42,23 +45,12 @@ Testing (Newly Added Features):
     * Close app completely
     * Verify notification appears at scheduled time
     * Tap notification and confirm app opens
-* Shared Element Transitions
-    * Tap a todo item in the list
-    * Observe card animating smoothly to detail/edit screen
-    * Press back and verify card animates back to list position
 
-
-Splash screen:
-https://www.youtube.com/watch?v=Oy0oXwv3kSc
 
 Tech:
  * Navigation3
 
 APIS:
 
-Compose UI:
-  RenderEffect: https://blog.canopas.com/how-to-use-render-effects-in-jetpack-compose-for-stunning-visuals-01287d7f00db
-
 Tools/Libs:
   *Recompositions debugger: https://github.com/theapache64/rebugger (Plugin: https://github.com/theapache64/rebugger-plugin/)
-  *Konsist. Lint checks
