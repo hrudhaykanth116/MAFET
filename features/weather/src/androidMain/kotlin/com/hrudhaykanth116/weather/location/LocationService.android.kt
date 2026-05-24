@@ -19,7 +19,7 @@ actual class LocationServiceImpl(
     }
 
     @SuppressLint("MissingPermission")
-    override suspend fun getCurrentLocation(): LocationResult? {
+    actual override suspend fun getCurrentLocation(): LocationResult? {
         return suspendCancellableCoroutine { cont ->
             fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null)
                 .addOnSuccessListener { location: Location? ->
@@ -41,7 +41,7 @@ actual class LocationServiceImpl(
         }
     }
 
-    override suspend fun getAddressFromCoordinates(latitude: Double, longitude: Double): String? {
+    actual override suspend fun getAddressFromCoordinates(latitude: Double, longitude: Double): String? {
         return try {
             val geocoder = Geocoder(context, Locale.getDefault())
             @Suppress("DEPRECATION")

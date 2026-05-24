@@ -22,7 +22,7 @@ actual class LocationServiceImpl : LocationService {
     private val geocoder = CLGeocoder()
 
     @OptIn(ExperimentalForeignApi::class)
-    override suspend fun getCurrentLocation(): LocationResult? {
+    actual override suspend fun getCurrentLocation(): LocationResult? {
         return suspendCancellableCoroutine { cont ->
             val delegate = object : NSObject(), CLLocationManagerDelegateProtocol {
                 override fun locationManager(manager: CLLocationManager, didUpdateLocations: List<*>) {
@@ -62,7 +62,7 @@ actual class LocationServiceImpl : LocationService {
     }
 
     @OptIn(ExperimentalForeignApi::class)
-    override suspend fun getAddressFromCoordinates(latitude: Double, longitude: Double): String? {
+    actual override suspend fun getAddressFromCoordinates(latitude: Double, longitude: Double): String? {
         return suspendCancellableCoroutine { cont ->
             val location = CLLocation(latitude = latitude, longitude = longitude)
 

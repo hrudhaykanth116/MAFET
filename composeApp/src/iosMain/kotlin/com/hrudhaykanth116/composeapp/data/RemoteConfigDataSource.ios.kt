@@ -24,7 +24,8 @@ actual class RemoteConfigDataSource actual constructor(fetchIntervalSeconds: Lon
             RemoteConfigKeys.featureFlag(Feature.TODO),
             RemoteConfigKeys.featureFlag(Feature.WEATHER),
             RemoteConfigKeys.featureFlag(Feature.WATCHLIST),
-            RemoteConfigKeys.featureFlag(Feature.MEDIA),
+            RemoteConfigKeys.featureFlag(Feature.JOURNAL),
+            // RemoteConfigKeys.featureFlag(Feature.MEDIA),
         )
         private const val DISABLED_GATE_JSON =
             """{"is_enabled":false,"type":"force","title":"","message":"","buttons":[]}"""

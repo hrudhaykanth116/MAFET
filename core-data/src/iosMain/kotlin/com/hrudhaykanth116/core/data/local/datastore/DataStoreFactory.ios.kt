@@ -6,6 +6,7 @@ import kotlinx.cinterop.ExperimentalForeignApi
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSUserDomainMask
+import okio.Path.Companion.toPath
 
 @OptIn(ExperimentalForeignApi::class)
 private fun dataStoreFilePath(): String {
@@ -27,5 +28,5 @@ actual fun createDataStore(): DataStore<Preferences> {
 
 private fun createDataStoreWithPath(producePath: () -> String): DataStore<Preferences> =
     androidx.datastore.preferences.core.PreferenceDataStoreFactory.createWithPath(
-        produceFile = { producePath() }
+        produceFile = { producePath().toPath() }
     )

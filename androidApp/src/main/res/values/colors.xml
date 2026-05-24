@@ -11,4 +11,6 @@
     <color name="ic_launcher_normal_background">#4A90E2</color>
     <!-- Premium launcher icon background -->
     <color name="ic_launcher_premium_background">#1A1A2E</color>
+
+    <color name="splash_wordmark">#E0DBFF</color>
 </resources>

@@ -5,4 +5,10 @@ interface LocationService {
     suspend fun getAddressFromCoordinates(latitude: Double, longitude: Double): String?
 }
 
-expect class LocationServiceImpl : LocationService
+expect class LocationServiceImpl : LocationService {
+    override suspend fun getCurrentLocation(): LocationResult?
+    override suspend fun getAddressFromCoordinates(
+        latitude: Double,
+        longitude: Double,
+    ): String?
+}

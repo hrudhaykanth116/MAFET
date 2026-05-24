@@ -18,6 +18,7 @@
 		2152FB052600F2CF00CF470E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2152FB072600F2D100CF470E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2152FB0C2600F2D100CF470E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CD6650622FC2EF9400F61336 /* secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = secrets.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +37,7 @@
 			children = (
 				2152FB022600F2CF00CF470E /* iosApp */,
 				2152FB012600F2CF00CF470E /* Products */,
+				CD6650622FC2EF9400F61336 /* secrets.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -178,6 +180,7 @@
 /* Begin XCBuildConfiguration section */
 		2152FB0D2600F2D100CF470E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD6650622FC2EF9400F61336 /* secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -238,6 +241,7 @@
 		};
 		2152FB0E2600F2D100CF470E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD6650622FC2EF9400F61336 /* secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -292,13 +296,14 @@
 		};
 		2152FB102600F2D100CF470E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD6650622FC2EF9400F61336 /* secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 397GS5QRX3;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -332,13 +337,14 @@
 		};
 		2152FB112600F2D100CF470E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD6650622FC2EF9400F61336 /* secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 397GS5QRX3;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

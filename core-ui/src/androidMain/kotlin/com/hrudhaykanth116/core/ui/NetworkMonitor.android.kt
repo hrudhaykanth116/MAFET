@@ -1,5 +1,7 @@
 package com.hrudhaykanth116.core.ui
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.LinkProperties
@@ -8,6 +10,7 @@ import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresPermission
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -21,6 +24,7 @@ actual class NetworkMonitor(
     val connectivityManager =
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
+    @SuppressLint("MissingPermission")
     private val _internetAvailabilityStateFlow = MutableStateFlow<Boolean>(
         // connectivityManager.getActiveNetworkInfo()?.isConnected() ?: false
         isNetworkAvailable()
@@ -29,6 +33,7 @@ actual class NetworkMonitor(
     actual val internetAvailabilityStateFlow
         get() = _internetAvailabilityStateFlow.asStateFlow()
 
+    @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
     actual fun registerNetworkCallback() {
         Log.d(TAG, "registerNetworkCallback: ")
 
@@ -105,6 +110,7 @@ actual class NetworkMonitor(
         _internetAvailabilityStateFlow.value = true
     }
 
+    @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
     actual fun isNetworkAvailable(): Boolean {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         var isNetworkAvailable = false
@@ -112,15 +118,10 @@ actual class NetworkMonitor(
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val cap = cm.getNetworkCapabilities(cm.activeNetwork)
             isNetworkAvailable =  cap?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) ?: false
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        } else{
             val networks = cm.allNetworks
             for (n in networks) {
                 val nInfo = cm.getNetworkInfo(n)
-                if (nInfo != null && nInfo.isConnected) isNetworkAvailable = true
-            }
-        } else {
-            val networks = cm.allNetworkInfo
-            for (nInfo in networks) {
                 if (nInfo != null && nInfo.isConnected) isNetworkAvailable = true
             }
         }
@@ -129,6 +130,7 @@ actual class NetworkMonitor(
         return isNetworkAvailable
     }
 
+    @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
     actual fun triggerNetworkCheck() {
         Log.d(TAG, "triggerNetworkCheck: ")
         if (isNetworkAvailable()) {

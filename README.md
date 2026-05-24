@@ -10,15 +10,61 @@
 </p>
 
 <p align="center">
-  A production-grade <b>Kotlin Multiplatform</b> app sharing a single codebase across Android, iOS, and Desktop —<br>
-  featuring real-world architecture patterns, live API integrations, and offline-first design.
+  A <b>Kotlin Multiplatform</b> application sharing a single codebase across Android, iOS, and Desktop —<br>
+  using Compose Multiplatform, Clean Architecture, Modularization.
 </p>
 
 ---
 
 ## Demo & Screenshots
 
-> _Screenshots coming soon — currently building v2 UI._
+## 🌦️ Weather
+Real-time weather dashboard with a clean iOS-first experience.
+
+#### iOS
+
+<img src="screenshots/weather-home.png" width="250" alt="Weather iOS" />
+
+#### Android & Desktop
+
+> _Coming soon..._
+
+---
+
+## 📺 TV Shows
+Browse, search, add, edit, and bookmark TV shows with a smooth mobile experience.
+
+#### iOS
+
+<img src="screenshots/tv-list.png" width="200" alt="TV List" />
+<img src="screenshots/tv-search.png" width="200" alt="TV Search" />
+<img src="screenshots/tv-show-detail-1.png" width="200" alt="TV Detail 1" />
+<img src="screenshots/tv-show-detail-2.png" width="200" alt="TV Detail 2" />
+
+<br/>
+
+<img src="screenshots/tv-show-detail-3.png" width="200" alt="TV Detail 3" />
+<img src="screenshots/tv-add.png" width="200" alt="Add TV Show" />
+<img src="screenshots/tv-edit.png" width="200" alt="Edit TV Show" />
+<img src="screenshots/tv-bookmark-success.png" width="200" alt="Bookmark Success" />
+
+#### Android
+
+> _Coming soon..._
+
+---
+
+## ✅ To-Do List
+Simple and productive task management with a minimal iOS interface.
+
+#### iOS
+
+<img src="screenshots/todo-list.png" width="200" alt="Todo List" />
+<img src="screenshots/todo-create-item.png" width="200" alt="Create Todo" />
+
+#### Android & Desktop
+
+> _Coming soon..._
 
 ---
 

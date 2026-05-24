@@ -13,6 +13,7 @@ plugins {
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.safeArgs) apply false
     alias(libs.plugins.dynamic.feature) apply false
+    alias(libs.plugins.googleServices) apply false
     alias(libs.plugins.crashlytics) apply false
 }
 
