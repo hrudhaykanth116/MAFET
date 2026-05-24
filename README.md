@@ -15,56 +15,34 @@
 </p>
 
 ---
-
-## Demo & Screenshots
+# Demo & Screenshots
 
 ## 🌦️ Weather
 Real-time weather dashboard with a clean iOS-first experience.
 
-#### iOS
-
-<img src="screenshots/weather-home.png" width="250" alt="Weather iOS" />
-
-#### Android & Desktop
-
-> _Coming soon..._
+<img src="screenshots/weather-home.png" width="220" alt="Weather iOS" />
 
 ---
 
 ## 📺 TV Shows
 Browse, search, add, edit, and bookmark TV shows with a smooth mobile experience.
 
-#### iOS
-
-<img src="screenshots/tv-list.png" width="200" alt="TV List" />
-<img src="screenshots/tv-search.png" width="200" alt="TV Search" />
-<img src="screenshots/tv-show-detail-1.png" width="200" alt="TV Detail 1" />
-<img src="screenshots/tv-show-detail-2.png" width="200" alt="TV Detail 2" />
-
-<br/>
-
-<img src="screenshots/tv-show-detail-3.png" width="200" alt="TV Detail 3" />
-<img src="screenshots/tv-add.png" width="200" alt="Add TV Show" />
-<img src="screenshots/tv-edit.png" width="200" alt="Edit TV Show" />
-<img src="screenshots/tv-bookmark-success.png" width="200" alt="Bookmark Success" />
-
-#### Android
-
-> _Coming soon..._
+<img src="screenshots/tv-list.png" width="180" alt="TV List" />
+<img src="screenshots/tv-search.png" width="180" alt="TV Search" />
+<img src="screenshots/tv-show-detail-1.png" width="180" alt="TV Detail 1" />
+<img src="screenshots/tv-show-detail-2.png" width="180" alt="TV Detail 2" />
+<img src="screenshots/tv-show-detail-3.png" width="180" alt="TV Detail 3" />
+<img src="screenshots/tv-add.png" width="180" alt="Add TV Show" />
+<img src="screenshots/tv-edit.png" width="180" alt="TV Edit" />
+<img src="screenshots/tv-bookmark-success.png" width="180" alt="Bookmark Success" />
 
 ---
 
 ## ✅ To-Do List
-Simple and productive task management with a minimal iOS interface.
+Simple and productive task management with a minimal interface.
 
-#### iOS
-
-<img src="screenshots/todo-list.png" width="200" alt="Todo List" />
-<img src="screenshots/todo-create-item.png" width="200" alt="Create Todo" />
-
-#### Android & Desktop
-
-> _Coming soon..._
+<img src="screenshots/todo-list.png" width="180" alt="Todo List" />
+<img src="screenshots/todo-create-item.png" width="180" alt="Create Todo" />
 
 ---
 
