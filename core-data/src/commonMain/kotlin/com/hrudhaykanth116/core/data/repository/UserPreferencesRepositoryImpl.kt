@@ -118,4 +118,18 @@ class UserPreferencesRepositoryImpl(
                 DomainResult.Error(DomainError.Unknown(throwable = e))
             }
         }
+
+    override fun observeTheme(): Flow<String?> {
+        return dataStore.data
+            .catch { emit(emptyPreferences()) }
+            .map { preferences -> preferences[PreferencesKeys.APP_THEME] }
+    }
+
+    override suspend fun setTheme(theme: String) {
+        withContext(dispatcher) {
+            dataStore.edit { preferences ->
+                preferences[PreferencesKeys.APP_THEME] = theme
+            }
+        }
+    }
 }

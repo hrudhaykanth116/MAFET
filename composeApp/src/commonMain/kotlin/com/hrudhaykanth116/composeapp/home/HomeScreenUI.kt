@@ -29,6 +29,8 @@ import com.hrudhaykanth116.weather.ui.screens.home.WeatherNavigation
 import com.hrudhaykanth116.media.ui.screens.MediaScreen
 import com.hrudhaykanth116.journal.JournalScreen
 import com.hrudhaykanth116.ai.AIScreen
+import com.hrudhaykanth116.settings.ui.screens.SettingsScreen
+import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -43,7 +45,8 @@ fun HomeScreenUI(
             HomeBottomNavigation(
                 uiState = bottomUIState,
                 onNavItemSelected = onNavItemSelected,
-                modifier = Modifier.windowInsetsPadding(WindowInsets.navigationBars)            )
+                modifier = Modifier.windowInsetsPadding(WindowInsets.navigationBars)
+            )
         },
         contentWindowInsets = WindowInsets.safeDrawing,
         modifier = Modifier
@@ -115,6 +118,12 @@ fun HomeScreenUI(
                         HomeRoute.Entertainment -> {
                             composable(HomeRoute.Entertainment.route) {
                                 EntertainmentNavigation()
+                            }
+                        }
+
+                        HomeRoute.Settings -> {
+                            composable(HomeRoute.Settings.route) {
+                                SettingsScreen(viewModel = koinViewModel())
                             }
                         }
                     }

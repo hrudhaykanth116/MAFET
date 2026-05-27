@@ -16,6 +16,7 @@ import com.hrudhaykanth116.mafet.ads.AdsInitializer
 import com.hrudhaykanth116.mafet.update.InAppUpdateManager
 import com.hrudhaykanth116.mafet.BuildConfig
 import com.hrudhaykanth116.mafet.main.MainViewModel
+import com.hrudhaykanth116.settings.di.settingsModule
 import com.hrudhaykanth116.todo.di.todoModule
 import com.hrudhaykanth116.tv.di.tvModule
 import com.hrudhaykanth116.weather.di.weatherModule
@@ -36,6 +37,7 @@ val appModule = module {
         *tvModule.toTypedArray(),
         journalModule,
         aiModule,
+        settingsModule,
         composeAppModule
     )
     single { NetworkMonitor(androidContext()) }

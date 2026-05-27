@@ -9,4 +9,6 @@ object PreferencesKeys {
     val LAST_LOCATION_LONGITUDE = doublePreferencesKey("last_location_longitude")
     val LAST_LOCATION_ADDRESS = stringPreferencesKey("last_location_address")
     val LAST_LOCATION_TIMESTAMP = longPreferencesKey("last_location_timestamp")
+    
+    val APP_THEME = stringPreferencesKey("app_theme")
 }

@@ -9,4 +9,7 @@ interface IUserPreferencesRepository {
     fun observeLastLocation(): Flow<DomainResult<UserLocation?>>
     suspend fun getLastLocation(): DomainResult<UserLocation?>
     suspend fun clearLastLocation(): DomainResult<Unit>
+
+    fun observeTheme(): Flow<String?>
+    suspend fun setTheme(theme: String)
 }

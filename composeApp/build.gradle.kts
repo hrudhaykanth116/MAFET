@@ -44,6 +44,7 @@ kotlin {
             api(project(":features:media"))
             api(project(":features:journal"))
             api(project(":features:ai"))
+            api(project(":features:settings"))
 
             // Core modules
             api(project(":core-common"))
